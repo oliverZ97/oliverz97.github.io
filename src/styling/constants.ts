@@ -1,0 +1,1 @@
+export const DIALOG_PAPER_MIN_WIDTH = 600;

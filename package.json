@@ -1,0 +1,50 @@
+{
+  "name": "aniquiz",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@fontsource/roboto": "^4.5.8",
+    "@mui/icons-material": "^5.11.0",
+    "@mui/material": "^5.11.8",
+    "@reduxjs/toolkit": "^1.9.2",
+    "i18next": "^22.4.9",
+    "js-confetti": "^0.12.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-flagkit": "^2.0.4",
+    "react-hook-form": "^7.43.1",
+    "react-i18next": "^12.1.5",
+    "react-mui-fileuploader": "^0.5.2",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.8.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@typescript-eslint/eslint-plugin": "^5.51.0",
+    "@vitejs/plugin-react-swc": "^3.0.0",
+    "eslint": "^8.33.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-react": "^7.32.2",
+    "husky": "^8.0.0",
+    "prettier": "^2.8.4",
+    "typescript": "^4.9.3",
+    "vite": "^4.1.0",
+    "vite-tsconfig-paths": "^4.0.5"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "npx eslint --fix",
+      "npx prettier --write"
+    ]
+  }
+}
