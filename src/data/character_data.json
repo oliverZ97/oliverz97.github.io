@@ -10,7 +10,8 @@
    "Height": 176,
    "Eye_Color": "Red",
    "Genre": "Slice of Life Comedy",
-   "Anime": "Miss Kobayashi’s Dragon Maid"
+   "Anime": "Miss Kobayashi’s Dragon Maid",
+   "Editorial_Staff_Hint": "Waifu"
  },
  {
    "label": "Hayase Nagatoro",
@@ -23,7 +24,8 @@
    "Height": 150,
    "Eye_Color": "Brown",
    "Genre": "Romantic Comedy",
-   "Anime": "Don’t Toy with Me, Miss Nagatoro"
+   "Anime": "Don’t Toy with Me, Miss Nagatoro",
+   "Editorial_Staff_Hint": "BFF"
  },
  {
    "label": "Rem",
@@ -36,7 +38,8 @@
    "Height": 154,
    "Eye_Color": "Blue",
    "Genre": "Drama",
-   "Anime": "Re:Zero - Starting Life in Another World"
+   "Anime": "Re:Zero - Starting Life in Another World",
+   "Editorial_Staff_Hint": "Waifu"
  },
  {
    "label": "Nadeshiko Kagamihara",
@@ -49,7 +52,8 @@
    "Height": 145,
    "Eye_Color": "Blue",
    "Genre": "Slice of Life Comedy",
-   "Anime": "Laid-Back Camp"
+   "Anime": "Laid-Back Camp",
+   "Editorial_Staff_Hint": "Cutie"
  },
  {
    "label": "Chisato Nishikigi",
@@ -62,7 +66,8 @@
    "Height": 162,
    "Eye_Color": "Red",
    "Genre": "Action Drama",
-   "Anime": "Lycoris Recoil"
+   "Anime": "Lycoris Recoil",
+   "Editorial_Staff_Hint": "Cutie"
  },
  {
    "label": "Takina Inoue",
@@ -75,7 +80,8 @@
    "Height": 160,
    "Eye_Color": "Violet",
    "Genre": "Action Drama",
-   "Anime": "Lycoris Recoil"
+   "Anime": "Lycoris Recoil",
+   "Editorial_Staff_Hint": "Girlfriendo"
  },
  {
    "label": "Mikasa Ackerman",
@@ -88,11 +94,12 @@
    "Height": 170,
    "Eye_Color": "Black",
    "Genre": "Action Drama",
-   "Anime": "Attack on Titan"
+   "Anime": "Attack on Titan",
+   "Editorial_Staff_Hint": "Waifu"
  },
  {
-   "label": "Sasha Blouse",
-   "Name": "Sasha Blouse",
+   "label": "Sasha Braus",
+   "Name": "Sasha Braus",
    "Sex": "Female",
    "Origin": "Human",
    "Hair_Color": "Brown",
@@ -101,7 +108,8 @@
    "Height": 168,
    "Eye_Color": "Brown",
    "Genre": "Action Drama",
-   "Anime": "Attack on Titan"
+   "Anime": "Attack on Titan",
+   "Editorial_Staff_Hint": "BFF"
  },
  {
    "label": "Marin Kitagawa",
@@ -114,7 +122,8 @@
    "Height": 164,
    "Eye_Color": "Aubergine",
    "Genre": "Romantic Comedy",
-   "Anime": "My Dress-Up Darling"
+   "Anime": "My Dress-Up Darling",
+   "Editorial_Staff_Hint": "Sexy AF"
  },
  {
    "label": "Elma",
@@ -127,7 +136,8 @@
    "Height": 173,
    "Eye_Color": "Blue",
    "Genre": "Slice of Life Comedy",
-   "Anime": "Miss Kobayashi’s Dragon Maid"
+   "Anime": "Miss Kobayashi’s Dragon Maid",
+   "Editorial_Staff_Hint": "BFF"
  },
  {
    "label": "Quetzalcoatl (Lucoa)",
@@ -140,7 +150,8 @@
    "Height": 185,
    "Eye_Color": "Multicoloured",
    "Genre": "Slice of Life Comedy",
-   "Anime": "Miss Kobayashi’s Dragon Maid"
+   "Anime": "Miss Kobayashi’s Dragon Maid",
+   "Editorial_Staff_Hint": "Mommy"
  },
  {
    "label": "Ilulu",
@@ -153,7 +164,8 @@
    "Height": 130,
    "Eye_Color": "Aubergine",
    "Genre": "Slice of Life Comedy",
-   "Anime": "Miss Kobayashi’s Dragon Maid"
+   "Anime": "Miss Kobayashi’s Dragon Maid",
+   "Editorial_Staff_Hint": "BFF"
  },
  {
    "label": "Power",
@@ -166,7 +178,8 @@
    "Height": 170,
    "Eye_Color": "Yellow",
    "Genre": "Action Drama",
-   "Anime": "Chainsaw Man"
+   "Anime": "Chainsaw Man",
+   "Editorial_Staff_Hint": "Girlfriend"
  },
  {
    "label": "Himeno",
@@ -179,7 +192,8 @@
    "Height": 175,
    "Eye_Color": "Blue",
    "Genre": "Action Drama",
-   "Anime": "Chainsaw Man"
+   "Anime": "Chainsaw Man",
+   "Editorial_Staff_Hint": "Wifu"
  },
  {
    "label": "Makima",
@@ -192,7 +206,8 @@
    "Height": 168,
    "Eye_Color": "Orange",
    "Genre": "Action Drama",
-   "Anime": "Chainsaw Man"
+   "Anime": "Chainsaw Man",
+   "Editorial_Staff_Hint": "Hot"
  },
  {
    "label": "Rin Shima",
@@ -205,7 +220,8 @@
    "Height": 144,
    "Eye_Color": "Violet",
    "Genre": "Slice of Life Comedy",
-   "Anime": "Laid-Back Camp"
+   "Anime": "Laid-Back Camp",
+   "Editorial_Staff_Hint": "Cutie"
  },
  {
    "label": "Chiaki Oogaki",
@@ -218,7 +234,8 @@
    "Height": 147,
    "Eye_Color": "Brown",
    "Genre": "Slice of Life Comedy",
-   "Anime": "Laid-Back Camp"
+   "Anime": "Laid-Back Camp",
+   "Editorial_Staff_Hint": "Cutie"
  },
  {
    "label": "Ena Saitou",
@@ -231,7 +248,8 @@
    "Height": 145,
    "Eye_Color": "Blue",
    "Genre": "Slice of Life Comedy",
-   "Anime": "Laid-Back Camp"
+   "Anime": "Laid-Back Camp",
+   "Editorial_Staff_Hint": "Cutie"
  },
  {
    "label": "Aoi Inuyama",
@@ -244,7 +262,8 @@
    "Height": 147,
    "Eye_Color": "Green",
    "Genre": "Slice of Life Comedy",
-   "Anime": "Laid-Back Camp"
+   "Anime": "Laid-Back Camp",
+   "Editorial_Staff_Hint": "Cutie"
  },
  {
    "label": "Lemon Yakishio",
@@ -257,7 +276,8 @@
    "Height": 163,
    "Eye_Color": "Aubergine",
    "Genre": "Romantic Comedy",
-   "Anime": "Makeine: Too Many Losing Heroines!"
+   "Anime": "Makeine: Too Many Losing Heroines!",
+   "Editorial_Staff_Hint": "Waifu"
  },
  {
    "label": "Anna Yanami",
@@ -270,7 +290,8 @@
    "Height": 156,
    "Eye_Color": "Blue",
    "Genre": "Romantic Comedy",
-   "Anime": "Makeine: Too Many Losing Heroines!"
+   "Anime": "Makeine: Too Many Losing Heroines!",
+   "Editorial_Staff_Hint": "BFF"
  },
  {
    "label": "Chika Komari",
@@ -283,7 +304,8 @@
    "Height": 148,
    "Eye_Color": "Yellow",
    "Genre": "Romantic Comedy",
-   "Anime": "Makeine: Too Many Losing Heroines!"
+   "Anime": "Makeine: Too Many Losing Heroines!",
+   "Editorial_Staff_Hint": "BFF"
  },
  {
    "label": "Koto Tsukinoki",
@@ -293,10 +315,11 @@
    "Hair_Color": "Dark Purple",
    "Age": "18",
    "Age_Group": "12-18",
-   "Height": "Unknown",
+   "Height": 165,
    "Eye_Color": "Purple",
    "Genre": "Romantic Comedy",
-   "Anime": "Makeine: Too Many Losing Heroines!"
+   "Anime": "Makeine: Too Many Losing Heroines!",
+   "Editorial_Staff_Hint": "Mommy"
  },
  {
    "label": "Yumeko Shikiya",
@@ -306,10 +329,11 @@
    "Hair_Color": "White",
    "Age": "17",
    "Age_Group": "12-18",
-   "Height": "Unknown",
+   "Height": 160,
    "Eye_Color": "Ochre",
    "Genre": "Romantic Comedy",
-   "Anime": "Makeine: Too Many Losing Heroines!"
+   "Anime": "Makeine: Too Many Losing Heroines!",
+   "Editorial_Staff_Hint": "Girlfriendo"
  },
  {
    "label": "Hibari Houkobaru",
@@ -319,10 +343,11 @@
    "Hair_Color": "Auburn",
    "Age": "16",
    "Age_Group": "12-18",
-   "Height": "Unknown",
+   "Height": 165,
    "Eye_Color": "Brown",
    "Genre": "Romantic Comedy",
-   "Anime": "Makeine: Too Many Losing Heroines!"
+   "Anime": "Makeine: Too Many Losing Heroines!",
+   "Editorial_Staff_Hint": "Mommy"
  },
  {
    "label": "Tiara Basori",
@@ -332,10 +357,11 @@
    "Hair_Color": "Black",
    "Age": "16",
    "Age_Group": "12-18",
-   "Height": "Unknown",
+   "Height": 161,
    "Eye_Color": "Black",
    "Genre": "Romantic Comedy",
-   "Anime": "Makeine: Too Many Losing Heroines!"
+   "Anime": "Makeine: Too Many Losing Heroines!",
+   "Editorial_Staff_Hint": "Waifu"
  },
  {
    "label": "Karen Himemiya",
@@ -345,10 +371,11 @@
    "Hair_Color": "Pink",
    "Age": "16",
    "Age_Group": "12-18",
-   "Height": "Unknown",
+   "Height": 162,
    "Eye_Color": "Pink",
    "Genre": "Romantic Comedy",
-   "Anime": "Makeine: Too Many Losing Heroines!"
+   "Anime": "Makeine: Too Many Losing Heroines!",
+   "Editorial_Staff_Hint": "BFF"
  },
  {
    "label": "Sinon",
@@ -361,7 +388,8 @@
    "Height": 161,
    "Eye_Color": "Cyan",
    "Genre": "Action Drama",
-   "Anime": "Sword Art Online II"
+   "Anime": "Sword Art Online II",
+   "Editorial_Staff_Hint": "Girlfriendo"
  },
  {
    "label": "Asuna Yuuki",
@@ -374,7 +402,8 @@
    "Height": 168,
    "Eye_Color": "Orange",
    "Genre": "Action Drama",
-   "Anime": "Sword Art Online"
+   "Anime": "Sword Art Online",
+   "Editorial_Staff_Hint": "Waifu"
  },
  {
    "label": "Yuuki Konno",
@@ -387,7 +416,8 @@
    "Height": 150,
    "Eye_Color": "Red",
    "Genre": "Action Drama",
-   "Anime": "Sword Art Online II"
+   "Anime": "Sword Art Online II",
+   "Editorial_Staff_Hint": "Cutie"
  },
  {
    "label": "Leafa",
@@ -400,7 +430,8 @@
    "Height": 164,
    "Eye_Color": "Green",
    "Genre": "Action Drama",
-   "Anime": "Sword Art Online"
+   "Anime": "Sword Art Online",
+   "Editorial_Staff_Hint": "Sexy AF"
  },
  {
    "label": "Doppo Kunikida",
@@ -413,7 +444,8 @@
    "Height": 189,
    "Eye_Color": "Golden",
    "Genre": "Action Comedy",
-   "Anime": "Bungo Stray Dogs"
+   "Anime": "Bungo Stray Dogs",
+   "Editorial_Staff_Hint": "Husbando"
  },
  {
    "label": "Osamu Dazai",
@@ -426,7 +458,8 @@
    "Height": 181,
    "Eye_Color": "Brown",
    "Genre": "Action Comedy",
-   "Anime": "Bungo Stray Dogs"
+   "Anime": "Bungo Stray Dogs",
+   "Editorial_Staff_Hint": "Weirdo"
  },
  {
    "label": "Akiko Yosano",
@@ -439,7 +472,8 @@
    "Height": 166,
    "Eye_Color": "Purple",
    "Genre": "Action Comedy",
-   "Anime": "Bungo Stray Dogs"
+   "Anime": "Bungo Stray Dogs",
+   "Editorial_Staff_Hint": "Sexy AF"
  },
  {
    "label": "Atsushi Nakajima",
@@ -452,7 +486,8 @@
    "Height": 170,
    "Eye_Color": "Purple",
    "Genre": "Action Comedy",
-   "Anime": "Bungo Stray Dogs"
+   "Anime": "Bungo Stray Dogs",
+   "Editorial_Staff_Hint": "Cutie"
  },
  {
    "label": "Yukichi Fukuzawa",
@@ -465,7 +500,8 @@
    "Height": 186,
    "Eye_Color": "Olive",
    "Genre": "Action Comedy",
-   "Anime": "Bungo Stray Dogs"
+   "Anime": "Bungo Stray Dogs",
+   "Editorial_Staff_Hint": "Daddy"
  },
  {
    "label": "Kento Nanami",
@@ -478,7 +514,8 @@
    "Height": 184,
    "Eye_Color": "Brown",
    "Genre": "Fighting-Shounen",
-   "Anime": "Jujutsu Kaisen"
+   "Anime": "Jujutsu Kaisen",
+   "Editorial_Staff_Hint": "Husbando"
  },
  {
    "label": "Satoru Gojo",
@@ -491,7 +528,8 @@
    "Height": 190,
    "Eye_Color": "Cyan",
    "Genre": "Fighting-Shounen",
-   "Anime": "Jujutsu Kaisen"
+   "Anime": "Jujutsu Kaisen",
+   "Editorial_Staff_Hint": "Weirdo"
  },
  {
    "label": "Nobara Kugisaki",
@@ -504,7 +542,8 @@
    "Height": 160,
    "Eye_Color": "Brown",
    "Genre": "Fighting-Shounen",
-   "Anime": "Jujutsu Kaisen"
+   "Anime": "Jujutsu Kaisen",
+   "Editorial_Staff_Hint": "Waifu"
  },
  {
    "label": "Suguru Geto",
@@ -517,7 +556,8 @@
    "Height": 183,
    "Eye_Color": "Brown",
    "Genre": "Fighting-Shounen",
-   "Anime": "Jujutsu Kaisen"
+   "Anime": "Jujutsu Kaisen",
+   "Editorial_Staff_Hint": "Sexy AF"
  },
  {
    "label": "Kasumi Miwa",
@@ -530,7 +570,8 @@
    "Height": 170,
    "Eye_Color": "Purple",
    "Genre": "Fighting-Shounen",
-   "Anime": "Jujutsu Kaisen"
+   "Anime": "Jujutsu Kaisen",
+   "Editorial_Staff_Hint": "Cutie"
  },
  {
    "label": "Uzui Tengen",
@@ -543,7 +584,8 @@
    "Height": 198,
    "Eye_Color": "Aubergine",
    "Genre": "Action Drama",
-   "Anime": "Demon Slayer: Kimetsu no Yaiba"
+   "Anime": "Demon Slayer: Kimetsu no Yaiba",
+   "Editorial_Staff_Hint": "Daddy"
  },
  {
    "label": "Mitsuri Kanroji",
@@ -556,7 +598,8 @@
    "Height": 167,
    "Eye_Color": "Green",
    "Genre": "Action Drama",
-   "Anime": "Demon Slayer: Kimetsu no Yaiba"
+   "Anime": "Demon Slayer: Kimetsu no Yaiba",
+   "Editorial_Staff_Hint": "Girlfriendo"
  },
  {
    "label": "Kyoujurou Rengoku",
@@ -569,7 +612,8 @@
    "Height": 177,
    "Eye_Color": "Red",
    "Genre": "Action Drama",
-   "Anime": "Demon Slayer: Kimetsu no Yaiba"
+   "Anime": "Demon Slayer: Kimetsu no Yaiba",
+   "Editorial_Staff_Hint": "BFF"
  },
  {
    "label": "Nezuko Kamado",
@@ -582,7 +626,8 @@
    "Height": 153,
    "Eye_Color": "Pink",
    "Genre": "Action Drama",
-   "Anime": "Demon Slayer: Kimetsu no Yaiba"
+   "Anime": "Demon Slayer: Kimetsu no Yaiba",
+   "Editorial_Staff_Hint": "Cutie"
  },
  {
    "label": "Giyu Tomioka",
@@ -595,7 +640,8 @@
    "Height": 176,
    "Eye_Color": "Blue",
    "Genre": "Action Drama",
-   "Anime": "Demon Slayer: Kimetsu no Yaiba"
+   "Anime": "Demon Slayer: Kimetsu no Yaiba",
+   "Editorial_Staff_Hint": "Dead inside"
  },
  {
    "label": "Kagaya Ubuyashiki",
@@ -605,10 +651,11 @@
    "Hair_Color": "Black",
    "Age": "23",
    "Age_Group": "19-30",
-   "Height": "Unknown",
+   "Height": 179,
    "Eye_Color": "Silver",
    "Genre": "Action Drama",
-   "Anime": "Demon Slayer: Kimetsu no Yaiba"
+   "Anime": "Demon Slayer: Kimetsu no Yaiba",
+   "Editorial_Staff_Hint": "Husbando"
  },
  {
    "label": "Levi Ackermann",
@@ -621,7 +668,8 @@
    "Height": 160,
    "Eye_Color": "Blue",
    "Genre": "Action Drama",
-   "Anime": "Attack on Titan"
+   "Anime": "Attack on Titan",
+   "Editorial_Staff_Hint": "Husbando"
  },
  {
    "label": "Erwin Smith",
@@ -634,7 +682,8 @@
    "Height": 188,
    "Eye_Color": "Blue",
    "Genre": "Action Drama",
-   "Anime": "Attack on Titan"
+   "Anime": "Attack on Titan",
+   "Editorial_Staff_Hint": "Daddy"
  },
  {
    "label": "Hanji Zoe",
@@ -647,6 +696,1085 @@
    "Height": 170,
    "Eye_Color": "Brown",
    "Genre": "Action Drama",
-   "Anime": "Attack on Titan"
- }
+   "Anime": "Attack on Titan",
+   "Editorial_Staff_Hint": "Waifu"
+ },
+ {
+   "label": "Emilia",
+   "Name": "Emilia",
+   "Sex": "Female",
+   "Origin": "Elf",
+   "Hair_Color": "Silver",
+   "Age": "107",
+   "Age_Group": "100+",
+   "Height": 164,
+   "Eye_Color": "Purple",
+   "Genre": "Drama",
+   "Anime": "Re:Zero - Starting Life in Another World",
+   "Editorial_Staff_Hint": "Waifu"
+ },
+ {
+   "label": "Ram",
+   "Name": "Ram",
+   "Sex": "Female",
+   "Origin": "Oni",
+   "Hair_Color": "Pink",
+   "Age": "17",
+   "Age_Group": "12-18",
+   "Height": 154,
+   "Eye_Color": "Red",
+   "Genre": "Drama",
+   "Anime": "Re:Zero - Starting Life in Another World",
+   "Editorial_Staff_Hint": "BFF"
+ },
+ {
+   "label": "Subaru Natsuki",
+   "Name": "Subaru Natsuki",
+   "Sex": "Male",
+   "Origin": "Human",
+   "Hair_Color": "Black",
+   "Age": "17",
+   "Age_Group": "12-18",
+   "Height": 173,
+   "Eye_Color": "Brown",
+   "Genre": "Drama",
+   "Anime": "Re:Zero - Starting Life in Another World",
+   "Editorial_Staff_Hint": "Boyfriendo"
+ },
+ {
+   "label": "Wilhelm van Astrea",
+   "Name": "Wilhelm van Astrea",
+   "Sex": "Male",
+   "Origin": "Human",
+   "Hair_Color": "Grey",
+   "Age": "61",
+   "Age_Group": "51-70",
+   "Height": 178,
+   "Eye_Color": "Blue",
+   "Genre": "Drama",
+   "Anime": "Re:Zero - Starting Life in Another World",
+   "Editorial_Staff_Hint": "Daddy"
+ },
+ {
+   "label": "Crusch Karsten",
+   "Name": "Crusch Karsten",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Green",
+   "Age": "20",
+   "Age_Group": "19-30",
+   "Height": 168,
+   "Eye_Color": "Orange",
+   "Genre": "Drama",
+   "Anime": "Re:Zero - Starting Life in Another World",
+   "Editorial_Staff_Hint": "Girlfriendo"
+ },
+ {
+   "label": "Frederica Baumann",
+   "Name": "Frederica Baumann",
+   "Sex": "Female",
+   "Origin": "Human Hybrid",
+   "Hair_Color": "Blonde",
+   "Age": "21",
+   "Age_Group": "19-30",
+   "Height": 176,
+   "Eye_Color": "Green",
+   "Genre": "Drama",
+   "Anime": "Re:Zero - Starting Life in Another World",
+   "Editorial_Staff_Hint": "Waifu"
+ },
+ {
+   "label": "Reinhard van Astrea",
+   "Name": "Reinhard van Astrea",
+   "Sex": "Male",
+   "Origin": "Human",
+   "Hair_Color": "Red",
+   "Age": "19",
+   "Age_Group": "19-30",
+   "Height": 184,
+   "Eye_Color": "Blue",
+   "Genre": "Drama",
+   "Anime": "Re:Zero - Starting Life in Another World",
+   "Editorial_Staff_Hint": "BFF"
+ },
+ {
+   "label": "Ai Hoshino",
+   "Name": "Ai Hoshino",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Violet",
+   "Age": "16",
+   "Age_Group": "12-18",
+   "Height": 151,
+   "Eye_Color": "Purple",
+   "Genre": "Drama",
+   "Anime": "Oshi no Ko",
+   "Editorial_Staff_Hint": "Girlfriendo"
+ },
+ {
+   "label": "Aquamarine Hoshino",
+   "Name": "Aquamarine Hoshino",
+   "Sex": "Male",
+   "Origin": "Human",
+   "Hair_Color": "Blonde",
+   "Age": "16",
+   "Age_Group": "12-18",
+   "Height": 172,
+   "Eye_Color": "Blue",
+   "Genre": "Drama",
+   "Anime": "Oshi no Ko",
+   "Editorial_Staff_Hint": "Dead inside"
+ },
+ {
+   "label": "Ruby Hoshino",
+   "Name": "Ruby Hoshino",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Blonde",
+   "Age": "16",
+   "Age_Group": "12-18",
+   "Height": 158,
+   "Eye_Color": "Aubergine",
+   "Genre": "Drama",
+   "Anime": "Oshi no Ko",
+   "Editorial_Staff_Hint": "Cutie"
+ },
+ {
+   "label": "Kana Arima",
+   "Name": "Kana Arima",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Dark Aubergine",
+   "Age": "17",
+   "Age_Group": "12-18",
+   "Height": 150,
+   "Eye_Color": "Aubergine",
+   "Genre": "Drama",
+   "Anime": "Oshi no Ko",
+   "Editorial_Staff_Hint": "BFF"
+ },
+ {
+   "label": "Akane Kurokawa",
+   "Name": "Akane Kurokawa",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Dark Blue",
+   "Age": "17",
+   "Age_Group": "12-18",
+   "Height": 163,
+   "Eye_Color": "Blue",
+   "Genre": "Drama",
+   "Anime": "Oshi no Ko",
+   "Editorial_Staff_Hint": "Waifu"
+ },
+ {
+   "label": "Kyouka Izumi",
+   "Name": "Kyouka Izumi",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Dark Blue",
+   "Age": "14",
+   "Age_Group": "12-18",
+   "Height": 148,
+   "Eye_Color": "Blue",
+   "Genre": "Action Comedy",
+   "Anime": "Bungo Stray Dogs",
+   "Editorial_Staff_Hint": "Cutie"
+ },
+ {
+   "label": "Ryuurou Hirotsu",
+   "Name": "Ryuurou Hirotsu",
+   "Sex": "Male",
+   "Origin": "Human",
+   "Hair_Color": "Grey",
+   "Age": "50",
+   "Age_Group": "31-50",
+   "Height": 178,
+   "Eye_Color": "Lilac",
+   "Genre": "Action Comedy",
+   "Anime": "Bungo Stray Dogs",
+   "Editorial_Staff_Hint": "Daddy"
+ },
+ {
+   "label": "Gin",
+   "Name": "Gin",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Black",
+   "Age": "18",
+   "Age_Group": "12-18",
+   "Height": 161,
+   "Eye_Color": "Silver",
+   "Genre": "Action Comedy",
+   "Anime": "Bungo Stray Dogs",
+   "Editorial_Staff_Hint": "Cutie"
+ },
+ {
+   "label": "Ougai Mori",
+   "Name": "Ougai Mori",
+   "Sex": "Male",
+   "Origin": "Human",
+   "Hair_Color": "Black",
+   "Age": "40",
+   "Age_Group": "31-50",
+   "Height": 175,
+   "Eye_Color": "Aubergine",
+   "Genre": "Action Comedy",
+   "Anime": "Bungo Stray Dogs",
+   "Editorial_Staff_Hint": "Sexy AF"
+ },
+ {
+   "label": "Ryuunosuke Akutagawa",
+   "Name": "Ryuunosuke Akutagawa",
+   "Sex": "Male",
+   "Origin": "Human",
+   "Hair_Color": "Black",
+   "Age": "20",
+   "Age_Group": "19-30",
+   "Height": 172,
+   "Eye_Color": "Grey",
+   "Genre": "Action Comedy",
+   "Anime": "Bungo Stray Dogs",
+   "Editorial_Staff_Hint": "Dead inside"
+ },
+ {
+   "label": "Shouyou Hinata",
+   "Name": "Shouyou Hinata",
+   "Sex": "Male",
+   "Origin": "Human",
+   "Hair_Color": "Orange",
+   "Age": "15",
+   "Age_Group": "12-18",
+   "Height": 163,
+   "Eye_Color": "Brown",
+   "Genre": "Sports",
+   "Anime": "Haikyu!!",
+   "Editorial_Staff_Hint": "Cutie"
+ },
+ {
+   "label": "Koushi Sugawara",
+   "Name": "Koushi Sugawara",
+   "Sex": "Male",
+   "Origin": "Human",
+   "Hair_Color": "Grey",
+   "Age": "17",
+   "Age_Group": "12-18",
+   "Height": 174,
+   "Eye_Color": "Brown",
+   "Genre": "Sports",
+   "Anime": "Haikyu!!",
+   "Editorial_Staff_Hint": "Husbando"
+ },
+ {
+   "label": "Kiyoko Shimizu",
+   "Name": "Kiyoko Shimizu",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Black",
+   "Age": "17",
+   "Age_Group": "12-18",
+   "Height": 166,
+   "Eye_Color": "Silver",
+   "Genre": "Sports",
+   "Anime": "Haikyu!!",
+   "Editorial_Staff_Hint": "Cutie"
+ },
+ {
+   "label": "Kenma Kozume",
+   "Name": "Kenma Kozume",
+   "Sex": "Male",
+   "Origin": "Human",
+   "Hair_Color": "Multicoloured",
+   "Age": "16",
+   "Age_Group": "12-18",
+   "Height": 169,
+   "Eye_Color": "Golden",
+   "Genre": "Sports",
+   "Anime": "Haikyu!!",
+   "Editorial_Staff_Hint": "Cutie"
+ },
+ {
+   "label": "Tetsurou Kuroo",
+   "Name": "Tetsurou Kuroo",
+   "Sex": "Male",
+   "Origin": "Human",
+   "Hair_Color": "Black",
+   "Age": "17",
+   "Age_Group": "12-18",
+   "Height": 188,
+   "Eye_Color": "Brown",
+   "Genre": "Sports",
+   "Anime": "Haikyu!!",
+   "Editorial_Staff_Hint": "Sexy AF"
+ },
+ {
+   "label": "Keishin Ukai",
+   "Name": "Keishin Ukai",
+   "Sex": "Male",
+   "Origin": "Human",
+   "Hair_Color": "Blonde",
+   "Age": "26",
+   "Age_Group": "19-30",
+   "Height": 178,
+   "Eye_Color": "Brown",
+   "Genre": "Sports",
+   "Anime": "Haikyu!!",
+   "Editorial_Staff_Hint": "Daddy"
+ },
+ {
+   "label": "Yu Nishinoya",
+   "Name": "Yu Nishinoya",
+   "Sex": "Male",
+   "Origin": "Human",
+   "Hair_Color": "Dark Brown",
+   "Age": "17",
+   "Age_Group": "12-18",
+   "Height": 159,
+   "Eye_Color": "Brown",
+   "Genre": "Sports",
+   "Anime": "Haikyu!!",
+   "Editorial_Staff_Hint": "BFF"
+ },
+ {
+   "label": "Saeko Tanaka",
+   "Name": "Saeko Tanaka",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Blonde",
+   "Age": "21",
+   "Age_Group": "19-30",
+   "Height": 155,
+   "Eye_Color": "Brown",
+   "Genre": "Sports",
+   "Anime": "Haikyu!!",
+   "Editorial_Staff_Hint": "BFF"
+ },
+ {
+   "label": "Hitoka Yachi",
+   "Name": "Hitoka Yachi",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Blonde",
+   "Age": "16",
+   "Age_Group": "12-18",
+   "Height": 150,
+   "Eye_Color": "Brown",
+   "Genre": "Sports",
+   "Anime": "Haikyu!!",
+   "Editorial_Staff_Hint": "Cutie"
+ },
+ {
+   "label": "Kyouko Hori",
+   "Name": "Kyouko Hori",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Brown",
+   "Age": "17",
+   "Age_Group": "12-18",
+   "Height": 163,
+   "Eye_Color": "Brown",
+   "Genre": "Romantic Comedy",
+   "Anime": "Horimiya",
+   "Editorial_Staff_Hint": "Girlfriendo"
+ },
+ {
+   "label": "Izumi Miyamura",
+   "Name": "Izumi Miyamura",
+   "Sex": "Male",
+   "Origin": "Human",
+   "Hair_Color": "Black",
+   "Age": "17",
+   "Age_Group": "12-18",
+   "Height": 169,
+   "Eye_Color": "Blue",
+   "Genre": "Romantic Comedy",
+   "Anime": "Horimiya",
+   "Editorial_Staff_Hint": "Cutie"
+ },
+ {
+   "label": "Yuki Yoshikawa",
+   "Name": "Yuki Yoshikawa",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Blonde",
+   "Age": "17",
+   "Age_Group": "12-18",
+   "Height": 161,
+   "Eye_Color": "Olive",
+   "Genre": "Romantic Comedy",
+   "Anime": "Horimiya",
+   "Editorial_Staff_Hint": "Waifu"
+ },
+ {
+   "label": "Tooru Ishikawa",
+   "Name": "Tooru Ishikawa",
+   "Sex": "Male",
+   "Origin": "Human",
+   "Hair_Color": "Violet",
+   "Age": "17",
+   "Age_Group": "12-18",
+   "Height": 174,
+   "Eye_Color": "Violet",
+   "Genre": "Romantic Comedy",
+   "Anime": "Horimiya",
+   "Editorial_Staff_Hint": "BFF"
+ },
+ {
+   "label": "Remi Ayasaki",
+   "Name": "Remi Ayasaki",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Dark Pink",
+   "Age": "17",
+   "Age_Group": "12-18",
+   "Height": 158,
+   "Eye_Color": "Red",
+   "Genre": "Romantic Comedy",
+   "Anime": "Horimiya",
+   "Editorial_Staff_Hint": "BFF"
+ },
+ {
+   "label": "Sakura Kouno",
+   "Name": "Sakura Kouno",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Green",
+   "Age": "17",
+   "Age_Group": "12-18",
+   "Height": 163,
+   "Eye_Color": "Green",
+   "Genre": "Romantic Comedy",
+   "Anime": "Horimiya",
+   "Editorial_Staff_Hint": "Girlfriendo"
+ },
+ {
+   "label": "Honoka Sawada",
+   "Name": "Honoka Sawada",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Black",
+   "Age": "16",
+   "Age_Group": "12-18",
+   "Height": 150,
+   "Eye_Color": "Black",
+   "Genre": "Romantic Comedy",
+   "Anime": "Horimiya",
+   "Editorial_Staff_Hint": "Cutie"
+ },
+ {
+   "label": "Toshinori Yagi (All Might)",
+   "Name": "Toshinori Yagi (All Might)",
+   "Sex": "Male",
+   "Origin": "Human",
+   "Hair_Color": "Blonde",
+   "Age": "55",
+   "Age_Group": "51-70",
+   "Height": 220,
+   "Eye_Color": "Blue",
+   "Genre": "Action Comedy",
+   "Anime": "My Hero Academia",
+   "Editorial_Staff_Hint": "Daddy"
+ },
+ {
+   "label": "Shouta Aizawa (Eraserhead)",
+   "Name": "Shouta Aizawa (Eraserhead)",
+   "Sex": "Male",
+   "Origin": "Human",
+   "Hair_Color": "Black",
+   "Age": "30",
+   "Age_Group": "19-30",
+   "Height": 183,
+   "Eye_Color": "Black",
+   "Genre": "Action Comedy",
+   "Anime": "My Hero Academia",
+   "Editorial_Staff_Hint": "Husbando"
+ },
+ {
+   "label": "Mina Ashido",
+   "Name": "Mina Ashido",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Pink",
+   "Age": "15",
+   "Age_Group": "12-18",
+   "Height": 159,
+   "Eye_Color": "Golden",
+   "Genre": "Action Comedy",
+   "Anime": "My Hero Academia",
+   "Editorial_Staff_Hint": "Girlfriendo"
+ },
+ {
+   "label": "Kyouka Jirou",
+   "Name": "Kyouka Jirou",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Violet",
+   "Age": "15",
+   "Age_Group": "12-18",
+   "Height": 154,
+   "Eye_Color": "Black",
+   "Genre": "Action Comedy",
+   "Anime": "My Hero Academia",
+   "Editorial_Staff_Hint": "BFF"
+ },
+ {
+   "label": "Ochaco Uraraka",
+   "Name": "Ochaco Uraraka",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Brown",
+   "Age": "15",
+   "Age_Group": "12-18",
+   "Height": 156,
+   "Eye_Color": "Brown",
+   "Genre": "Action Comedy",
+   "Anime": "My Hero Academia",
+   "Editorial_Staff_Hint": "Cutie"
+ },
+ {
+   "label": "Tsuyu Asui",
+   "Name": "Tsuyu Asui",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Green",
+   "Age": "15",
+   "Age_Group": "12-18",
+   "Height": 150,
+   "Eye_Color": "Black",
+   "Genre": "Action Comedy",
+   "Anime": "My Hero Academia",
+   "Editorial_Staff_Hint": "Cutie"
+ },
+ {
+   "label": "Shouto Todoroki",
+   "Name": "Shouto Todoroki",
+   "Sex": "Male",
+   "Origin": "Human",
+   "Hair_Color": "Multicoloured",
+   "Age": "15",
+   "Age_Group": "12-18",
+   "Height": 176,
+   "Eye_Color": "Multicoloured",
+   "Genre": "Action Comedy",
+   "Anime": "My Hero Academia",
+   "Editorial_Staff_Hint": "Boyfriendo"
+ },
+ {
+   "label": "Hisashi Yamada (President Mic)",
+   "Name": "Hisashi Yamada (President Mic)",
+   "Sex": "Male",
+   "Origin": "Human",
+   "Hair_Color": "Blonde",
+   "Age": "30",
+   "Age_Group": "19-30",
+   "Height": 185,
+   "Eye_Color": "Green",
+   "Genre": "Action Comedy",
+   "Anime": "My Hero Academia",
+   "Editorial_Staff_Hint": "BFF"
+ },
+ {
+   "label": "Nemuri Kayama (Midnight)",
+   "Name": "Nemuri Kayama (Midnight)",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Dark Purple",
+   "Age": "31",
+   "Age_Group": "31-50",
+   "Height": 175,
+   "Eye_Color": "Blue",
+   "Genre": "Action Comedy",
+   "Anime": "My Hero Academia",
+   "Editorial_Staff_Hint": "Mommy"
+ },
+ {
+   "label": "Sakuta Azusagawa",
+   "Name": "Sakuta Azusagawa",
+   "Sex": "Male",
+   "Origin": "Human",
+   "Hair_Color": "Light Brown",
+   "Age": "17",
+   "Age_Group": "12-18",
+   "Height": 172,
+   "Eye_Color": "Beige",
+   "Genre": "Romantic Drama",
+   "Anime": "Rascal Does Not Dream of Bunny Girl Senpai",
+   "Editorial_Staff_Hint": "Boyfriendo"
+ },
+ {
+   "label": "Mai Sakurajima",
+   "Name": "Mai Sakurajima",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Dark Grey",
+   "Age": "18",
+   "Age_Group": "12-18",
+   "Height": 165,
+   "Eye_Color": "Violet",
+   "Genre": "Romantic Drama",
+   "Anime": "Rascal Does Not Dream of Bunny Girl Senpai",
+   "Editorial_Staff_Hint": "Mommy"
+ },
+ {
+   "label": "Rio Futaba",
+   "Name": "Rio Futaba",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Grey",
+   "Age": "17",
+   "Age_Group": "12-18",
+   "Height": 155,
+   "Eye_Color": "Olive",
+   "Genre": "Romantic Drama",
+   "Anime": "Rascal Does Not Dream of Bunny Girl Senpai",
+   "Editorial_Staff_Hint": "Waifu"
+ },
+ {
+   "label": "Kaede Azusagawa",
+   "Name": "Kaede Azusagawa",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Light Brown",
+   "Age": "15",
+   "Age_Group": "12-18",
+   "Height": 162,
+   "Eye_Color": "Beige",
+   "Genre": "Romantic Drama",
+   "Anime": "Rascal Does Not Dream of Bunny Girl Senpai",
+   "Editorial_Staff_Hint": "Cutie"
+ },
+ {
+   "label": "Tomoe Koga",
+   "Name": "Tomoe Koga",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Light Brown",
+   "Age": "16",
+   "Age_Group": "12-18",
+   "Height": 152,
+   "Eye_Color": "Dark Grey",
+   "Genre": "Romantic Drama",
+   "Anime": "Rascal Does Not Dream of Bunny Girl Senpai",
+   "Editorial_Staff_Hint": "BFF"
+ },
+ {
+   "label": "Shouko Makinohara",
+   "Name": "Shouko Makinohara",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Dark Grey",
+   "Age": "14",
+   "Age_Group": "12-18",
+   "Height": 150,
+   "Eye_Color": "Dark Grey",
+   "Genre": "Romantic Drama",
+   "Anime": "Rascal Does Not Dream of Bunny Girl Senpai",
+   "Editorial_Staff_Hint": "Cutie"
+ },
+ {
+   "label": "Nodoka Toyohama",
+   "Name": "Nodoka Toyohama",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Blonde",
+   "Age": "17",
+   "Age_Group": "12-18",
+   "Height": 158,
+   "Eye_Color": "Blue",
+   "Genre": "Romantic Drama",
+   "Anime": "Rascal Does Not Dream of Bunny Girl Senpai",
+   "Editorial_Staff_Hint": "Sexy AF"
+ },
+ {
+   "label": "Ban",
+   "Name": "Ban",
+   "Sex": "Male",
+   "Origin": "Human",
+   "Hair_Color": "Silver",
+   "Age": "43",
+   "Age_Group": "31-50",
+   "Height": 210,
+   "Eye_Color": "Red",
+   "Genre": "Action Comedy",
+   "Anime": "The Seven Deadly Sins",
+   "Editorial_Staff_Hint": "Sexy AF"
+ },
+ {
+   "label": "Meliodias",
+   "Name": "Meliodias",
+   "Sex": "Male",
+   "Origin": "Demon",
+   "Hair_Color": "Blonde",
+   "Age": "3000",
+   "Age_Group": "100+",
+   "Height": 152,
+   "Eye_Color": "Green",
+   "Genre": "Action Comedy",
+   "Anime": "The Seven Deadly Sins",
+   "Editorial_Staff_Hint": "BFF"
+ },
+ {
+   "label": "Elizabeth Liones",
+   "Name": "Elizabeth Liones",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Light Grey",
+   "Age": "16",
+   "Age_Group": "12-18",
+   "Height": 162,
+   "Eye_Color": "Petrol",
+   "Genre": "Action Comedy",
+   "Anime": "The Seven Deadly Sins",
+   "Editorial_Staff_Hint": "Waifu"
+ },
+ {
+   "label": "Diane",
+   "Name": "Diane",
+   "Sex": "Female",
+   "Origin": "Giant",
+   "Hair_Color": "Brown",
+   "Age": "700",
+   "Age_Group": "100+",
+   "Height": 915,
+   "Eye_Color": "Purple",
+   "Genre": "Action Comedy",
+   "Anime": "The Seven Deadly Sins",
+   "Editorial_Staff_Hint": "BFF"
+ },
+ {
+   "label": "King",
+   "Name": "King",
+   "Sex": "Male",
+   "Origin": "Fairy",
+   "Hair_Color": "Light Brown",
+   "Age": "1300",
+   "Age_Group": "100+",
+   "Height": 160,
+   "Eye_Color": "Orange",
+   "Genre": "Action Comedy",
+   "Anime": "The Seven Deadly Sins",
+   "Editorial_Staff_Hint": "Cutie"
+ },
+ {
+   "label": "Merlin",
+   "Name": "Merlin",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Dark Purple",
+   "Age": "3000",
+   "Age_Group": "100+",
+   "Height": 177,
+   "Eye_Color": "Golden",
+   "Genre": "Action Comedy",
+   "Anime": "The Seven Deadly Sins",
+   "Editorial_Staff_Hint": "Mommy"
+ },
+ {
+   "label": "Escanor",
+   "Name": "Escanor",
+   "Sex": "Male",
+   "Origin": "Human",
+   "Hair_Color": "Orange",
+   "Age": "40",
+   "Age_Group": "31-50",
+   "Height": 325,
+   "Eye_Color": "Petrol",
+   "Genre": "Action Comedy",
+   "Anime": "The Seven Deadly Sins",
+   "Editorial_Staff_Hint": "Daddy"
+ },
+ {
+   "label": "Frieren",
+   "Name": "Frieren",
+   "Sex": "Female",
+   "Origin": "Elf",
+   "Hair_Color": "White",
+   "Age": "1000",
+   "Age_Group": "100+",
+   "Height": 160,
+   "Eye_Color": "Green",
+   "Genre": "Adventure",
+   "Anime": "Frieren: Beyond Journey’s End",
+   "Editorial_Staff_Hint": "Mommy"
+ },
+ {
+   "label": "Fern",
+   "Name": "Fern",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Purple",
+   "Age": "18",
+   "Age_Group": "19-30",
+   "Height": 168,
+   "Eye_Color": "Purple",
+   "Genre": "Adventure",
+   "Anime": "Frieren: Beyond Journey’s End",
+   "Editorial_Staff_Hint": "Sexy AF"
+ },
+ {
+   "label": "Stark",
+   "Name": "Stark",
+   "Sex": "Male",
+   "Origin": "Human",
+   "Hair_Color": "Auburn",
+   "Age": "17",
+   "Age_Group": "12-18",
+   "Height": 179,
+   "Eye_Color": "Brown",
+   "Genre": "Adventure",
+   "Anime": "Frieren: Beyond Journey’s End",
+   "Editorial_Staff_Hint": "Cutie"
+ },
+ {
+   "label": "Himmel",
+   "Name": "Himmel",
+   "Sex": "Male",
+   "Origin": "Human",
+   "Hair_Color": "Light Blue",
+   "Age": "26",
+   "Age_Group": "19-30",
+   "Height": 177,
+   "Eye_Color": "Blue",
+   "Genre": "Adventure",
+   "Anime": "Frieren: Beyond Journey’s End",
+   "Editorial_Staff_Hint": "Husbando"
+ },
+ {
+   "label": "Heiter",
+   "Name": "Heiter",
+   "Sex": "Male",
+   "Origin": "Human",
+   "Hair_Color": "Green",
+   "Age": "31",
+   "Age_Group": "31-50",
+   "Height": 195,
+   "Eye_Color": "Brown",
+   "Genre": "Adventure",
+   "Anime": "Frieren: Beyond Journey’s End",
+   "Editorial_Staff_Hint": "Daddy"
+ },
+ {
+   "label": "Übel",
+   "Name": "Übel",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Dark Green",
+   "Age": "20",
+   "Age_Group": "19-30",
+   "Height": 166,
+   "Eye_Color": "Lilac",
+   "Genre": "Adventure",
+   "Anime": "Frieren: Beyond Journey’s End",
+   "Editorial_Staff_Hint": "Mommy"
+ },
+ {
+   "label": "Aura",
+   "Name": "Aura",
+   "Sex": "Female",
+   "Origin": "Demon",
+   "Hair_Color": "Pink",
+   "Age": "500",
+   "Age_Group": "100+",
+   "Height": 156,
+   "Eye_Color": "Blue",
+   "Genre": "Adventure",
+   "Anime": "Frieren: Beyond Journey’s End",
+   "Editorial_Staff_Hint": "Sexy AF"
+ },
+ {
+   "label": "Lügner",
+   "Name": "Lügner",
+   "Sex": "Male",
+   "Origin": "Demon",
+   "Hair_Color": "Blonde",
+   "Age": "500",
+   "Age_Group": "100+",
+   "Height": 193,
+   "Eye_Color": "Blue",
+   "Genre": "Adventure",
+   "Anime": "Frieren: Beyond Journey’s End",
+   "Editorial_Staff_Hint": "Sexy AF"
+ },
+ {
+   "label": "Land",
+   "Name": "Land",
+   "Sex": "Male",
+   "Origin": "Human",
+   "Hair_Color": "Blonde",
+   "Age": "21",
+   "Age_Group": "19-30",
+   "Height": 172,
+   "Eye_Color": "Brown",
+   "Genre": "Adventure",
+   "Anime": "Frieren: Beyond Journey’s End",
+   "Editorial_Staff_Hint": "Boyfriendo"
+ },
+ {
+   "label": "Aki Hayakawa",
+   "Name": "Aki Hayakawa",
+   "Sex": "Male",
+   "Origin": "Human",
+   "Hair_Color": "Black",
+   "Age": "19",
+   "Age_Group": "19-30",
+   "Height": 182,
+   "Eye_Color": "Blue",
+   "Genre": "Action Drama",
+   "Anime": "Chainsaw Man",
+   "Editorial_Staff_Hint": "Boyfriendo"
+ },
+ {
+   "label": "Kishibe",
+   "Name": "Kishibe",
+   "Sex": "Male",
+   "Origin": "Human",
+   "Hair_Color": "Blonde",
+   "Age": "50",
+   "Age_Group": "51-70",
+   "Height": 194,
+   "Eye_Color": "Black",
+   "Genre": "Action Drama",
+   "Anime": "Chainsaw Man",
+   "Editorial_Staff_Hint": "Daddy"
+ },
+ {
+   "label": "Uryuu Ishida",
+   "Name": "Uryuu Ishida",
+   "Sex": "Male",
+   "Origin": "Human",
+   "Hair_Color": "Dark Blue",
+   "Age": "17",
+   "Age_Group": "12-18",
+   "Height": 171,
+   "Eye_Color": "Black",
+   "Genre": "Fighting-Shounen",
+   "Anime": "Bleach",
+   "Editorial_Staff_Hint": "Boyfriendo"
+ },
+ {
+   "label": "Kisuke Urahara",
+   "Name": "Kisuke Urahara",
+   "Sex": "Male",
+   "Origin": "Shinigami",
+   "Hair_Color": "Blonde",
+   "Age": "800",
+   "Age_Group": "100+",
+   "Height": 183,
+   "Eye_Color": "Blue",
+   "Genre": "Fighting-Shounen",
+   "Anime": "Bleach",
+   "Editorial_Staff_Hint": "Sexy AF"
+ },
+ {
+   "label": "Yoruichi Shihouin",
+   "Name": "Yoruichi Shihouin",
+   "Sex": "Female",
+   "Origin": "Shinigami",
+   "Hair_Color": "Purple",
+   "Age": "800",
+   "Age_Group": "100+",
+   "Height": 156,
+   "Eye_Color": "Yellow",
+   "Genre": "Fighting-Shounen",
+   "Anime": "Bleach",
+   "Editorial_Staff_Hint": "Mommy"
+ },
+ {
+   "label": "Orihime Inoue",
+   "Name": "Orihime Inoue",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Orange",
+   "Age": "17",
+   "Age_Group": "12-18",
+   "Height": 157,
+   "Eye_Color": "Grey",
+   "Genre": "Fighting-Shounen",
+   "Anime": "Bleach",
+   "Editorial_Staff_Hint": "Cutie"
+ },
+ {
+   "label": "Soifon",
+   "Name": "Soifon",
+   "Sex": "Female",
+   "Origin": "Shinigami",
+   "Hair_Color": "Black",
+   "Age": "800",
+   "Age_Group": "100+",
+   "Height": 150,
+   "Eye_Color": "Black",
+   "Genre": "Fighting-Shounen",
+   "Anime": "Bleach",
+   "Editorial_Staff_Hint": "Sexy AF"
+ },
+ {
+   "label": "Sousuke Aizen",
+   "Name": "Sousuke Aizen",
+   "Sex": "Male",
+   "Origin": "Shinigami",
+   "Hair_Color": "Brown",
+   "Age": "800",
+   "Age_Group": "100+",
+   "Height": 186,
+   "Eye_Color": "Brown",
+   "Genre": "Fighting-Shounen",
+   "Anime": "Bleach",
+   "Editorial_Staff_Hint": "Daddy"
+ },
+ {
+   "label": "Shinsui Kyouraku",
+   "Name": "Shinsui Kyouraku",
+   "Sex": "Male",
+   "Origin": "Shinigami",
+   "Hair_Color": "Brown",
+   "Age": "800",
+   "Age_Group": "100+",
+   "Height": 192,
+   "Eye_Color": "Black",
+   "Genre": "Fighting-Shounen",
+   "Anime": "Bleach",
+   "Editorial_Staff_Hint": "Daddy"
+ },
+ {
+   "label": "Juushirou Ukitake",
+   "Name": "Juushirou Ukitake",
+   "Sex": "Male",
+   "Origin": "Shinigami",
+   "Hair_Color": "White",
+   "Age": "800",
+   "Age_Group": "100+",
+   "Height": 187,
+   "Eye_Color": "Green",
+   "Genre": "Fighting-Shounen",
+   "Anime": "Bleach",
+   "Editorial_Staff_Hint": "Husbando"
+ },
+ {
+   "label": "Nelliel",
+   "Name": "Nelliel",
+   "Sex": "Female",
+   "Origin": "Ghost",
+   "Hair_Color": "Cyan",
+   "Age": "800",
+   "Age_Group": "100+",
+   "Height": 176,
+   "Eye_Color": "Yellow",
+   "Genre": "Fighting-Shounen",
+   "Anime": "Bleach",
+   "Editorial_Staff_Hint": "Cutie"
+ },
+ {
+  "label": "Himika Toga",
+  "Name": "Himika Toga",
+  "Sex": "Female",
+  "Origin": "Human",
+  "Hair_Color": "Blonde",
+  "Age": "17",
+  "Age_Group": "12-18",
+  "Height": 157,
+  "Eye_Color": "Yellow",
+  "Genre": "Action Comedy",
+  "Anime": "My Hero Academia",
+  "Editorial_Staff_Hint": "Cutie"
+}
 ]

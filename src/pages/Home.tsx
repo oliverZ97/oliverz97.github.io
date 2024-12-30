@@ -13,11 +13,12 @@ interface Character {
    Origin: string;
    Hair_Color: string;
    Age: string;
-   Age_Group: "12-18" | "19-30" | "31-50" | "100+";
+   Age_Group: "12-18" | "19-30" | "31-50" | "51-70" | "100+";
    Height: number | null;
    Eye_Color: string;
    Genre: string;
    Anime: string;
+   Editorial_Staff_Hint: string;
    ValidFields?: string[]
 }
 
@@ -25,8 +26,8 @@ interface HintRef {
    resetHint: () => void;
 }
 
-const BASEPOINTS = 250;
-const HINTPOINTS = 1000;
+const BASEPOINTS = 200;
+const HINTPOINTS = 750;
 const REDUCEFACTOR = 10;
 
 const Home = () => {
@@ -42,6 +43,7 @@ const Home = () => {
 
    const genreHintRef = useRef<HintRef | null>(null);
    const animeHintRef = useRef<HintRef | null>(null);
+   const editorialHintRef = useRef<HintRef | null>(null);
 
    useEffect(() => {
       if (charData.length === 0 || reset) {
@@ -68,6 +70,9 @@ const Home = () => {
       }
       if (animeHintRef.current) {
          animeHintRef?.current.resetHint();
+      }
+      if (editorialHintRef.current) {
+         editorialHintRef?.current.resetHint();
       }
       //select random character
       const charArray = Object.values(characterData);
@@ -108,27 +113,27 @@ const Home = () => {
    }, [selectedOption])
 
    function calculateSelectionPoints(correctFieldCount: number) {
+
       const baseValue = (searchHistory.length + 1) * BASEPOINTS;
       let roundPoints = baseValue - correctFieldCount * REDUCEFACTOR;
-      console.log(baseValue)
-      console.log(roundPoints)
 
-      setPoints(points - roundPoints);
+
+      setPoints(points - roundPoints < 0 ? 0 : points - roundPoints);
    }
 
    function handleSearchChange(event: SyntheticEvent<Element, Event>, value: Character | null, reason: any) {
       if (value && targetChar) {
          const res = compareObjects(value, targetChar);
-         value.ValidFields = res;
+         value.ValidFields = res.all;
 
          setSearchHistory([...searchHistory, value]);
          setSelectedOption(value);
 
          //calculate point reduce
-         calculateSelectionPoints(res.length)
+         calculateSelectionPoints(res.short.length)
 
 
-         if (res.length + 1 === Object.keys(targetChar).length) {
+         if (res.all.length + 1 === Object.keys(targetChar).length) {
             const jsConfetti = new JSConfetti()
             jsConfetti.addConfetti({
                emojis: ['🎉', '🍛', '🍣', '✨', '🍜', '🌸', '🍙'],
@@ -166,16 +171,32 @@ const Home = () => {
       }
    }
 
-   function compareObjects<T extends Record<string, any>>(obj1: T, obj2: T): string[] {
-      const sameFields: string[] = [];
+   function compareObjects<T extends Record<string, any>>(obj1: T, obj2: T): {
+      all: string[],
+      short: string[]
+   } {
+      const sameFieldsObj: {
+         all: string[],
+         short: string[]
+      } = {all:[], short: []};
+      const validFields = ["Name",
+         "Sex",
+         "Origin",
+         "Hair_Color",
+         "Age_Group",
+         "Height",
+         "Eye_Color"]
 
       for (const key in obj1) {
          if (obj1.hasOwnProperty(key) && obj2.hasOwnProperty(key) && obj1[key] === obj2[key]) {
-            sameFields.push(key);
+            if (validFields.includes(key)) {
+               sameFieldsObj.short.push(key);
+            }
+            sameFieldsObj.all.push(key)
          }
       }
 
-      return sameFields;
+      return sameFieldsObj;
    }
 
    function reducePointsForHint() {
@@ -185,7 +206,7 @@ const Home = () => {
    useEffect(() => {
       if (usedHints > 0) {
          const reducePoints = usedHints * HINTPOINTS
-         setPoints(points - reducePoints);
+         setPoints(points - reducePoints < 0 ? 0 : points - reducePoints);
       }
    }, [usedHints])
 
@@ -193,7 +214,8 @@ const Home = () => {
       if ("12-18" === value) return 1
       if ("19-30" === value) return 2
       if ("31-50" === value) return 3
-      if ("100+" === value) return 4
+      if ("51-70" === value) return 4
+      if ("100+" === value) return 5
    }
 
    function checkValueDiff(value1: number, value2: number) {
@@ -210,9 +232,14 @@ const Home = () => {
       <>
          <Box sx={{
             backgroundColor: COLORS.quiz.background,
-            width: "100dvw",
-            minHeight: "100vh"
+            maxWidth: "100%",
+            minHeight: "100vh",
+            position: "relative"
          }}>
+
+            <Box sx={{position: "absolute", left: 0, top: 0, marginTop: "160px", backgroundColor: COLORS.quiz.secondary, padding: 2, borderTopRightRadius: "16px", borderBottomRightRadius: "16px"}}>
+               {[...new Set(charData.map((item) => item.Anime))].sort((a,b) => a < b ? -1 : 1).map((item) => <Typography fontSize={"14px"} color={"black"}>{item}</Typography>)}
+            </Box>
 
             <Box sx={{
                display: "flex",
@@ -233,6 +260,7 @@ const Home = () => {
                <Box sx={{ backgroundColor: COLORS.quiz.secondary, padding: 2, borderRadius: "16px", marginBottom: 4, display: "flex", gap: 2 }}>
                   <RevealCard onReveal={reducePointsForHint} ref={genreHintRef} cardText={targetChar?.Genre ?? ""} cardTitle="Genre"></RevealCard>
                   <RevealCard onReveal={reducePointsForHint} ref={animeHintRef} cardText={targetChar?.Anime ?? ""} cardTitle="Anime"></RevealCard>
+                  <RevealCard onReveal={reducePointsForHint} ref={editorialHintRef} cardText={targetChar?.Editorial_Staff_Hint ?? ""} cardTitle="Editoral Staff Hint"></RevealCard>
                </Box>
 
                <Box sx={{ display: "flex", gap: 4, alignItems: "center", width: "60%", justifyContent: "space-between" }}>
@@ -282,7 +310,7 @@ const Home = () => {
                         <Typography component={"span"}>
                            {item.Age_Group}
                         </Typography>
-                           {checkValueDiff(checkAgeGroup(item.Age_Group) ?? 0, checkAgeGroup(targetChar?.Age_Group ?? "12-18") ?? 0)}
+                        {checkValueDiff(checkAgeGroup(item.Age_Group) ?? 0, checkAgeGroup(targetChar?.Age_Group ?? "12-18") ?? 0)}
                      </Typography>
                      <Typography sx={{ width: "150px", padding: "16px", backgroundColor: item.ValidFields?.includes("Hair_Color") ? COLORS.quiz.success : COLORS.quiz.secondary }}>{item.Hair_Color}</Typography>
                      <Typography sx={{ width: "100px", padding: "16px", backgroundColor: item.ValidFields?.includes("Eye_Color") ? COLORS.quiz.success : COLORS.quiz.secondary }}>{item.Eye_Color}</Typography>
@@ -290,7 +318,7 @@ const Home = () => {
                         <Typography component={"span"}>
                            {item.Height}
                         </Typography>
-                           {checkValueDiff(item.Height ?? 0, targetChar?.Height ?? 0)}
+                        {checkValueDiff(item.Height ?? 0, targetChar?.Height ?? 0)}
                      </Typography>
                      <Typography sx={{ width: "100px", padding: "16px", flexGrow: 1, backgroundColor: item.ValidFields?.includes("Origin") ? COLORS.quiz.success : COLORS.quiz.secondary }}>{item.Origin}</Typography>
                   </Box>)}
