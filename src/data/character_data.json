@@ -293,7 +293,7 @@
    "Hair_Color": "Dark Purple",
    "Age": "18",
    "Age_Group": "12-18",
-   "Height": null,
+   "Height": "Unknown",
    "Eye_Color": "Purple",
    "Genre": "Romantic Comedy",
    "Anime": "Makeine: Too Many Losing Heroines!"
@@ -306,7 +306,7 @@
    "Hair_Color": "White",
    "Age": "17",
    "Age_Group": "12-18",
-   "Height": null,
+   "Height": "Unknown",
    "Eye_Color": "Ochre",
    "Genre": "Romantic Comedy",
    "Anime": "Makeine: Too Many Losing Heroines!"
@@ -319,7 +319,7 @@
    "Hair_Color": "Auburn",
    "Age": "16",
    "Age_Group": "12-18",
-   "Height": null,
+   "Height": "Unknown",
    "Eye_Color": "Brown",
    "Genre": "Romantic Comedy",
    "Anime": "Makeine: Too Many Losing Heroines!"
@@ -332,7 +332,7 @@
    "Hair_Color": "Black",
    "Age": "16",
    "Age_Group": "12-18",
-   "Height": null,
+   "Height": "Unknown",
    "Eye_Color": "Black",
    "Genre": "Romantic Comedy",
    "Anime": "Makeine: Too Many Losing Heroines!"
@@ -345,7 +345,7 @@
    "Hair_Color": "Pink",
    "Age": "16",
    "Age_Group": "12-18",
-   "Height": null,
+   "Height": "Unknown",
    "Eye_Color": "Pink",
    "Genre": "Romantic Comedy",
    "Anime": "Makeine: Too Many Losing Heroines!"
@@ -605,7 +605,7 @@
    "Hair_Color": "Black",
    "Age": "23",
    "Age_Group": "19-30",
-   "Height": null,
+   "Height": "Unknown",
    "Eye_Color": "Silver",
    "Genre": "Action Drama",
    "Anime": "Demon Slayer: Kimetsu no Yaiba"
