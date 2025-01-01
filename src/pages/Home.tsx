@@ -319,7 +319,7 @@ const Home = () => {
                         <Typography sx={{ width: "100px", fontWeight: "bold" }}>{"Height"}</Typography>
                         <Typography sx={{ width: "100px", fontWeight: "bold" }}>{"Origin"}</Typography>
                      </Box>)}
-                     {searchHistory.map((item) => <Box key={item.Name} sx={{ display: "flex", gap: 2, justifyContent: "flex-start", marginBottom: "4px" }}>
+                     {searchHistory.reverse().map((item) => <Box key={item.Name} sx={{ display: "flex", gap: 2, justifyContent: "flex-start", marginBottom: "4px" }}>
                         <Box sx={{width: "60px"}} component={"img"} src={getImgSrc(item.Name)}></Box>
                         <Typography sx={{ width: "200px", display: "flex", alignItems: "center", padding: "16px", backgroundColor: item.ValidFields?.includes("Name") ? COLORS.quiz.success : COLORS.quiz.secondary }}>{item.Name}</Typography>
                         <Typography sx={{ width: "100px", display: "flex", alignItems: "center",padding: "16px", backgroundColor: item.ValidFields?.includes("Sex") ? COLORS.quiz.success : COLORS.quiz.secondary }}>{item.Sex}</Typography>
