@@ -127,10 +127,7 @@ const Home = () => {
          const res = compareObjects(value, targetChar);
          value.ValidFields = res.all;
 
-         setSearchHistory([...searchHistory, value].reverse());
          setSelectedOption(value);
-
-
 
          if (res.all.length + 1 === Object.keys(targetChar).length) {
             const jsConfetti = new JSConfetti()
@@ -171,7 +168,9 @@ const Home = () => {
          //calculate point reduce
          calculateSelectionPoints(res.short.length)
 
-         removeOptionFromArray(value)
+         removeOptionFromArray(value);
+
+         setSearchHistory([value, ...searchHistory]);
 
       }
    }
@@ -214,7 +213,7 @@ const Home = () => {
          setPoints(points - reducePoints < 0 ? 0 : points - reducePoints);
       }
    }, [usedHints])
-
+   
    function checkAgeGroup(value: string) {
       if ("12-18" === value) return 1
       if ("19-30" === value) return 2
@@ -236,8 +235,6 @@ const Home = () => {
    function getImgSrc(name: string) {
       const filename = name.toLowerCase().replaceAll(" ", "_")
       const basepath = "assets/characters/"
-
-      console.log(basepath + filename)
 
       return basepath + filename + ".webp"
    }
