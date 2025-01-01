@@ -235,7 +235,7 @@ const Home = () => {
 
    function getImgSrc(name: string) {
       const filename = name.toLowerCase().replaceAll(" ", "_")
-      const basepath = "src/assets/characters/"
+      const basepath = "assets/characters/"
 
       console.log(basepath + filename)
 
