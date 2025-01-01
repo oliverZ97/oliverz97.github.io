@@ -235,7 +235,7 @@ const Home = () => {
 
    function getImgSrc(name: string) {
       const filename = name.toLowerCase().replaceAll(" ", "_")
-      const basepath = "assets/characters/"
+      const basepath = "src/assets/characters/"
 
       console.log(basepath + filename)
 
@@ -291,6 +291,12 @@ const Home = () => {
                         options={charData}
                         sx={{ width: 300, backgroundColor: "white", borderRadius: "8px" }}
                         renderInput={(params) => <TextField {...params} label="Character" />}
+                        renderOption={(props, option) => (
+                           <Box component="li" sx={{ '& > *': { m: 0.5 } }} {...props}>
+                              <Box sx={{width: "40px"}} component={"img"} src={getImgSrc(option.Name)}></Box>
+                              <Typography sx={{marginLeft: 2}} variant="body2">{option.Name}</Typography>
+                           </Box>
+                         )}
                         onChange={(ev, value, reason) => handleSearchChange(ev, value, reason)}
                         clearOnBlur
                         disabled={isCorrect}
