@@ -5,4 +5,7 @@ import tsconfigPaths from "vite-tsconfig-paths"; // --> import it
 // https://vitejs.dev/config/
 export default defineConfig({
    plugins: [react(), tsconfigPaths()],
+   build: {
+      outDir: 'docs' // Output directory for GitHub Pages
+   }
 });
