@@ -253,6 +253,14 @@ const Home = () => {
          today.setMinutes(0);
          today.setSeconds(0);
          today.setMilliseconds(0);
+
+         if(streakObj.date) {
+            const currentDate = new Date(parseInt(streakObj.date));
+            if(sameDate(currentDate, today)) {
+               return;
+            }
+         }
+
          const newStreak: Streak = {
             date: today.getTime().toString(),
             streak: streakObj.streak + 1
@@ -302,6 +310,14 @@ const Home = () => {
     
       // Check if the difference is more than one day
       return daysDiff > 1;
+    }
+
+    function sameDate(date1: Date, date2: Date) {
+      return (
+        date1.getFullYear() === date2.getFullYear() &&
+        date1.getMonth() === date2.getMonth() &&
+        date1.getDate() === date2.getDate()
+      );
     }
 
    return (
