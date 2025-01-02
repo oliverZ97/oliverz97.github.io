@@ -413,7 +413,13 @@ const Home = () => {
                            {checkValueDiff(item.Height ?? 0, targetChar?.Height ?? 0)}
                         </Typography>
                         <Typography sx={{ width: "100px", display: "flex", alignItems: "center", padding: "16px", flexGrow: 1, backgroundColor: item.ValidFields?.includes("Origin") ? COLORS.quiz.success : COLORS.quiz.secondary }}>{item.Origin}</Typography>
-                        <Typography sx={{ width: "100px", display: "flex", alignItems: "center", padding: "16px", flexGrow: 1, backgroundColor: item.ValidFields?.includes("First_Release_Year") ? COLORS.quiz.success : COLORS.quiz.secondary }}>{item.First_Release_Year}</Typography>
+                        <Typography sx={{ width: "100px", display: "flex", alignItems: "center", padding: "16px", flexGrow: 1, backgroundColor: item.ValidFields?.includes("First_Release_Year") ? COLORS.quiz.success : COLORS.quiz.secondary }}>
+
+                        <Typography component={"span"}>
+                              {item.First_Release_Year}
+                           </Typography>
+                           {checkValueDiff(item.First_Release_Year ?? 0, targetChar?.First_Release_Year ?? 0)}
+                        </Typography>
 
                      </Box>)}
                   </Box>
