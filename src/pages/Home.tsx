@@ -20,6 +20,7 @@ interface Character {
    Genre: string;
    Anime: string;
    Editorial_Staff_Hint: string;
+   First_Release_Year: number,
    ValidFields?: string[]
 }
 
@@ -128,6 +129,9 @@ const Home = () => {
          value.ValidFields = res.all;
 
          setSelectedOption(value);
+         removeOptionFromArray(value);
+
+         setSearchHistory([value, ...searchHistory]);
 
          if (res.all.length + 1 === Object.keys(targetChar).length) {
             const jsConfetti = new JSConfetti()
@@ -160,6 +164,7 @@ const Home = () => {
             setScores(scores.slice(0, 3))
             const scoreString = JSON.stringify(scores);
             localStorage.setItem("scores", scoreString);
+            setStreak()
 
             return;
          }
@@ -167,10 +172,6 @@ const Home = () => {
          
          //calculate point reduce
          calculateSelectionPoints(res.short.length)
-
-         removeOptionFromArray(value);
-
-         setSearchHistory([value, ...searchHistory]);
 
       }
    }
@@ -189,7 +190,7 @@ const Home = () => {
          "Hair_Color",
          "Age_Group",
          "Height",
-         "Eye_Color"]
+         "Eye_Color", "First_Release_Year"]
 
       for (const key in obj1) {
          if (obj1.hasOwnProperty(key) && obj2.hasOwnProperty(key) && obj1[key] === obj2[key]) {
@@ -239,6 +240,70 @@ const Home = () => {
       return basepath + filename + ".webp"
    }
 
+   interface Streak {
+      date: string;
+      streak: number;
+   }
+
+   function setStreak() {
+      const streakObj = getStreak();
+      if(streakObj) {
+         const today = new Date()
+         today.setHours(4);
+         today.setMinutes(0);
+         today.setSeconds(0);
+         today.setMilliseconds(0);
+         const newStreak: Streak = {
+            date: today.getTime().toString(),
+            streak: streakObj.streak + 1
+         }
+
+         localStorage.setItem("quizStreak", JSON.stringify(newStreak))
+      }
+   }
+
+   function getStreak() {
+      const streak = localStorage.getItem("quizStreak");
+
+      if(streak) {
+
+         const streakObj: Streak = JSON.parse(streak);
+         const date = new Date(parseInt(streakObj.date));
+         const today = new Date()
+         today.setHours(4);
+         const isInvalid = isMoreThanADay(date, today);
+         if(isInvalid) {
+            return {
+               streak: 0,
+               date: undefined
+            };
+         }
+
+         return streakObj;
+      } else {
+         return {
+            streak: 0,
+            date: undefined
+         };
+      }
+   }
+
+   function isMoreThanADay(date1: Date, date2: Date) {
+      console.log(date1, date2)
+      
+      // Calculate the time difference in milliseconds
+      const timeDiff = Math.abs(date2.getTime() - date1.getTime());
+    
+      // Calculate the number of milliseconds in a day
+      const millisecondsPerDay = 24 * 60 * 60 * 1000;
+    
+      // Calculate the difference in days
+      const daysDiff = timeDiff / millisecondsPerDay;
+    
+      // Check if the difference is more than one day
+      return daysDiff > 1;
+    }
+
    return (
       <>
          <Box sx={{
@@ -271,8 +336,14 @@ const Home = () => {
                alignItems: "center",
             }}>
 
-               <Box>
-                  <Box sx={{ backgroundColor: COLORS.quiz.secondary, padding: 2, borderRadius: "16px", marginBottom: 4, display: "flex", gap: 2, marginTop: "300px" }}>
+               <Box sx={{marginTop: "300px" }}>
+                  <Box sx={{display: "flex", justifyContent: "flex-end", marginBottom: 4}}>
+            	      <Box sx={{backgroundColor: COLORS.quiz.secondary, borderRadius: "16px", padding: 2}}>
+                        <Typography sx={{filter: !getStreak() || getStreak() && getStreak().streak < 1 ? "grayscale(100%)" : "grayscale(0%)"}} fontSize={32}>{`🔥 ${getStreak()?.streak ?? 0}`}</Typography>
+                     </Box>
+                  </Box>
+
+                  <Box sx={{ backgroundColor: COLORS.quiz.secondary, padding: 2, borderRadius: "16px", marginBottom: 4, display: "flex", gap: 2}}>
                      <RevealCard onReveal={reducePointsForHint} ref={genreHintRef} cardText={targetChar?.Genre ?? ""} cardTitle="Genre"></RevealCard>
                      <RevealCard onReveal={reducePointsForHint} ref={animeHintRef} cardText={targetChar?.Anime ?? ""} cardTitle="Anime"></RevealCard>
                      <RevealCard onReveal={reducePointsForHint} ref={editorialHintRef} cardText={targetChar?.Editorial_Staff_Hint ?? ""} cardTitle="Editoral Staff Hint"></RevealCard>
@@ -321,6 +392,7 @@ const Home = () => {
                         <Typography sx={{ width: "100px", fontWeight: "bold" }}>{"Eye Color"}</Typography>
                         <Typography sx={{ width: "100px", fontWeight: "bold" }}>{"Height"}</Typography>
                         <Typography sx={{ width: "100px", fontWeight: "bold" }}>{"Origin"}</Typography>
+                        <Typography sx={{ width: "100px", fontWeight: "bold" }}>{"Release Year"}</Typography>
                      </Box>)}
                      {searchHistory.map((item) => <Box key={item.Name} sx={{ display: "flex", gap: 2, justifyContent: "flex-start", marginBottom: "4px" }}>
                         <Box sx={{width: "60px"}} component={"img"} src={getImgSrc(item.Name)}></Box>
@@ -341,6 +413,8 @@ const Home = () => {
                            {checkValueDiff(item.Height ?? 0, targetChar?.Height ?? 0)}
                         </Typography>
                         <Typography sx={{ width: "100px", display: "flex", alignItems: "center", padding: "16px", flexGrow: 1, backgroundColor: item.ValidFields?.includes("Origin") ? COLORS.quiz.success : COLORS.quiz.secondary }}>{item.Origin}</Typography>
+                        <Typography sx={{ width: "100px", display: "flex", alignItems: "center", padding: "16px", flexGrow: 1, backgroundColor: item.ValidFields?.includes("First_Release_Year") ? COLORS.quiz.success : COLORS.quiz.secondary }}>{item.First_Release_Year}</Typography>
+
                      </Box>)}
                   </Box>
                </Box>
