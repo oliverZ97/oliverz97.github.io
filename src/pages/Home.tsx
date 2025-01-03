@@ -82,6 +82,8 @@ const Home = () => {
       const target = charArray[i]
       setTargetCharacter(target as Character);
 
+      console.log(target)
+
       //get scores
       const scores = localStorage.getItem("scores");
       if (scores) {
@@ -256,6 +258,7 @@ const Home = () => {
 
          if(streakObj.date) {
             const currentDate = new Date(parseInt(streakObj.date));
+            console.log(currentDate, today)
             if(sameDate(currentDate, today)) {
                return;
             }
@@ -303,7 +306,7 @@ const Home = () => {
       const timeDiff = Math.abs(date2.getTime() - date1.getTime());
     
       // Calculate the number of milliseconds in a day
-      const millisecondsPerDay = 24 * 60 * 60 * 1000;
+      const millisecondsPerDay = 48 * 60 * 60 * 1000;
     
       // Calculate the difference in days
       const daysDiff = timeDiff / millisecondsPerDay;
