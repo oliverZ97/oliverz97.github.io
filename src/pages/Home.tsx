@@ -82,8 +82,6 @@ const Home = () => {
       const target = charArray[i]
       setTargetCharacter(target as Character);
 
-      console.log(target)
-
       //get scores
       const scores = localStorage.getItem("scores");
       if (scores) {
@@ -258,7 +256,6 @@ const Home = () => {
 
          if(streakObj.date) {
             const currentDate = new Date(parseInt(streakObj.date));
-            console.log(currentDate, today)
             if(sameDate(currentDate, today)) {
                return;
             }
@@ -299,9 +296,7 @@ const Home = () => {
       }
    }
 
-   function isMoreThanADay(date1: Date, date2: Date) {
-      console.log(date1, date2)
-      
+   function isMoreThanADay(date1: Date, date2: Date) {      
       // Calculate the time difference in milliseconds
       const timeDiff = Math.abs(date2.getTime() - date1.getTime());
     
