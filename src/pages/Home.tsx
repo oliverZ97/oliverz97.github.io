@@ -1,32 +1,32 @@
-import { Autocomplete, Box, Button, Divider, MenuItem, Select, TextField, Typography } from "@mui/material";
+import { Autocomplete, Box, Button, Divider, MenuItem, Select, Tab, Tabs, TextField, Typography } from "@mui/material";
 import { SyntheticEvent, useEffect, useRef, useState } from "react";
 import characterData from "data/character_data.json";
 import JSConfetti from 'js-confetti'
 import { RevealCard } from "components/RevealCard";
 import { COLORS } from "styling/constants";
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import bg from "assets/bg.jpeg"
 
-interface Character {
-   Name: string;
-   Sex: string;
-   Origin: string;
-   Hair_Color: string;
-   Age: string;
-   Age_Group: "12-18" | "19-30" | "31-50" | "51-70" | "100+";
-   Height: number | null;
-   Eye_Color: string;
-   Genre: string;
-   Anime: string;
-   Editorial_Staff_Hint: string;
-   First_Release_Year: number,
-   ValidFields?: string[]
-}
+import bg from "assets/bg.jpeg"
+import { Character } from "common/types";
+import { checkAgeGroup, compareObjects, getImgSrc, isMoreThanADay, sameDate } from "common/quizUtils";
+import AnimeCharacterQuiz from "components/BasicCharacterQuiz/AnimeCharacterQuiz";
+import { SearchBar } from "components/BasicCharacterQuiz/SearchBar";
 
 interface HintRef {
    resetHint: () => void;
 }
+
+interface Streak {
+   date: string;
+   streak: number;
+}
+
+
+interface Score {
+   points: number;
+   date: string;
+}
+
+
 
 const BASEPOINTS = 200;
 const HINTPOINTS = 750;
@@ -99,11 +99,6 @@ const Home = () => {
       setCharData(tempArray);
    }
 
-   interface Score {
-      points: number;
-      date: string;
-   }
-
    useEffect(() => {
       if (selectedOption) {
          setTimeout(() => {
@@ -169,39 +164,11 @@ const Home = () => {
             return;
          }
 
-         
+
          //calculate point reduce
          calculateSelectionPoints(res.short.length)
 
       }
-   }
-
-   function compareObjects<T extends Record<string, any>>(obj1: T, obj2: T): {
-      all: string[],
-      short: string[]
-   } {
-      const sameFieldsObj: {
-         all: string[],
-         short: string[]
-      } = { all: [], short: [] };
-      const validFields = ["Name",
-         "Sex",
-         "Origin",
-         "Hair_Color",
-         "Age_Group",
-         "Height",
-         "Eye_Color", "First_Release_Year"]
-
-      for (const key in obj1) {
-         if (obj1.hasOwnProperty(key) && obj2.hasOwnProperty(key) && obj1[key] === obj2[key]) {
-            if (validFields.includes(key)) {
-               sameFieldsObj.short.push(key);
-            }
-            sameFieldsObj.all.push(key)
-         }
-      }
-
-      return sameFieldsObj;
    }
 
    function reducePointsForHint() {
@@ -214,49 +181,21 @@ const Home = () => {
          setPoints(points - reducePoints < 0 ? 0 : points - reducePoints);
       }
    }, [usedHints])
-   
-   function checkAgeGroup(value: string) {
-      if ("12-18" === value) return 1
-      if ("19-30" === value) return 2
-      if ("31-50" === value) return 3
-      if ("51-70" === value) return 4
-      if ("100+" === value) return 5
-   }
 
-   function checkValueDiff(value1: number, value2: number) {
-      if (value1 > value2) {
-         return <ArrowDownwardIcon />
-      } else if (value1 < value2) {
-         return <ArrowUpwardIcon />
-      } else {
-         return
-      }
-   }
 
-   function getImgSrc(name: string) {
-      const filename = name.toLowerCase().replaceAll(" ", "_")
-      const basepath = "assets/characters/"
-
-      return basepath + filename + ".webp"
-   }
-
-   interface Streak {
-      date: string;
-      streak: number;
-   }
 
    function setStreak() {
       const streakObj = getStreak();
-      if(streakObj) {
+      if (streakObj) {
          const today = new Date()
          today.setHours(4);
          today.setMinutes(0);
          today.setSeconds(0);
          today.setMilliseconds(0);
 
-         if(streakObj.date) {
+         if (streakObj.date) {
             const currentDate = new Date(parseInt(streakObj.date));
-            if(sameDate(currentDate, today)) {
+            if (sameDate(currentDate, today)) {
                return;
             }
          }
@@ -273,14 +212,14 @@ const Home = () => {
    function getStreak() {
       const streak = localStorage.getItem("quizStreak");
 
-      if(streak) {
+      if (streak) {
 
          const streakObj: Streak = JSON.parse(streak);
          const date = new Date(parseInt(streakObj.date));
          const today = new Date()
          today.setHours(4);
          const isInvalid = isMoreThanADay(date, today);
-         if(isInvalid) {
+         if (isInvalid) {
             return {
                streak: 0,
                date: undefined
@@ -296,30 +235,46 @@ const Home = () => {
       }
    }
 
-   function isMoreThanADay(date1: Date, date2: Date) {      
-      // Calculate the time difference in milliseconds
-      const timeDiff = Math.abs(date2.getTime() - date1.getTime());
-    
-      // Calculate the number of milliseconds in a day
-      const millisecondsPerDay = 48 * 60 * 60 * 1000;
-    
-      // Calculate the difference in days
-      const daysDiff = timeDiff / millisecondsPerDay;
-    
-      // Check if the difference is more than one day
-      return daysDiff > 1;
-    }
+   interface TabPanelProps {
+      children?: React.ReactNode;
+      index: number;
+      value: number;
+   }
 
-    function sameDate(date1: Date, date2: Date) {
+
+   function CustomTabPanel(props: TabPanelProps) {
+      const { children, value, index, ...other } = props;
+
       return (
-        date1.getFullYear() === date2.getFullYear() &&
-        date1.getMonth() === date2.getMonth() &&
-        date1.getDate() === date2.getDate()
+         <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            {...other}
+         >
+            {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+         </div>
       );
-    }
+   }
+
+   function a11yProps(index: number) {
+      return {
+         id: `simple-tab-${index}`,
+         'aria-controls': `simple-tabpanel-${index}`,
+      };
+   }
+
+   const [value, setValue] = useState(0);
+
+   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+      setValue(newValue);
+   };
 
    return (
       <>
+
+
          <Box sx={{
             backgroundColor: COLORS.quiz.background,
             background: `url(${bg})`,
@@ -350,94 +305,46 @@ const Home = () => {
                alignItems: "center",
             }}>
 
-               <Box sx={{marginTop: "300px" }}>
-                  <Box sx={{display: "flex", justifyContent: "flex-end", marginBottom: 4}}>
-            	      <Box sx={{backgroundColor: COLORS.quiz.secondary, borderRadius: "16px", padding: 2}}>
-                        <Typography sx={{filter: !getStreak() || getStreak() && getStreak().streak < 1 ? "grayscale(100%)" : "grayscale(0%)"}} fontSize={32}>{`🔥 ${getStreak()?.streak ?? 0}`}</Typography>
+
+               <Box sx={{ marginTop: "300px", width: "60%" }}>
+                  <Box sx={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+
+                     <Box sx={{ borderBottom: 1, borderColor: 'divider', backgroundColor: COLORS.quiz.secondary, borderRadius: "16px" }}>
+                        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                           <Tab label="Character Quiz" {...a11yProps(0)} />
+                           <Tab label="Character Image Quiz" {...a11yProps(1)} />
+                        </Tabs>
+                     </Box>
+
+
+                     <Box sx={{ backgroundColor: COLORS.quiz.secondary, borderRadius: "16px", padding: 2 }}>
+                        <Typography sx={{ filter: !getStreak() || getStreak() && getStreak().streak < 1 ? "grayscale(100%)" : "grayscale(0%)" }} fontSize={32}>{`🔥 ${getStreak()?.streak ?? 0}`}</Typography>
                      </Box>
                   </Box>
-
-                  <Box sx={{ backgroundColor: COLORS.quiz.secondary, padding: 2, borderRadius: "16px", marginBottom: 4, display: "flex", gap: 2}}>
-                     <RevealCard onReveal={reducePointsForHint} ref={genreHintRef} cardText={targetChar?.Genre ?? ""} cardTitle="Genre"></RevealCard>
-                     <RevealCard onReveal={reducePointsForHint} ref={animeHintRef} cardText={targetChar?.Anime ?? ""} cardTitle="Anime"></RevealCard>
-                     <RevealCard onReveal={reducePointsForHint} ref={editorialHintRef} cardText={targetChar?.Editorial_Staff_Hint ?? ""} cardTitle="Editoral Staff Hint"></RevealCard>
-                  </Box>
-
-                  <Box sx={{ display: "flex", gap: 4, alignItems: "center", justifyContent: "space-between", backgroundColor: COLORS.quiz.secondary, padding: 2, borderRadius: "16px" }}>
+                  <CustomTabPanel value={value} index={0}>
                      <Box>
-                        <Typography sx={{ color: "white" }}>{"Points: " + points}</Typography>
-                        <Typography sx={{ color: "white" }}>{"Tries: " + searchHistory.length}</Typography>
+                        <Box sx={{ backgroundColor: COLORS.quiz.secondary, padding: 2, borderRadius: "16px", marginBottom: 4, display: "flex", gap: 2 }}>
+                           <RevealCard onReveal={reducePointsForHint} ref={genreHintRef} cardText={targetChar?.Genre ?? ""} cardTitle="Genre"></RevealCard>
+                           <RevealCard onReveal={reducePointsForHint} ref={animeHintRef} cardText={targetChar?.Anime ?? ""} cardTitle="Anime"></RevealCard>
+                           <RevealCard onReveal={reducePointsForHint} ref={editorialHintRef} cardText={targetChar?.Editorial_Staff_Hint ?? ""} cardTitle="Editoral Staff Hint"></RevealCard>
+                        </Box>
+
+
+                        <SearchBar points={points} searchHistory={searchHistory} isCorrect={isCorrect} selectedOption={selectedOption} charData={charData} handleSearchChange={handleSearchChange} init={init}></SearchBar>
+                        <AnimeCharacterQuiz searchHistory={searchHistory} targetChar={targetChar}></AnimeCharacterQuiz>
                      </Box>
-                     <Autocomplete
-                        disablePortal
-                        options={charData}
-                        sx={{ width: 300, backgroundColor: "white", borderRadius: "8px" }}
-                        renderInput={(params) => <TextField {...params} label="Character" />}
-                        renderOption={(props, option) => (
-                           <Box component="li" sx={{ '& > *': { m: 0.5 } }} {...props}>
-                              <Box sx={{width: "40px"}} component={"img"} src={getImgSrc(option.Name)}></Box>
-                              <Typography sx={{marginLeft: 2}} variant="body2">{option.Name}</Typography>
-                           </Box>
-                         )}
-                        onChange={(ev, value, reason) => handleSearchChange(ev, value, reason)}
-                        clearOnBlur
-                        disabled={isCorrect}
-                        value={selectedOption}
-                        filterOptions={(options, { inputValue }) => {
-                           // Only filter if there is at least one character in the input
-                           return inputValue !== '' ? options.filter((option) => option.Name.toLowerCase().includes(inputValue.toLowerCase())) : [];
-                        }}
-                     />
-                     <Button onClick={init} sx={{
-                        backgroundColor: COLORS.quiz.main, color: "white", "&:hover": {
-                           backgroundColor: COLORS.quiz.secondary
-                        }
-                     }} variant="outlined">RESET QUIZ</Button>
-
-                  </Box>
-
-                  <Box sx={{ marginTop: 4, display: "flex", flexDirection: "column", justifyContent: "flex-start", maxHeight: "400px",overflowX: "hidden", overflowY: "auto" }}>
-                     {[1].map((item) => <Box key={item} sx={{ display: "flex", gap: 2, justifyContent: "flex-start", padding: "16px", borderTopLeftRadius: "16px", borderTopRightRadius: "16px", backgroundColor: COLORS.quiz.main, position: "sticky", top: 0 }}>
-                     <Typography sx={{ width: "60px", fontWeight: "bold" }}>{"Image"}</Typography>
-                        <Typography sx={{ width: "200px", fontWeight: "bold" }}>{"Name"}</Typography>
-                        <Typography sx={{ width: "100px", fontWeight: "bold" }}>{"Sex"}</Typography>
-                        <Typography sx={{ width: "100px", fontWeight: "bold" }}>{"Age Group"}</Typography>
-                        <Typography sx={{ width: "150px", fontWeight: "bold" }}>{"Hair Color"}</Typography>
-                        <Typography sx={{ width: "100px", fontWeight: "bold" }}>{"Eye Color"}</Typography>
-                        <Typography sx={{ width: "100px", fontWeight: "bold" }}>{"Height"}</Typography>
-                        <Typography sx={{ width: "100px", fontWeight: "bold" }}>{"Origin"}</Typography>
-                        <Typography sx={{ width: "100px", fontWeight: "bold" }}>{"Release Year"}</Typography>
-                     </Box>)}
-                     {searchHistory.map((item) => <Box key={item.Name} sx={{ display: "flex", gap: 2, justifyContent: "flex-start", marginBottom: "4px" }}>
-                        <Box sx={{width: "60px"}} component={"img"} src={getImgSrc(item.Name)}></Box>
-                        <Typography sx={{ width: "200px", display: "flex", alignItems: "center", padding: "16px", backgroundColor: item.ValidFields?.includes("Name") ? COLORS.quiz.success : COLORS.quiz.secondary }}>{item.Name}</Typography>
-                        <Typography sx={{ width: "100px", display: "flex", alignItems: "center",padding: "16px", backgroundColor: item.ValidFields?.includes("Sex") ? COLORS.quiz.success : COLORS.quiz.secondary }}>{item.Sex}</Typography>
-                        <Typography sx={{ width: "100px", display: "flex", alignItems: "center", gap: 1, padding: "16px", backgroundColor: item.ValidFields?.includes("Age_Group") ? COLORS.quiz.success : COLORS.quiz.secondary }}>
-                           <Typography component={"span"}>
-                              {item.Age_Group}
-                           </Typography>
-                           {checkValueDiff(checkAgeGroup(item.Age_Group) ?? 0, checkAgeGroup(targetChar?.Age_Group ?? "12-18") ?? 0)}
-                        </Typography>
-                        <Typography sx={{ width: "150px", display: "flex", alignItems: "center",padding: "16px", backgroundColor: item.ValidFields?.includes("Hair_Color") ? COLORS.quiz.success : COLORS.quiz.secondary }}>{item.Hair_Color}</Typography>
-                        <Typography sx={{ width: "100px", display: "flex", alignItems: "center",padding: "16px", backgroundColor: item.ValidFields?.includes("Eye_Color") ? COLORS.quiz.success : COLORS.quiz.secondary }}>{item.Eye_Color}</Typography>
-                        <Typography sx={{ width: "100px", display: "flex", alignItems: "center", gap: 2, padding: "16px", backgroundColor: item.ValidFields?.includes("Height") ? COLORS.quiz.success : COLORS.quiz.secondary }}>
-                           <Typography component={"span"}>
-                              {item.Height}
-                           </Typography>
-                           {checkValueDiff(item.Height ?? 0, targetChar?.Height ?? 0)}
-                        </Typography>
-                        <Typography sx={{ width: "100px", display: "flex", alignItems: "center", padding: "16px", flexGrow: 1, backgroundColor: item.ValidFields?.includes("Origin") ? COLORS.quiz.success : COLORS.quiz.secondary }}>{item.Origin}</Typography>
-                        <Typography sx={{ width: "100px", display: "flex", alignItems: "center", padding: "16px", flexGrow: 1, backgroundColor: item.ValidFields?.includes("First_Release_Year") ? COLORS.quiz.success : COLORS.quiz.secondary }}>
-
-                        <Typography component={"span"}>
-                              {item.First_Release_Year}
-                           </Typography>
-                           {checkValueDiff(item.First_Release_Year ?? 0, targetChar?.First_Release_Year ?? 0)}
-                        </Typography>
-
-                     </Box>)}
-                  </Box>
+                  </CustomTabPanel>
                </Box>
+
+               <CustomTabPanel value={value} index={1}>
+                  <Box sx={{ backgroundColor: COLORS.quiz.secondary, padding: 2, borderRadius: "16px" }}>
+                     <Typography>
+
+                        Coming Soon...
+                     </Typography>
+                  </Box>
+               </CustomTabPanel>
+
             </Box>
          </Box >
       </>
