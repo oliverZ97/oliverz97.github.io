@@ -10,6 +10,7 @@ interface ImageCharacterQuizProps {
     charData: Character[];
     animeData: string[];
     getRandomCharacter: () => Character;
+    setStreak: () => void;
 }
 
 interface ImageTarget {
@@ -19,7 +20,10 @@ interface ImageTarget {
     isAnimeCorrect: boolean;
 }
 
-export default function ImageCharacterQuiz({ charData, getRandomCharacter, animeData }: ImageCharacterQuizProps) {
+const BASEPOINTS_ANIME = 1000;
+const BASEPOINTS_CHAR = 1500;
+
+export default function ImageCharacterQuiz({ charData, getRandomCharacter, animeData, setStreak }: ImageCharacterQuizProps) {
 
     const [isSolving, setIsSolving] = useState(false)
     const [elements, setElements] = useState<ImageTarget[]>([
@@ -28,21 +32,36 @@ export default function ImageCharacterQuiz({ charData, getRandomCharacter, anime
         { character: null, anime: '', isCharacterCorrect: false, isAnimeCorrect: false },
         { character: null, anime: '', isCharacterCorrect: false, isAnimeCorrect: false },
     ]);
-    const [targets, setTargets] = useState<Character[] | null>(null)
+    const [targets, setTargets] = useState<Character[] | null>(null);
+    const [score, setScore] = useState(0);
 
     useEffect(() => {
-        if(!targets) {
-            const targetCharacters = getRandomCharacterArray(4);
-            const targets = targetCharacters
-            setTargets(targets)
+        if (!targets) {
+            resetTargets();
         }
     })
 
     useEffect(() => {
-        if(isSolving) {
+        if (isSolving) {
             checkCorrectAnswers();
         }
     }, [isSolving])
+
+    function resetImageQuiz() {
+        setElements([
+            { character: null, anime: '', isCharacterCorrect: false, isAnimeCorrect: false },
+            { character: null, anime: '', isCharacterCorrect: false, isAnimeCorrect: false },
+            { character: null, anime: '', isCharacterCorrect: false, isAnimeCorrect: false },
+            { character: null, anime: '', isCharacterCorrect: false, isAnimeCorrect: false },
+        ])
+        resetTargets();
+    }
+
+    function resetTargets() {
+        const targetCharacters = getRandomCharacterArray(4);
+        const targets = targetCharacters
+        setTargets(targets)
+    }
 
     const handleCharacterChange = (event: SyntheticEvent<Element, Event>, value: Character | null, reason: any, id?: number) => {
         if (typeof id === "number") {
@@ -74,26 +93,39 @@ export default function ImageCharacterQuiz({ charData, getRandomCharacter, anime
     }
 
     function checkCorrectAnswers() {
-        if(targets) {   
+        if (targets) {
             const selectionCopy = [...elements]
-            for(let i = 0; i < targets?.length; i++) {
+            let correctAnime = 0;
+            let correctCharacter = 0;
+            for (let i = 0; i < targets?.length; i++) {
                 const target = targets[i];
                 const selection = selectionCopy[i];
-                if(selection.anime === target.Anime) {
+                if (selection.anime === target.Anime) {
                     selection.isAnimeCorrect = true;
+                    correctAnime++;
                 } else {
                     selection.anime = target.Anime;
                     selection.isAnimeCorrect = false;
                 }
-                if(selection.character?.Name === target.Name) {
+                if (selection.character?.Name === target.Name) {
                     selection.isCharacterCorrect = true;
+                    correctCharacter++
                 } else {
                     selection.character = target;
                     selection.isCharacterCorrect = false;
                 }
             }
-            setElements(selectionCopy)
+            const finalScore = calculatePoints(correctAnime, correctCharacter);
+            setScore(finalScore)
+            setElements(selectionCopy);
+            setStreak();
         }
+    }
+
+    function calculatePoints(animeCounter: number, charCounter: number) {
+        const animePoints = animeCounter * BASEPOINTS_ANIME;
+        const charPoints = charCounter * BASEPOINTS_CHAR
+        return animePoints + charPoints
     }
 
     return (
@@ -102,19 +134,30 @@ export default function ImageCharacterQuiz({ charData, getRandomCharacter, anime
             <Box sx={{ backgroundColor: COLORS.quiz.secondary, padding: 2, borderRadius: "16px" }}>
                 <Box sx={{ display: "flex", gap: 4 }}>
                     {targets && targets.map((char: Character, index) => (<Box key={char.Name} sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 2 }}>
-                        <Box  width={"200px"} component={"img"} src={getImgSrc(char.Name)}></Box>
-                        {!isSolving &&<CharacterAutocomplete width={200} charData={charData} disabled={false} value={elements[index].character} handleSearchChange={handleCharacterChange} id={index}></CharacterAutocomplete>}
+                        <Box width={"200px"} component={"img"} src={getImgSrc(char.Name)}></Box>
+                        {!isSolving && <CharacterAutocomplete width={200} charData={charData} disabled={false} value={elements[index].character} handleSearchChange={handleCharacterChange} id={index}></CharacterAutocomplete>}
                         {!isSolving && <AnimeAutocomplete width={200} animeData={animeData} disabled={false} value={elements[index].anime} handleSearchChange={handleAnimeChange} id={index}></AnimeAutocomplete>}
                         {isSolving && <Box>
-                            <Typography sx={{fontWeight: "bold", color: elements[index].isCharacterCorrect ? COLORS.quiz.correct : COLORS.quiz.failed}}>{elements[index].character?.Name ?? "-"}</Typography>
-                            <Typography sx={{fontWeight: "bold", color: elements[index].isAnimeCorrect ? COLORS.quiz.correct : COLORS.quiz.failed}}>{elements[index].anime === "" ? "-" : elements[index].anime}</Typography>
-                            </Box>}
+                            <Typography sx={{ fontWeight: "bold", color: elements[index].isCharacterCorrect ? COLORS.quiz.correct : COLORS.quiz.failed }}>{elements[index].character?.Name ?? "-"}</Typography>
+                            <Typography sx={{ fontWeight: "bold", color: elements[index].isAnimeCorrect ? COLORS.quiz.correct : COLORS.quiz.failed }}>{elements[index].anime === "" ? "-" : elements[index].anime}</Typography>
+                        </Box>}
                     </Box>))}
                 </Box>
             </Box>
-            <Button sx={{backgroundColor: COLORS.quiz.tertiary, "&:hover": {
-                backgroundColor: COLORS.quiz.tertiary_hover
-            }}} variant="contained" onClick={() => setIsSolving(true)}>Solve</Button>
+            <Box sx={{display: "flex", justifyContent: "space-between"
+            }}>
+            <Button sx={{
+                backgroundColor: COLORS.quiz.tertiary, "&:hover": {
+                    backgroundColor: COLORS.quiz.tertiary_hover
+                }
+            }} variant="contained" onClick={() => setIsSolving(true)}>Solve</Button>
+            {isSolving && <Typography fontSize={"24px"}>🏆 {score}</Typography>}
+            <Button sx={{
+                backgroundColor: COLORS.quiz.tertiary, "&:hover": {
+                    backgroundColor: COLORS.quiz.tertiary_hover
+                }
+            }} variant="contained" onClick={resetImageQuiz}>Reset</Button>
+            </Box>
         </Box>
     )
 }

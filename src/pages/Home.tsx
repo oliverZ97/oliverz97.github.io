@@ -5,7 +5,7 @@ import { COLORS } from "styling/constants";
 
 import bg from "assets/bg.jpeg"
 import { Character } from "common/types";
-import { getImgSrc, isMoreThanADay, sameDate } from "common/quizUtils";
+import { isMoreThanADay, sameDate } from "common/quizUtils";
 import BasicCharacterQuiz from "components/BasicCharacterQuiz/BasicCharacterQuiz";
 import ImageCharacterQuiz from "components/ImageCharacterQuiz/ImageCharacterQuiz";
 
@@ -22,18 +22,6 @@ export interface Score {
 const Home = () => {
    const [charData, setCharData] = useState<Character[]>([]);
    const [animeData, setAnimeData] = useState<string[]>([])
-   const [scores, setScores] = useState<Score[]>([]);
-
-   useEffect(() => {
-      //get scores
-      const scores = localStorage.getItem("scores");
-      if (scores) {
-         const scoreArr = JSON.parse(scores) as Score[];
-
-         const topThree = scoreArr.slice(0, 3);
-         setScores(topThree);
-      }
-   }, [])
 
    useEffect(() => {
       if (charData.length === 0) {
@@ -120,7 +108,7 @@ const Home = () => {
             aria-labelledby={`simple-tab-${index}`}
             {...other}
          >
-            {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+            {value === index && <Box sx={{ paddingY: 3 }}>{children}</Box>}
          </div>
       );
    }
@@ -155,14 +143,6 @@ const Home = () => {
 
             <Box sx={{ position: "absolute", left: 0, top: 0, marginTop: "100px", backgroundColor: COLORS.quiz.secondary, padding: 2, borderTopRightRadius: "16px", borderBottomRightRadius: "16px", width: "320px" }}>
                {animeData.map((item) => <Typography key={item} fontSize={"14px"} color={"black"}>{item}</Typography>)}
-            </Box>
-
-            <Box sx={{ position: "absolute", left: 0, top: 680, marginBottom: 4, width: "320px" }}>
-               <Box sx={{ padding: 2, backgroundColor: COLORS.quiz.main, color: "white", borderTopRightRadius: "16px" }}><Typography>Highscore</Typography></Box>
-               {scores.length > 0 && scores.map(((item, index) => <Box key={index} sx={{ display: "flex", justifyContent: "space-between", gap: 2, paddingX: 2, paddingY: 1, color: "white", backgroundColor: COLORS.quiz.secondary }}>
-                  <Typography>{"Points: " + item.points}</Typography>
-                  <Typography>{"Date: " + item.date}</Typography>
-               </Box>))}
             </Box>
 
             <Box sx={{
@@ -203,12 +183,12 @@ const Home = () => {
                      </Box>
                   </Box>
                   <CustomTabPanel value={value} index={0}>
-                     <BasicCharacterQuiz charData={charData} getRandomCharacter={getRandomCharacter} setStreak={setStreak} setScores={setScores}></BasicCharacterQuiz>
+                     <BasicCharacterQuiz charData={charData} getRandomCharacter={getRandomCharacter} setStreak={setStreak}></BasicCharacterQuiz>
                   </CustomTabPanel>
                </Box>
 
                <CustomTabPanel value={value} index={1}>
-                  <ImageCharacterQuiz animeData={animeData} charData={charData} getRandomCharacter={getRandomCharacter}></ImageCharacterQuiz>
+                  <ImageCharacterQuiz animeData={animeData} charData={charData} getRandomCharacter={getRandomCharacter} setStreak={setStreak}></ImageCharacterQuiz>
                </CustomTabPanel>
 
             </Box>

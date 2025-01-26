@@ -1,15 +1,13 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { RevealCard } from "components/RevealCard";
-import { init } from "i18next";
 import { COLORS } from "styling/constants";
 import CharacterList from "./CharacterList";
 import { SearchBar } from "./SearchBar";
 import { SyntheticEvent, useEffect, useRef, useState } from "react";
 import { Character } from "common/types";
 import JSConfetti from "js-confetti";
-import { compareObjects } from "common/quizUtils";
+import { compareObjects, getImgSrc } from "common/quizUtils";
 import { Score } from "pages/Home";
-
 
 interface HintRef {
     resetHint: () => void;
@@ -23,10 +21,9 @@ interface BasicCharacterQuizProps {
     charData: Character[];
     getRandomCharacter: () => Character;
     setStreak: () => void;
-    setScores: (score: Score[]) => void;
 }
 
-export default function BasicCharacterQuiz({ charData, getRandomCharacter, setStreak, setScores }: BasicCharacterQuizProps) {
+export default function BasicCharacterQuiz({ charData, getRandomCharacter, setStreak }: BasicCharacterQuizProps) {
     const [searchHistory, setSearchHistory] = useState<Character[]>([]);
     const [selectedOption, setSelectedOption] = useState<Character | null>(null);
     const [targetChar, setTargetCharacter] = useState<Character | null>(null);
@@ -34,14 +31,15 @@ export default function BasicCharacterQuiz({ charData, getRandomCharacter, setSt
     const [usedHints, setUsedHints] = useState(0);
     const [isCorrect, setIsCorrect] = useState(false);
     const [localCharData, setLocalCharData] = useState<Character[]>([]);
-    const [reset, setReset] = useState(false);
+    const [scores, setScores] = useState<Score[]>([]);
+
 
     const genreHintRef = useRef<HintRef | null>(null);
     const animeHintRef = useRef<HintRef | null>(null);
     const editorialHintRef = useRef<HintRef | null>(null);
 
     useEffect(() => {
-        if (charData.length > 0) {
+        if (charData.length > 0 && localCharData.length === 0) {
             setLocalCharData(charData)
         }
     }, [localCharData, charData]);
@@ -53,13 +51,6 @@ export default function BasicCharacterQuiz({ charData, getRandomCharacter, setSt
     }, [localCharData, init])
 
     useEffect(() => {
-        if (reset) {
-            setLocalCharData([...charData.sort((a, b) => a.Name < b.Name ? -1 : 1)])
-            setReset(false)
-        }
-    }, [charData, reset])
-
-    useEffect(() => {
         if (usedHints > 0) {
             const reducePoints = usedHints * HINTPOINTS
             setPoints(points - reducePoints < 0 ? 0 : points - reducePoints);
@@ -69,16 +60,26 @@ export default function BasicCharacterQuiz({ charData, getRandomCharacter, setSt
     useEffect(() => {
         if (selectedOption) {
             setTimeout(() => {
-
                 setSelectedOption(null);
             }, 100)
         }
 
     }, [selectedOption]);
 
-    function init() {
-        setIsCorrect(false)
-        setReset(true);
+
+    useEffect(() => {
+       //get scores
+       const scores = localStorage.getItem("scores");
+       if (scores) {
+          const scoreArr = JSON.parse(scores) as Score[];
+ 
+          const topThree = scoreArr.slice(0, 3);
+          setScores(topThree);
+       }
+    }, [])
+
+    function resetQuiz() {
+        setLocalCharData([...charData.sort((a, b) => a.Name < b.Name ? -1 : 1)])
         setSearchHistory([]);
         setPoints(10000);
         setUsedHints(0);
@@ -91,10 +92,15 @@ export default function BasicCharacterQuiz({ charData, getRandomCharacter, setSt
         if (editorialHintRef.current) {
             editorialHintRef?.current.resetHint();
         }
+    }
+
+    function init() {
+        setIsCorrect(false)
+        resetQuiz()
+
         //select random character
         const target = getRandomCharacter();
         setTargetCharacter(target as Character);
-
     }
 
     function removeOptionFromArray(value: Character) {
@@ -117,7 +123,6 @@ export default function BasicCharacterQuiz({ charData, getRandomCharacter, setSt
 
             setSelectedOption(value);
             removeOptionFromArray(value);
-
             setSearchHistory([value, ...searchHistory]);
 
             if (res.all.length + 1 === Object.keys(targetChar).length) {
@@ -169,6 +174,14 @@ export default function BasicCharacterQuiz({ charData, getRandomCharacter, setSt
 
     return (
         <Box>
+            <Box sx={{ position: "absolute", left: 0, top: 680, marginBottom: 4, width: "320px" }}>
+                <Box sx={{ padding: 2, backgroundColor: COLORS.quiz.main, color: "white", borderTopRightRadius: "16px" }}><Typography>Highscore</Typography></Box>
+                {scores.length > 0 && scores.map(((item, index) => <Box key={index} sx={{ display: "flex", justifyContent: "space-between", gap: 2, paddingX: 2, paddingY: 1, color: "white", backgroundColor: COLORS.quiz.secondary }}>
+                    <Typography>{"Points: " + item.points}</Typography>
+                    <Typography>{"Date: " + item.date}</Typography>
+                </Box>))}
+            </Box>
+
             <Box sx={{ backgroundColor: COLORS.quiz.secondary, padding: 2, borderRadius: "16px", marginBottom: 4, display: "flex", gap: 2 }}>
                 <RevealCard onReveal={reducePointsForHint} ref={genreHintRef} cardText={targetChar?.Genre ?? ""} cardTitle="Genre"></RevealCard>
                 <RevealCard onReveal={reducePointsForHint} ref={animeHintRef} cardText={targetChar?.Anime ?? ""} cardTitle="Anime"></RevealCard>
@@ -176,7 +189,13 @@ export default function BasicCharacterQuiz({ charData, getRandomCharacter, setSt
             </Box>
 
             <SearchBar points={points} searchHistory={searchHistory} isCorrect={isCorrect} selectedOption={selectedOption} charData={charData} handleSearchChange={handleSearchChange} init={init}></SearchBar>
+            
+            {targetChar && isCorrect && <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}> <Box sx={{ backgroundColor: COLORS.quiz.success, width: "300px", display: "flex", flexDirection: "column", alignItems: "center", padding: 2, marginTop: 4 }}>
+                <Typography fontWeight={"bold"} fontSize={"24px"}>{targetChar?.Name}</Typography>
+                <Box width={"200px"} component={"img"} src={getImgSrc(targetChar?.Name)}></Box>
+            </Box> </Box>}
             <CharacterList searchHistory={searchHistory} targetChar={targetChar}></CharacterList>
+
         </Box>
     )
 }

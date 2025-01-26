@@ -33,7 +33,7 @@ export default function CharacterList({searchHistory, targetChar}: CharacterList
            <Typography sx={{ width: "100px", fontWeight: "bold" }}>{"Eye Color"}</Typography>
            <Typography sx={{ width: "100px", fontWeight: "bold" }}>{"Height"}</Typography>
            <Typography sx={{ width: "100px", fontWeight: "bold" }}>{"Origin"}</Typography>
-           <Typography sx={{ width: "100px", fontWeight: "bold" }}>{"Release Year"}</Typography>
+           <Typography sx={{ width: "120px", fontWeight: "bold" }}>{"Release Year"}</Typography>
         </Box>)}
         {searchHistory.map((item) => <Box key={item.Name} sx={{ display: "flex", gap: 2, justifyContent: "flex-start", marginBottom: "4px" }}>
            <Box sx={{ width: "60px" }} component={"img"} src={getImgSrc(item.Name)}></Box>
@@ -54,7 +54,7 @@ export default function CharacterList({searchHistory, targetChar}: CharacterList
               {checkValueDiff(item.Height ?? 0, targetChar?.Height ?? 0)}
            </Typography>
            <Typography sx={{ width: "100px", display: "flex", alignItems: "center", padding: "16px", flexGrow: 1, backgroundColor: item.ValidFields?.includes("Origin") ? COLORS.quiz.success : COLORS.quiz.secondary }}>{item.Origin}</Typography>
-           <Typography sx={{ width: "100px", display: "flex", alignItems: "center", padding: "16px", flexGrow: 1, backgroundColor: item.ValidFields?.includes("First_Release_Year") ? COLORS.quiz.success : COLORS.quiz.secondary }}>
+           <Typography sx={{ width: "120px", display: "flex", alignItems: "center", padding: "16px", flexGrow: 1, backgroundColor: item.ValidFields?.includes("First_Release_Year") ? COLORS.quiz.success : COLORS.quiz.secondary }}>
 
               <Typography component={"span"}>
                  {item.First_Release_Year}
