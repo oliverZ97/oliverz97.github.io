@@ -5,12 +5,12 @@ import { COLORS } from "styling/constants";
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
-interface AnimeCharacterQuizProps {
+interface CharacterListProps {
     searchHistory: Character[];
     targetChar: Character | null;
 }
 
-export default function AnimeCharacterQuiz({searchHistory, targetChar}: AnimeCharacterQuizProps) {
+export default function CharacterList({searchHistory, targetChar}: CharacterListProps) {
 
     function checkValueDiff(value1: number, value2: number) {
         if (value1 > value2) {

@@ -1,6 +1,6 @@
-import { Box, Typography, Autocomplete, TextField, Button } from "@mui/material";
-import { getImgSrc } from "common/quizUtils";
+import { Box, Typography, Button } from "@mui/material";
 import { Character } from "common/types";
+import { CharacterAutocomplete } from "components/CharacterAutocomplete";
 import { COLORS } from "styling/constants";
 
 interface SearchBarProps {
@@ -21,26 +21,7 @@ export function SearchBar({points, searchHistory, isCorrect, selectedOption, cha
            <Typography sx={{ color: "white" }}>{"Points: " + points}</Typography>
            <Typography sx={{ color: "white" }}>{"Tries: " + searchHistory.length}</Typography>
         </Box>
-        <Autocomplete
-           disablePortal
-           options={charData}
-           sx={{ width: 300, backgroundColor: "white", borderRadius: "8px" }}
-           renderInput={(params) => <TextField {...params} label="Character" />}
-           renderOption={(props, option) => (
-              <Box component="li" sx={{ '& > *': { m: 0.5 } }} {...props}>
-                 <Box sx={{ width: "40px" }} component={"img"} src={getImgSrc(option.Name)}></Box>
-                 <Typography sx={{ marginLeft: 2 }} variant="body2">{option.Name}</Typography>
-              </Box>
-           )}
-           onChange={(ev, value, reason) => handleSearchChange(ev, value, reason)}
-           clearOnBlur
-           disabled={isCorrect}
-           value={selectedOption}
-           filterOptions={(options, { inputValue }) => {
-              // Only filter if there is at least one character in the input
-              return inputValue !== '' ? options.filter((option) => option.Name.toLowerCase().includes(inputValue.toLowerCase())) : [];
-           }}
-        />
+        <CharacterAutocomplete charData={charData} disabled={isCorrect} value={selectedOption} handleSearchChange={handleSearchChange} showPreviewImage></CharacterAutocomplete>
         <Button onClick={init} sx={{
            backgroundColor: COLORS.quiz.main, color: "white", 
            "&:hover": {

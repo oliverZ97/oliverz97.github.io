@@ -1,0 +1,182 @@
+import { Box } from "@mui/material";
+import { RevealCard } from "components/RevealCard";
+import { init } from "i18next";
+import { COLORS } from "styling/constants";
+import CharacterList from "./CharacterList";
+import { SearchBar } from "./SearchBar";
+import { SyntheticEvent, useEffect, useRef, useState } from "react";
+import { Character } from "common/types";
+import JSConfetti from "js-confetti";
+import { compareObjects } from "common/quizUtils";
+import { Score } from "pages/Home";
+
+
+interface HintRef {
+    resetHint: () => void;
+}
+
+const BASEPOINTS = 200;
+const HINTPOINTS = 750;
+const REDUCEFACTOR = 10;
+
+interface BasicCharacterQuizProps {
+    charData: Character[];
+    getRandomCharacter: () => Character;
+    setStreak: () => void;
+    setScores: (score: Score[]) => void;
+}
+
+export default function BasicCharacterQuiz({ charData, getRandomCharacter, setStreak, setScores }: BasicCharacterQuizProps) {
+    const [searchHistory, setSearchHistory] = useState<Character[]>([]);
+    const [selectedOption, setSelectedOption] = useState<Character | null>(null);
+    const [targetChar, setTargetCharacter] = useState<Character | null>(null);
+    const [points, setPoints] = useState(10000);
+    const [usedHints, setUsedHints] = useState(0);
+    const [isCorrect, setIsCorrect] = useState(false);
+    const [localCharData, setLocalCharData] = useState<Character[]>([]);
+    const [reset, setReset] = useState(false);
+
+    const genreHintRef = useRef<HintRef | null>(null);
+    const animeHintRef = useRef<HintRef | null>(null);
+    const editorialHintRef = useRef<HintRef | null>(null);
+
+    useEffect(() => {
+        if (charData.length > 0) {
+            setLocalCharData(charData)
+        }
+    }, [localCharData, charData]);
+
+    useEffect(() => {
+        if (localCharData.length > 0 && !targetChar) {
+            init();
+        }
+    }, [localCharData, init])
+
+    useEffect(() => {
+        if (reset) {
+            setLocalCharData([...charData.sort((a, b) => a.Name < b.Name ? -1 : 1)])
+            setReset(false)
+        }
+    }, [charData, reset])
+
+    useEffect(() => {
+        if (usedHints > 0) {
+            const reducePoints = usedHints * HINTPOINTS
+            setPoints(points - reducePoints < 0 ? 0 : points - reducePoints);
+        }
+    }, [usedHints])
+
+    useEffect(() => {
+        if (selectedOption) {
+            setTimeout(() => {
+
+                setSelectedOption(null);
+            }, 100)
+        }
+
+    }, [selectedOption]);
+
+    function init() {
+        setIsCorrect(false)
+        setReset(true);
+        setSearchHistory([]);
+        setPoints(10000);
+        setUsedHints(0);
+        if (genreHintRef.current) {
+            genreHintRef.current.resetHint();
+        }
+        if (animeHintRef.current) {
+            animeHintRef?.current.resetHint();
+        }
+        if (editorialHintRef.current) {
+            editorialHintRef?.current.resetHint();
+        }
+        //select random character
+        const target = getRandomCharacter();
+        setTargetCharacter(target as Character);
+
+    }
+
+    function removeOptionFromArray(value: Character) {
+        const index = localCharData.indexOf(value);
+        const tempArray = localCharData;
+        tempArray.splice(index, 1);
+        setLocalCharData(tempArray);
+    }
+
+    function calculateSelectionPoints(correctFieldCount: number) {
+        const baseValue = ((Math.max(searchHistory.length, 1)) * BASEPOINTS);
+        let roundPoints = baseValue - correctFieldCount * REDUCEFACTOR;
+        setPoints(points - roundPoints < 0 ? 0 : points - roundPoints);
+    }
+
+    function handleSearchChange(event: SyntheticEvent<Element, Event>, value: Character | null, reason: any) {
+        if (value && targetChar) {
+            const res = compareObjects(value, targetChar);
+            value.ValidFields = res.all;
+
+            setSelectedOption(value);
+            removeOptionFromArray(value);
+
+            setSearchHistory([value, ...searchHistory]);
+
+            if (res.all.length + 1 === Object.keys(targetChar).length) {
+                const jsConfetti = new JSConfetti()
+                jsConfetti.addConfetti({
+                    emojis: ['🎉', '🍛', '🍣', '✨', '🍜', '🌸', '🍙'],
+                    emojiSize: 30,
+                })
+
+                setIsCorrect(true)
+
+                //Set Highscore
+                const scoreObj = {
+                    points: points,
+                    date: new Date().toLocaleString("de-DE", { year: "numeric", month: "2-digit", day: "2-digit" })
+                }
+
+                let localScores = localStorage.getItem("scores");
+                let scores;
+                if (localScores) {
+                    scores = JSON.parse(localScores);
+                    scores.push(scoreObj)
+                } else[
+                    scores = [
+                        scoreObj
+                    ]
+                ]
+
+                //sort
+                scores.sort((a: Score, b: Score) => a.points < b.points ? 1 : -1)
+                setScores(scores.slice(0, 3))
+                const scoreString = JSON.stringify(scores);
+                localStorage.setItem("scores", scoreString);
+                setStreak()
+
+                return;
+            }
+
+
+            //calculate point reduce
+            calculateSelectionPoints(res.short.length)
+
+        }
+    }
+
+    function reducePointsForHint() {
+        setUsedHints(usedHints + 1);
+    }
+
+    return (
+        <Box>
+            <Box sx={{ backgroundColor: COLORS.quiz.secondary, padding: 2, borderRadius: "16px", marginBottom: 4, display: "flex", gap: 2 }}>
+                <RevealCard onReveal={reducePointsForHint} ref={genreHintRef} cardText={targetChar?.Genre ?? ""} cardTitle="Genre"></RevealCard>
+                <RevealCard onReveal={reducePointsForHint} ref={animeHintRef} cardText={targetChar?.Anime ?? ""} cardTitle="Anime"></RevealCard>
+                <RevealCard onReveal={reducePointsForHint} ref={editorialHintRef} cardText={targetChar?.Editorial_Staff_Hint ?? ""} cardTitle="Editoral Staff Hint"></RevealCard>
+            </Box>
+
+            <SearchBar points={points} searchHistory={searchHistory} isCorrect={isCorrect} selectedOption={selectedOption} charData={charData} handleSearchChange={handleSearchChange} init={init}></SearchBar>
+            <CharacterList searchHistory={searchHistory} targetChar={targetChar}></CharacterList>
+        </Box>
+    )
+}

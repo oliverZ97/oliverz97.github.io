@@ -31,7 +31,7 @@ export function isMoreThanADay(date1: Date, date2: Date) {
  
     export function getImgSrc(name: string) {
        const filename = name.toLowerCase().replaceAll(" ", "_")
-       const basepath = "assets/characters/"
+       const basepath = "/src/assets/characters/"
  
        return basepath + filename + ".webp"
     }
