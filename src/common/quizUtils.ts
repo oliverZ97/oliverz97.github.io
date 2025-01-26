@@ -31,9 +31,7 @@ export function isMoreThanADay(date1: Date, date2: Date) {
  
     export function getImgSrc(name: string) {
        const filename = name.toLowerCase().replaceAll(" ", "_")
-
-       console.log(import.meta.env.VITE_ENVIRONMENT)
-       const basepath = import.meta.env.VITE_ENVIRONMENT === "dev" ? "/src/assets/characters/" : "/docs/assets/characters/"
+       const basepath = "/docs/assets/characters/"
  
        return basepath + filename + ".webp"
     }
