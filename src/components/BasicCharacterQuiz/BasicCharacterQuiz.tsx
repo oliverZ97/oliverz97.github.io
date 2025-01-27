@@ -190,7 +190,7 @@ export default function BasicCharacterQuiz({ charData, getRandomCharacter, setSt
 
             <SearchBar points={points} searchHistory={searchHistory} isCorrect={isCorrect} selectedOption={selectedOption} charData={charData} handleSearchChange={handleSearchChange} init={init}></SearchBar>
             
-            {targetChar && isCorrect && <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}> <Box sx={{ backgroundColor: COLORS.quiz.success, width: "300px", display: "flex", flexDirection: "column", alignItems: "center", padding: 2, marginTop: 4 }}>
+            {targetChar && isCorrect && <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}> <Box sx={{ backgroundColor: COLORS.quiz.success, width: "300px", display: "flex", flexDirection: "column", alignItems: "center", paddingX: 2, paddingY: 3, marginTop: 4, borderRadius: "16px" }}>
                 <Typography fontWeight={"bold"} fontSize={"24px"}>{targetChar?.Name}</Typography>
                 <Box width={"200px"} component={"img"} src={getImgSrc(targetChar?.Name)}></Box>
             </Box> </Box>}
