@@ -55,6 +55,8 @@ export default function ImageCharacterQuiz({ charData, getRandomCharacter, anime
             { character: null, anime: '', isCharacterCorrect: false, isAnimeCorrect: false },
         ])
         resetTargets();
+        setScore(0);
+        setIsSolving(false);
     }
 
     function resetTargets() {

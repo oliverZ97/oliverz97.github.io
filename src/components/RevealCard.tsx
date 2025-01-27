@@ -25,7 +25,7 @@ export const RevealCard = forwardRef(({ cardText, cardTitle, onReveal }: RevealC
     }));
 
     return (
-        <Box sx={{ position: "relative", cursor: "pointer", minWidth: "300px" }} onClick={() => setRevealHint(true)}>
+        <Box sx={{ position: "relative", cursor: "pointer", minWidth: "300px", width: "100%" }} onClick={() => setRevealHint(true)}>
             <Box sx={{ padding: 2, backgroundColor: "#9a81d4", borderRadius: "8px", width: "100%" }}>
                 <Typography>
                     {cardText}
