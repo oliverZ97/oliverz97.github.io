@@ -131,7 +131,7 @@ export default function ImageCharacterQuiz({ charData, getRandomCharacter, anime
     }
 
     return (
-        <Box sx={{ backgroundColor: COLORS.quiz.secondary, padding: 4, borderRadius: "16px", border: `1px solid ${COLORS.quiz.light}` }}>
+        <Box sx={{ backgroundColor: COLORS.quiz.secondary, padding: 4, borderRadius: "16px", border: `1px solid ${COLORS.quiz.light}`, display: "flex", flexDirection: "column", alignItems: "center" }}>
 
             <Box >
                 <Box sx={{ display: "flex", gap: 4 }}>
@@ -147,7 +147,7 @@ export default function ImageCharacterQuiz({ charData, getRandomCharacter, anime
                 </Box>
             </Box>
             <Box sx={{
-                display: "flex", justifyContent: "space-between", marginTop: 4
+                display: "flex", justifyContent: "space-between", marginTop: 4, width: "100%"
             }}>
                 <Button sx={{
                     color: COLORS.quiz.tertiary,

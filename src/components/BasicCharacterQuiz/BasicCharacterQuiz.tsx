@@ -174,15 +174,17 @@ export default function BasicCharacterQuiz({ charData, getRandomCharacter, setSt
 
     return (
         <Box>
-            <Box sx={{ borderRadius: "16px", backgroundColor: COLORS.quiz.secondary, marginBottom: 4, border: `1px solid ${COLORS.quiz.light}`, display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <Box sx={{ padding: 2, color: "white", }}>
-                    <Typography>Highscore</Typography>
-                </Box>
-                {scores.length > 0 && scores.map(((item, index) => <Box key={index} sx={{ display: "flex", justifyContent: "space-between", gap: 2, paddingX: 2, paddingY: 1, color: "white", backgroundColor: COLORS.quiz.secondary }}>
-                    <Typography>{"Points: " + item.points}</Typography>
-                    <Typography>{"Date: " + item.date}</Typography>
+            {scores.length > 0 && <Box sx={{ borderRadius: "16px", backgroundColor: COLORS.quiz.secondary, marginBottom: 4, border: `1px solid ${COLORS.quiz.light}`, display: "flex", flexDirection: "column", alignItems: "center", paddingY: 2 }}>
+                <Box sx={{display: "flex"}}>
+                {scores.map(((item, index) => <Box key={index} sx={{ display: "flex", flexDirection: "column", alignItems: "center", paddingX: 2, color: "white", backgroundColor: COLORS.quiz.secondary }}>
+                    {index === 0 && <Typography fontSize={"24px"}>🏆</Typography>}
+                    {index === 1 && <Typography fontSize={"24px"}>🥈</Typography>}
+                    {index === 2 && <Typography fontSize={"24px"}>🥉</Typography>}
+                    <Typography fontSize={"12px"}>{"Points: " + item.points}</Typography>
+                    <Typography fontSize={"12px"}>{"Date: " + item.date}</Typography>
                 </Box>))}
-            </Box>
+                </Box>
+            </Box>}
 
             <Box sx={{ backgroundColor: COLORS.quiz.secondary, padding: 2, borderRadius: "16px", marginBottom: 4, display: "flex", gap: 2, justifyContent: "space-between", border: `1px solid ${COLORS.quiz.light}` }}>
                 <RevealCard onReveal={reducePointsForHint} ref={genreHintRef} cardText={targetChar?.Genre ?? ""} cardTitle="Genre"></RevealCard>

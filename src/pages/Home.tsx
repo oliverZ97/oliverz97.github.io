@@ -141,9 +141,9 @@ const Home = () => {
             position: "relative"
          }}>
 
-            <Box sx={{ position: "absolute", left: 0, top: 0, marginTop: "100px", backgroundColor: COLORS.quiz.secondary, padding: 2, borderTopRightRadius: "16px", borderBottomRightRadius: "16px", width: "320px", border: `1px solid ${COLORS.quiz.light}`, borderLeft: "none", zIndex: 5 }}>
+            <Box sx={{ position: "absolute", left: 0, top: 0, marginTop: "100px", backgroundColor: COLORS.quiz.secondary, padding: 2, borderTopRightRadius: "16px", borderBottomRightRadius: "16px", width: "300px", border: `1px solid ${COLORS.quiz.light}`, borderLeft: "none", zIndex: 5 }}>
                <Typography sx={{ fontSize: "24px", fontWeight: "bold", marginBottom: 2, color: COLORS.quiz.primary_text }}>Current Anime Index</Typography>
-               {animeData.map((item) => <Typography key={item} fontSize={"14px"} color={COLORS.quiz.primary_text}>{item}</Typography>)}
+               {animeData.map((item) => <Typography key={item} fontSize={"12px"} color={COLORS.quiz.primary_text}>{item}</Typography>)}
             </Box>
 
             <Box sx={{
@@ -154,7 +154,7 @@ const Home = () => {
             }}>
 
 
-               <Box sx={{ marginTop: "300px", width: "60%", backgroundColor: COLORS.quiz.secondary, borderRadius: "16px", border: `1px solid ${COLORS.quiz.light}`, marginBottom: 4 }}>
+               <Box sx={{ marginTop: "100px", width: "60%", backgroundColor: COLORS.quiz.secondary, borderRadius: "16px", border: `1px solid ${COLORS.quiz.light}`, marginBottom: 4 }}>
                   <Box sx={{ display: "flex", justifyContent: "space-between" }}>
 
                      <Box>

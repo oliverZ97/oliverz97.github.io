@@ -4,7 +4,7 @@ export const DIALOG_PAPER_MIN_WIDTH = 600;
 
 export const COLORS = {
   quiz: {
-    main: "#227c9d",
+    main: "#318eb0",
     secondary: "#006494",
     tertiary: "#00a6fb",
     tertiary_hover: lighten("#00a6fb", 0.2),
