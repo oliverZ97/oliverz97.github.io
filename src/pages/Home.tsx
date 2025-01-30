@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import characterData from "data/character_data.json";
 import { COLORS } from "styling/constants";
 
-import bg from "assets/bg.jpeg"
+import bg from "assets/bg.jpg"
 import { Character } from "common/types";
 import { isMoreThanADay, sameDate } from "common/quizUtils";
 import BasicCharacterQuiz from "components/BasicCharacterQuiz/BasicCharacterQuiz";
@@ -131,7 +131,7 @@ const Home = () => {
 
 
          <Box sx={{
-            backgroundColor: COLORS.quiz.tertiary,
+            backgroundColor: COLORS.quiz.background,
             background: `url(${bg})`,
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
@@ -141,8 +141,9 @@ const Home = () => {
             position: "relative"
          }}>
 
-            <Box sx={{ position: "absolute", left: 0, top: 0, marginTop: "100px", backgroundColor: COLORS.quiz.secondary, padding: 2, borderTopRightRadius: "16px", borderBottomRightRadius: "16px", width: "320px" }}>
-               {animeData.map((item) => <Typography key={item} fontSize={"14px"} color={"black"}>{item}</Typography>)}
+            <Box sx={{ position: "absolute", left: 0, top: 0, marginTop: "100px", backgroundColor: COLORS.quiz.secondary, padding: 2, borderTopRightRadius: "16px", borderBottomRightRadius: "16px", width: "320px", border: `1px solid ${COLORS.quiz.light}`, borderLeft: "none", zIndex: 5 }}>
+               <Typography sx={{ fontSize: "24px", fontWeight: "bold", marginBottom: 2, color: COLORS.quiz.primary_text }}>Current Anime Index</Typography>
+               {animeData.map((item) => <Typography key={item} fontSize={"14px"} color={COLORS.quiz.primary_text}>{item}</Typography>)}
             </Box>
 
             <Box sx={{
@@ -153,43 +154,47 @@ const Home = () => {
             }}>
 
 
-               <Box sx={{ marginTop: "300px", width: "60%" }}>
-                  <Box sx={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+               <Box sx={{ marginTop: "300px", width: "60%", backgroundColor: COLORS.quiz.secondary, borderRadius: "16px", border: `1px solid ${COLORS.quiz.light}`, marginBottom: 4 }}>
+                  <Box sx={{ display: "flex", justifyContent: "space-between" }}>
 
-                     <Box sx={{ borderBottom: 1, borderColor: 'divider', backgroundColor: COLORS.quiz.secondary, borderRadius: "16px" }}>
+                     <Box>
                         <Tabs sx={{
+
                            '& .MuiTabs-indicator': {
                               backgroundColor: COLORS.quiz.main,
                            },
                         }} value={value} onChange={handleChange} aria-label="basic tabs example">
                            <Tab sx={{
+                              color: COLORS.quiz.light,
                               "&.Mui-selected": {
                                  color: "white",
                               },
-                           }} 
-                           label="Character Quiz" {...a11yProps(0)} />
+                           }}
+                              label="Character Quiz" {...a11yProps(0)} />
                            <Tab sx={{
                               "&.Mui-selected": {
                                  color: "white",
                               },
-                           }} 
-                           label="Character Image Quiz" {...a11yProps(1)} />
+                           }}
+                              label="Character Image Quiz" {...a11yProps(1)} />
                         </Tabs>
                      </Box>
 
 
-                     <Box sx={{ backgroundColor: COLORS.quiz.secondary, borderRadius: "16px", padding: 2 }}>
-                        <Typography sx={{ filter: !getStreak() || getStreak() && getStreak().streak < 1 ? "grayscale(100%)" : "grayscale(0%)" }} fontSize={32}>{`🔥 ${getStreak()?.streak ?? 0}`}</Typography>
+                     <Box sx={{ padding: 2 }}>
+                        <Typography sx={{ filter: !getStreak() || getStreak() && getStreak().streak < 1 ? "grayscale(100%)" : "grayscale(0%)", color: COLORS.quiz.primary_text }} fontSize={32}>{`🔥 ${getStreak()?.streak ?? 0}`}</Typography>
                      </Box>
                   </Box>
+               </Box>
+               <Box sx={{ width: "60%" }}>
                   <CustomTabPanel value={value} index={0}>
                      <BasicCharacterQuiz charData={charData} getRandomCharacter={getRandomCharacter} setStreak={setStreak}></BasicCharacterQuiz>
                   </CustomTabPanel>
-               </Box>
 
-               <CustomTabPanel value={value} index={1}>
-                  <ImageCharacterQuiz animeData={animeData} charData={charData} getRandomCharacter={getRandomCharacter} setStreak={setStreak}></ImageCharacterQuiz>
-               </CustomTabPanel>
+                  <CustomTabPanel value={value} index={1}>
+                     <ImageCharacterQuiz animeData={animeData} charData={charData} getRandomCharacter={getRandomCharacter} setStreak={setStreak}></ImageCharacterQuiz>
+                  </CustomTabPanel>
+               </Box>
 
             </Box>
          </Box >

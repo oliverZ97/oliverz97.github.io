@@ -131,34 +131,40 @@ export default function ImageCharacterQuiz({ charData, getRandomCharacter, anime
     }
 
     return (
-        <Box sx={{ backgroundColor: COLORS.quiz.secondary, padding: 2, borderRadius: "16px" }}>
+        <Box sx={{ backgroundColor: COLORS.quiz.secondary, padding: 4, borderRadius: "16px", border: `1px solid ${COLORS.quiz.light}` }}>
 
-            <Box sx={{ backgroundColor: COLORS.quiz.secondary, padding: 2, borderRadius: "16px" }}>
+            <Box >
                 <Box sx={{ display: "flex", gap: 4 }}>
-                    {targets && targets.map((char: Character, index) => (<Box key={char.Name} sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 2 }}>
+                    {targets && targets.map((char: Character, index) => (<Box key={char.Name} sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "center", gap: 2 }}>
                         <Box width={"200px"} component={"img"} src={getImgSrc(char.Name)}></Box>
                         {!isSolving && <CharacterAutocomplete width={200} charData={charData} disabled={false} value={elements[index].character} handleSearchChange={handleCharacterChange} id={index}></CharacterAutocomplete>}
                         {!isSolving && <AnimeAutocomplete width={200} animeData={animeData} disabled={false} value={elements[index].anime} handleSearchChange={handleAnimeChange} id={index}></AnimeAutocomplete>}
-                        {isSolving && <Box>
-                            <Typography sx={{ fontWeight: "bold", color: elements[index].isCharacterCorrect ? COLORS.quiz.correct : COLORS.quiz.failed }}>{elements[index].character?.Name ?? "-"}</Typography>
-                            <Typography sx={{ fontWeight: "bold", color: elements[index].isAnimeCorrect ? COLORS.quiz.correct : COLORS.quiz.failed }}>{elements[index].anime === "" ? "-" : elements[index].anime}</Typography>
+                        {isSolving && <Box sx={{ width: 200 }}>
+                            <Typography sx={{ fontWeight: "bold", color: elements[index].isCharacterCorrect ? COLORS.quiz.correct : COLORS.quiz.failed, marginBottom: 1 }}>{elements[index].character?.Name ?? "-"}</Typography>
+                            <Typography sx={{ fontWeight: "bold", color: elements[index].isAnimeCorrect ? COLORS.quiz.correct : COLORS.quiz.failed, whiteSpace: "break-spaces" }}>{elements[index].anime === "" ? "-" : elements[index].anime}</Typography>
                         </Box>}
                     </Box>))}
                 </Box>
             </Box>
-            <Box sx={{display: "flex", justifyContent: "space-between"
+            <Box sx={{
+                display: "flex", justifyContent: "space-between", marginTop: 4
             }}>
-            <Button sx={{
-                backgroundColor: COLORS.quiz.tertiary, "&:hover": {
-                    backgroundColor: COLORS.quiz.tertiary_hover
-                }
-            }} variant="contained" onClick={() => setIsSolving(true)}>Solve</Button>
-            {isSolving && <Typography fontSize={"24px"}>🏆 {score}</Typography>}
-            <Button sx={{
-                backgroundColor: COLORS.quiz.tertiary, "&:hover": {
-                    backgroundColor: COLORS.quiz.tertiary_hover
-                }
-            }} variant="contained" onClick={resetImageQuiz}>Reset</Button>
+                <Button sx={{
+                    color: COLORS.quiz.tertiary,
+                    borderColor: COLORS.quiz.tertiary,
+                    "&:hover": {
+                        fontWeight: "bold",
+                        borderColor: COLORS.quiz.tertiary,
+                    }
+                }} variant="outlined" onClick={resetImageQuiz}>Reset</Button>
+                {isSolving && <Typography fontSize={"24px"}>🏆 {score}</Typography>}
+                <Button sx={{
+                    backgroundColor: COLORS.quiz.tertiary, "&:hover": {
+                        backgroundColor: COLORS.quiz.tertiary_hover
+                    }
+                }} variant="contained" onClick={() => setIsSolving(true)}>Solve</Button>
+
+
             </Box>
         </Box>
     )

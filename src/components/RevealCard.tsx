@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material"
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { COLORS } from "styling/constants";
 
 interface RevealCardProps {
     cardText: string;
@@ -26,8 +27,8 @@ export const RevealCard = forwardRef(({ cardText, cardTitle, onReveal }: RevealC
 
     return (
         <Box sx={{ position: "relative", cursor: "pointer", minWidth: "300px", width: "100%" }} onClick={() => setRevealHint(true)}>
-            <Box sx={{ padding: 2, backgroundColor: "#9a81d4", borderRadius: "8px", width: "100%" }}>
-                <Typography>
+            <Box sx={{ padding: 2, backgroundColor: COLORS.quiz.secondary, borderRadius: "8px", width: "100%" }}>
+                <Typography sx={{ color: COLORS.quiz.primary_text }}>
                     {cardText}
                 </Typography>
             </Box>

@@ -68,14 +68,14 @@ export default function BasicCharacterQuiz({ charData, getRandomCharacter, setSt
 
 
     useEffect(() => {
-       //get scores
-       const scores = localStorage.getItem("scores");
-       if (scores) {
-          const scoreArr = JSON.parse(scores) as Score[];
- 
-          const topThree = scoreArr.slice(0, 3);
-          setScores(topThree);
-       }
+        //get scores
+        const scores = localStorage.getItem("scores");
+        if (scores) {
+            const scoreArr = JSON.parse(scores) as Score[];
+
+            const topThree = scoreArr.slice(0, 3);
+            setScores(topThree);
+        }
     }, [])
 
     function resetQuiz() {
@@ -174,26 +174,29 @@ export default function BasicCharacterQuiz({ charData, getRandomCharacter, setSt
 
     return (
         <Box>
-            <Box sx={{ position: "absolute", left: 0, top: 680, marginBottom: 4, width: "320px" }}>
-                <Box sx={{ padding: 2, backgroundColor: COLORS.quiz.main, color: "white", borderTopRightRadius: "16px" }}><Typography>Highscore</Typography></Box>
+            <Box sx={{ borderRadius: "16px", backgroundColor: COLORS.quiz.secondary, marginBottom: 4, border: `1px solid ${COLORS.quiz.light}`, display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <Box sx={{ padding: 2, color: "white", }}>
+                    <Typography>Highscore</Typography>
+                </Box>
                 {scores.length > 0 && scores.map(((item, index) => <Box key={index} sx={{ display: "flex", justifyContent: "space-between", gap: 2, paddingX: 2, paddingY: 1, color: "white", backgroundColor: COLORS.quiz.secondary }}>
                     <Typography>{"Points: " + item.points}</Typography>
                     <Typography>{"Date: " + item.date}</Typography>
                 </Box>))}
             </Box>
 
-            <Box sx={{ backgroundColor: COLORS.quiz.secondary, padding: 2, borderRadius: "16px", marginBottom: 4, display: "flex", gap: 2, justifyContent: "space-between" }}>
+            <Box sx={{ backgroundColor: COLORS.quiz.secondary, padding: 2, borderRadius: "16px", marginBottom: 4, display: "flex", gap: 2, justifyContent: "space-between", border: `1px solid ${COLORS.quiz.light}` }}>
                 <RevealCard onReveal={reducePointsForHint} ref={genreHintRef} cardText={targetChar?.Genre ?? ""} cardTitle="Genre"></RevealCard>
                 <RevealCard onReveal={reducePointsForHint} ref={animeHintRef} cardText={targetChar?.Anime ?? ""} cardTitle="Anime"></RevealCard>
                 <RevealCard onReveal={reducePointsForHint} ref={editorialHintRef} cardText={targetChar?.Editorial_Staff_Hint ?? ""} cardTitle="Editoral Staff Hint"></RevealCard>
             </Box>
 
             <SearchBar points={points} searchHistory={searchHistory} isCorrect={isCorrect} selectedOption={selectedOption} charData={charData} handleSearchChange={handleSearchChange} init={init}></SearchBar>
-            
-            {targetChar && isCorrect && <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}> <Box sx={{ backgroundColor: COLORS.quiz.success, width: "300px", display: "flex", flexDirection: "column", alignItems: "center", paddingX: 2, paddingY: 3, marginTop: 4, borderRadius: "16px" }}>
-                <Typography fontWeight={"bold"} fontSize={"24px"}>{targetChar?.Name}</Typography>
-                <Box width={"200px"} component={"img"} src={getImgSrc(targetChar?.Name)}></Box>
-            </Box> </Box>}
+
+            {targetChar && isCorrect && <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <Box sx={{ backgroundColor: COLORS.quiz.success, width: "300px", display: "flex", flexDirection: "column", alignItems: "center", paddingX: 2, paddingY: 3, marginTop: 4, borderRadius: "16px" }}>
+                    <Typography fontWeight={"bold"} fontSize={"24px"}>{targetChar?.Name}</Typography>
+                    <Box width={"200px"} component={"img"} src={getImgSrc(targetChar?.Name)}></Box>
+                </Box> </Box>}
             <CharacterList searchHistory={searchHistory} targetChar={targetChar}></CharacterList>
 
         </Box>
