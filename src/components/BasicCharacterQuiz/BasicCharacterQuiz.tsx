@@ -192,7 +192,7 @@ export default function BasicCharacterQuiz({ charData, getRandomCharacter, setSt
                 <RevealCard onReveal={reducePointsForHint} ref={editorialHintRef} cardText={targetChar?.Editorial_Staff_Hint ?? ""} cardTitle="Editoral Staff Hint"></RevealCard>
             </Box>
 
-            <SearchBar points={points} searchHistory={searchHistory} isCorrect={isCorrect} selectedOption={selectedOption} charData={charData} handleSearchChange={handleSearchChange} init={init}></SearchBar>
+            <SearchBar points={points} searchHistory={searchHistory} isCorrect={isCorrect} selectedOption={selectedOption} charData={localCharData} handleSearchChange={handleSearchChange} init={init}></SearchBar>
 
             {targetChar && isCorrect && <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <Box sx={{ backgroundColor: COLORS.quiz.success, width: "300px", display: "flex", flexDirection: "column", alignItems: "center", paddingX: 2, paddingY: 3, marginTop: 4, borderRadius: "16px" }}>
