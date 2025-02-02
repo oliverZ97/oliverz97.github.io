@@ -3,14 +3,14 @@ import { getImgSrc } from "common/quizUtils";
 import { Character } from "common/types";
 import { AnimeAutocomplete } from "components/AnimeAutocomplete";
 import { CharacterAutocomplete } from "components/CharacterAutocomplete";
-import { SyntheticEvent, useEffect, useState } from "react";
+import { DayStreak, StreakRef } from "components/Streak";
+import { SyntheticEvent, useEffect, useRef, useState } from "react";
 import { COLORS } from "styling/constants";
 
 interface ImageCharacterQuizProps {
     charData: Character[];
     animeData: string[];
     getRandomCharacter: () => Character;
-    setStreak: () => void;
 }
 
 interface ImageTarget {
@@ -23,7 +23,7 @@ interface ImageTarget {
 const BASEPOINTS_ANIME = 1000;
 const BASEPOINTS_CHAR = 1500;
 
-export default function ImageCharacterQuiz({ charData, getRandomCharacter, animeData, setStreak }: ImageCharacterQuizProps) {
+export default function ImageCharacterQuiz({ charData, getRandomCharacter, animeData }: ImageCharacterQuizProps) {
 
     const [isSolving, setIsSolving] = useState(false)
     const [elements, setElements] = useState<ImageTarget[]>([
@@ -34,6 +34,9 @@ export default function ImageCharacterQuiz({ charData, getRandomCharacter, anime
     ]);
     const [targets, setTargets] = useState<Character[] | null>(null);
     const [score, setScore] = useState(0);
+
+    const streakRef = useRef<StreakRef | null>(null);
+    
 
     useEffect(() => {
         if (!targets) {
@@ -120,7 +123,9 @@ export default function ImageCharacterQuiz({ charData, getRandomCharacter, anime
             const finalScore = calculatePoints(correctAnime, correctCharacter);
             setScore(finalScore)
             setElements(selectionCopy);
-            setStreak();
+            if(streakRef) {
+                streakRef.current?.setStreak();
+            }
         }
     }
 
@@ -131,8 +136,9 @@ export default function ImageCharacterQuiz({ charData, getRandomCharacter, anime
     }
 
     return (
-        <Box sx={{ backgroundColor: COLORS.quiz.secondary, padding: 4, borderRadius: "16px", border: `1px solid ${COLORS.quiz.light}`, display: "flex", flexDirection: "column", alignItems: "center" }}>
-
+        <Box sx={{ position: "relative", backgroundColor: COLORS.quiz.secondary, padding: 4, borderRadius: "16px", border: `1px solid ${COLORS.quiz.light}`, display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <DayStreak ref={streakRef} streakKey={"imageStreak"} colorRotate="250deg"></DayStreak>
+            
             <Box >
                 <Box sx={{ display: "flex", gap: 4 }}>
                     {targets && targets.map((char: Character, index) => (<Box key={char.Name} sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "center", gap: 2 }}>

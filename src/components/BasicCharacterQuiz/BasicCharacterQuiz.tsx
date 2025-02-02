@@ -8,6 +8,8 @@ import { Character } from "common/types";
 import JSConfetti from "js-confetti";
 import { compareObjects, getImgSrc } from "common/quizUtils";
 import { Score } from "pages/Home";
+import {DayStreak} from "components/Streak";
+import {StreakRef} from "components/Streak";
 
 interface HintRef {
     resetHint: () => void;
@@ -20,10 +22,9 @@ const REDUCEFACTOR = 10;
 interface BasicCharacterQuizProps {
     charData: Character[];
     getRandomCharacter: () => Character;
-    setStreak: () => void;
 }
 
-export default function BasicCharacterQuiz({ charData, getRandomCharacter, setStreak }: BasicCharacterQuizProps) {
+export default function BasicCharacterQuiz({ charData, getRandomCharacter }: BasicCharacterQuizProps) {
     const [searchHistory, setSearchHistory] = useState<Character[]>([]);
     const [selectedOption, setSelectedOption] = useState<Character | null>(null);
     const [targetChar, setTargetCharacter] = useState<Character | null>(null);
@@ -33,10 +34,10 @@ export default function BasicCharacterQuiz({ charData, getRandomCharacter, setSt
     const [localCharData, setLocalCharData] = useState<Character[]>([]);
     const [scores, setScores] = useState<Score[]>([]);
 
-
     const genreHintRef = useRef<HintRef | null>(null);
     const animeHintRef = useRef<HintRef | null>(null);
     const editorialHintRef = useRef<HintRef | null>(null);
+    const streakRef = useRef<StreakRef | null>(null);
 
     useEffect(() => {
         if (charData.length > 0 && localCharData.length === 0) {
@@ -156,7 +157,9 @@ export default function BasicCharacterQuiz({ charData, getRandomCharacter, setSt
                 setScores(scores.slice(0, 3))
                 const scoreString = JSON.stringify(scores);
                 localStorage.setItem("scores", scoreString);
-                setStreak()
+                if(streakRef) {
+                    streakRef.current?.setStreak();
+                }
 
                 return;
             }
@@ -173,7 +176,7 @@ export default function BasicCharacterQuiz({ charData, getRandomCharacter, setSt
     }
 
     return (
-        <Box>
+        <Box position={"relative"}>
             {scores.length > 0 && <Box sx={{ borderRadius: "16px", backgroundColor: COLORS.quiz.secondary, marginBottom: 4, border: `1px solid ${COLORS.quiz.light}`, display: "flex", flexDirection: "column", alignItems: "center", paddingY: 2 }}>
                 <Box sx={{display: "flex"}}>
                 {scores.map(((item, index) => <Box key={index} sx={{ display: "flex", flexDirection: "column", alignItems: "center", paddingX: 2, color: "white", backgroundColor: COLORS.quiz.secondary }}>
@@ -191,6 +194,8 @@ export default function BasicCharacterQuiz({ charData, getRandomCharacter, setSt
                 <RevealCard onReveal={reducePointsForHint} ref={animeHintRef} cardText={targetChar?.Anime ?? ""} cardTitle="Anime"></RevealCard>
                 <RevealCard onReveal={reducePointsForHint} ref={editorialHintRef} cardText={targetChar?.Editorial_Staff_Hint ?? ""} cardTitle="Editoral Staff Hint"></RevealCard>
             </Box>
+            <DayStreak ref={streakRef} streakKey={"basicStreak"}></DayStreak>
+
 
             <SearchBar points={points} searchHistory={searchHistory} isCorrect={isCorrect} selectedOption={selectedOption} charData={localCharData} handleSearchChange={handleSearchChange} init={init}></SearchBar>
 

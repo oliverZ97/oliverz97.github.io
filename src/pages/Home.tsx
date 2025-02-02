@@ -5,14 +5,8 @@ import { COLORS } from "styling/constants";
 
 import bg from "assets/bg.jpg"
 import { Character } from "common/types";
-import { isMoreThanADay, sameDate } from "common/quizUtils";
 import BasicCharacterQuiz from "components/BasicCharacterQuiz/BasicCharacterQuiz";
 import ImageCharacterQuiz from "components/ImageCharacterQuiz/ImageCharacterQuiz";
-
-interface Streak {
-   date: string;
-   streak: number;
-}
 
 export interface Score {
    points: number;
@@ -21,7 +15,7 @@ export interface Score {
 
 const Home = () => {
    const [charData, setCharData] = useState<Character[]>([]);
-   const [animeData, setAnimeData] = useState<string[]>([])
+   const [animeData, setAnimeData] = useState<string[]>([]);
 
    useEffect(() => {
       if (charData.length === 0) {
@@ -30,7 +24,7 @@ const Home = () => {
       if (animeData.length === 0) {
          setAnimeData([...new Set(charData.map((item) => item.Anime))].sort((a, b) => a < b ? -1 : 1))
       }
-   }, [charData, characterData, animeData])
+   }, [charData, characterData, animeData]);
 
    function getRandomCharacter() {
       const charArray = Object.values(characterData);
@@ -39,56 +33,7 @@ const Home = () => {
       return target as Character;
    }
 
-   function setStreak() {
-      const streakObj = getStreak();
-      if (streakObj) {
-         const today = new Date()
-         today.setHours(4);
-         today.setMinutes(0);
-         today.setSeconds(0);
-         today.setMilliseconds(0);
 
-         if (streakObj.date) {
-            const currentDate = new Date(parseInt(streakObj.date));
-            if (sameDate(currentDate, today)) {
-               return;
-            }
-         }
-
-         const newStreak: Streak = {
-            date: today.getTime().toString(),
-            streak: streakObj.streak + 1
-         }
-
-         localStorage.setItem("quizStreak", JSON.stringify(newStreak))
-      }
-   }
-
-   function getStreak() {
-      const streak = localStorage.getItem("quizStreak");
-
-      if (streak) {
-
-         const streakObj: Streak = JSON.parse(streak);
-         const date = new Date(parseInt(streakObj.date));
-         const today = new Date()
-         today.setHours(4);
-         const isInvalid = isMoreThanADay(date, today);
-         if (isInvalid) {
-            return {
-               streak: 0,
-               date: undefined
-            };
-         }
-
-         return streakObj;
-      } else {
-         return {
-            streak: 0,
-            date: undefined
-         };
-      }
-   }
 
    interface TabPanelProps {
       children?: React.ReactNode;
@@ -180,19 +125,15 @@ const Home = () => {
                         </Tabs>
                      </Box>
 
-
-                     <Box sx={{ padding: 2 }}>
-                        <Typography sx={{ filter: !getStreak() || getStreak() && getStreak().streak < 1 ? "grayscale(100%)" : "grayscale(0%)", color: COLORS.quiz.primary_text }} fontSize={32}>{`🔥 ${getStreak()?.streak ?? 0}`}</Typography>
-                     </Box>
                   </Box>
                </Box>
                <Box sx={{ width: "60%" }}>
                   <CustomTabPanel value={value} index={0}>
-                     <BasicCharacterQuiz charData={charData} getRandomCharacter={getRandomCharacter} setStreak={setStreak}></BasicCharacterQuiz>
+                     <BasicCharacterQuiz charData={charData} getRandomCharacter={getRandomCharacter}></BasicCharacterQuiz>
                   </CustomTabPanel>
 
                   <CustomTabPanel value={value} index={1}>
-                     <ImageCharacterQuiz animeData={animeData} charData={charData} getRandomCharacter={getRandomCharacter} setStreak={setStreak}></ImageCharacterQuiz>
+                     <ImageCharacterQuiz animeData={animeData} charData={charData} getRandomCharacter={getRandomCharacter}></ImageCharacterQuiz>
                   </CustomTabPanel>
                </Box>
 
