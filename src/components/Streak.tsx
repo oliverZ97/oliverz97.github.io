@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, SxProps, Theme, Typography } from "@mui/material";
 import { isMoreThanADay, sameDate } from "common/quizUtils";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { COLORS } from "styling/constants";
@@ -6,6 +6,7 @@ import { COLORS } from "styling/constants";
 interface StreakProps {
     streakKey: string;
     colorRotate?: string;
+    sx?: SxProps<Theme>;
 }
 
 export interface Streak {
@@ -19,7 +20,7 @@ export interface StreakRef {
 }
 
 
-export const DayStreak = forwardRef(({ streakKey, colorRotate = "0deg" }: StreakProps, ref) => {
+export const DayStreak = forwardRef(({ streakKey, colorRotate = "0deg", sx }: StreakProps, ref) => {
     const [currentStreak, setCurrentStreak] = useState<Streak | {
         streak: number;
         date: undefined;
@@ -90,7 +91,7 @@ export const DayStreak = forwardRef(({ streakKey, colorRotate = "0deg" }: Streak
     }
 
     return (
-        <Box sx={{ padding: 2, position: "absolute", top: -120, right: 0 }}>
+        <Box sx={{ padding: 2, position: "absolute", top: -120, right: 0, ...sx }}>
             <Typography sx={{ filter: currentStreak.streak < 1 ? "grayscale(100%)" : `grayscale(0%) hue-rotate(${colorRotate});`, color: COLORS.quiz.primary_text }} fontSize={32}>{`🔥 ${currentStreak.streak ?? 0}`}</Typography>
         </Box>
     );

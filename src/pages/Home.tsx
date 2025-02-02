@@ -102,11 +102,11 @@ const Home = () => {
                <Box sx={{ marginTop: "100px", width: "60%", backgroundColor: COLORS.quiz.secondary, borderRadius: "16px", border: `1px solid ${COLORS.quiz.light}`, marginBottom: 4 }}>
                   <Box sx={{ display: "flex", justifyContent: "space-between" }}>
 
-                     <Box>
+                     <Box sx={{paddingLeft: 2}}>
                         <Tabs sx={{
 
                            '& .MuiTabs-indicator': {
-                              backgroundColor: COLORS.quiz.main,
+                              backgroundColor: COLORS.quiz.light,
                            },
                         }} value={value} onChange={handleChange} aria-label="basic tabs example">
                            <Tab sx={{

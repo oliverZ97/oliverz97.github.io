@@ -137,7 +137,7 @@ export default function ImageCharacterQuiz({ charData, getRandomCharacter, anime
 
     return (
         <Box sx={{ position: "relative", backgroundColor: COLORS.quiz.secondary, padding: 4, borderRadius: "16px", border: `1px solid ${COLORS.quiz.light}`, display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <DayStreak ref={streakRef} streakKey={"imageStreak"} colorRotate="250deg"></DayStreak>
+            <DayStreak ref={streakRef} streakKey={"imageStreak"} colorRotate="250deg" sx={{top: "-121px", right: "-1px"}}></DayStreak>
             
             <Box >
                 <Box sx={{ display: "flex", gap: 4 }}>
@@ -156,8 +156,8 @@ export default function ImageCharacterQuiz({ charData, getRandomCharacter, anime
                 display: "flex", justifyContent: "space-between", marginTop: 4, width: "100%"
             }}>
                 <Button sx={{
-                    color: COLORS.quiz.tertiary,
-                    borderColor: COLORS.quiz.tertiary,
+                    color: COLORS.quiz.light,
+                    borderColor: COLORS.quiz.light,
                     "&:hover": {
                         fontWeight: "bold",
                         borderColor: COLORS.quiz.tertiary,
