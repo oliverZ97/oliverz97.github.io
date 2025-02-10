@@ -1,4 +1,4 @@
-import { Box, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Button, Drawer, Tab, Tabs, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import characterData from "data/character_data.json";
 import { COLORS } from "styling/constants";
@@ -7,6 +7,7 @@ import bg from "assets/bg.jpg"
 import { Character } from "common/types";
 import BasicCharacterQuiz from "components/BasicCharacterQuiz/BasicCharacterQuiz";
 import ImageCharacterQuiz from "components/ImageCharacterQuiz/ImageCharacterQuiz";
+import DrawerBasic from "components/CustomDrawer";
 
 export interface Score {
    points: number;
@@ -86,10 +87,10 @@ const Home = () => {
             position: "relative"
          }}>
 
-            <Box sx={{ position: "absolute", left: 0, top: 0, marginTop: "100px", backgroundColor: COLORS.quiz.secondary, padding: 2, borderTopRightRadius: "16px", borderBottomRightRadius: "16px", width: "300px", border: `1px solid ${COLORS.quiz.light}`, borderLeft: "none", zIndex: 5 }}>
+            <DrawerBasic>
                <Typography sx={{ fontSize: "24px", fontWeight: "bold", marginBottom: 2, color: COLORS.quiz.primary_text }}>Current Anime Index</Typography>
                {animeData.map((item) => <Typography key={item} fontSize={"12px"} color={COLORS.quiz.primary_text}>{item}</Typography>)}
-            </Box>
+            </DrawerBasic>
 
             <Box sx={{
                display: "flex",
@@ -99,10 +100,10 @@ const Home = () => {
             }}>
 
 
-               <Box sx={{ marginTop: "100px", width: "60%", backgroundColor: COLORS.quiz.secondary, borderRadius: "16px", border: `1px solid ${COLORS.quiz.light}`, marginBottom: 4 }}>
+               <Box sx={{ marginTop: "100px", width: "80%", backgroundColor: COLORS.quiz.secondary, borderRadius: "16px", border: `1px solid ${COLORS.quiz.light}`, marginBottom: 4 }}>
                   <Box sx={{ display: "flex", justifyContent: "space-between" }}>
 
-                     <Box sx={{paddingLeft: 2}}>
+                     <Box sx={{ paddingLeft: 2 }}>
                         <Tabs sx={{
 
                            '& .MuiTabs-indicator': {
@@ -127,7 +128,7 @@ const Home = () => {
 
                   </Box>
                </Box>
-               <Box sx={{ width: "60%" }}>
+               <Box sx={{ width: "80%" }}>
                   <CustomTabPanel value={value} index={0}>
                      <BasicCharacterQuiz charData={charData} getRandomCharacter={getRandomCharacter}></BasicCharacterQuiz>
                   </CustomTabPanel>
