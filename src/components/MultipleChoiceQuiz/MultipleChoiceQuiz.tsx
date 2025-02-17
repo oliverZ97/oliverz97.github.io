@@ -1,4 +1,4 @@
-import { Box, Button, CircularProgress, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, colors, Typography } from "@mui/material";
 import { getImgSrc } from "common/quizUtils";
 import { Character } from "common/types";
 import { AnimeAutocomplete } from "components/AnimeAutocomplete";
@@ -6,6 +6,7 @@ import { CharacterAutocomplete } from "components/CharacterAutocomplete";
 import { DayStreak, StreakRef } from "components/Streak";
 import { SyntheticEvent, useEffect, useRef, useState } from "react";
 import { COLORS } from "styling/constants";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 interface ImageCharacterQuizProps {
   charData: Character[];
@@ -31,7 +32,9 @@ export default function MultipleChoiceQuiz({
   const [answers, setAnswers] = useState<ImageTarget[]>([]);
   const [target, setTarget] = useState<Character | null>(null);
   const [score, setScore] = useState(0);
+  const [level, setLevel] = useState(1);
   const [lifes, setLifes] = useState(3);
+  const [isGameOver, setIsGameOver] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState<ImageTarget | null>(
     {} as ImageTarget
   );
@@ -50,12 +53,19 @@ export default function MultipleChoiceQuiz({
     if (selectedAnswer) {
       if (selectedAnswer.isTarget) {
         calculatePoints();
-        setTimeout(() => {
-          resetTargets();
-        }, 1000);
       } else {
         setLifes(lifes - 1);
+        if(lifes < 1) {
+          setIsGameOver(true);
+          if(streakRef) {
+            streakRef.current?.setStreak();
+        }
+        }
       }
+      setTimeout(() => {
+        resetTargets();
+        setLevel(level + 1)
+      }, 1000);
     }
   }, [selectedAnswer]);
 
@@ -69,6 +79,8 @@ export default function MultipleChoiceQuiz({
     ]);
     resetTargets();
     setScore(0);
+    setLevel(1);
+    setLifes(2);
     setIsSolving(false);
   }
 
@@ -163,7 +175,7 @@ export default function MultipleChoiceQuiz({
       <DayStreak
         ref={streakRef}
         streakKey={"imageStreak"}
-        colorRotate="250deg"
+        colorRotate="70deg"
         sx={{ top: "-121px", right: "-1px" }}
       ></DayStreak>
 
@@ -173,9 +185,18 @@ export default function MultipleChoiceQuiz({
           flexDirection: "column",
           alignItems: "center",
           gap: 2,
+          position: "relative"
         }}
       >
-        <Typography>{score}</Typography>
+      <Box position={"absolute"} sx={{left: 0, top: 0}}>
+
+        { Array.from({ length: lifes + 1 }, (_, k) => (
+          <FavoriteBorderIcon color="error"></FavoriteBorderIcon>
+        ))}
+        <Typography sx={{color: "white", fontSize: "24px", paddingLeft: "2px"}}>{`${String(score).padStart(4, '0')}`}</Typography>
+        <Typography sx={{color: "white", fontSize: "18px", paddingLeft: "2px"}}>{`#${level}`}</Typography>
+
+      </Box>
         <Box sx={{ display: "flex", gap: 4 }}>
           {target && (
             <Box
