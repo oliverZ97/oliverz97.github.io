@@ -1,10 +1,8 @@
 import { Box, Button, CircularProgress, colors, Typography } from "@mui/material";
 import { getImgSrc } from "common/quizUtils";
 import { Character } from "common/types";
-import { AnimeAutocomplete } from "components/AnimeAutocomplete";
-import { CharacterAutocomplete } from "components/CharacterAutocomplete";
 import { DayStreak, StreakRef } from "components/Streak";
-import { SyntheticEvent, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { COLORS } from "styling/constants";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
@@ -24,16 +22,14 @@ const BASEPOINTS_ANIME = 1000;
 const BASEPOINTS_CHAR = 1500;
 
 export default function MultipleChoiceQuiz({
-  charData,
-  getRandomCharacter,
-  animeData,
+  getRandomCharacter, charData
 }: ImageCharacterQuizProps) {
-  const [isSolving, setIsSolving] = useState(false);
   const [answers, setAnswers] = useState<ImageTarget[]>([]);
   const [target, setTarget] = useState<Character | null>(null);
   const [score, setScore] = useState(0);
   const [level, setLevel] = useState(1);
   const [lifes, setLifes] = useState(3);
+  const [sessionHistory, setSessionHistory] = useState<string[]>([])
   const [isGameOver, setIsGameOver] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState<ImageTarget | null>(
     {} as ImageTarget
@@ -55,11 +51,11 @@ export default function MultipleChoiceQuiz({
         calculatePoints();
       } else {
         setLifes(lifes - 1);
-        if(lifes < 1) {
+        if (lifes < 1) {
           setIsGameOver(true);
-          if(streakRef) {
+          if (streakRef) {
             streakRef.current?.setStreak();
-        }
+          }
         }
       }
       setTimeout(() => {
@@ -77,31 +73,26 @@ export default function MultipleChoiceQuiz({
         isTarget: false,
       },
     ]);
-    resetTargets();
+    setSessionHistory([])
     setScore(0);
     setLevel(1);
     setLifes(2);
-    setIsSolving(false);
+    resetTargets();
+    getTargetAnswers();
   }
 
   function resetTargets() {
-    const targetCharacters = getRandomCharacterArray(1);
-    const targets = targetCharacters[0];
-    setSelectedAnswer(null);
-    setTarget(targets);
-  }
-
-  function getRandomCharacterArray(count: number) {
-    let counter = 0;
-    let chars: Character[] = [];
-    while (counter < Math.max(0, count)) {
-      const char = getRandomCharacter();
-      if (!chars.some((item) => item.Name === char.Name)) {
-        chars.push(char);
-        counter++;
-      }
+    if (sessionHistory.length === 2) {
+      setIsGameOver(true);
+      return;
     }
-    return chars;
+    let target = getRandomCharacter();
+    while (sessionHistory.includes(target.Name)) {
+      target = getRandomCharacter();
+    }
+    setSelectedAnswer(null);
+    setTarget(target);
+    setSessionHistory(sessionHistory => [...sessionHistory, target.Name])
   }
 
   function getTargetAnswers() {
@@ -113,15 +104,17 @@ export default function MultipleChoiceQuiz({
         isTarget: true,
       };
       answers.push(correctAnswer);
+      while (answers.length <= 3) {
+        let char = getRandomCharacter();
+        if (char.Name !== correctAnswer.character) {
+          answers.push({
+            anime: char.Anime,
+            character: char.Name,
+            isTarget: false,
+          });
+        }
+      }
 
-      let randoms = getRandomCharacterArray(3);
-      randoms.forEach((item) => {
-        answers.push({
-          anime: item.Anime,
-          character: item.Name,
-          isTarget: false,
-        });
-      });
       answers = shuffleArray(answers);
       setAnswers(answers);
     }
@@ -188,37 +181,30 @@ export default function MultipleChoiceQuiz({
           position: "relative"
         }}
       >
-      <Box position={"absolute"} sx={{left: 0, top: 0}}>
+        <Box position={"absolute"} sx={{ left: 0, top: 0 }}>
 
-        { Array.from({ length: lifes + 1 }, (_, k) => (
-          <FavoriteBorderIcon color="error"></FavoriteBorderIcon>
-        ))}
-        <Typography sx={{color: "white", fontSize: "24px", paddingLeft: "2px"}}>{`${String(score).padStart(4, '0')}`}</Typography>
-        <Typography sx={{color: "white", fontSize: "18px", paddingLeft: "2px"}}>{`#${level}`}</Typography>
+          {Array.from({ length: lifes + 1 }, (_, k) => (
+            <FavoriteBorderIcon key={k} color="error"></FavoriteBorderIcon>
+          ))}
+          <Typography sx={{ color: "white", fontSize: "24px", paddingLeft: "2px" }}>{`${String(score).padStart(4, '0')}`}</Typography>
+          <Typography sx={{ color: "white", fontSize: "18px", paddingLeft: "2px" }}>{`#${level}`}</Typography>
 
-      </Box>
+        </Box>
         <Box sx={{ display: "flex", gap: 4 }}>
           {target && (
             <Box
-              key={target.Name}
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "flex-start",
-                alignItems: "center",
-                gap: 2,
-              }}
-            >
-              <Box
-                width={"200px"}
-                component={"img"}
-                src={getImgSrc(target.Name)}
-              ></Box>
-            </Box>
+              width={"200px"}
+              component={"img"}
+              src={getImgSrc(target.Name)}
+            ></Box>
           )}
           {!target && (
-            <Box sx={{ height: "275.33px", width: "200px" }}>
-              <CircularProgress size="30px" color="primary"></CircularProgress>
+            <Box
+              width={"200px"}
+              height={"275px"}
+              sx={{ backgroundColor: "transparent", display: "flex", justifyContent: "center", alignItems: "center" }}
+            >
+              <CircularProgress size={50} color="info"></CircularProgress>
             </Box>
           )}
         </Box>
@@ -278,6 +264,6 @@ export default function MultipleChoiceQuiz({
         </Button>
         {/* {isSolving && <Typography fontSize={"24px"}>🏆 {score}</Typography>} */}
       </Box>
-    </Box>
+    </Box >
   );
 }
