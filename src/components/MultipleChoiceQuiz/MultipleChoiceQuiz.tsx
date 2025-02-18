@@ -56,34 +56,7 @@ export default function MultipleChoiceQuiz({
         setLifes(lifes - 1);
         if (lifes < 1) {
           setIsGameOver(true);
-          //Set Highscore
-          const scoreObj = {
-            points: score,
-            date: new Date().toLocaleString("de-DE", { year: "numeric", month: "2-digit", day: "2-digit" })
-          }
-
-          let localScores = localStorage.getItem("multiple_choice_scores");
-          let scores;
-          if (localScores) {
-            scores = JSON.parse(localScores);
-            scores.push(scoreObj)
-          } else[
-            scores = [
-              scoreObj
-            ]
-          ]
-
-          //sort
-          scores.sort((a: Score, b: Score) => a.points < b.points ? 1 : -1)
-          setScores(scores.slice(0, 3))
-          const scoreString = JSON.stringify(scores);
-          localStorage.setItem("multiple_choice_scores", scoreString);
-          if (streakRef) {
-            streakRef.current?.setStreak();
-          }
-          if (streakRef) {
-            streakRef.current?.setStreak();
-          }
+          setHighscore();
         }
       }
       if (fiftyJoker === "active") {
@@ -111,6 +84,37 @@ export default function MultipleChoiceQuiz({
     setLevel(level + 1);
   }
 
+  function setHighscore() {
+    //Set Highscore
+    const scoreObj = {
+      points: score,
+      date: new Date().toLocaleString("de-DE", { year: "numeric", month: "2-digit", day: "2-digit" })
+    }
+
+    let localScores = localStorage.getItem("multiple_choice_scores");
+    let scores;
+    if (localScores) {
+      scores = JSON.parse(localScores);
+      scores.push(scoreObj)
+    } else[
+      scores = [
+        scoreObj
+      ]
+    ]
+
+    //sort
+    scores.sort((a: Score, b: Score) => a.points < b.points ? 1 : -1)
+    setScores(scores.slice(0, 3))
+    const scoreString = JSON.stringify(scores);
+    localStorage.setItem("multiple_choice_scores", scoreString);
+    if (streakRef) {
+      streakRef.current?.setStreak();
+    }
+    if (streakRef) {
+      streakRef.current?.setStreak();
+    }
+  }
+
   function resetImageQuiz() {
     setAnswers([
       {
@@ -134,6 +138,7 @@ export default function MultipleChoiceQuiz({
   function resetTargets() {
     if (sessionHistory.length === charData.length) {
       setIsGameOver(true);
+      setHighscore();
       return;
     }
     let target = getRandomCharacter();
