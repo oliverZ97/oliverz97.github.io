@@ -159,7 +159,7 @@ const Home = () => {
                         color: "white",
                       },
                     }}
-                    label="Multiple Choice Quiz"
+                    label="Character Image Quiz"
                     {...a11yProps(1)}
                   />
                   <Tab
