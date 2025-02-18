@@ -197,8 +197,7 @@ export default function MultipleChoiceQuiz({
   function returnAnswerColor(answer: ImageTarget | null) {
     if (selectedAnswer) {
       if (
-        selectedAnswer.character === answer?.character &&
-        selectedAnswer.isTarget
+        answer?.character === target?.Name
       ) {
         return COLORS.quiz.success;
       } else {
@@ -376,7 +375,10 @@ export default function MultipleChoiceQuiz({
                     backgroundColor: returnAnswerColor(answer),
                     textTransform: "capitalize",
                     "&:hover": {
-                      backgroundColor: COLORS.quiz.main_hover
+                      backgroundColor: selectedAnswer ? returnAnswerColor(answer) : COLORS.quiz.main_hover
+                    },
+                    "&:active": {
+                      backgroundColor: returnAnswerColor(answer)
                     }
                   }}
                   disabled={fiftyJoker === "active" && !answer.isJokerAnswer}
