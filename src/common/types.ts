@@ -11,5 +11,8 @@ export interface Character {
     Anime: string;
     Editorial_Staff_Hint: string;
     First_Release_Year: number,
-    ValidFields?: string[]
+    Difficulty: Difficulty,
+    ValidFields?: string[],
  }
+
+ export type Difficulty = "A" |"B" | "C"

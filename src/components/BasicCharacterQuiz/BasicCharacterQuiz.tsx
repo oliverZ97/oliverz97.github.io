@@ -10,13 +10,14 @@ import { compareObjects, getImgSrc } from "common/quizUtils";
 import { Score } from "pages/Home";
 import {DayStreak} from "components/Streak";
 import {StreakRef} from "components/Streak";
+import { isIncludedInDifficulty } from "utils";
 
 interface HintRef {
     resetHint: () => void;
 }
 
-const BASEPOINTS = 200;
-const HINTPOINTS = 750;
+const BASEPOINTS = 150;
+const HINTPOINTS = 300;
 const REDUCEFACTOR = 10;
 
 interface BasicCharacterQuizProps {
@@ -33,6 +34,7 @@ export default function BasicCharacterQuiz({ charData, getRandomCharacter }: Bas
     const [isCorrect, setIsCorrect] = useState(false);
     const [localCharData, setLocalCharData] = useState<Character[]>([]);
     const [scores, setScores] = useState<Score[]>([]);
+    const [difficulty, setDifficulty] = useState<"A"|"B"|"C">("A");
 
     const genreHintRef = useRef<HintRef | null>(null);
     const animeHintRef = useRef<HintRef | null>(null);
@@ -100,9 +102,13 @@ export default function BasicCharacterQuiz({ charData, getRandomCharacter }: Bas
         resetQuiz()
 
         //select random character
-        const target = getRandomCharacter();
+        let target = getRandomCharacter();
+        while(!isIncludedInDifficulty(target, difficulty)) {
+            target = getRandomCharacter()
+        }
         setTargetCharacter(target as Character);
     }
+
 
     function removeOptionFromArray(value: Character) {
         const index = localCharData.indexOf(value);
@@ -113,7 +119,14 @@ export default function BasicCharacterQuiz({ charData, getRandomCharacter }: Bas
 
     function calculateSelectionPoints(correctFieldCount: number) {
         const baseValue = ((Math.max(searchHistory.length, 1)) * BASEPOINTS);
-        let roundPoints = baseValue - correctFieldCount * REDUCEFACTOR;
+        let difficultyFactor = 2;
+        if(difficulty === "B") {
+            difficultyFactor = 1.5;
+        }
+        if(difficulty === "C") {
+            difficultyFactor = 1;
+        }
+        let roundPoints = baseValue - correctFieldCount * REDUCEFACTOR * difficultyFactor;
         setPoints(points - roundPoints < 0 ? 0 : points - roundPoints);
     }
 
@@ -197,7 +210,7 @@ export default function BasicCharacterQuiz({ charData, getRandomCharacter }: Bas
             <DayStreak ref={streakRef} streakKey={"basicStreak"}></DayStreak>
 
 
-            <SearchBar points={points} searchHistory={searchHistory} isCorrect={isCorrect} selectedOption={selectedOption} charData={localCharData} handleSearchChange={handleSearchChange} init={init}></SearchBar>
+            <SearchBar difficulty={difficulty} setDifficulty={setDifficulty} points={points} searchHistory={searchHistory} isCorrect={isCorrect} selectedOption={selectedOption} charData={localCharData} handleSearchChange={handleSearchChange} init={init}></SearchBar>
 
             {targetChar && isCorrect && <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <Box sx={{ backgroundColor: COLORS.quiz.success, width: "300px", display: "flex", flexDirection: "column", alignItems: "center", paddingX: 2, paddingY: 3, marginTop: 4, borderRadius: "16px" }}>

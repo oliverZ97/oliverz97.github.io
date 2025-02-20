@@ -1,7 +1,8 @@
 import { Autocomplete, Box, TextField, Typography } from "@mui/material";
 import { getImgSrc } from "common/quizUtils";
-import { Character } from "common/types";
+import { Character, Difficulty } from "common/types";
 import { COLORS } from "styling/constants";
+import { isIncludedInDifficulty } from "utils";
 
 interface CharacterAutocompleteProps {
    charData: Character[];
@@ -10,14 +11,15 @@ interface CharacterAutocompleteProps {
    handleSearchChange: (event: any, value: Character | null, reason: any, id?: number) => void
    showPreviewImage?: boolean;
    id?: number
-   width?: number
+   width?: number,
+   difficulty?: Difficulty
 }
 
-export function CharacterAutocomplete({ charData, disabled, value, handleSearchChange, showPreviewImage, id, width }: CharacterAutocompleteProps) {
+export function CharacterAutocomplete({ charData, disabled, value, handleSearchChange, showPreviewImage, id, width, difficulty }: CharacterAutocompleteProps) {
    return (
       <Autocomplete
          disablePortal
-         options={charData}
+         options={difficulty ? charData.filter((char) => isIncludedInDifficulty(char, difficulty)) : charData}
          sx={{
             width: width ?? 300, backgroundColor: "white", borderRadius: "8px",
 
