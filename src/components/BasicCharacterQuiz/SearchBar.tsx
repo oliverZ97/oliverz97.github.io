@@ -12,16 +12,19 @@ interface SearchBarProps {
    handleSearchChange: (event: any, value: Character | null, reason: any) => void
    init: () => void;
    setDifficulty: (difficuly: Difficulty) => void;
-   difficulty: Difficulty
+   difficulty: Difficulty;
+   showGiveUp: boolean;
+   gaveUp: boolean;
+   handleGiveUp: () => void;
 }
 
-export function SearchBar({ points, searchHistory, isCorrect, selectedOption, charData, handleSearchChange, init, setDifficulty, difficulty }: SearchBarProps) {
+export function SearchBar({ points, searchHistory, isCorrect, selectedOption, charData, handleSearchChange, init, setDifficulty, difficulty, showGiveUp, gaveUp, handleGiveUp }: SearchBarProps) {
 
    const handleDifficulty = (
-     event: React.MouseEvent<HTMLElement>,
-     newDifficulty: string | null,
+      event: React.MouseEvent<HTMLElement>,
+      newDifficulty: string | null,
    ) => {
-      if(newDifficulty) {
+      if (newDifficulty) {
          setDifficulty(newDifficulty as Difficulty);
       } else {
          setDifficulty("C")
@@ -36,26 +39,29 @@ export function SearchBar({ points, searchHistory, isCorrect, selectedOption, ch
             <Typography sx={{ color: "white" }}>{"Points: " + points}</Typography>
             <Typography sx={{ color: "white" }}>{"Tries: " + searchHistory.length}</Typography>
          </Box>
-         <CharacterAutocomplete difficulty={difficulty} charData={charData} disabled={isCorrect} value={selectedOption} handleSearchChange={handleSearchChange} showPreviewImage></CharacterAutocomplete>
-         <Box sx={{display: "flex", gap: 1}}>
-         <ToggleButtonGroup
-      value={difficulty}
-      exclusive
-      onChange={handleDifficulty}
-      aria-label="text alignment"
-      size="small"
-      sx={{backgroundColor: COLORS.quiz.main}}
-    >
-      <ToggleButton value="A" aria-label="left aligned" >
-        <Typography sx={{color: "white"}}>Easy</Typography>
-      </ToggleButton>
-      <ToggleButton value="B" aria-label="centered">
-      <Typography sx={{color: "white"}}>Normal</Typography>
-      </ToggleButton>
-      <ToggleButton value="C" aria-label="right aligned">
-      <Typography sx={{color: "white"}}>Hard</Typography>
-      </ToggleButton>
-    </ToggleButtonGroup>
+         <Box sx={{ display: "flex", alignItems: "center", gap: 1, position: "relative" }}>
+            <CharacterAutocomplete difficulty={difficulty} charData={charData} disabled={isCorrect} value={selectedOption} handleSearchChange={handleSearchChange} showPreviewImage></CharacterAutocomplete>
+            {showGiveUp && !gaveUp && <Button onClick={handleGiveUp} sx={{ height: "40px", position: "absolute", right: -100 }} color="error" variant="contained">Give Up!</Button>}
+         </Box>
+         <Box sx={{ display: "flex", gap: 1 }}>
+            <ToggleButtonGroup
+               value={difficulty}
+               exclusive
+               onChange={handleDifficulty}
+               aria-label="text alignment"
+               size="small"
+               sx={{ backgroundColor: COLORS.quiz.main }}
+            >
+               <ToggleButton value="A" aria-label="left aligned" >
+                  <Typography sx={{ color: "white" }}>Easy</Typography>
+               </ToggleButton>
+               <ToggleButton value="B" aria-label="centered">
+                  <Typography sx={{ color: "white" }}>Normal</Typography>
+               </ToggleButton>
+               <ToggleButton value="C" aria-label="right aligned">
+                  <Typography sx={{ color: "white" }}>Hard</Typography>
+               </ToggleButton>
+            </ToggleButtonGroup>
             <Button onClick={init} sx={{
                backgroundColor: COLORS.quiz.main, color: "white",
                "&:hover": {

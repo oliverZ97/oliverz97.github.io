@@ -12,6 +12,7 @@ export interface Character {
     Editorial_Staff_Hint: string;
     First_Release_Year: number,
     Difficulty: Difficulty,
+    Studio: string;
     ValidFields?: string[],
  }
 

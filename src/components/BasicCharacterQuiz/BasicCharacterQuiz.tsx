@@ -17,7 +17,6 @@ interface HintRef {
 }
 
 const BASEPOINTS = 150;
-const HINTPOINTS = 300;
 const REDUCEFACTOR = 10;
 
 interface BasicCharacterQuizProps {
@@ -38,9 +37,12 @@ export default function BasicCharacterQuiz({
   const [localCharData, setLocalCharData] = useState<Character[]>([]);
   const [scores, setScores] = useState<Score[]>([]);
   const [difficulty, setDifficulty] = useState<"A" | "B" | "C">("C");
+  const [showGiveUp, setShowGiveUp] = useState(false);
+  const [gaveUp, setGaveUp] = useState(false);
 
   const genreHintRef = useRef<HintRef | null>(null);
   const animeHintRef = useRef<HintRef | null>(null);
+  const studioHintRef = useRef<HintRef | null>(null);
   const editorialHintRef = useRef<HintRef | null>(null);
   const streakRef = useRef<StreakRef | null>(null);
 
@@ -55,13 +57,6 @@ export default function BasicCharacterQuiz({
       init();
     }
   }, [localCharData, init]);
-
-  useEffect(() => {
-    if (usedHints > 0) {
-      const reducePoints = usedHints * HINTPOINTS;
-      setPoints(points - reducePoints < 0 ? 0 : points - reducePoints);
-    }
-  }, [usedHints]);
 
   useEffect(() => {
     if (selectedOption) {
@@ -82,16 +77,27 @@ export default function BasicCharacterQuiz({
     }
   }, []);
 
+  useEffect(() => {
+    if (points <= 0) {
+      setShowGiveUp(true);
+    }
+  }, [points])
+
   function resetQuiz() {
     setLocalCharData([...charData.sort((a, b) => (a.Name < b.Name ? -1 : 1))]);
     setSearchHistory([]);
     setPoints(10000);
     setUsedHints(0);
+    setShowGiveUp(false);
+    setGaveUp(false);
     if (genreHintRef.current) {
       genreHintRef.current.resetHint();
     }
     if (animeHintRef.current) {
       animeHintRef?.current.resetHint();
+    }
+    if (studioHintRef.current) {
+      studioHintRef?.current.resetHint();
     }
     if (editorialHintRef.current) {
       editorialHintRef?.current.resetHint();
@@ -132,7 +138,7 @@ export default function BasicCharacterQuiz({
   }
 
   function handleSearchChange(
-    event: SyntheticEvent<Element, Event>,
+    event: SyntheticEvent<Element, Event> | null,
     value: Character | null,
     reason: any
   ) {
@@ -145,40 +151,46 @@ export default function BasicCharacterQuiz({
       setSearchHistory([value, ...searchHistory]);
 
       if (res.all.length + 1 === Object.keys(targetChar).length) {
-        const jsConfetti = new JSConfetti();
-        jsConfetti.addConfetti({
-          emojis: ["🎉", "🍛", "🍣", "✨", "🍜", "🌸", "🍙"],
-          emojiSize: 30,
-        });
-
-        setIsCorrect(true);
-
-        //Set Highscore
-        const scoreObj = {
-          points: points,
-          date: new Date().toLocaleString("de-DE", {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-          }),
-        };
-
-        let localScores = localStorage.getItem("scores");
-        let scores;
-        if (localScores) {
-          scores = JSON.parse(localScores);
-          scores.push(scoreObj);
-        } else [(scores = [scoreObj])];
-
-        //sort
-        scores.sort((a: Score, b: Score) => (a.points < b.points ? 1 : -1));
-        setScores(scores.slice(0, 3));
-        const scoreString = JSON.stringify(scores);
-        localStorage.setItem("scores", scoreString);
-        if (streakRef) {
-          streakRef.current?.setStreak();
+        if (reason !== "giveUp") {
+          const jsConfetti = new JSConfetti();
+          jsConfetti.addConfetti({
+            emojis: ["🎉", "🍛", "🍣", "✨", "🍜", "🌸", "🍙"],
+            emojiSize: 30,
+          });
+        } else {
+          setGaveUp(true);
         }
 
+        setIsCorrect(true);
+        if (points > 0) {
+
+          //Set Highscore
+          const scoreObj = {
+            points: points,
+            date: new Date().toLocaleString("de-DE", {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+            }),
+          };
+
+          let localScores = localStorage.getItem("scores");
+          let scores;
+          if (localScores) {
+            scores = JSON.parse(localScores);
+            scores.push(scoreObj);
+          } else[(scores = [scoreObj])];
+
+          //sort
+          scores.sort((a: Score, b: Score) => (a.points < b.points ? 1 : -1));
+          setScores(scores.slice(0, 3));
+          const scoreString = JSON.stringify(scores);
+          localStorage.setItem("scores", scoreString);
+          if (streakRef) {
+            streakRef.current?.setStreak();
+          }
+
+        }
         return;
       }
 
@@ -187,8 +199,9 @@ export default function BasicCharacterQuiz({
     }
   }
 
-  function reducePointsForHint() {
+  function reducePointsForHint(costs: number) {
     setUsedHints(usedHints + 1);
+    setPoints(points - costs < 0 ? 0 : points - costs);
   }
 
   return (
@@ -247,19 +260,29 @@ export default function BasicCharacterQuiz({
         }}
       >
         <RevealCard
-          onReveal={reducePointsForHint}
+          costs={500}
+          onReveal={() => reducePointsForHint(500)}
           ref={genreHintRef}
           cardText={targetChar?.Genre ?? ""}
           cardTitle="Genre"
         ></RevealCard>
         <RevealCard
-          onReveal={reducePointsForHint}
+          costs={500}
+          onReveal={() => reducePointsForHint(500)}
+          ref={studioHintRef}
+          cardText={targetChar?.Studio ?? ""}
+          cardTitle="Studio"
+        ></RevealCard>
+        <RevealCard
+          costs={1000}
+          onReveal={() => reducePointsForHint(1000)}
           ref={animeHintRef}
           cardText={targetChar?.Anime ?? ""}
           cardTitle="Anime"
         ></RevealCard>
         <RevealCard
-          onReveal={reducePointsForHint}
+          costs={0}
+          onReveal={() => reducePointsForHint(0)}
           ref={editorialHintRef}
           cardText={targetChar?.Editorial_Staff_Hint ?? ""}
           cardTitle="Editoral Staff Hint"
@@ -277,6 +300,9 @@ export default function BasicCharacterQuiz({
         charData={localCharData}
         handleSearchChange={handleSearchChange}
         init={init}
+        handleGiveUp={() => handleSearchChange(null, targetChar, "giveUp")}
+        showGiveUp={showGiveUp}
+        gaveUp={gaveUp}
       ></SearchBar>
 
       {targetChar && isCorrect && (
@@ -289,7 +315,7 @@ export default function BasicCharacterQuiz({
         >
           <Box
             sx={{
-              backgroundColor: COLORS.quiz.success,
+              backgroundColor: gaveUp ? COLORS.quiz.failed : COLORS.quiz.success,
               width: "300px",
               display: "flex",
               flexDirection: "column",

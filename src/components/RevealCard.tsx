@@ -1,14 +1,15 @@
-import { Box, Typography } from "@mui/material"
+import { Box, Button, Typography } from "@mui/material"
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { COLORS } from "styling/constants";
 
 interface RevealCardProps {
     cardText: string;
     cardTitle: string;
+    costs: number;
     onReveal: () => void
 }
 
-export const RevealCard = forwardRef(({ cardText, cardTitle, onReveal }: RevealCardProps, ref) => {
+export const RevealCard = forwardRef(({ cardText, cardTitle, costs, onReveal }: RevealCardProps, ref) => {
     const [revealHint, setRevealHint] = useState(false);
 
     const resetHint = () => {
@@ -26,10 +27,10 @@ export const RevealCard = forwardRef(({ cardText, cardTitle, onReveal }: RevealC
     }));
 
     return (
-        <Box sx={{ position: "relative", cursor: "pointer", minWidth: "300px", width: "100%" }} onClick={() => setRevealHint(true)}>
-            <Box sx={{ padding: 2, backgroundColor: COLORS.quiz.secondary, borderRadius: "8px", width: "100%" }}>
-                <Typography sx={{ color: COLORS.quiz.primary_text }}>
-                    {cardText}
+        <Button sx={{ position: "relative", cursor: "pointer", minWidth: "300px", width: "100%", minHeight: "58px", padding: 0 }} onClick={() => setRevealHint(true)}>
+            <Box sx={{ padding: 2, backgroundColor: COLORS.quiz.main, borderRadius: "8px", width: "100%", minHeight: "58px" }}>
+                <Typography sx={{ color: COLORS.quiz.primary_text, textTransform: "capitalize" }}>
+                    {cardText !== "" ? cardText : "No hint available"}
                 </Typography>
             </Box>
             <Box sx={{
@@ -59,13 +60,15 @@ export const RevealCard = forwardRef(({ cardText, cardTitle, onReveal }: RevealC
             </Box>
             <Box sx={{
                 width: "100%",
-                height: "100%",
                 padding: 2,
                 position: "absolute",
                 top: 0,
                 borderRadius: "8px",
                 zIndex: 3,
                 opacity: revealHint ? 0 : 1,
+                display: "flex",
+                justifyContent: "space-between",
+                height: "100%",
                 "@keyframes hideTitle": {
                     "0%": {
                         opacity: 1,
@@ -77,9 +80,14 @@ export const RevealCard = forwardRef(({ cardText, cardTitle, onReveal }: RevealC
                 animation: revealHint ? `hideTitle 1000ms ease-in-out` : undefined,
 
             }}>
-                <Typography>{cardTitle}</Typography>
+                <Typography sx={{textTransform: "capitalize", color: "black"}}>{cardTitle}</Typography>
+                <Box sx={{padding: 1, display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "#12616e", borderRadius: "4px"}}>
+                <Typography sx={{ color: COLORS.quiz.primary_text }}>
+                    {costs}
+                </Typography>
+                </Box>
             </Box>
 
-        </Box>
+        </Button>
     )
 })
