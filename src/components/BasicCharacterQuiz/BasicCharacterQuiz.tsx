@@ -4,7 +4,7 @@ import { COLORS } from "styling/constants";
 import CharacterList from "./CharacterList";
 import { SearchBar } from "./SearchBar";
 import { SyntheticEvent, useEffect, useRef, useState } from "react";
-import { Character } from "common/types";
+import { Character, Difficulty } from "common/types";
 import JSConfetti from "js-confetti";
 import { compareObjects, getImgSrc } from "common/quizUtils";
 import { Score } from "pages/Home";
@@ -36,7 +36,7 @@ export default function BasicCharacterQuiz({
   const [isCorrect, setIsCorrect] = useState(false);
   const [localCharData, setLocalCharData] = useState<Character[]>([]);
   const [scores, setScores] = useState<Score[]>([]);
-  const [difficulty, setDifficulty] = useState<"A" | "B" | "C">("C");
+  const [difficulty, setDifficulty] = useState<Difficulty>("C");
   const [showGiveUp, setShowGiveUp] = useState(false);
   const [gaveUp, setGaveUp] = useState(false);
 
@@ -58,7 +58,7 @@ export default function BasicCharacterQuiz({
     if (localCharData.length > 0 && !targetChar) {
       init();
     }
-  }, [localCharData, init]);
+  }, [localCharData, init, targetChar]);
 
   useEffect(() => {
     if (selectedOption) {

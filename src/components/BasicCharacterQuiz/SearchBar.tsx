@@ -50,12 +50,13 @@ export function SearchBar({
     event: React.MouseEvent<HTMLElement>,
     newDifficulty: string | null
   ) => {
-    if (newDifficulty) {
+    if (newDifficulty && newDifficulty !== difficulty) {
       setDifficulty(newDifficulty as Difficulty);
-    } else {
-      setDifficulty("C");
+      setTimeout(() => {
+         init()
+      }, 400)
     }
-    init();
+
   };
 
   return (
