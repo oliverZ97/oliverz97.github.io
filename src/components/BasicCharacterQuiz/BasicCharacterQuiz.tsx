@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { RevealCard } from "components/RevealCard";
 import { COLORS } from "styling/constants";
 import CharacterList from "./CharacterList";
@@ -46,6 +46,8 @@ export default function BasicCharacterQuiz({
   const editorialHintRef = useRef<HintRef | null>(null);
   const streakRef = useRef<StreakRef | null>(null);
 
+  const theme = useTheme();
+
   useEffect(() => {
     if (charData.length > 0 && localCharData.length === 0) {
       setLocalCharData(charData);
@@ -81,7 +83,7 @@ export default function BasicCharacterQuiz({
     if (points <= 0) {
       setShowGiveUp(true);
     }
-  }, [points])
+  }, [points]);
 
   function resetQuiz() {
     setLocalCharData([...charData.sort((a, b) => (a.Name < b.Name ? -1 : 1))]);
@@ -163,7 +165,6 @@ export default function BasicCharacterQuiz({
 
         setIsCorrect(true);
         if (points > 0) {
-
           //Set Highscore
           const scoreObj = {
             points: points,
@@ -179,7 +180,7 @@ export default function BasicCharacterQuiz({
           if (localScores) {
             scores = JSON.parse(localScores);
             scores.push(scoreObj);
-          } else[(scores = [scoreObj])];
+          } else [(scores = [scoreObj])];
 
           //sort
           scores.sort((a: Score, b: Score) => (a.points < b.points ? 1 : -1));
@@ -189,7 +190,6 @@ export default function BasicCharacterQuiz({
           if (streakRef) {
             streakRef.current?.setStreak();
           }
-
         }
         return;
       }
@@ -257,6 +257,9 @@ export default function BasicCharacterQuiz({
           gap: 2,
           justifyContent: "space-between",
           border: `1px solid ${COLORS.quiz.light}`,
+          [theme.breakpoints.down("md")]: {
+            flexWrap: "wrap",
+          },
         }}
       >
         <RevealCard
@@ -285,7 +288,7 @@ export default function BasicCharacterQuiz({
           onReveal={() => reducePointsForHint(0)}
           ref={editorialHintRef}
           cardText={targetChar?.Editorial_Staff_Hint ?? ""}
-          cardTitle="Editoral Staff Hint"
+          cardTitle="Staff Hint"
         ></RevealCard>
       </Box>
       <DayStreak ref={streakRef} streakKey={"basicStreak"}></DayStreak>
@@ -315,7 +318,9 @@ export default function BasicCharacterQuiz({
         >
           <Box
             sx={{
-              backgroundColor: gaveUp ? COLORS.quiz.failed : COLORS.quiz.success,
+              backgroundColor: gaveUp
+                ? COLORS.quiz.failed
+                : COLORS.quiz.success,
               width: "300px",
               display: "flex",
               flexDirection: "column",

@@ -1,4 +1,13 @@
-import { Box, Button, Drawer, Tab, Tabs, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Drawer,
+  Tab,
+  Tabs,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import characterData from "data/character_data.json";
 import { COLORS } from "styling/constants";
@@ -18,6 +27,9 @@ export interface Score {
 const Home = () => {
   const [charData, setCharData] = useState<Character[]>([]);
   const [animeData, setAnimeData] = useState<string[]>([]);
+
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("md"));
 
   useEffect(() => {
     if (charData.length === 0) {
@@ -128,11 +140,19 @@ const Home = () => {
               borderRadius: "16px",
               border: `1px solid ${COLORS.quiz.light}`,
               marginBottom: 4,
+              [theme.breakpoints.down("md")]: {
+                marginTop: "140px",
+              },
             }}
           >
-            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-              <Box sx={{ paddingLeft: 2 }}>
+            <Box sx={{ display: "flex" }}>
+              <Box
+                sx={{
+                  paddingLeft: 2,
+                }}
+              >
                 <Tabs
+                  variant={matches ? "fullWidth" : "standard"}
                   sx={{
                     "& .MuiTabs-indicator": {
                       backgroundColor: COLORS.quiz.light,

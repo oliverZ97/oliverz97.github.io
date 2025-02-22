@@ -1,11 +1,18 @@
-import { Box, Button, CircularProgress, colors, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  colors,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { getImgSrc } from "common/quizUtils";
 import { Character } from "common/types";
 import { DayStreak, StreakRef } from "components/Streak";
 import { useEffect, useRef, useState } from "react";
 import { COLORS } from "styling/constants";
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 import { Score } from "pages/Home";
 
@@ -19,25 +26,34 @@ interface ImageTarget {
   character: string;
   anime: string;
   isTarget: boolean;
-  isJokerAnswer: boolean
+  isJokerAnswer: boolean;
 }
 
 export default function MultipleChoiceQuiz({
-  getRandomCharacter, charData
+  getRandomCharacter,
+  charData,
 }: ImageCharacterQuizProps) {
   const [answers, setAnswers] = useState<ImageTarget[]>([]);
   const [target, setTarget] = useState<Character | null>(null);
   const [score, setScore] = useState(0);
   const [level, setLevel] = useState(1);
   const [lifes, setLifes] = useState(3);
-  const [sessionHistory, setSessionHistory] = useState<string[]>([])
+  const [sessionHistory, setSessionHistory] = useState<string[]>([]);
   const [isGameOver, setIsGameOver] = useState(false);
-  const [selectedAnswer, setSelectedAnswer] = useState<ImageTarget | null>(null);
+  const [selectedAnswer, setSelectedAnswer] = useState<ImageTarget | null>(
+    null
+  );
   const [scores, setScores] = useState<Score[]>([]);
-  const [fiftyJoker, setFiftyJoker] = useState<"idle" | "active" | "used">("idle");
-  const [skipJoker, setSkipJoker] = useState<"idle" | "active" | "used">("idle");
+  const [fiftyJoker, setFiftyJoker] = useState<"idle" | "active" | "used">(
+    "idle"
+  );
+  const [skipJoker, setSkipJoker] = useState<"idle" | "active" | "used">(
+    "idle"
+  );
 
   const streakRef = useRef<StreakRef | null>(null);
+
+  const theme = useTheme();
 
   useEffect(() => {
     if (!target) {
@@ -63,7 +79,7 @@ export default function MultipleChoiceQuiz({
         setFiftyJoker("used");
       }
       setTimeout(() => {
-        skipQuestion()
+        skipQuestion();
       }, 1000);
     }
   }, [selectedAnswer]);
@@ -77,7 +93,7 @@ export default function MultipleChoiceQuiz({
       const topThree = scoreArr.slice(0, 3);
       setScores(topThree);
     }
-  }, [])
+  }, []);
 
   function skipQuestion() {
     resetTargets();
@@ -88,23 +104,23 @@ export default function MultipleChoiceQuiz({
     //Set Highscore
     const scoreObj = {
       points: score,
-      date: new Date().toLocaleString("de-DE", { year: "numeric", month: "2-digit", day: "2-digit" })
-    }
+      date: new Date().toLocaleString("de-DE", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      }),
+    };
 
     let localScores = localStorage.getItem("multiple_choice_scores");
     let scores;
     if (localScores) {
       scores = JSON.parse(localScores);
-      scores.push(scoreObj)
-    } else[
-      scores = [
-        scoreObj
-      ]
-    ]
+      scores.push(scoreObj);
+    } else [(scores = [scoreObj])];
 
     //sort
-    scores.sort((a: Score, b: Score) => a.points < b.points ? 1 : -1)
-    setScores(scores.slice(0, 3))
+    scores.sort((a: Score, b: Score) => (a.points < b.points ? 1 : -1));
+    setScores(scores.slice(0, 3));
     const scoreString = JSON.stringify(scores);
     localStorage.setItem("multiple_choice_scores", scoreString);
     if (streakRef) {
@@ -121,10 +137,10 @@ export default function MultipleChoiceQuiz({
         character: "",
         anime: "",
         isTarget: false,
-        isJokerAnswer: false
+        isJokerAnswer: false,
       },
     ]);
-    setSessionHistory([])
+    setSessionHistory([]);
     setScore(0);
     setLevel(1);
     setLifes(3);
@@ -147,7 +163,7 @@ export default function MultipleChoiceQuiz({
     }
     setSelectedAnswer(null);
     setTarget(target);
-    setSessionHistory(sessionHistory => [...sessionHistory, target.Name])
+    setSessionHistory((sessionHistory) => [...sessionHistory, target.Name]);
   }
 
   function getTargetAnswers() {
@@ -157,7 +173,7 @@ export default function MultipleChoiceQuiz({
         anime: target.Anime,
         character: target.Name,
         isTarget: true,
-        isJokerAnswer: true
+        isJokerAnswer: true,
       };
       answers.push(correctAnswer);
       let jokerAnswerSet = false;
@@ -170,11 +186,10 @@ export default function MultipleChoiceQuiz({
             isTarget: false,
             isJokerAnswer: !jokerAnswerSet ? true : false,
           });
-          jokerAnswerSet = true
+          jokerAnswerSet = true;
           if (fiftyJoker !== "idle") {
-            jokerAnswerSet = false
+            jokerAnswerSet = false;
           }
-
         }
       }
 
@@ -201,9 +216,7 @@ export default function MultipleChoiceQuiz({
 
   function returnAnswerColor(answer: ImageTarget | null) {
     if (selectedAnswer) {
-      if (
-        answer?.character === target?.Name
-      ) {
+      if (answer?.character === target?.Name) {
         return COLORS.quiz.success;
       } else {
         return COLORS.quiz.failed;
@@ -211,7 +224,7 @@ export default function MultipleChoiceQuiz({
     } else {
       if (fiftyJoker === "active") {
         if (!answer?.isJokerAnswer) {
-          return COLORS.quiz.disabled
+          return COLORS.quiz.disabled;
         } else {
           return COLORS.quiz.main;
         }
@@ -234,17 +247,46 @@ export default function MultipleChoiceQuiz({
 
   return (
     <Box position={"relative"}>
-      {scores.length > 0 && <Box sx={{ borderRadius: "16px", backgroundColor: COLORS.quiz.secondary, marginBottom: 4, border: `1px solid ${COLORS.quiz.light}`, display: "flex", flexDirection: "column", alignItems: "center", paddingY: 2 }}>
-        <Box sx={{ display: "flex" }}>
-          {scores.map(((item, index) => <Box key={index} sx={{ display: "flex", flexDirection: "column", alignItems: "center", paddingX: 2, color: "white", backgroundColor: COLORS.quiz.secondary }}>
-            {index === 0 && <Typography fontSize={"24px"}>🏆</Typography>}
-            {index === 1 && <Typography fontSize={"24px"}>🥈</Typography>}
-            {index === 2 && <Typography fontSize={"24px"}>🥉</Typography>}
-            <Typography fontSize={"12px"}>{"Points: " + item.points}</Typography>
-            <Typography fontSize={"12px"}>{"Date: " + item.date}</Typography>
-          </Box>))}
+      {scores.length > 0 && (
+        <Box
+          sx={{
+            borderRadius: "16px",
+            backgroundColor: COLORS.quiz.secondary,
+            marginBottom: 4,
+            border: `1px solid ${COLORS.quiz.light}`,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            paddingY: 2,
+          }}
+        >
+          <Box sx={{ display: "flex" }}>
+            {scores.map((item, index) => (
+              <Box
+                key={index}
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  paddingX: 2,
+                  color: "white",
+                  backgroundColor: COLORS.quiz.secondary,
+                }}
+              >
+                {index === 0 && <Typography fontSize={"24px"}>🏆</Typography>}
+                {index === 1 && <Typography fontSize={"24px"}>🥈</Typography>}
+                {index === 2 && <Typography fontSize={"24px"}>🥉</Typography>}
+                <Typography fontSize={"12px"}>
+                  {"Points: " + item.points}
+                </Typography>
+                <Typography fontSize={"12px"}>
+                  {"Date: " + item.date}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
         </Box>
-      </Box>}
+      )}
       <DayStreak
         ref={streakRef}
         streakKey={"choiceStreak"}
@@ -263,10 +305,6 @@ export default function MultipleChoiceQuiz({
           minHeight: "500px",
         }}
       >
-
-
-
-
         <Box
           sx={{
             display: "flex",
@@ -274,137 +312,212 @@ export default function MultipleChoiceQuiz({
             alignItems: "center",
             gap: 2,
             position: "relative",
-            flexGrow: 1
+            flexGrow: 1,
           }}
         >
-          {!isGameOver && <Box sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: 2,
-            position: "relative"
-          }}>
-            <Box position={"absolute"} sx={{ left: 0, top: 0 }}>
-
-              {Array.from({ length: lifes }, (_, k) => (
-                <FavoriteIcon key={k} sx={{ color: COLORS.quiz.hearts }} color="error"></FavoriteIcon>
-              ))}
-              {lifes === 0 && <FavoriteIcon
-                sx={{
-                  color: COLORS.quiz.hearts,
-                  "@keyframes blinking": {
-                    "0%": {
-                      color: COLORS.quiz.hearts,
-                    },
-                    "50%": {
-                      color: "transparent",
-                    },
-                    "100%": {
-                      color: COLORS.quiz.hearts,
-                    },
-                  },
-                  animation: "blinking 3s ease-out infinite",
-                }}>
-              </FavoriteIcon>}
-              <Typography sx={{ color: "white", fontSize: "24px", paddingLeft: "2px" }}>{`${String(score).padStart(4, '0')}`}</Typography>
-              <Typography sx={{ color: "white", fontSize: "18px", paddingLeft: "2px" }}>{`#${level}`}</Typography>
-
-            </Box>
-            <Box position={"absolute"} sx={{ right: 0, top: 0, display: "flex", gap: 1 }}>
-              <Button
-                disabled={fiftyJoker !== "idle"}
-                onClick={useFiftyJoker}
-                sx={
-                  {
-                    backgroundColor: COLORS.quiz.main,
-                    "&:hover": {
-                      backgroundColor: COLORS.quiz.main_hover
-                    }
-                  }
-                }
-                variant="contained"><sup>50</sup>/<sup>50</sup></Button>
-              <Button
-                disabled={skipJoker === "used"}
-                onClick={useSkipJoker}
-                sx={
-                  {
-                    backgroundColor: COLORS.quiz.main,
-                    "&:hover": {
-                      backgroundColor: COLORS.quiz.main_hover
-                    }
-                  }
-                }
-                variant="contained">&gt;&gt;</Button>
-            </Box>
-            <Box sx={{ display: "flex", gap: 4 }}>
-              {target && (
-                <Box
-                  width={"200px"}
-                  component={"img"}
-                  src={getImgSrc(target.Name)}
-                ></Box>
-              )}
-              {!target && (
-                <Box
-                  width={"200px"}
-                  height={"275px"}
-                  sx={{ backgroundColor: "transparent", display: "flex", justifyContent: "center", alignItems: "center" }}
-                >
-                  <CircularProgress size={50} color="info"></CircularProgress>
-                </Box>
-              )}
-            </Box>
+          {!isGameOver && (
             <Box
               sx={{
                 display: "flex",
-                justifyContent: "center",
-                flexWrap: "wrap",
-                width: "70%",
+                flexDirection: "column",
+                alignItems: "center",
                 gap: 2,
+                position: "relative",
               }}
             >
-              {target &&
-                answers.map((answer) => (
-                  <Button
-                    sx={{
-                      border: `1px solid ${COLORS.quiz.light}`,
-                      width: "450px",
-                      paddingX: 2,
-                      paddingY: 1,
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      color: "white",
-                      cursor: "pointer",
-                      backgroundColor: returnAnswerColor(answer),
-                      textTransform: "capitalize",
-                      "&:hover": {
-                        backgroundColor: selectedAnswer ? returnAnswerColor(answer) : COLORS.quiz.main_hover
-                      },
-                      "&:active": {
-                        backgroundColor: returnAnswerColor(answer)
-                      }
-                    }}
-                    disabled={fiftyJoker === "active" && !answer.isJokerAnswer}
-                    onClick={() => checkCorrectAnswers(answer)}
-                  >
-                    <Typography fontWeight={"bold"}>{answer.character}</Typography>
-                    <Typography>{answer.anime}</Typography>
-                  </Button>
+              <Box
+                position={"absolute"}
+                sx={{
+                  left: 0,
+                  top: 0,
+                  [theme.breakpoints.down("md")]: {
+                    left: 60,
+                  },
+                }}
+              >
+                {Array.from({ length: lifes }, (_, k) => (
+                  <FavoriteIcon
+                    key={k}
+                    sx={{ color: COLORS.quiz.hearts }}
+                    color="error"
+                  ></FavoriteIcon>
                 ))}
+                {lifes === 0 && (
+                  <FavoriteIcon
+                    sx={{
+                      color: COLORS.quiz.hearts,
+                      "@keyframes blinking": {
+                        "0%": {
+                          color: COLORS.quiz.hearts,
+                        },
+                        "50%": {
+                          color: "transparent",
+                        },
+                        "100%": {
+                          color: COLORS.quiz.hearts,
+                        },
+                      },
+                      animation: "blinking 3s ease-out infinite",
+                    }}
+                  ></FavoriteIcon>
+                )}
+                <Typography
+                  sx={{ color: "white", fontSize: "24px", paddingLeft: "2px" }}
+                >{`${String(score).padStart(4, "0")}`}</Typography>
+                <Typography
+                  sx={{ color: "white", fontSize: "18px", paddingLeft: "2px" }}
+                >{`#${level}`}</Typography>
+              </Box>
+              <Box
+                position={"absolute"}
+                sx={{
+                  right: 0,
+                  top: 0,
+                  display: "flex",
+                  gap: 1,
+                  [theme.breakpoints.down("md")]: {
+                    right: 60,
+                  },
+                }}
+              >
+                <Button
+                  disabled={fiftyJoker !== "idle"}
+                  onClick={useFiftyJoker}
+                  sx={{
+                    backgroundColor: COLORS.quiz.main,
+                    "&:hover": {
+                      backgroundColor: COLORS.quiz.main_hover,
+                    },
+                  }}
+                  variant="contained"
+                >
+                  <sup>50</sup>/<sup>50</sup>
+                </Button>
+                <Button
+                  disabled={skipJoker === "used"}
+                  onClick={useSkipJoker}
+                  sx={{
+                    backgroundColor: COLORS.quiz.main,
+                    "&:hover": {
+                      backgroundColor: COLORS.quiz.main_hover,
+                    },
+                  }}
+                  variant="contained"
+                >
+                  &gt;&gt;
+                </Button>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: 4,
+                  [theme.breakpoints.down("md")]: {
+                    marginTop: "100px",
+                  },
+                }}
+              >
+                {target && (
+                  <Box
+                    width={"200px"}
+                    component={"img"}
+                    src={getImgSrc(target.Name)}
+                  ></Box>
+                )}
+                {!target && (
+                  <Box
+                    width={"200px"}
+                    height={"275px"}
+                    sx={{
+                      backgroundColor: "transparent",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <CircularProgress size={50} color="info"></CircularProgress>
+                  </Box>
+                )}
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  flexWrap: "wrap",
+                  width: "70%",
+                  gap: 2,
+                }}
+              >
+                {target &&
+                  answers.map((answer) => (
+                    <Button
+                      sx={{
+                        border: `1px solid ${COLORS.quiz.light}`,
+                        width: "450px",
+                        paddingX: 2,
+                        paddingY: 1,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        color: "white",
+                        cursor: "pointer",
+                        backgroundColor: returnAnswerColor(answer),
+                        textTransform: "capitalize",
+                        "&:hover": {
+                          backgroundColor: selectedAnswer
+                            ? returnAnswerColor(answer)
+                            : COLORS.quiz.main_hover,
+                        },
+                        "&:active": {
+                          backgroundColor: returnAnswerColor(answer),
+                        },
+                      }}
+                      disabled={
+                        fiftyJoker === "active" && !answer.isJokerAnswer
+                      }
+                      onClick={() => checkCorrectAnswers(answer)}
+                    >
+                      <Typography fontWeight={"bold"}>
+                        {answer.character}
+                      </Typography>
+                      <Typography>{answer.anime}</Typography>
+                    </Button>
+                  ))}
+              </Box>
             </Box>
-
-
-          </Box>}
-          {isGameOver && <Box sx={{ height: "100%", width: "100%" }}>
-            <Typography marginBottom={2} textAlign={"center"} variant="h4" color={COLORS.quiz.light}>Game Over!</Typography>
-            <Box width={"200px"} component={"img"} src={"https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExODN6MGVsaW5rYmZwdnQxaHl5M293M2V1eDZtcnltd2JyM2ZyYXExaCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/a6pzK009rlCak/giphy.gif"}></Box>
-            <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-              <Typography fontSize={"40px"}>🏆</Typography>
-              <Typography fontSize={"20px"} textAlign={"center"} color={"white"}>{`Your Score: ${score}`}</Typography>
+          )}
+          {isGameOver && (
+            <Box sx={{ height: "100%", width: "100%" }}>
+              <Typography
+                marginBottom={2}
+                textAlign={"center"}
+                variant="h4"
+                color={COLORS.quiz.light}
+              >
+                Game Over!
+              </Typography>
+              <Box
+                width={"200px"}
+                component={"img"}
+                src={
+                  "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExODN6MGVsaW5rYmZwdnQxaHl5M293M2V1eDZtcnltd2JyM2ZyYXExaCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/a6pzK009rlCak/giphy.gif"
+                }
+              ></Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <Typography fontSize={"40px"}>🏆</Typography>
+                <Typography
+                  fontSize={"20px"}
+                  textAlign={"center"}
+                  color={"white"}
+                >{`Your Score: ${score}`}</Typography>
+              </Box>
             </Box>
-          </Box>}
-
+          )}
         </Box>
         <Box
           sx={{
@@ -429,7 +542,7 @@ export default function MultipleChoiceQuiz({
             Reset
           </Button>
         </Box>
-      </Box >
+      </Box>
     </Box>
   );
 }
