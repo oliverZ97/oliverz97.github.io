@@ -29,13 +29,20 @@ interface ImageTarget {
   isJokerAnswer: boolean;
 }
 
+let score = 0;
+let topThree: Score[] = [];
+const scores = localStorage.getItem("multiple_choice_scores");
+if (scores) {
+  const scoreArr = JSON.parse(scores) as Score[];
+  topThree = scoreArr.slice(0, 3);
+}
+
 export default function MultipleChoiceQuiz({
   getRandomCharacter,
   charData,
 }: ImageCharacterQuizProps) {
   const [answers, setAnswers] = useState<ImageTarget[]>([]);
   const [target, setTarget] = useState<Character | null>(null);
-  const [score, setScore] = useState(0);
   const [level, setLevel] = useState(1);
   const [lifes, setLifes] = useState(3);
   const [sessionHistory, setSessionHistory] = useState<string[]>([]);
@@ -43,7 +50,7 @@ export default function MultipleChoiceQuiz({
   const [selectedAnswer, setSelectedAnswer] = useState<ImageTarget | null>(
     null
   );
-  const [scores, setScores] = useState<Score[]>([]);
+  const [scores, setScores] = useState<Score[]>(topThree);
   const [fiftyJoker, setFiftyJoker] = useState<"idle" | "active" | "used">(
     "idle"
   );
@@ -52,7 +59,6 @@ export default function MultipleChoiceQuiz({
   );
 
   const streakRef = useRef<StreakRef | null>(null);
-
   const theme = useTheme();
 
   useEffect(() => {
@@ -63,37 +69,6 @@ export default function MultipleChoiceQuiz({
       getTargetAnswers();
     }
   }, [target]);
-
-  useEffect(() => {
-    if (selectedAnswer) {
-      if (selectedAnswer.isTarget) {
-        calculatePoints();
-      } else {
-        setLifes(lifes - 1);
-        if (lifes < 1) {
-          setIsGameOver(true);
-          setHighscore();
-        }
-      }
-      if (fiftyJoker === "active") {
-        setFiftyJoker("used");
-      }
-      setTimeout(() => {
-        skipQuestion();
-      }, 1000);
-    }
-  }, [selectedAnswer]);
-
-  useEffect(() => {
-    //get scores
-    const scores = localStorage.getItem("multiple_choice_scores");
-    if (scores) {
-      const scoreArr = JSON.parse(scores) as Score[];
-
-      const topThree = scoreArr.slice(0, 3);
-      setScores(topThree);
-    }
-  }, []);
 
   function skipQuestion() {
     resetTargets();
@@ -116,7 +91,7 @@ export default function MultipleChoiceQuiz({
     if (localScores) {
       scores = JSON.parse(localScores);
       scores.push(scoreObj);
-    } else [(scores = [scoreObj])];
+    } else[(scores = [scoreObj])];
 
     //sort
     scores.sort((a: Score, b: Score) => (a.points < b.points ? 1 : -1));
@@ -141,7 +116,7 @@ export default function MultipleChoiceQuiz({
       },
     ]);
     setSessionHistory([]);
-    setScore(0);
+    score = 0;
     setLevel(1);
     setLifes(3);
     setFiftyJoker("idle");
@@ -152,11 +127,6 @@ export default function MultipleChoiceQuiz({
   }
 
   function resetTargets() {
-    if (sessionHistory.length === charData.length) {
-      setIsGameOver(true);
-      setHighscore();
-      return;
-    }
     let target = getRandomCharacter();
     while (sessionHistory.includes(target.Name)) {
       target = getRandomCharacter();
@@ -207,11 +177,33 @@ export default function MultipleChoiceQuiz({
   }
 
   function checkCorrectAnswers(answer: ImageTarget) {
+    if (answer.isTarget) {
+      calculatePoints();
+    } else {
+      setLifes(lifes - 1);
+      if (lifes < 1) {
+        setIsGameOver(true);
+        setHighscore();
+      }
+    }
+    if (fiftyJoker === "active") {
+      setFiftyJoker("used");
+    }
     setSelectedAnswer(answer);
+
+    if (sessionHistory.length + 1 === charData.length) {
+      setIsGameOver(true);
+      setHighscore();
+      return;
+    } else {
+      setTimeout(() => {
+        skipQuestion();
+      }, 1000);
+    }
   }
 
   function calculatePoints() {
-    setScore(score + 1);
+    score++;
   }
 
   function returnAnswerColor(answer: ImageTarget | null) {
@@ -241,7 +233,7 @@ export default function MultipleChoiceQuiz({
   function useSkipJoker() {
     setSkipJoker("active");
     skipQuestion();
-    setScore(Math.max(score - 3, 0));
+    score = (Math.max(score - 3, 0));
     setSkipJoker("used");
   }
 
