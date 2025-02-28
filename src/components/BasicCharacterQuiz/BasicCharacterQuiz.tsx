@@ -10,7 +10,7 @@ import { compareObjects, getImgSrc } from "common/quizUtils";
 import { Score } from "pages/Home";
 import { DayStreak } from "components/Streak";
 import { StreakRef } from "components/Streak";
-import { isIncludedInDifficulty } from "utils";
+import { getDailyUTCDate, isIncludedInDifficulty } from "utils";
 
 interface HintRef {
   resetHint: () => void;
@@ -21,12 +21,14 @@ const REDUCEFACTOR = 10;
 
 interface BasicCharacterQuizProps {
   charData: Character[];
-  getRandomCharacter: () => Character;
+  getRandomCharacter: (endlessMode?: boolean) => Character;
+  endlessMode?: boolean;
 }
 
 export default function BasicCharacterQuiz({
   charData,
   getRandomCharacter,
+  endlessMode = true,
 }: BasicCharacterQuizProps) {
   const [searchHistory, setSearchHistory] = useState<Character[]>([]);
   const [selectedOption, setSelectedOption] = useState<Character | null>(null);
@@ -47,6 +49,9 @@ export default function BasicCharacterQuiz({
   const streakRef = useRef<StreakRef | null>(null);
 
   const theme = useTheme();
+
+  const scoreKey = endlessMode ? "scores" : "dailyScores"
+  const streakKey = endlessMode ? "basicStreak" : "dailyBasicStreak"
 
   useEffect(() => {
     if (charData.length > 0 && localCharData.length === 0) {
@@ -70,7 +75,7 @@ export default function BasicCharacterQuiz({
 
   useEffect(() => {
     //get scores
-    const scores = localStorage.getItem("scores");
+    const scores = localStorage.getItem(scoreKey);
     if (scores) {
       const scoreArr = JSON.parse(scores) as Score[];
 
@@ -111,9 +116,16 @@ export default function BasicCharacterQuiz({
     resetQuiz();
 
     //select random character
-    let target = getRandomCharacter();
-    while (!isIncludedInDifficulty(target, difficulty)) {
-      target = getRandomCharacter();
+    let target = getRandomCharacter(endlessMode ? true : false);
+    if (endlessMode) {
+      while (!isIncludedInDifficulty(target, difficulty)) {
+        target = getRandomCharacter();
+      }
+    } else {
+      const hasSolvedToday = hasBeenSolvedToday();
+      if (hasSolvedToday) {
+        setIsCorrect(true);
+      }
     }
     setTargetCharacter(target as Character);
   }
@@ -164,6 +176,10 @@ export default function BasicCharacterQuiz({
         }
 
         setIsCorrect(true);
+        if (!endlessMode) {
+          const utcDate = getDailyUTCDate();
+          localStorage.setItem("HasBeenSolvedToday", utcDate.toISOString());
+        }
         if (points > 0) {
           //Set Highscore
           const scoreObj = {
@@ -175,27 +191,44 @@ export default function BasicCharacterQuiz({
             }),
           };
 
-          let localScores = localStorage.getItem("scores");
+          let localScores = localStorage.getItem(scoreKey);
           let scores;
           if (localScores) {
             scores = JSON.parse(localScores);
             scores.push(scoreObj);
-          } else [(scores = [scoreObj])];
+          } else[(scores = [scoreObj])];
 
           //sort
           scores.sort((a: Score, b: Score) => (a.points < b.points ? 1 : -1));
           setScores(scores.slice(0, 3));
           const scoreString = JSON.stringify(scores);
-          localStorage.setItem("scores", scoreString);
+          localStorage.setItem(scoreKey, scoreString);
           if (streakRef) {
             streakRef.current?.setStreak();
           }
+
         }
         return;
       }
 
       //calculate point reduce
       calculateSelectionPoints(res.short.length);
+    }
+  }
+
+  function hasBeenSolvedToday() {
+    const dailyExpireDate = localStorage.getItem("HasBeenSolvedToday");
+    if (dailyExpireDate) {
+      const date = new Date(dailyExpireDate).toDateString();
+      const now = new Date().toDateString();
+      console.log(date, now)
+      if (date === now) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false
     }
   }
 
@@ -291,7 +324,7 @@ export default function BasicCharacterQuiz({
           cardTitle="Staff Hint"
         ></RevealCard>
       </Box>
-      <DayStreak ref={streakRef} streakKey={"basicStreak"}></DayStreak>
+      <DayStreak ref={streakRef} streakKey={streakKey}></DayStreak>
 
       <SearchBar
         difficulty={difficulty}
@@ -306,6 +339,7 @@ export default function BasicCharacterQuiz({
         handleGiveUp={() => handleSearchChange(null, targetChar, "giveUp")}
         showGiveUp={showGiveUp}
         gaveUp={gaveUp}
+        endlessMode={endlessMode}
       ></SearchBar>
 
       {targetChar && isCorrect && (
@@ -342,10 +376,10 @@ export default function BasicCharacterQuiz({
           </Box>{" "}
         </Box>
       )}
-      <CharacterList
+      {(endlessMode || (!endlessMode && !isCorrect)) && <CharacterList
         searchHistory={searchHistory}
         targetChar={targetChar}
-      ></CharacterList>
+      ></CharacterList>}
     </Box>
   );
 }

@@ -18,6 +18,7 @@ import BasicCharacterQuiz from "components/BasicCharacterQuiz/BasicCharacterQuiz
 import ImageCharacterQuiz from "components/ImageCharacterQuiz/ImageCharacterQuiz";
 import DrawerBasic from "components/CustomDrawer";
 import MultipleChoiceQuiz from "components/MultipleChoiceQuiz/MultipleChoiceQuiz";
+import { getDailyUTCDate } from "utils";
 
 export interface Score {
   points: number;
@@ -46,11 +47,30 @@ const Home = () => {
     }
   }, [charData, characterData, animeData]);
 
-  function getRandomCharacter() {
+  function getRandomCharacter(endlessMode = true) {
     const charArray = Object.values(characterData);
-    let i = Math.floor(Math.random() * charArray.length);
-    const target = charArray[i];
+    let index;
+    if (endlessMode) {
+      index = Math.floor(Math.random() * charArray.length);
+    } else {
+      index = getRandomNumberFromUTCDate(charArray.length)
+    }
+    const target = charArray[index];
     return target as Character;
+  }
+
+  function getRandomNumberFromUTCDate(max: number): number {
+    if (max <= 0 || !Number.isInteger(max)) {
+      throw new Error("Max must be a positive integer.");
+    }
+
+    const utcDate = getDailyUTCDate();
+
+    const timestamp = utcDate.getTime(); // Get the UTC timestamp in milliseconds
+
+    const randomNumber = timestamp % max;
+
+    return randomNumber;
   }
 
   interface TabPanelProps {
@@ -169,7 +189,7 @@ const Home = () => {
                         color: "white",
                       },
                     }}
-                    label="Character Quiz"
+                    label="Daily Character Quiz"
                     {...a11yProps(0)}
                   />
                   <Tab
@@ -179,7 +199,7 @@ const Home = () => {
                         color: "white",
                       },
                     }}
-                    label="Character Image Quiz"
+                    label="Endless Character Quiz"
                     {...a11yProps(1)}
                   />
                   <Tab
@@ -189,8 +209,18 @@ const Home = () => {
                         color: "white",
                       },
                     }}
-                    label="Multiple Choice Quiz"
+                    label="Character Image Quiz"
                     {...a11yProps(2)}
+                  />
+                  <Tab
+                    sx={{
+                      color: COLORS.quiz.light,
+                      "&.Mui-selected": {
+                        color: "white",
+                      },
+                    }}
+                    label="Multiple Choice Quiz"
+                    {...a11yProps(3)}
                   />
                 </Tabs>
               </Box>
@@ -201,10 +231,18 @@ const Home = () => {
               <BasicCharacterQuiz
                 charData={charData}
                 getRandomCharacter={getRandomCharacter}
+                endlessMode={false}
               ></BasicCharacterQuiz>
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={1}>
+              <BasicCharacterQuiz
+                charData={charData}
+                getRandomCharacter={getRandomCharacter}
+              ></BasicCharacterQuiz>
+            </CustomTabPanel>
+
+            <CustomTabPanel value={value} index={2}>
               <ImageCharacterQuiz
                 animeData={animeData}
                 charData={charData}
@@ -212,7 +250,7 @@ const Home = () => {
               ></ImageCharacterQuiz>
             </CustomTabPanel>
 
-            <CustomTabPanel value={value} index={2}>
+            <CustomTabPanel value={value} index={3}>
               <MultipleChoiceQuiz
                 animeData={animeData}
                 charData={charData}

@@ -28,6 +28,7 @@ interface SearchBarProps {
   showGiveUp: boolean;
   gaveUp: boolean;
   handleGiveUp: () => void;
+  endlessMode?: boolean;
 }
 
 export function SearchBar({
@@ -43,6 +44,7 @@ export function SearchBar({
   showGiveUp,
   gaveUp,
   handleGiveUp,
+  endlessMode = true
 }: SearchBarProps) {
   const theme = useTheme();
 
@@ -53,7 +55,7 @@ export function SearchBar({
     if (newDifficulty && newDifficulty !== difficulty) {
       setDifficulty(newDifficulty as Difficulty);
       setTimeout(() => {
-         init()
+        init()
       }, 400)
     }
 
@@ -110,7 +112,7 @@ export function SearchBar({
         )}
       </Box>
       <Box sx={{ display: "flex", gap: 1 }}>
-        <ToggleButtonGroup
+        {endlessMode && < ToggleButtonGroup
           value={difficulty}
           exclusive
           onChange={handleDifficulty}
@@ -127,8 +129,8 @@ export function SearchBar({
           <ToggleButton value="C" aria-label="right aligned">
             <Typography sx={{ color: "white" }}>Hard</Typography>
           </ToggleButton>
-        </ToggleButtonGroup>
-        <Button
+        </ToggleButtonGroup>}
+        {endlessMode && <Button
           onClick={init}
           sx={{
             backgroundColor: COLORS.quiz.main,
@@ -140,8 +142,8 @@ export function SearchBar({
           variant="outlined"
         >
           RESET QUIZ
-        </Button>
+        </Button>}
       </Box>
-    </Box>
+    </Box >
   );
 }
