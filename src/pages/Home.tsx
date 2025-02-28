@@ -47,30 +47,40 @@ const Home = () => {
     }
   }, [charData, characterData, animeData]);
 
-  function getRandomCharacter(endlessMode = true) {
+  function getRandomCharacter(endlessMode = true, isPrevious = false) {
     const charArray = Object.values(characterData);
     let index;
     if (endlessMode) {
       index = Math.floor(Math.random() * charArray.length);
     } else {
-      index = getRandomNumberFromUTCDate(charArray.length)
+      if(isPrevious) {
+        index = getRandomNumberFromUTCDate(charArray.length, true)
+      } else {
+        index = getRandomNumberFromUTCDate(charArray.length)
+      }
     }
     const target = charArray[index];
     return target as Character;
   }
 
-  function getRandomNumberFromUTCDate(max: number): number {
+  function getRandomNumberFromUTCDate(max: number, isPrevious = false): number {
     if (max <= 0 || !Number.isInteger(max)) {
       throw new Error("Max must be a positive integer.");
     }
 
-    const utcDate = getDailyUTCDate();
-
+    const utcDate = isPrevious ? getYesterdayUTCDate() : getDailyUTCDate();
     const timestamp = utcDate.getTime(); // Get the UTC timestamp in milliseconds
-
     const randomNumber = timestamp % max;
 
     return randomNumber;
+  }
+
+  function getYesterdayUTCDate(): Date {
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setUTCDate(today.getUTCDate() - 1);
+    yesterday.setUTCHours(0, 0, 0, 0); // Set to start of yesterday UTC
+    return yesterday;
   }
 
   interface TabPanelProps {

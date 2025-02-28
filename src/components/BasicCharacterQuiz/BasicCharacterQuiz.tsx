@@ -21,7 +21,7 @@ const REDUCEFACTOR = 10;
 
 interface BasicCharacterQuizProps {
   charData: Character[];
-  getRandomCharacter: (endlessMode?: boolean) => Character;
+  getRandomCharacter: (endlessMode?: boolean, isPrevious?: boolean) => Character;
   endlessMode?: boolean;
 }
 
@@ -109,6 +109,11 @@ export default function BasicCharacterQuiz({
     if (editorialHintRef.current) {
       editorialHintRef?.current.resetHint();
     }
+  }
+
+  function getYesterdaysChar() {
+    const char = getRandomCharacter(false, true);
+    return char.Name
   }
 
   function init() {
@@ -221,10 +226,10 @@ export default function BasicCharacterQuiz({
     if (dailyExpireDate) {
       const date = new Date(dailyExpireDate).toDateString();
       const now = new Date().toDateString();
-      console.log(date, now)
       if (date === now) {
         return true;
       } else {
+        localStorage.removeItem("HasBeenSolvedToday")
         return false;
       }
     } else {
@@ -373,7 +378,11 @@ export default function BasicCharacterQuiz({
               component={"img"}
               src={getImgSrc(targetChar?.Name)}
             ></Box>
-          </Box>{" "}
+            {!endlessMode && <Box sx={{marginTop: 2}}>
+              <Typography fontSize="14px" textAlign={"center"}>{"Yesterdays character was"}</Typography>
+            <Typography fontWeight={"bold"} fontSize="14px" textAlign={"center"}>{`${getYesterdaysChar()}`}</Typography>
+            </Box>}
+          </Box>
         </Box>
       )}
       {(endlessMode || (!endlessMode && !isCorrect)) && <CharacterList
