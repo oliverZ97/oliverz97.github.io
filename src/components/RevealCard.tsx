@@ -12,7 +12,6 @@ interface RevealCardProps {
 export const RevealCard = forwardRef(
   ({ cardText, cardTitle, costs, onReveal }: RevealCardProps, ref) => {
     const [revealHint, setRevealHint] = useState(false);
-    const theme = useTheme();
 
     const resetHint = () => {
       setRevealHint(false);
@@ -27,6 +26,21 @@ export const RevealCard = forwardRef(
     useImperativeHandle(ref, () => ({
       resetHint: resetHint,
     }));
+
+    function listTagList(tagList: string) {
+      const tags = tagList.split(";");
+      if(tags.length > 1) {
+        return tags.filter((tag) => tag !== "-").map((tag) => <Typography sx={{
+          color: COLORS.quiz.primary_text,
+          textTransform: "capitalize",
+        }} fontSize={"13px"}>{tag}</Typography>)
+      } else {
+        return <Typography sx={{
+          color: COLORS.quiz.primary_text,
+          textTransform: "capitalize",
+        }}>{tagList}</Typography>
+      }
+    }
 
     return (
       <Button
@@ -49,14 +63,7 @@ export const RevealCard = forwardRef(
             height: "100%",
           }}
         >
-          <Typography
-            sx={{
-              color: COLORS.quiz.primary_text,
-              textTransform: "capitalize",
-            }}
-          >
-            {cardText !== "" ? cardText : "No hint available"}
-          </Typography>
+            {listTagList(cardText)}
         </Box>
         <Box
           sx={{

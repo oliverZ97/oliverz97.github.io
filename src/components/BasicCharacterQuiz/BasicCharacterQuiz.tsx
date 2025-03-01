@@ -45,7 +45,7 @@ export default function BasicCharacterQuiz({
   const genreHintRef = useRef<HintRef | null>(null);
   const animeHintRef = useRef<HintRef | null>(null);
   const studioHintRef = useRef<HintRef | null>(null);
-  const editorialHintRef = useRef<HintRef | null>(null);
+  const tagsHintRef = useRef<HintRef | null>(null);
   const streakRef = useRef<StreakRef | null>(null);
 
   const theme = useTheme();
@@ -106,8 +106,8 @@ export default function BasicCharacterQuiz({
     if (studioHintRef.current) {
       studioHintRef?.current.resetHint();
     }
-    if (editorialHintRef.current) {
-      editorialHintRef?.current.resetHint();
+    if (tagsHintRef.current) {
+      tagsHintRef?.current.resetHint();
     }
   }
 
@@ -303,9 +303,16 @@ export default function BasicCharacterQuiz({
         <RevealCard
           costs={500}
           onReveal={() => reducePointsForHint(500)}
+          ref={tagsHintRef}
+          cardText={targetChar?.Tags ?? ""}
+          cardTitle="Tags"
+        ></RevealCard>
+        <RevealCard
+          costs={500}
+          onReveal={() => reducePointsForHint(500)}
           ref={genreHintRef}
-          cardText={targetChar?.Genre ?? ""}
-          cardTitle="Genre"
+          cardText={[targetChar?.Subgenre1, targetChar?.Subgenre2].join(";") ?? ""}
+          cardTitle="Subgenres"
         ></RevealCard>
         <RevealCard
           costs={500}
@@ -321,13 +328,7 @@ export default function BasicCharacterQuiz({
           cardText={targetChar?.Anime ?? ""}
           cardTitle="Anime"
         ></RevealCard>
-        <RevealCard
-          costs={0}
-          onReveal={() => reducePointsForHint(0)}
-          ref={editorialHintRef}
-          cardText={targetChar?.Editorial_Staff_Hint ?? ""}
-          cardTitle="Staff Hint"
-        ></RevealCard>
+
       </Box>
       <DayStreak ref={streakRef} streakKey={streakKey}></DayStreak>
 
@@ -378,9 +379,9 @@ export default function BasicCharacterQuiz({
               component={"img"}
               src={getImgSrc(targetChar?.Name)}
             ></Box>
-            {!endlessMode && <Box sx={{marginTop: 2}}>
+            {!endlessMode && <Box sx={{ marginTop: 2 }}>
               <Typography fontSize="14px" textAlign={"center"}>{"Yesterdays character was"}</Typography>
-            <Typography fontWeight={"bold"} fontSize="14px" textAlign={"center"}>{`${getYesterdaysChar()}`}</Typography>
+              <Typography fontWeight={"bold"} fontSize="14px" textAlign={"center"}>{`${getYesterdaysChar()}`}</Typography>
             </Box>}
           </Box>
         </Box>

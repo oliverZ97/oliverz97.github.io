@@ -1,4 +1,4 @@
-import { Box, Grid, Typography, useTheme } from "@mui/material";
+import { Box, Grid, Tooltip, Typography, useTheme } from "@mui/material";
 import { getImgSrc, checkAgeGroup } from "common/quizUtils";
 import { Character } from "common/types";
 import { COLORS } from "styling/constants";
@@ -78,7 +78,7 @@ export default function CharacterList({
               color: COLORS.quiz.primary_text,
             }}
           >
-            Name
+            Sex
           </Box>
           <Box
             sx={{
@@ -89,7 +89,7 @@ export default function CharacterList({
               color: COLORS.quiz.primary_text,
             }}
           >
-            Sex
+            Age Group
           </Box>
           <Box
             sx={{
@@ -100,7 +100,7 @@ export default function CharacterList({
               color: COLORS.quiz.primary_text,
             }}
           >
-            Age Group
+            Hair Color
           </Box>
           <Box
             sx={{
@@ -111,7 +111,7 @@ export default function CharacterList({
               color: COLORS.quiz.primary_text,
             }}
           >
-            Hair Color
+            Eye Color
           </Box>
           <Box
             sx={{
@@ -122,7 +122,7 @@ export default function CharacterList({
               color: COLORS.quiz.primary_text,
             }}
           >
-            Eye Color
+            Height
           </Box>
           <Box
             sx={{
@@ -133,7 +133,7 @@ export default function CharacterList({
               color: COLORS.quiz.primary_text,
             }}
           >
-            Height
+            Origin
           </Box>
           <Box
             sx={{
@@ -144,7 +144,7 @@ export default function CharacterList({
               color: COLORS.quiz.primary_text,
             }}
           >
-            Origin
+            Anime Release
           </Box>
           <Box
             sx={{
@@ -155,7 +155,7 @@ export default function CharacterList({
               color: COLORS.quiz.primary_text,
             }}
           >
-            Release
+            Anime Genre
           </Box>
         </Box>
         {/* Data Rows */}
@@ -179,42 +179,28 @@ export default function CharacterList({
                 minHeight: 50,
               }}
             >
-              {" "}
-              {/* Center content */}
-              <Box
-                sx={{ maxWidth: "60px" }}
-                component={"img"}
-                src={getImgSrc(item.Name)}
-              ></Box>
+              <Tooltip title={item.Name} placement="bottom" slotProps={{
+                popper: {
+                  modifiers: [
+                    {
+                      name: 'offset',
+                      options: {
+                        offset: [0, -24],
+                      },
+                    },
+                  ],
+                },
+              }}>
+                <Box
+                  sx={{ maxWidth: "60px" }}
+                  component={"img"}
+                  src={getImgSrc(item.Name)}
+                ></Box>
+              </Tooltip>
             </Box>
             <Box
               sx={{
                 gridColumn: "2 / 3",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                minHeight: 50,
-              }}
-            >
-              <Box
-                sx={{
-                  width: "100%",
-                  flexGrow: 1,
-                  display: "flex",
-                  alignItems: "center",
-                  padding: "10px",
-                  backgroundColor: item.ValidFields?.includes("Name")
-                    ? COLORS.quiz.success
-                    : COLORS.quiz.main,
-                  height: "100%",
-                }}
-              >
-                <Typography>{item.Name}</Typography>
-              </Box>
-            </Box>
-            <Box
-              sx={{
-                gridColumn: "3 / 4",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
@@ -239,7 +225,7 @@ export default function CharacterList({
             </Box>
             <Box
               sx={{
-                gridColumn: "4 / 5",
+                gridColumn: "3 / 4",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
@@ -268,15 +254,13 @@ export default function CharacterList({
             </Box>
             <Box
               sx={{
-                gridColumn: "5 / 6",
+                gridColumn: "4 / 5",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
                 minHeight: 50,
               }}
             >
-              {" "}
-              {/* Center content */}
               <Box
                 sx={{
                   width: "100%",
@@ -295,7 +279,7 @@ export default function CharacterList({
             </Box>
             <Box
               sx={{
-                gridColumn: "6 / 7",
+                gridColumn: "5 / 6",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
@@ -320,7 +304,7 @@ export default function CharacterList({
             </Box>
             <Box
               sx={{
-                gridColumn: "7 / 8",
+                gridColumn: "6 / 7",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
@@ -346,7 +330,7 @@ export default function CharacterList({
             </Box>
             <Box
               sx={{
-                gridColumn: "8 / 9",
+                gridColumn: "7 / 8",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
@@ -371,7 +355,7 @@ export default function CharacterList({
             </Box>
             <Box
               sx={{
-                gridColumn: "9 / 10",
+                gridColumn: "8 / 9",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
@@ -400,10 +384,37 @@ export default function CharacterList({
                 )}
               </Box>
             </Box>
+            <Box
+              sx={{
+                gridColumn: "9 / 10",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                minHeight: 50,
+              }}
+            >
+              <Box
+                sx={{
+                  width: "100%",
+                  flexGrow: 1,
+                  display: "flex",
+                  alignItems: "center",
+                  padding: "10px",
+                  backgroundColor: item.ValidFields?.includes(
+                    "Genre"
+                  )
+                    ? COLORS.quiz.success
+                    : COLORS.quiz.main,
+                  height: "100%",
+                }}
+              >
+                <Typography>{item.Genre}</Typography>
+              </Box>
+            </Box>
           </Box>
         ))}
       </Box>
-      {}
+      { }
     </Box>
   );
 }

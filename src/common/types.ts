@@ -13,6 +13,9 @@ export interface Character {
     First_Release_Year: number,
     Difficulty: Difficulty,
     Studio: string;
+    Subgenre1?: string;
+    Subgenre2?: string;
+    Tags?: string;
     ValidFields?: string[],
  }
 
