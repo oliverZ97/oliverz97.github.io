@@ -30,7 +30,7 @@ const getRouteElement = (
 ): React.ReactNode => (
   <Suspense>
     <CssBaseline></CssBaseline>
-        <Box sx={{height: "100vh", width: "100vw" }}>
+        <Box sx={{height: "100vh"}}>
           <Component />
         </Box>
   </Suspense>
