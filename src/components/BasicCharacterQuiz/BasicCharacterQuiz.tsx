@@ -21,7 +21,10 @@ const REDUCEFACTOR = 10;
 
 interface BasicCharacterQuizProps {
   charData: Character[];
-  getRandomCharacter: (endlessMode?: boolean, isPrevious?: boolean) => Character;
+  getRandomCharacter: (
+    endlessMode?: boolean,
+    isPrevious?: boolean
+  ) => Character;
   endlessMode?: boolean;
 }
 
@@ -50,8 +53,8 @@ export default function BasicCharacterQuiz({
 
   const theme = useTheme();
 
-  const scoreKey = endlessMode ? "scores" : "dailyScores"
-  const streakKey = endlessMode ? "basicStreak" : "dailyBasicStreak"
+  const scoreKey = endlessMode ? "scores" : "dailyScores";
+  const streakKey = endlessMode ? "basicStreak" : "dailyBasicStreak";
 
   useEffect(() => {
     if (charData.length > 0 && localCharData.length === 0) {
@@ -113,7 +116,7 @@ export default function BasicCharacterQuiz({
 
   function getYesterdaysChar() {
     const char = getRandomCharacter(false, true);
-    return char.Name
+    return char.Name;
   }
 
   function init() {
@@ -201,7 +204,7 @@ export default function BasicCharacterQuiz({
           if (localScores) {
             scores = JSON.parse(localScores);
             scores.push(scoreObj);
-          } else[(scores = [scoreObj])];
+          } else [(scores = [scoreObj])];
 
           //sort
           scores.sort((a: Score, b: Score) => (a.points < b.points ? 1 : -1));
@@ -211,7 +214,6 @@ export default function BasicCharacterQuiz({
           if (streakRef) {
             streakRef.current?.setStreak();
           }
-
         }
         return;
       }
@@ -229,11 +231,11 @@ export default function BasicCharacterQuiz({
       if (date === now) {
         return true;
       } else {
-        localStorage.removeItem("HasBeenSolvedToday")
+        localStorage.removeItem("HasBeenSolvedToday");
         return false;
       }
     } else {
-      return false
+      return false;
     }
   }
 
@@ -311,7 +313,9 @@ export default function BasicCharacterQuiz({
           costs={500}
           onReveal={() => reducePointsForHint(500)}
           ref={genreHintRef}
-          cardText={[targetChar?.Subgenre1, targetChar?.Subgenre2].join(";") ?? ""}
+          cardText={
+            [targetChar?.Subgenre1, targetChar?.Subgenre2].join(";") ?? ""
+          }
           cardTitle="Subgenres"
         ></RevealCard>
         <RevealCard
@@ -328,7 +332,6 @@ export default function BasicCharacterQuiz({
           cardText={targetChar?.Anime ?? ""}
           cardTitle="Anime"
         ></RevealCard>
-
       </Box>
       <DayStreak ref={streakRef} streakKey={streakKey}></DayStreak>
 
@@ -371,7 +374,12 @@ export default function BasicCharacterQuiz({
               borderRadius: "16px",
             }}
           >
-            <Typography fontWeight={"bold"} fontSize={"24px"}>
+            <Typography
+              fontWeight={"bold"}
+              fontSize={"24px"}
+              marginBottom={1}
+              textAlign={"center"}
+            >
               {targetChar?.Name}
             </Typography>
             <Box
@@ -379,17 +387,27 @@ export default function BasicCharacterQuiz({
               component={"img"}
               src={getImgSrc(targetChar?.Name)}
             ></Box>
-            {!endlessMode && <Box sx={{ marginTop: 2 }}>
-              <Typography fontSize="14px" textAlign={"center"}>{"Yesterdays character was"}</Typography>
-              <Typography fontWeight={"bold"} fontSize="14px" textAlign={"center"}>{`${getYesterdaysChar()}`}</Typography>
-            </Box>}
+            {!endlessMode && (
+              <Box sx={{ marginTop: 2 }}>
+                <Typography fontSize="14px" textAlign={"center"}>
+                  {"Yesterdays character was"}
+                </Typography>
+                <Typography
+                  fontWeight={"bold"}
+                  fontSize="14px"
+                  textAlign={"center"}
+                >{`${getYesterdaysChar()}`}</Typography>
+              </Box>
+            )}
           </Box>
         </Box>
       )}
-      {(endlessMode || (!endlessMode && !isCorrect)) && <CharacterList
-        searchHistory={searchHistory}
-        targetChar={targetChar}
-      ></CharacterList>}
+      {(endlessMode || (!endlessMode && !isCorrect)) && (
+        <CharacterList
+          searchHistory={searchHistory}
+          targetChar={targetChar}
+        ></CharacterList>
+      )}
     </Box>
   );
 }

@@ -57,6 +57,7 @@ export function compareObjects<T extends Record<string, any>>(
     "Height",
     "Eye_Color",
     "First_Release_Year",
+    "Genre",
   ];
 
   for (const key in obj1) {

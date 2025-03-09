@@ -1,22 +1,23 @@
 export interface Character {
-    Name: string;
-    Sex: string;
-    Origin: string;
-    Hair_Color: string;
-    Age: string;
-    Age_Group: "12-18" | "19-30" | "31-50" | "51-70" | "100+";
-    Height: number | null;
-    Eye_Color: string;
-    Genre: string;
-    Anime: string;
-    Editorial_Staff_Hint: string;
-    First_Release_Year: number,
-    Difficulty: Difficulty,
-    Studio: string;
-    Subgenre1?: string;
-    Subgenre2?: string;
-    Tags?: string;
-    ValidFields?: string[],
- }
+  Name: string;
+  Sex: string;
+  Origin: string;
+  Hair_Color: string;
+  Age: string;
+  Age_Group: "0-11" | "12-18" | "19-30" | "31-50" | "51-70" | "100+";
+  Height: number | null;
+  Eye_Color: string;
+  Genre: string;
+  Anime: string;
+  Editorial_Staff_Hint: string;
+  First_Release_Year: number;
+  Difficulty: Difficulty;
+  Studio: string;
+  Subgenre1?: string;
+  Subgenre2?: string;
+  Tags?: string;
+  Version: number;
+  ValidFields?: string[];
+}
 
- export type Difficulty = "A" |"B" | "C"
+export type Difficulty = "A" | "B" | "C";

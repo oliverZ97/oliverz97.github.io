@@ -1,7 +1,5 @@
 import {
   Box,
-  Button,
-  Drawer,
   Tab,
   Tabs,
   Typography,
@@ -53,10 +51,10 @@ const Home = () => {
     if (endlessMode) {
       index = Math.floor(Math.random() * charArray.length);
     } else {
-      if(isPrevious) {
-        index = getRandomNumberFromUTCDate(charArray.length, true)
+      if (isPrevious) {
+        index = getRandomNumberFromUTCDate(charArray.length, true);
       } else {
-        index = getRandomNumberFromUTCDate(charArray.length)
+        index = getRandomNumberFromUTCDate(charArray.length);
       }
     }
     const target = charArray[index];
@@ -268,6 +266,19 @@ const Home = () => {
               ></MultipleChoiceQuiz>
             </CustomTabPanel>
           </Box>
+        </Box>
+        <Box
+          sx={{
+            position: "absolute",
+            bottom: 0,
+            width: "100%",
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
+          <Typography sx={{ color: "white", padding: 1 }}>
+            {"Version " + import.meta.env.VITE_BUILD_VERSION}
+          </Typography>
         </Box>
       </Box>
     </>
