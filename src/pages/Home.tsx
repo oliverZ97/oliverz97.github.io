@@ -17,6 +17,7 @@ import ImageCharacterQuiz from "components/ImageCharacterQuiz/ImageCharacterQuiz
 import DrawerBasic from "components/CustomDrawer";
 import MultipleChoiceQuiz from "components/MultipleChoiceQuiz/MultipleChoiceQuiz";
 import { getDailyUTCDate } from "utils";
+import { VERSION } from "common/version";
 
 export interface Score {
   points: number;
@@ -277,7 +278,7 @@ const Home = () => {
           }}
         >
           <Typography sx={{ color: "white", padding: 1 }}>
-            {"Version " + import.meta.env.VITE_BUILD_VERSION}
+            {"Version " + VERSION}
           </Typography>
         </Box>
       </Box>
