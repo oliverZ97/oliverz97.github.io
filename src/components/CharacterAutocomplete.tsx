@@ -1,8 +1,8 @@
 import { Autocomplete, Box, TextField, Typography } from "@mui/material";
 import { getImgSrc } from "common/quizUtils";
 import { Character, Difficulty } from "common/types";
+import { isIncludedInDifficulty } from "common/utils";
 import { COLORS } from "styling/constants";
-import { isIncludedInDifficulty } from "utils";
 
 interface CharacterAutocompleteProps {
    charData: Character[];

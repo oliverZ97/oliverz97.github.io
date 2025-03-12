@@ -1,3 +1,26 @@
+export function getRandomNumberFromUTCDate(
+  max: number,
+  isPrevious = false
+): number {
+  if (max <= 0 || !Number.isInteger(max)) {
+    throw new Error("Max must be a positive integer.");
+  }
+
+  const utcDate = isPrevious ? getYesterdayUTCDate() : getDailyUTCDate();
+  const timestamp = utcDate.getTime(); // Get the UTC timestamp in milliseconds
+  const randomNumber = timestamp % max;
+
+  return randomNumber;
+}
+
+export function getYesterdayUTCDate(): Date {
+  const today = new Date();
+  const yesterday = new Date(today);
+  yesterday.setUTCDate(today.getUTCDate() - 1);
+  yesterday.setUTCHours(0, 0, 0, 0); // Set to start of yesterday UTC
+  return yesterday;
+}
+
 import { Character, Difficulty } from "common/types";
 
 export function sortObjectsByKey(

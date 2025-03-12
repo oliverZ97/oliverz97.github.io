@@ -10,7 +10,7 @@ import { compareObjects, getImgSrc } from "common/quizUtils";
 import { Score } from "pages/Home";
 import { DayStreak } from "components/Streak";
 import { StreakRef } from "components/Streak";
-import { getDailyUTCDate, isIncludedInDifficulty } from "utils";
+import { getDailyUTCDate, isIncludedInDifficulty } from "common/utils";
 
 interface HintRef {
   resetHint: () => void;
@@ -204,7 +204,7 @@ export default function BasicCharacterQuiz({
           if (localScores) {
             scores = JSON.parse(localScores);
             scores.push(scoreObj);
-          } else [(scores = [scoreObj])];
+          } else[(scores = [scoreObj])];
 
           //sort
           scores.sort((a: Score, b: Score) => (a.points < b.points ? 1 : -1));

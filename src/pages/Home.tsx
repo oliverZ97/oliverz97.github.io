@@ -16,8 +16,8 @@ import BasicCharacterQuiz from "components/BasicCharacterQuiz/BasicCharacterQuiz
 import ImageCharacterQuiz from "components/ImageCharacterQuiz/ImageCharacterQuiz";
 import DrawerBasic from "components/CustomDrawer";
 import MultipleChoiceQuiz from "components/MultipleChoiceQuiz/MultipleChoiceQuiz";
-import { getDailyUTCDate } from "utils";
 import { VERSION } from "common/version";
+import { getRandomNumberFromUTCDate } from "common/utils";
 
 export interface Score {
   points: number;
@@ -60,26 +60,6 @@ const Home = () => {
     }
     const target = charArray[index];
     return target as Character;
-  }
-
-  function getRandomNumberFromUTCDate(max: number, isPrevious = false): number {
-    if (max <= 0 || !Number.isInteger(max)) {
-      throw new Error("Max must be a positive integer.");
-    }
-
-    const utcDate = isPrevious ? getYesterdayUTCDate() : getDailyUTCDate();
-    const timestamp = utcDate.getTime(); // Get the UTC timestamp in milliseconds
-    const randomNumber = timestamp % max;
-
-    return randomNumber;
-  }
-
-  function getYesterdayUTCDate(): Date {
-    const today = new Date();
-    const yesterday = new Date(today);
-    yesterday.setUTCDate(today.getUTCDate() - 1);
-    yesterday.setUTCHours(0, 0, 0, 0); // Set to start of yesterday UTC
-    return yesterday;
   }
 
   interface TabPanelProps {
