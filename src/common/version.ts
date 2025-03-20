@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
 
-export const VERSION = "1.3.3";
+export const VERSION = "1.3.4";
 
 interface CHAR_VERSION {
   version: number;
@@ -58,6 +58,11 @@ export const CHAR_VERSIONS: CHAR_VERSION[] = [
     version: 1.9,
     date: "2025-03-12T00:00:00.00Z",
     length: 310,
+  },
+  {
+    version: 1.10,
+    date: "2025-03-20T00:00:00.00Z",
+    length: 324,
   },
 ];
 
