@@ -39,7 +39,7 @@ export default function CharacterList({
           overflowY: "auto",
           borderTopLeftRadius: "16px",
           borderTopRightRadius: "16px",
-          border: `1px solid ${COLORS.quiz.light}`,
+          border: searchHistory.length > 0 ? `1px solid ${COLORS.quiz.light}` : "none",
           borderBottom: 0,
           backgroundColor: COLORS.quiz.secondary,
           [theme.breakpoints.down("md")]: {
@@ -47,7 +47,7 @@ export default function CharacterList({
           },
         }}
       >
-        <Box
+        {searchHistory.length > 0 && <Box
           sx={{
             display: "grid",
             gridTemplateColumns: "60px repeat(8, 1fr)",
@@ -157,7 +157,7 @@ export default function CharacterList({
           >
             Anime Genre
           </Box>
-        </Box>
+        </Box>}
         {/* Data Rows */}
         {searchHistory.map((item) => (
           <Box
