@@ -204,7 +204,7 @@ export default function ImageCharacterQuiz({
         ref={streakRef}
         streakKey={"imageStreak"}
         colorRotate="250deg"
-        sx={{ top: "-121px", right: "-1px" }}
+        sx={{ top: "-5px"}}
       ></DayStreak>
 
       <Box>

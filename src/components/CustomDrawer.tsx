@@ -1,13 +1,25 @@
-import { Box, Button, Drawer, List, ListItem, ListItemButton, Divider, Tooltip } from '@mui/material';
+import { Box, Button, Drawer, List, ListItem, ListItemButton, Divider, Tooltip, SvgIconTypeMap, SxProps, Theme } from '@mui/material';
 import * as React from 'react';
 import { COLORS } from 'styling/constants';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import { OverridableComponent } from '@mui/material/OverridableComponent';
 
-interface CustomDrawerProps {
-	children: React.ReactNode
+interface Position {
+	top?: string | number;
+	bottom?: string | number;
+	left?: string | number;
+	right?: string | number;
 }
 
-export default function CustomDrawer({ children }: CustomDrawerProps) {
+interface CustomDrawerProps {
+	children: React.ReactNode;
+	position?: Position;
+	icon?: React.ReactNode;
+	sx?: SxProps<Theme>;
+	title?: string;
+}
+
+export default function CustomDrawer({ children, position, icon, sx, title }: CustomDrawerProps) {
 	const [open, setOpen] = React.useState(false);
 
 	const toggleDrawer =
@@ -25,9 +37,9 @@ export default function CustomDrawer({ children }: CustomDrawerProps) {
 
 	return (
 		<Box sx={{ display: 'flex' }}>
-			<Tooltip title={"Anime Index"} arrow placement='right'>
-				<Button variant="contained" sx={{ position: "absolute", backgroundColor: COLORS.quiz.secondary, height: "60px", marginTop: "60px", borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }} onClick={toggleDrawer(true)}>
-					<HelpOutlineIcon fontSize='large' />
+			<Tooltip title={title} arrow placement='right'>
+				<Button variant="contained" sx={{ position: "absolute", top: position?.top ?? "initial", bottom: position?.bottom ?? "initial", left: position?.left ?? "initial", right: position?.right ?? "initial", backgroundColor: COLORS.quiz.secondary, height: "60px",  borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }} onClick={toggleDrawer(true)}>
+					{icon}
 				</Button>
 			</Tooltip>
 			<Drawer open={open} onClose={toggleDrawer(false)}>
@@ -35,7 +47,7 @@ export default function CustomDrawer({ children }: CustomDrawerProps) {
 					role="presentation"
 					onClick={toggleDrawer(false)}
 					onKeyDown={toggleDrawer(false)}
-					sx={{ backgroundColor: COLORS.quiz.secondary, padding: 2, height: "100%" }}
+					sx={{ backgroundColor: COLORS.quiz.secondary, ...sx}}
 				>
 					{children}
 				</Box>

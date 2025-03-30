@@ -1,5 +1,6 @@
 import {
   Box,
+  Divider,
   Tab,
   Tabs,
   Typography,
@@ -18,6 +19,9 @@ import DrawerBasic from "components/CustomDrawer";
 import MultipleChoiceQuiz from "components/MultipleChoiceQuiz/MultipleChoiceQuiz";
 import { VERSION } from "common/version";
 import { getRandomNumberFromUTCDate } from "common/utils";
+import MenuIcon from '@mui/icons-material/Menu';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+
 
 export interface Score {
   points: number;
@@ -111,7 +115,7 @@ const Home = () => {
           position: "relative",
         }}
       >
-        <DrawerBasic>
+        <DrawerBasic title="Anime Index" position={{ top: "120px" }} icon={<HelpOutlineIcon fontSize="large" />} sx={{ padding: 2 }}>
           <Typography
             sx={{
               fontSize: "24px",
@@ -133,6 +137,67 @@ const Home = () => {
           ))}
         </DrawerBasic>
 
+        <DrawerBasic title="Gamemodes" position={{ top: "40px" }} icon={<MenuIcon fontSize="large" />}>
+          <Box minHeight={"100vh"}>
+
+
+            <Tabs
+              variant={matches ? "fullWidth" : "standard"}
+              orientation="vertical"
+              sx={{
+                "& .MuiTabs-indicator": {
+                  backgroundColor: COLORS.quiz.light,
+                },
+              }}
+              value={value}
+              onChange={handleChange}
+              aria-label="basic tabs example"
+            >
+              <Tab
+                sx={{
+                  color: COLORS.quiz.light,
+                  "&.Mui-selected": {
+                    color: "white",
+                  },
+                }}
+                label="Daily Character Quiz"
+                {...a11yProps(0)}
+              />
+              <Tab
+                sx={{
+                  color: COLORS.quiz.light,
+                  "&.Mui-selected": {
+                    color: "white",
+                  },
+                }}
+                label="Endless Character Quiz"
+                {...a11yProps(1)}
+              />
+              <Tab
+                sx={{
+                  color: COLORS.quiz.light,
+                  "&.Mui-selected": {
+                    color: "white",
+                  },
+                }}
+                label="Character Image Quiz"
+                {...a11yProps(2)}
+              />
+              <Tab
+                sx={{
+                  color: COLORS.quiz.light,
+                  "&.Mui-selected": {
+                    color: "white",
+                  },
+                }}
+                label="Multiple Choice Quiz"
+                {...a11yProps(3)}
+              />
+            </Tabs>
+            <Divider sx={{ backgroundColor: "white", marginX: 1 }}></Divider>
+          </Box>
+        </DrawerBasic>
+
         <Box
           sx={{
             display: "flex",
@@ -141,81 +206,11 @@ const Home = () => {
             alignItems: "center",
           }}
         >
-          <Box
-            sx={{
-              marginTop: "100px",
-              width: "80%",
-              backgroundColor: COLORS.quiz.secondary,
-              borderRadius: "16px",
-              border: `1px solid ${COLORS.quiz.light}`,
-              marginBottom: 4,
-              [theme.breakpoints.down("md")]: {
-                marginTop: "140px",
-              },
-            }}
-          >
-            <Box sx={{ display: "flex" }}>
-              <Box
-                sx={{
-                  paddingLeft: 2,
-                }}
-              >
-                <Tabs
-                  variant={matches ? "fullWidth" : "standard"}
-                  sx={{
-                    "& .MuiTabs-indicator": {
-                      backgroundColor: COLORS.quiz.light,
-                    },
-                  }}
-                  value={value}
-                  onChange={handleChange}
-                  aria-label="basic tabs example"
-                >
-                  <Tab
-                    sx={{
-                      color: COLORS.quiz.light,
-                      "&.Mui-selected": {
-                        color: "white",
-                      },
-                    }}
-                    label="Daily Character Quiz"
-                    {...a11yProps(0)}
-                  />
-                  <Tab
-                    sx={{
-                      color: COLORS.quiz.light,
-                      "&.Mui-selected": {
-                        color: "white",
-                      },
-                    }}
-                    label="Endless Character Quiz"
-                    {...a11yProps(1)}
-                  />
-                  <Tab
-                    sx={{
-                      color: COLORS.quiz.light,
-                      "&.Mui-selected": {
-                        color: "white",
-                      },
-                    }}
-                    label="Character Image Quiz"
-                    {...a11yProps(2)}
-                  />
-                  <Tab
-                    sx={{
-                      color: COLORS.quiz.light,
-                      "&.Mui-selected": {
-                        color: "white",
-                      },
-                    }}
-                    label="Multiple Choice Quiz"
-                    {...a11yProps(3)}
-                  />
-                </Tabs>
-              </Box>
-            </Box>
-          </Box>
-          <Box sx={{ width: "80%" }}>
+          <Box sx={{
+            width: "80%", [theme.breakpoints.down('md')]: {
+              marginLeft: '70px',
+            },
+          }}>
             <CustomTabPanel value={value} index={0}>
               <BasicCharacterQuiz
                 charData={charData}

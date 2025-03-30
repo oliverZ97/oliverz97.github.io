@@ -246,7 +246,6 @@ export default function BasicCharacterQuiz({
 
   return (
     <Box position={"relative"}>
-      {scores.length > 0 && (
         <Box
           sx={{
             borderRadius: "16px",
@@ -259,7 +258,7 @@ export default function BasicCharacterQuiz({
             paddingY: 2,
           }}
         >
-          <Box sx={{ display: "flex" }}>
+          <Box sx={{ display: "flex", height: "70px", alignItems: "center" }}>
             {scores.map((item, index) => (
               <Box
                 key={index}
@@ -283,9 +282,18 @@ export default function BasicCharacterQuiz({
                 </Typography>
               </Box>
             ))}
+            {scores.length === 0 && <Typography sx={{color: COLORS.quiz.primary_text}} textAlign={"center"}>
+              <Typography component={"span"}>
+              No Scores available.
+              </Typography>
+              <br/>
+              <Typography component={"span"}>
+              You should definitely change that (*≧ω≦*)
+              </Typography>
+               </Typography>}
           </Box>
         </Box>
-      )}
+      
 
       <Box
         sx={{
