@@ -239,7 +239,6 @@ export default function MultipleChoiceQuiz({
 
   return (
     <Box position={"relative"}>
-      {scores.length > 0 && (
         <Box
           sx={{
             borderRadius: "16px",
@@ -250,9 +249,10 @@ export default function MultipleChoiceQuiz({
             flexDirection: "column",
             alignItems: "center",
             paddingY: 2,
+            position: "relative"
           }}
         >
-          <Box sx={{ display: "flex" }}>
+          <Box sx={{ display: "flex", height: "70px", alignItems: "center" }}>
             {scores.map((item, index) => (
               <Box
                 key={index}
@@ -276,9 +276,17 @@ export default function MultipleChoiceQuiz({
                 </Typography>
               </Box>
             ))}
+                        {scores.length === 0 && <Typography sx={{color: COLORS.quiz.primary_text}} textAlign={"center"}>
+              <Typography component={"span"}>
+              No Scores available.
+              </Typography>
+              <br/>
+              <Typography component={"span"}>
+              You should definitely change that (*≧ω≦*)
+              </Typography>
+               </Typography>}
           </Box>
         </Box>
-      )}
       <DayStreak
         ref={streakRef}
         streakKey={"choiceStreak"}

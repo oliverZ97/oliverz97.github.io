@@ -16,9 +16,10 @@ interface CustomDrawerProps {
 	position?: Position;
 	icon?: React.ReactNode;
 	sx?: SxProps<Theme>;
+	title?: string;
 }
 
-export default function CustomDrawer({ children, position, icon, sx }: CustomDrawerProps) {
+export default function CustomDrawer({ children, position, icon, sx, title }: CustomDrawerProps) {
 	const [open, setOpen] = React.useState(false);
 
 	const toggleDrawer =
@@ -36,7 +37,7 @@ export default function CustomDrawer({ children, position, icon, sx }: CustomDra
 
 	return (
 		<Box sx={{ display: 'flex' }}>
-			<Tooltip title={"Anime Index"} arrow placement='right'>
+			<Tooltip title={title} arrow placement='right'>
 				<Button variant="contained" sx={{ position: "absolute", top: position?.top ?? "initial", bottom: position?.bottom ?? "initial", left: position?.left ?? "initial", right: position?.right ?? "initial", backgroundColor: COLORS.quiz.secondary, height: "60px",  borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }} onClick={toggleDrawer(true)}>
 					{icon}
 				</Button>

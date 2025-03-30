@@ -7,8 +7,17 @@ export function getRandomNumberFromUTCDate(
   }
 
   const utcDate = isPrevious ? getYesterdayUTCDate() : getDailyUTCDate();
-  const timestamp = utcDate.getTime(); // Get the UTC timestamp in milliseconds
-  const randomNumber = timestamp % max;
+  const dailyTimestamp = utcDate.getTime();
+
+  // Hash the daily timestamp to create a more distributed value.
+  let hash = dailyTimestamp;
+  hash = (hash ^ (hash >>> 16)) * 0x85ebca6b;
+  hash = (hash ^ (hash >>> 13)) * 0xc2b2ae35;
+  hash = hash ^ (hash >>> 16);
+
+  const positiveHash = Math.abs(hash);
+
+  const randomNumber = positiveHash % max;
 
   return randomNumber;
 }

@@ -98,7 +98,7 @@ export const DayStreak = forwardRef(
         sx={{
           padding: 2,
           position: "absolute",
-          top: -120,
+          top: 12,
           right: 0,
           [theme.breakpoints.down("md")]: {
             top: -200,
