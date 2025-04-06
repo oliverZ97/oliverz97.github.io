@@ -1,5 +1,5 @@
-import { Box, Button } from "@mui/material"
-import { useState } from "react"
+import { Box, Button, useForkRef } from "@mui/material"
+import { forwardRef, Ref, useEffect, useImperativeHandle, useState } from "react"
 import { IconButtonStyle } from "./ButtonContainer.style"
 import { SelectionState } from "./KissMarryKill"
 
@@ -7,11 +7,18 @@ export type State = "none" | "kiss" | "marry" | "kill"
 
 interface ButtonContainerProps {
     selectionStates: SelectionState,
-    updateSelectionStates: (state: State) => void
+    updateSelectionStates: (state: State) => void,
 }
 
-export const ButtonContainer = ({selectionStates, updateSelectionStates}: ButtonContainerProps) => {
+export const ButtonContainer = forwardRef(({selectionStates, updateSelectionStates}: ButtonContainerProps, ref) => {
     const [currentState, setCurrentState] = useState<State>("none")
+
+    useImperativeHandle(ref, () => ({
+
+        resetState() {
+          setCurrentState("none");
+        }
+      }));
 
     function handleStateChange(state: State) {
         if (currentState !== state) {
@@ -41,4 +48,4 @@ export const ButtonContainer = ({selectionStates, updateSelectionStates}: Button
             </Button>
         </Box>
     )
-}
+})

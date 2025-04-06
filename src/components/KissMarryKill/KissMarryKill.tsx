@@ -2,10 +2,15 @@ import { Box, Button, ButtonGroup, FormControl, FormControlLabel, FormLabel, Ico
 import { getImgSrc } from "common/quizUtils";
 import { Character } from "common/types";
 import { getRandomCharacterArray } from "common/utils";
-import { useEffect, useState } from "react";
+import { createRef, RefObject, useEffect, useMemo, useRef, useState } from "react";
 import { COLORS } from "styling/constants"
 import { ButtonContainer, State } from "./ButtonContainer";
 import RefreshIcon from '@mui/icons-material/Refresh';
+import React from "react";
+
+interface StateRef {
+  resetState: () => void;
+}
 
 interface KissMarryKillProps {
   charData: Character[];
@@ -23,6 +28,7 @@ export const KissMarryKill = ({ charData }: KissMarryKillProps) => {
     "kill": false
   })
   const [genderFilter, setGenderFilter] = useState("all");
+  const refs = useRef<StateRef[]>([]);
 
   function updateSelectionState(state: State) {
     const newStates = { ...selectionStates };
@@ -37,7 +43,14 @@ export const KissMarryKill = ({ charData }: KissMarryKillProps) => {
   }, [genderFilter]);
 
   function resetTargets() {
-    const targetCharacters = getRandomCharacterArray(charData, 3, genderFilter);
+    if (refs.current.length > 0) {
+      refs.current.forEach((el) => {
+        if (el !== null) {
+          el.resetState()
+        }
+      });
+    }
+    const targetCharacters = getRandomCharacterArray({ ...charData }, 3, genderFilter);
     const targets = targetCharacters;
     setTargets(targets);
     setSelectionStates({
@@ -93,7 +106,7 @@ export const KissMarryKill = ({ charData }: KissMarryKillProps) => {
             }}
           >
             {targets &&
-              targets.map((char: Character) => (
+              targets.map((char: Character, index) => (
                 <Box
                   key={char.Name}
                   sx={{
@@ -121,20 +134,23 @@ export const KissMarryKill = ({ charData }: KissMarryKillProps) => {
                       {char.Name}
                     </Typography>
                   </Box>
-                  <ButtonContainer selectionStates={selectionStates} updateSelectionStates={updateSelectionState} />
+                  <ButtonContainer ref={(el: StateRef) => (refs.current[index] = el)}
+                    selectionStates={selectionStates} updateSelectionStates={updateSelectionState} />
                 </Box>
               ))}
           </Box>
         </Box>
-          <Box width={"100%"} marginTop={6} display={"flex"} justifyContent={"flex-end"}>
-            <Button sx={{backgroundColor: COLORS.quiz.tertiary, "&:hover": {
-              backgroundColor:  COLORS.quiz.tertiary,
+        <Box width={"100%"} marginTop={6} display={"flex"} justifyContent={"flex-end"}>
+          <Button sx={{
+            backgroundColor: COLORS.quiz.tertiary, "&:hover": {
+              backgroundColor: COLORS.quiz.tertiary,
               transform: "scale(1.1)",
               transition: "transform 100ms ease-in-out",
-            }}} variant="contained" onClick={resetTargets} >
-              <RefreshIcon fontSize="medium" sx={{ color: COLORS.quiz.primary_text }}></RefreshIcon>
-            </Button>
-          </Box>
+            }
+          }} variant="contained" onClick={resetTargets} >
+            <RefreshIcon fontSize="medium" sx={{ color: COLORS.quiz.primary_text }}></RefreshIcon>
+          </Button>
+        </Box>
       </Box>
     </Box>
   )
