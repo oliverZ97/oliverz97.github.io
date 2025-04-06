@@ -72,7 +72,7 @@ export const KissMarryKill = ({ charData }: KissMarryKillProps) => {
               }}>Gender</FormLabel>
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue="female"
+                defaultValue="all"
                 name="radio-buttons-group"
                 row
                 onChange={(event) => setGenderFilter(event?.target.value)}
