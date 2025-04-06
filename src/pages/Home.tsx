@@ -21,6 +21,7 @@ import { VERSION } from "common/version";
 import { getRandomNumberFromUTCDate } from "common/utils";
 import MenuIcon from '@mui/icons-material/Menu';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import { KissMarryKill } from "components/KissMarryKill/KissMarryKill";
 
 
 export interface Score {
@@ -49,22 +50,6 @@ const Home = () => {
       );
     }
   }, [charData, characterData, animeData]);
-
-  function getRandomCharacter(endlessMode = true, isPrevious = false) {
-    const charArray = Object.values(characterData);
-    let index;
-    if (endlessMode) {
-      index = Math.floor(Math.random() * charArray.length);
-    } else {
-      if (isPrevious) {
-        index = getRandomNumberFromUTCDate(charArray.length, true);
-      } else {
-        index = getRandomNumberFromUTCDate(charArray.length);
-      }
-    }
-    const target = charArray[index];
-    return target as Character;
-  }
 
   interface TabPanelProps {
     children?: React.ReactNode;
@@ -193,6 +178,16 @@ const Home = () => {
                 label="Multiple Choice Quiz"
                 {...a11yProps(3)}
               />
+            <Tab
+                sx={{
+                  color: COLORS.quiz.light,
+                  "&.Mui-selected": {
+                    color: "white",
+                  },
+                }}
+                label="Kiss, Marry, Kill"
+                {...a11yProps(4)}
+              />
             </Tabs>
             <Divider sx={{ backgroundColor: "white", marginX: 1 }}></Divider>
           </Box>
@@ -214,7 +209,6 @@ const Home = () => {
             <CustomTabPanel value={value} index={0}>
               <BasicCharacterQuiz
                 charData={charData}
-                getRandomCharacter={getRandomCharacter}
                 endlessMode={false}
               ></BasicCharacterQuiz>
             </CustomTabPanel>
@@ -222,7 +216,6 @@ const Home = () => {
             <CustomTabPanel value={value} index={1}>
               <BasicCharacterQuiz
                 charData={charData}
-                getRandomCharacter={getRandomCharacter}
               ></BasicCharacterQuiz>
             </CustomTabPanel>
 
@@ -230,7 +223,6 @@ const Home = () => {
               <ImageCharacterQuiz
                 animeData={animeData}
                 charData={charData}
-                getRandomCharacter={getRandomCharacter}
               ></ImageCharacterQuiz>
             </CustomTabPanel>
 
@@ -238,8 +230,13 @@ const Home = () => {
               <MultipleChoiceQuiz
                 animeData={animeData}
                 charData={charData}
-                getRandomCharacter={getRandomCharacter}
               ></MultipleChoiceQuiz>
+            </CustomTabPanel>
+
+            <CustomTabPanel value={value} index={4}>
+              <KissMarryKill
+                charData={charData}
+              ></KissMarryKill>
             </CustomTabPanel>
           </Box>
         </Box>

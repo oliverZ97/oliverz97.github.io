@@ -84,3 +84,36 @@ export function getDailyUTCDate() {
   ); // Create UTC date at 00:00:00
   return utcDate;
 }
+
+
+export function getRandomCharacterArray(charData: Character[], count: number, gender = "all") {
+  let counter = 0;
+  let chars: Character[] = [];
+  while (counter < Math.max(0, count)) {
+    const char = getRandomCharacter(charData, undefined, undefined, gender);
+    if (!chars.some((item) => item.Name === char.Name)) {
+      chars.push(char);
+      counter++;
+    }
+  }
+  return chars;
+}
+
+export function getRandomCharacter(charData: Character[], endlessMode = true, isPrevious = false, gender = "all") {
+  let charArray = Object.values(charData);
+  if (gender !== "all") {
+    charArray = charArray.filter((char) => char.Sex.toLowerCase() === gender)
+  }
+  let index;
+  if (endlessMode) {
+    index = Math.floor(Math.random() * charArray.length);
+  } else {
+    if (isPrevious) {
+      index = getRandomNumberFromUTCDate(charArray.length, true);
+    } else {
+      index = getRandomNumberFromUTCDate(charArray.length);
+    }
+  }
+  const target = charArray[index];
+  return target as Character;
+}

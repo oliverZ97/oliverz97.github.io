@@ -1,6 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import { getImgSrc } from "common/quizUtils";
 import { Character } from "common/types";
+import { getRandomCharacter } from "common/utils";
 import { AnimeAutocomplete } from "components/AnimeAutocomplete";
 import { CharacterAutocomplete } from "components/CharacterAutocomplete";
 import { DayStreak, StreakRef } from "components/Streak";
@@ -10,7 +11,6 @@ import { COLORS } from "styling/constants";
 interface ImageCharacterQuizProps {
   charData: Character[];
   animeData: string[];
-  getRandomCharacter: () => Character;
 }
 
 interface ImageTarget {
@@ -24,9 +24,7 @@ const BASEPOINTS_ANIME = 1000;
 const BASEPOINTS_CHAR = 1500;
 
 export default function ImageCharacterQuiz({
-  charData,
-  getRandomCharacter,
-  animeData,
+  charData, animeData,
 }: ImageCharacterQuizProps) {
   const [isSolving, setIsSolving] = useState(false);
   const [elements, setElements] = useState<ImageTarget[]>([
@@ -140,7 +138,7 @@ export default function ImageCharacterQuiz({
     let counter = 0;
     let chars: Character[] = [];
     while (counter < Math.max(0, count)) {
-      const char = getRandomCharacter();
+      const char = getRandomCharacter(charData);
       if (!chars.some((item) => item.Name === char.Name)) {
         chars.push(char);
         counter++;

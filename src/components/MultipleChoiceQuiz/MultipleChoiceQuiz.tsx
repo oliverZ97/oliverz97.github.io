@@ -15,11 +15,11 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 import { Score } from "pages/Home";
+import { getRandomCharacter } from "common/utils";
 
 interface ImageCharacterQuizProps {
   charData: Character[];
   animeData: string[];
-  getRandomCharacter: () => Character;
 }
 
 interface ImageTarget {
@@ -38,7 +38,6 @@ if (scores) {
 }
 
 export default function MultipleChoiceQuiz({
-  getRandomCharacter,
   charData,
 }: ImageCharacterQuizProps) {
   const [answers, setAnswers] = useState<ImageTarget[]>([]);
@@ -127,9 +126,9 @@ export default function MultipleChoiceQuiz({
   }
 
   function resetTargets() {
-    let target = getRandomCharacter();
+    let target = getRandomCharacter(charData);
     while (sessionHistory.includes(target.Name)) {
-      target = getRandomCharacter();
+      target = getRandomCharacter(charData);
     }
     setSelectedAnswer(null);
     setTarget(target);
@@ -148,7 +147,7 @@ export default function MultipleChoiceQuiz({
       answers.push(correctAnswer);
       let jokerAnswerSet = false;
       while (answers.length <= 3) {
-        let char = getRandomCharacter();
+        let char = getRandomCharacter(charData);
         if (char.Name !== correctAnswer.character) {
           answers.push({
             anime: char.Anime,

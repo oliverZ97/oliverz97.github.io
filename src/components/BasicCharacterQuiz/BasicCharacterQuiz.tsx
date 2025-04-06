@@ -10,7 +10,7 @@ import { compareObjects, getImgSrc } from "common/quizUtils";
 import { Score } from "pages/Home";
 import { DayStreak } from "components/Streak";
 import { StreakRef } from "components/Streak";
-import { getDailyUTCDate, isIncludedInDifficulty } from "common/utils";
+import { getDailyUTCDate, getRandomCharacter, isIncludedInDifficulty } from "common/utils";
 
 interface HintRef {
   resetHint: () => void;
@@ -21,16 +21,11 @@ const REDUCEFACTOR = 10;
 
 interface BasicCharacterQuizProps {
   charData: Character[];
-  getRandomCharacter: (
-    endlessMode?: boolean,
-    isPrevious?: boolean
-  ) => Character;
   endlessMode?: boolean;
 }
 
 export default function BasicCharacterQuiz({
   charData,
-  getRandomCharacter,
   endlessMode = true,
 }: BasicCharacterQuizProps) {
   const [searchHistory, setSearchHistory] = useState<Character[]>([]);
@@ -115,7 +110,7 @@ export default function BasicCharacterQuiz({
   }
 
   function getYesterdaysChar() {
-    const char = getRandomCharacter(false, true);
+    const char = getRandomCharacter(charData, false, true);
     return char.Name;
   }
 
@@ -124,10 +119,10 @@ export default function BasicCharacterQuiz({
     resetQuiz();
 
     //select random character
-    let target = getRandomCharacter(endlessMode ? true : false);
+    let target = getRandomCharacter(charData, endlessMode ? true : false);
     if (endlessMode) {
       while (!isIncludedInDifficulty(target, difficulty)) {
-        target = getRandomCharacter();
+        target = getRandomCharacter(charData);
       }
     } else {
       const hasSolvedToday = hasBeenSolvedToday();
