@@ -238,54 +238,54 @@ export default function MultipleChoiceQuiz({
 
   return (
     <Box position={"relative"}>
-        <Box
-          sx={{
-            borderRadius: "16px",
-            backgroundColor: COLORS.quiz.secondary,
-            marginBottom: 4,
-            border: `1px solid ${COLORS.quiz.light}`,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            paddingY: 2,
-            position: "relative"
-          }}
-        >
-          <Box sx={{ display: "flex", height: "70px", alignItems: "center" }}>
-            {scores.map((item, index) => (
-              <Box
-                key={index}
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  paddingX: 2,
-                  color: "white",
-                  backgroundColor: COLORS.quiz.secondary,
-                }}
-              >
-                {index === 0 && <Typography fontSize={"24px"}>🏆</Typography>}
-                {index === 1 && <Typography fontSize={"24px"}>🥈</Typography>}
-                {index === 2 && <Typography fontSize={"24px"}>🥉</Typography>}
-                <Typography fontSize={"12px"}>
-                  {"Points: " + item.points}
-                </Typography>
-                <Typography fontSize={"12px"}>
-                  {"Date: " + item.date}
-                </Typography>
-              </Box>
-            ))}
-                        {scores.length === 0 && <Typography sx={{color: COLORS.quiz.primary_text}} textAlign={"center"}>
-              <Typography component={"span"}>
+      <Box
+        sx={{
+          borderRadius: "16px",
+          backgroundColor: COLORS.quiz.secondary,
+          marginBottom: 4,
+          border: `1px solid ${COLORS.quiz.light}`,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          paddingY: 2,
+          position: "relative"
+        }}
+      >
+        <Box sx={{ display: "flex", height: "70px", alignItems: "center" }}>
+          {scores.map((item, index) => (
+            <Box
+              key={index}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                paddingX: 2,
+                color: "white",
+                backgroundColor: COLORS.quiz.secondary,
+              }}
+            >
+              {index === 0 && <Typography fontSize={"24px"}>🏆</Typography>}
+              {index === 1 && <Typography fontSize={"24px"}>🥈</Typography>}
+              {index === 2 && <Typography fontSize={"24px"}>🥉</Typography>}
+              <Typography fontSize={"12px"}>
+                {"Points: " + item.points}
+              </Typography>
+              <Typography fontSize={"12px"}>
+                {"Date: " + item.date}
+              </Typography>
+            </Box>
+          ))}
+          {scores.length === 0 && <Typography sx={{ color: COLORS.quiz.primary_text }} textAlign={"center"}>
+            <Typography component={"span"}>
               No Scores available.
-              </Typography>
-              <br/>
-              <Typography component={"span"}>
+            </Typography>
+            <br />
+            <Typography component={"span"}>
               You should definitely change that (*≧ω≦*)
-              </Typography>
-               </Typography>}
-          </Box>
+            </Typography>
+          </Typography>}
         </Box>
+      </Box>
       <DayStreak
         ref={streakRef}
         streakKey={"choiceStreak"}
@@ -419,6 +419,10 @@ export default function MultipleChoiceQuiz({
                   <Box
                     width={"200px"}
                     component={"img"}
+                    height={"276px"}
+                    sx={{
+                      objectFit: "cover"
+                    }}
                     src={getImgSrc(target.Name)}
                   ></Box>
                 )}

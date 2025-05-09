@@ -120,6 +120,10 @@ export const KissMarryKill = ({ charData }: KissMarryKillProps) => {
                   <Box
                     width={"200px"}
                     component={"img"}
+                    height={"276px"}
+                    sx={{
+                      objectFit: "cover"
+                    }}
                     src={getImgSrc(char.Name)}
                   />
                   <Box sx={{ width: 200 }}>

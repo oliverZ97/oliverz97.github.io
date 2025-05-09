@@ -37,7 +37,7 @@ export function CharacterAutocomplete({ charData, disabled, value, handleSearchC
          renderInput={(params) => <TextField {...params} label="Character" />}
          renderOption={(props, option) => (
             <Box component="li" sx={{ '& > *': { m: 0.5 } }} {...props}>
-               {showPreviewImage && <Box sx={{ width: "40px" }} component={"img"} src={getImgSrc(option.Name)}></Box>}
+               {showPreviewImage && <Box sx={{ width: "40px", objectFit: "cover", height: "60px" }} component={"img"} src={getImgSrc(option.Name)}></Box>}
                <Typography sx={{ marginLeft: 2 }} variant="body2">{option.Name}</Typography>
             </Box>
          )}

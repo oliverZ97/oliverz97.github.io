@@ -229,6 +229,10 @@ export default function ImageCharacterQuiz({
                 <Box
                   width={"200px"}
                   component={"img"}
+                  height={"276px"}
+                  sx={{
+                    objectFit: "cover"
+                  }}
                   src={getImgSrc(char.Name)}
                 ></Box>
                 {!isSolving && (
