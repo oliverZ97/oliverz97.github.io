@@ -11,6 +11,7 @@ import { COLORS } from "styling/constants";
 interface ImageCharacterQuizProps {
   charData: Character[];
   animeData: string[];
+  endlessMode?: boolean;
 }
 
 interface ImageTarget {
@@ -24,7 +25,7 @@ const BASEPOINTS_ANIME = 1000;
 const BASEPOINTS_CHAR = 1500;
 
 export default function ImageCharacterQuiz({
-  charData, animeData,
+  charData, animeData, endlessMode = true
 }: ImageCharacterQuizProps) {
   const [isSolving, setIsSolving] = useState(false);
   const [elements, setElements] = useState<ImageTarget[]>([
@@ -103,8 +104,14 @@ export default function ImageCharacterQuiz({
   }
 
   function resetTargets() {
-    const targetCharacters = getRandomCharacterArray(4);
-    const targets = targetCharacters;
+    let targets: Character[] = [];
+    if (endlessMode) {
+      const targetCharacters = getRandomCharacterArray(4);
+      targets = targetCharacters;
+    } else {
+      const targetCharacters = getRandomCharacterArray(4, false);
+      targets = targetCharacters;
+    }
     setTargets(targets);
   }
 
@@ -134,14 +141,65 @@ export default function ImageCharacterQuiz({
     }
   };
 
-  function getRandomCharacterArray(count: number) {
+  function getRandomCharacterArray(count: number, endlessMode = true): Character[] {
     let counter = 0;
     let chars: Character[] = [];
-    while (counter < Math.max(0, count)) {
+    if (endlessMode) {
+      while (counter < Math.max(0, count)) {
       const char = getRandomCharacter(charData);
       if (!chars.some((item) => item.Name === char.Name)) {
         chars.push(char);
         counter++;
+      }
+      }
+    } else {
+      // Get current day of the year to ensure all characters are used
+      // Use the current date in production, or test date for development
+      const isTestMode = false; // Toggle this for testing
+      const customTestDate = new Date("2025-01-05T10:00:00Z"); 
+      const today = isTestMode ? customTestDate : new Date();
+      
+      const dayOfYear = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / (1000 * 60 * 60 * 24));
+      const yearSignature = `${today.getFullYear()}`;
+      
+      // Create a seed using the day of year and year
+      let seed = dayOfYear;
+      for (let i = 0; i < yearSignature.length; i++) {
+      seed += yearSignature.charCodeAt(i);
+      }
+
+      // Add a prime multiplier to ensure different sets on consecutive days
+      const primeFactor = 31;
+      seed = seed * primeFactor;
+
+      // Create character pools that rotate through the year
+      // This ensures all characters get chosen at some point
+      // Use a different rotation offset formula to avoid patterns
+      const rotationOffset = (dayOfYear * primeFactor) % charData.length;
+      
+      // Create a rotated copy of the character data
+      const rotatedChars = [
+      ...charData.slice(rotationOffset),
+      ...charData.slice(0, rotationOffset)
+      ];
+      
+      // Further shuffle the rotated characters with the seed
+      // Use character ID or another unique property in the hash calculation
+      const shuffledChars = [...rotatedChars].sort((a, b) => {
+      const hashA = (seed * (a.Name.length + a.Anime.length)) % charData.length;
+      const hashB = (seed * (b.Name.length + b.Anime.length)) % charData.length;
+      return hashA - hashB;
+      });
+
+      // Get the first four unique characters
+      chars = [];
+      let i = 0;
+      while (chars.length < count && i < shuffledChars.length) {
+      // Ensure we don't add duplicates
+      if (!chars.some(char => char.Name === shuffledChars[i].Name)) {
+        chars.push(shuffledChars[i]);
+      }
+      i++;
       }
     }
     return chars;
@@ -189,7 +247,7 @@ export default function ImageCharacterQuiz({
     <Box
       sx={{
         position: "relative",
-          background: "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
+        background: "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
         padding: 4,
         borderRadius: 2,
         border: `1px solid ${COLORS.quiz.light}`,
@@ -202,7 +260,7 @@ export default function ImageCharacterQuiz({
         ref={streakRef}
         streakKey={"imageStreak"}
         colorRotate="250deg"
-        sx={{ top: "-5px"}}
+        sx={{ top: "-5px" }}
       ></DayStreak>
 
       <Box>
@@ -295,7 +353,7 @@ export default function ImageCharacterQuiz({
           width: "100%",
         }}
       >
-        <Button
+        {endlessMode && <Button
           sx={{
             color: COLORS.quiz.light,
             borderColor: COLORS.quiz.light,
@@ -308,8 +366,9 @@ export default function ImageCharacterQuiz({
           onClick={resetImageQuiz}
         >
           Reset
-        </Button>
-        {isSolving && <Typography fontSize={"24px"}>🏆 {score}</Typography>}
+        </Button>}
+        {!endlessMode && <Box/>}
+        {isSolving && <Typography color={"white"} fontSize={"24px"}>🏆 {score}</Typography>}
         <Button
           sx={{
             backgroundColor: COLORS.quiz.tertiary,

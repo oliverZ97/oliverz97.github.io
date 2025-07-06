@@ -101,7 +101,6 @@ export function getRandomCharacterArray(charData: Character[], count: number, ge
 
 export function getRandomCharacter(charData: Character[], endlessMode = true, isPrevious = false, gender = "all") {
   let charArray = Object.values(charData);
-  console.log(charArray)
   if (gender !== "all") {
     charArray = charArray.filter((char) => char.Sex.toLowerCase() === gender)
   }

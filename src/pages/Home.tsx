@@ -18,7 +18,6 @@ import ImageCharacterQuiz from "components/ImageCharacterQuiz/ImageCharacterQuiz
 import DrawerBasic from "components/CustomDrawer";
 import MultipleChoiceQuiz from "components/MultipleChoiceQuiz/MultipleChoiceQuiz";
 import { VERSION } from "common/version";
-import { getRandomNumberFromUTCDate } from "common/utils";
 import MenuIcon from '@mui/icons-material/Menu';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { KissMarryKill } from "components/KissMarryKill/KissMarryKill";
@@ -155,8 +154,21 @@ const Home = () => {
                     color: "white",
                   },
                 }}
-                label="Endless Character Quiz"
+                label="Daily Image Quiz"
                 {...a11yProps(1)}
+              />
+              <Divider sx={{ backgroundColor: "white", marginX: 1 }} />
+
+
+              <Tab
+                sx={{
+                  color: COLORS.quiz.light,
+                  "&.Mui-selected": {
+                    color: "white",
+                  },
+                }}
+                label="Endless Character Quiz"
+                {...a11yProps(3)}
               />
               <Tab
                 sx={{
@@ -165,8 +177,8 @@ const Home = () => {
                     color: "white",
                   },
                 }}
-                label="Character Image Quiz"
-                {...a11yProps(2)}
+                label="Endless Image Quiz"
+                {...a11yProps(4)}
               />
               <Tab
                 sx={{
@@ -176,9 +188,9 @@ const Home = () => {
                   },
                 }}
                 label="Multiple Choice Quiz"
-                {...a11yProps(3)}
+                {...a11yProps(5)}
               />
-            <Tab
+              <Tab
                 sx={{
                   color: COLORS.quiz.light,
                   "&.Mui-selected": {
@@ -186,7 +198,17 @@ const Home = () => {
                   },
                 }}
                 label="Kiss, Marry, Kill"
-                {...a11yProps(4)}
+                {...a11yProps(6)}
+              />
+              <Tab
+                sx={{
+                  color: COLORS.quiz.light,
+                  "&.Mui-selected": {
+                    color: "white",
+                  },
+                }}
+                label="Birthday Calendar"
+                {...a11yProps(7)}
               />
             </Tabs>
             <Divider sx={{ backgroundColor: "white", marginX: 1 }}></Divider>
@@ -214,26 +236,40 @@ const Home = () => {
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={1}>
+              <ImageCharacterQuiz
+                animeData={animeData}
+                charData={charData}
+                endlessMode={false}
+              ></ImageCharacterQuiz>
+            </CustomTabPanel>
+
+            <CustomTabPanel value={value} index={3}>
               <BasicCharacterQuiz
                 charData={charData}
               ></BasicCharacterQuiz>
             </CustomTabPanel>
 
-            <CustomTabPanel value={value} index={2}>
+            <CustomTabPanel value={value} index={4}>
               <ImageCharacterQuiz
                 animeData={animeData}
                 charData={charData}
               ></ImageCharacterQuiz>
             </CustomTabPanel>
 
-            <CustomTabPanel value={value} index={3}>
+            <CustomTabPanel value={value} index={5}>
               <MultipleChoiceQuiz
                 animeData={animeData}
                 charData={charData}
               ></MultipleChoiceQuiz>
             </CustomTabPanel>
 
-            <CustomTabPanel value={value} index={4}>
+            <CustomTabPanel value={value} index={6}>
+              <KissMarryKill
+                charData={charData}
+              ></KissMarryKill>
+            </CustomTabPanel>
+
+            <CustomTabPanel value={value} index={7}>
               <KissMarryKill
                 charData={charData}
               ></KissMarryKill>
