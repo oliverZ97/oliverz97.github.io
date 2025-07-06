@@ -109,10 +109,7 @@ export default function BasicCharacterQuiz({
     }
   }
 
-  function getYesterdaysChar() {
-    const char = getRandomCharacter(charData, false, true);
-    return char.Name;
-  }
+
 
   function init() {
     setIsCorrect(false);
@@ -241,102 +238,106 @@ export default function BasicCharacterQuiz({
 
   return (
     <Box position={"relative"}>
-      <Box
-        sx={{
-          borderRadius: "16px",
-          backgroundColor: COLORS.quiz.secondary,
-          marginBottom: 4,
-          border: `1px solid ${COLORS.quiz.light}`,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          paddingY: 2,
-        }}
-      >
-        <Box sx={{ display: "flex", height: "70px", alignItems: "center" }}>
-          {scores.map((item, index) => (
-            <Box
-              key={index}
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                paddingX: 2,
-                color: "white",
-                backgroundColor: COLORS.quiz.secondary,
-              }}
-            >
-              {index === 0 && <Typography fontSize={"24px"}>🏆</Typography>}
-              {index === 1 && <Typography fontSize={"24px"}>🥈</Typography>}
-              {index === 2 && <Typography fontSize={"24px"}>🥉</Typography>}
-              <Typography fontSize={"12px"}>
-                {"Points: " + item.points}
+      <Box sx={{
+        borderRadius: 2,
+        background: "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
+        marginBottom: 4,
+        border: `1px solid ${COLORS.quiz.light}`,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        paddingY: 2,
+      }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Box sx={{ display: "flex", height: "70px", alignItems: "center" }}>
+
+            {scores.map((item, index) => (
+              <Box
+                key={index}
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  paddingX: 2,
+                  color: "white",
+                }}
+              >
+                {index === 0 && <Typography fontSize={"24px"}>🏆</Typography>}
+                {index === 1 && <Typography fontSize={"24px"}>🥈</Typography>}
+                {index === 2 && <Typography fontSize={"24px"}>🥉</Typography>}
+                <Typography fontSize={"12px"}>
+                  {"Points: " + item.points}
+                </Typography>
+                <Typography fontSize={"12px"}>
+                  {"Date: " + item.date}
+                </Typography>
+              </Box>
+            ))}
+            {scores.length === 0 && <Typography sx={{ color: COLORS.quiz.primary_text }} textAlign={"center"}>
+              <Typography component={"span"}>
+                No Scores available.
               </Typography>
-              <Typography fontSize={"12px"}>
-                {"Date: " + item.date}
+              <br />
+              <Typography component={"span"}>
+                You should definitely change that (*≧ω≦*)
               </Typography>
-            </Box>
-          ))}
-          {scores.length === 0 && <Typography sx={{ color: COLORS.quiz.primary_text }} textAlign={"center"}>
-            <Typography component={"span"}>
-              No Scores available.
-            </Typography>
-            <br />
-            <Typography component={"span"}>
-              You should definitely change that (*≧ω≦*)
-            </Typography>
-          </Typography>}
+            </Typography>}
+          </Box>
         </Box>
-      </Box>
 
-
-      <Box
-        sx={{
-          backgroundColor: COLORS.quiz.secondary,
-          padding: 2,
-          borderRadius: "16px",
-          marginBottom: 4,
-          display: "flex",
-          gap: 2,
-          justifyContent: "space-between",
-          border: `1px solid ${COLORS.quiz.light}`,
-          [theme.breakpoints.down("md")]: {
-            flexWrap: "wrap",
-          },
-        }}
-      >
-        <RevealCard
-          costs={500}
-          onReveal={() => reducePointsForHint(500)}
-          ref={tagsHintRef}
-          cardText={targetChar?.Tags ?? ""}
-          cardTitle="Tags"
-        ></RevealCard>
-        <RevealCard
-          costs={500}
-          onReveal={() => reducePointsForHint(500)}
-          ref={genreHintRef}
-          cardText={
-            [targetChar?.Subgenre1, targetChar?.Subgenre2].join(";") ?? ""
-          }
-          cardTitle="Subgenres"
-        ></RevealCard>
-        <RevealCard
-          costs={500}
-          onReveal={() => reducePointsForHint(500)}
-          ref={studioHintRef}
-          cardText={targetChar?.Studio ?? ""}
-          cardTitle="Studio"
-        ></RevealCard>
-        <RevealCard
-          costs={1000}
-          onReveal={() => reducePointsForHint(1000)}
-          ref={animeHintRef}
-          cardText={targetChar?.Anime ?? ""}
-          cardTitle="Anime"
-        ></RevealCard>
+        <Box
+          sx={{
+            width: "100%",
+            paddingX: 2,
+            marginTop: 2,
+            borderRadius: 2,
+            display: "flex",
+            gap: 2,
+            justifyContent: "space-between",
+            [theme.breakpoints.down("md")]: {
+              flexWrap: "wrap",
+            },
+          }}
+        >
+          <RevealCard
+            costs={500}
+            onReveal={() => reducePointsForHint(500)}
+            ref={tagsHintRef}
+            cardText={targetChar?.Tags ?? ""}
+            cardTitle="Tags"
+          ></RevealCard>
+          <RevealCard
+            costs={500}
+            onReveal={() => reducePointsForHint(500)}
+            ref={genreHintRef}
+            cardText={
+              [targetChar?.Subgenre1, targetChar?.Subgenre2].join(";") ?? ""
+            }
+            cardTitle="Subgenres"
+          ></RevealCard>
+          <RevealCard
+            costs={500}
+            onReveal={() => reducePointsForHint(500)}
+            ref={studioHintRef}
+            cardText={targetChar?.Studio ?? ""}
+            cardTitle="Studio"
+          ></RevealCard>
+          <RevealCard
+            costs={1000}
+            onReveal={() => reducePointsForHint(1000)}
+            ref={animeHintRef}
+            cardText={targetChar?.Anime ?? ""}
+            cardTitle="Anime"
+          ></RevealCard>
+        </Box>
+        <DayStreak ref={streakRef} streakKey={streakKey}></DayStreak>
       </Box>
-      <DayStreak ref={streakRef} streakKey={streakKey}></DayStreak>
 
       <SearchBar
         difficulty={difficulty}
@@ -352,6 +353,7 @@ export default function BasicCharacterQuiz({
         showGiveUp={showGiveUp}
         gaveUp={gaveUp}
         endlessMode={endlessMode}
+        originalCharData={charData}
       ></SearchBar>
 
       {targetChar && isCorrect && (
@@ -374,7 +376,9 @@ export default function BasicCharacterQuiz({
               paddingX: 2,
               paddingY: 3,
               marginTop: 4,
-              borderRadius: "16px",
+              borderRadius: 2,
+              border: gaveUp ? `2px solid ${COLORS.quiz.failed_light}` : `2px solid ${COLORS.quiz.success_light}`,
+
             }}
           >
             <Typography
@@ -394,18 +398,7 @@ export default function BasicCharacterQuiz({
               }}
               src={getImgSrc(targetChar?.Name)}
             ></Box>
-            {!endlessMode && (
-              <Box sx={{ marginTop: 2 }}>
-                <Typography fontSize="14px" textAlign={"center"}>
-                  {"Yesterdays character was"}
-                </Typography>
-                <Typography
-                  fontWeight={"bold"}
-                  fontSize="14px"
-                  textAlign={"center"}
-                >{`${getYesterdaysChar()}`}</Typography>
-              </Box>
-            )}
+
           </Box>
         </Box>
       )}

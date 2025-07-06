@@ -240,8 +240,8 @@ export default function MultipleChoiceQuiz({
     <Box position={"relative"}>
       <Box
         sx={{
-          borderRadius: "16px",
-          backgroundColor: COLORS.quiz.secondary,
+          borderRadius: 2,
+          background: "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
           marginBottom: 4,
           border: `1px solid ${COLORS.quiz.light}`,
           display: "flex",
@@ -261,7 +261,6 @@ export default function MultipleChoiceQuiz({
                 alignItems: "center",
                 paddingX: 2,
                 color: "white",
-                backgroundColor: COLORS.quiz.secondary,
               }}
             >
               {index === 0 && <Typography fontSize={"24px"}>🏆</Typography>}
@@ -294,9 +293,9 @@ export default function MultipleChoiceQuiz({
       <Box
         sx={{
           position: "relative",
-          backgroundColor: COLORS.quiz.secondary,
+          background: "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
           padding: 4,
-          borderRadius: "16px",
+          borderRadius: 2,
           border: `1px solid ${COLORS.quiz.light}`,
           display: "flex",
           flexDirection: "column",

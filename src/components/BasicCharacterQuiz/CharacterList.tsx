@@ -37,11 +37,11 @@ export default function CharacterList({
           maxHeight: "400px",
           overflowX: "hidden",
           overflowY: "auto",
-          borderTopLeftRadius: "16px",
-          borderTopRightRadius: "16px",
+          borderTopLeftRadius: "8px",
+          borderTopRightRadius: "8px",
           border: searchHistory.length > 0 ? `1px solid ${COLORS.quiz.light}` : "none",
           borderBottom: 0,
-          backgroundColor: COLORS.quiz.secondary,
+          background: "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
           [theme.breakpoints.down("md")]: {
             overflowX: "scroll",
           },
@@ -177,6 +177,7 @@ export default function CharacterList({
                 justifyContent: "center",
                 alignItems: "center",
                 minHeight: 50,
+
               }}
             >
               <Tooltip title={item.Name} placement="bottom" slotProps={{
@@ -205,6 +206,7 @@ export default function CharacterList({
                 justifyContent: "center",
                 alignItems: "center",
                 minHeight: 50,
+
               }}
             >
               <Box
@@ -218,6 +220,9 @@ export default function CharacterList({
                     ? COLORS.quiz.success
                     : COLORS.quiz.main,
                   height: "100%",
+                  borderRadius: "4px",
+                  border: item.ValidFields?.includes("Sex") ? `2px solid ${COLORS.quiz.success_light}` : `2px solid ${COLORS.quiz.light}`,
+
                 }}
               >
                 <Typography>{item.Sex}</Typography>
@@ -243,6 +248,9 @@ export default function CharacterList({
                     ? COLORS.quiz.success
                     : COLORS.quiz.main,
                   height: "100%",
+                  borderRadius: "4px",
+                  border: item.ValidFields?.includes("Age_Group") ? `2px solid ${COLORS.quiz.success_light}` : `2px solid ${COLORS.quiz.light}`,
+
                 }}
               >
                 <Typography>{item.Age_Group}</Typography>
@@ -272,6 +280,9 @@ export default function CharacterList({
                     ? COLORS.quiz.success
                     : COLORS.quiz.main,
                   height: "100%",
+                  borderRadius: "4px",
+                  border: item.ValidFields?.includes("Hair_Color") ? `2px solid ${COLORS.quiz.success_light}` : `2px solid ${COLORS.quiz.light}`,
+
                 }}
               >
                 <Typography>{item.Hair_Color}</Typography>
@@ -297,6 +308,9 @@ export default function CharacterList({
                     ? COLORS.quiz.success
                     : COLORS.quiz.main,
                   height: "100%",
+                  borderRadius: "4px",
+                  border: item.ValidFields?.includes("Eye_Color") ? `2px solid ${COLORS.quiz.success_light}` : `2px solid ${COLORS.quiz.light}`,
+
                 }}
               >
                 <Typography>{item.Eye_Color}</Typography>
@@ -322,6 +336,9 @@ export default function CharacterList({
                     ? COLORS.quiz.success
                     : COLORS.quiz.main,
                   height: "100%",
+                  borderRadius: "4px",
+                  border: item.ValidFields?.includes("Height") ? `2px solid ${COLORS.quiz.success_light}` : `2px solid ${COLORS.quiz.light}`,
+
                 }}
               >
                 <Typography>{item.Height}</Typography>
@@ -348,6 +365,9 @@ export default function CharacterList({
                     ? COLORS.quiz.success
                     : COLORS.quiz.main,
                   height: "100%",
+                  borderRadius: "4px",
+                  border: item.ValidFields?.includes("Origin") ? `2px solid ${COLORS.quiz.success_light}` : `2px solid ${COLORS.quiz.light}`,
+
                 }}
               >
                 <Typography>{item.Origin}</Typography>
@@ -375,6 +395,9 @@ export default function CharacterList({
                     ? COLORS.quiz.success
                     : COLORS.quiz.main,
                   height: "100%",
+                  borderRadius: "4px",
+                  border: item.ValidFields?.includes("First_Release_Year") ? `2px solid ${COLORS.quiz.success_light}` : `2px solid ${COLORS.quiz.light}`,
+
                 }}
               >
                 <Typography>{item.First_Release_Year}</Typography>
@@ -406,6 +429,9 @@ export default function CharacterList({
                     ? COLORS.quiz.success
                     : COLORS.quiz.main,
                   height: "100%",
+                  borderRadius: "4px",
+                  border: item.ValidFields?.includes("Genre") ? `2px solid ${COLORS.quiz.success_light}` : `2px solid ${COLORS.quiz.light}`,
+
                 }}
               >
                 <Typography>{item.Genre}</Typography>

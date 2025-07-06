@@ -2,13 +2,16 @@ import {
   Box,
   Typography,
   Button,
-  ButtonGroup,
   ToggleButton,
   ToggleButtonGroup,
   useTheme,
+  Tooltip,
 } from "@mui/material";
+import { getImgSrc } from "common/quizUtils";
 import { Character, Difficulty } from "common/types";
+import { getRandomCharacter } from "common/utils";
 import { CharacterAutocomplete } from "components/CharacterAutocomplete";
+import { useEffect } from "react";
 import { COLORS } from "styling/constants";
 
 interface SearchBarProps {
@@ -29,6 +32,7 @@ interface SearchBarProps {
   gaveUp: boolean;
   handleGiveUp: () => void;
   endlessMode?: boolean;
+  originalCharData: Character[]
 }
 
 export function SearchBar({
@@ -44,7 +48,8 @@ export function SearchBar({
   showGiveUp,
   gaveUp,
   handleGiveUp,
-  endlessMode = true
+  endlessMode = true,
+  originalCharData
 }: SearchBarProps) {
   const theme = useTheme();
 
@@ -61,89 +66,149 @@ export function SearchBar({
 
   };
 
+  function getYesterdaysChar(charData: Character[]) {
+    if (charData.length > 0) {
+      const char = getRandomCharacter(charData, false, true);
+      return char.Name;
+    } else {
+      return "-"
+    }
+  }
+
   return (
-    <Box
-      sx={{
-        display: "flex",
-        gap: 4,
-        alignItems: "center",
-        justifyContent: "space-between",
-        backgroundColor: COLORS.quiz.secondary,
+    <Box sx={{
+      display: "flex",
+      flexDirection: "column",
+      gap: 4,
+      alignItems: "center",
+      justifyContent: "space-between",
+      background: "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
+      borderRadius: 2,
+      border: `1px solid ${COLORS.quiz.light}`,
+      width: "100%",
+      [theme.breakpoints.down("md")]: {
+        flexDirection: "column",
         padding: 2,
-        borderRadius: "16px",
-        border: `1px solid ${COLORS.quiz.light}`,
-        [theme.breakpoints.down("md")]: {
-          flexDirection: "column",
-          padding: 2,
-        },
-      }}
-    >
-      <Box>
-        <Typography sx={{ color: "white" }}>{"Points: " + points}</Typography>
-        <Typography sx={{ color: "white" }}>
-          {"Tries: " + searchHistory.length}
-        </Typography>
-      </Box>
+      },
+    }}>
+      {!endlessMode && originalCharData && (
+        <Box display={"flex"} alignItems={"center"} gap={2} sx={{
+          background: "linear-gradient(90deg,rgba(0, 53, 84, 1) 0%, rgba(0, 100, 148, 1) 100%)",
+          width: "100%", borderTopLeftRadius: "8px", borderRightTopRadius: "8px", paddingX: 2, paddingY: 1,
+        }}>
+          <Typography fontSize="16px" textAlign={"center"} fontWeight={"bold"} color={"white"}>
+            {"Yesterdays character:"}
+          </Typography>
+
+          <Tooltip title={getYesterdaysChar(originalCharData)} placement="bottom" slotProps={{
+            popper: {
+              modifiers: [
+                {
+                  name: 'offset',
+                  options: {
+                    offset: [0, -24],
+                  },
+                },
+              ],
+            },
+          }}>
+            <Box
+              sx={{ maxWidth: "60px", height: "50px", objectFit: "cover" }}
+              component={"img"}
+              src={getImgSrc(getYesterdaysChar(originalCharData))}
+            ></Box>
+          </Tooltip>
+        </Box>
+      )}
       <Box
         sx={{
+          width: "100%",
           display: "flex",
+          gap: 4,
           alignItems: "center",
-          gap: 1,
-          position: "relative",
+          justifyContent: "space-between",
+          borderRadius: 2,
+          marginBottom: 2,
+          paddingX: 2,
+          [theme.breakpoints.down("md")]: {
+            flexDirection: "column",
+            padding: 2,
+          },
         }}
       >
-        <CharacterAutocomplete
-          difficulty={difficulty}
-          charData={charData}
-          disabled={isCorrect}
-          value={selectedOption}
-          handleSearchChange={handleSearchChange}
-          showPreviewImage
-        ></CharacterAutocomplete>
-        {showGiveUp && !gaveUp && (
-          <Button
-            onClick={handleGiveUp}
-            sx={{ height: "40px", position: "absolute", right: -100 }}
-            color="error"
-            variant="contained"
-          >
-            Give Up!
-          </Button>
-        )}
-      </Box>
-      <Box sx={{ display: "flex", gap: 1 }}>
-        {endlessMode && < ToggleButtonGroup
-          value={difficulty}
-          exclusive
-          onChange={handleDifficulty}
-          aria-label="text alignment"
-          size="small"
-          sx={{ backgroundColor: COLORS.quiz.main }}
-        >
-          <ToggleButton value="A" aria-label="left aligned">
-            <Typography sx={{ color: "white" }}>Easy</Typography>
-          </ToggleButton>
-          <ToggleButton value="B" aria-label="centered">
-            <Typography sx={{ color: "white" }}>Normal</Typography>
-          </ToggleButton>
-          <ToggleButton value="C" aria-label="right aligned">
-            <Typography sx={{ color: "white" }}>Hard</Typography>
-          </ToggleButton>
-        </ToggleButtonGroup>}
-        {endlessMode && <Button
-          onClick={init}
+        <Box>
+          <Typography sx={{ color: "white" }}>{"Points: " + points}</Typography>
+          <Typography sx={{ color: "white" }}>
+            {"Tries: " + searchHistory.length}
+          </Typography>
+        </Box>
+        <Box
           sx={{
-            backgroundColor: COLORS.quiz.main,
-            color: "white",
-            "&:hover": {
-              backgroundColor: COLORS.quiz.secondary,
-            },
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+            position: "relative",
+            marginTop: endlessMode ? 2 : 0
           }}
-          variant="outlined"
         >
-          RESET QUIZ
-        </Button>}
-      </Box>
-    </Box >
+          <CharacterAutocomplete
+            difficulty={difficulty}
+            charData={charData}
+            disabled={isCorrect}
+            value={selectedOption}
+            handleSearchChange={handleSearchChange}
+            showPreviewImage
+          ></CharacterAutocomplete>
+          {showGiveUp && !gaveUp && (
+            <Button
+              onClick={handleGiveUp}
+              sx={{ height: "40px", position: "absolute", right: -100 }}
+              color="error"
+              variant="contained"
+            >
+              Give Up!
+            </Button>
+          )}
+        </Box>
+        <Box sx={{ display: "flex", gap: 1 }}>
+          {endlessMode && < ToggleButtonGroup
+            value={difficulty}
+            exclusive
+            onChange={handleDifficulty}
+            aria-label="text alignment"
+            size="small"
+            sx={{
+              backgroundColor: COLORS.quiz.main, border: `2px solid ${COLORS.quiz.light}`,
+            }}
+          >
+            <ToggleButton value="A" aria-label="left aligned">
+              <Typography sx={{ color: "white" }}>Easy</Typography>
+            </ToggleButton>
+            <ToggleButton value="B" aria-label="centered">
+              <Typography sx={{ color: "white" }}>Normal</Typography>
+            </ToggleButton>
+            <ToggleButton value="C" aria-label="right aligned">
+              <Typography sx={{ color: "white" }}>Hard</Typography>
+            </ToggleButton>
+          </ToggleButtonGroup>}
+          {endlessMode && <Button
+            onClick={init}
+            sx={{
+              backgroundColor: COLORS.quiz.main,
+              border: `2px solid ${COLORS.quiz.light}`,
+              color: "white",
+              "&:hover": {
+                backgroundColor: COLORS.quiz.secondary,
+              },
+            }}
+            variant="outlined"
+          >
+            RESET QUIZ
+          </Button>}
+
+        </Box>
+
+      </Box >
+    </Box>
   );
 }

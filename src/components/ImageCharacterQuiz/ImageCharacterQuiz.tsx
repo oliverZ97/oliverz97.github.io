@@ -189,9 +189,9 @@ export default function ImageCharacterQuiz({
     <Box
       sx={{
         position: "relative",
-        backgroundColor: COLORS.quiz.secondary,
+          background: "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
         padding: 4,
-        borderRadius: "16px",
+        borderRadius: 2,
         border: `1px solid ${COLORS.quiz.light}`,
         display: "flex",
         flexDirection: "column",
