@@ -200,16 +200,6 @@ const Home = () => {
                 label="Kiss, Marry, Kill"
                 {...a11yProps(6)}
               />
-              <Tab
-                sx={{
-                  color: COLORS.quiz.light,
-                  "&.Mui-selected": {
-                    color: "white",
-                  },
-                }}
-                label="Birthday Calendar"
-                {...a11yProps(7)}
-              />
             </Tabs>
             <Divider sx={{ backgroundColor: "white", marginX: 1 }}></Divider>
           </Box>
@@ -269,11 +259,6 @@ const Home = () => {
               ></KissMarryKill>
             </CustomTabPanel>
 
-            <CustomTabPanel value={value} index={7}>
-              <KissMarryKill
-                charData={charData}
-              ></KissMarryKill>
-            </CustomTabPanel>
           </Box>
         </Box>
         <Box
