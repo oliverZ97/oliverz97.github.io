@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import { getImgSrc } from "common/quizUtils";
 import { Character } from "common/types";
-import { getRandomCharacter } from "common/utils";
+import { getDailyUTCDate, getRandomCharacter, hasBeenSolvedToday } from "common/utils";
 import { AnimeAutocomplete } from "components/AnimeAutocomplete";
 import { CharacterAutocomplete } from "components/CharacterAutocomplete";
 import { DayStreak, StreakRef } from "components/Streak";
@@ -58,6 +58,7 @@ export default function ImageCharacterQuiz({
   const [score, setScore] = useState(0);
 
   const streakRef = useRef<StreakRef | null>(null);
+  const streakKey = endlessMode ? "imageStreak" : "dailyImageStreak";
 
   useEffect(() => {
     if (!targets) {
@@ -106,9 +107,17 @@ export default function ImageCharacterQuiz({
   function resetTargets() {
     let targets: Character[] = [];
     if (endlessMode) {
+
       const targetCharacters = getRandomCharacterArray(4);
       targets = targetCharacters;
     } else {
+      const hasSolvedToday = hasBeenSolvedToday("imagequiz");
+      if (hasSolvedToday) {
+        setIsSolving(true);
+      } else {
+        localStorage.removeItem("imagequiz_daily_answers");
+        localStorage.removeItem("imagequiz_daily_score");
+      }
       const targetCharacters = getRandomCharacterArray(4, false);
       targets = targetCharacters;
     }
@@ -146,26 +155,26 @@ export default function ImageCharacterQuiz({
     let chars: Character[] = [];
     if (endlessMode) {
       while (counter < Math.max(0, count)) {
-      const char = getRandomCharacter(charData);
-      if (!chars.some((item) => item.Name === char.Name)) {
-        chars.push(char);
-        counter++;
-      }
+        const char = getRandomCharacter(charData);
+        if (!chars.some((item) => item.Name === char.Name)) {
+          chars.push(char);
+          counter++;
+        }
       }
     } else {
       // Get current day of the year to ensure all characters are used
       // Use the current date in production, or test date for development
       const isTestMode = false; // Toggle this for testing
-      const customTestDate = new Date("2025-01-05T10:00:00Z"); 
+      const customTestDate = new Date("2025-01-05T10:00:00Z");
       const today = isTestMode ? customTestDate : new Date();
-      
+
       const dayOfYear = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / (1000 * 60 * 60 * 24));
       const yearSignature = `${today.getFullYear()}`;
-      
+
       // Create a seed using the day of year and year
       let seed = dayOfYear;
       for (let i = 0; i < yearSignature.length; i++) {
-      seed += yearSignature.charCodeAt(i);
+        seed += yearSignature.charCodeAt(i);
       }
 
       // Add a prime multiplier to ensure different sets on consecutive days
@@ -176,37 +185,57 @@ export default function ImageCharacterQuiz({
       // This ensures all characters get chosen at some point
       // Use a different rotation offset formula to avoid patterns
       const rotationOffset = (dayOfYear * primeFactor) % charData.length;
-      
+
       // Create a rotated copy of the character data
       const rotatedChars = [
-      ...charData.slice(rotationOffset),
-      ...charData.slice(0, rotationOffset)
+        ...charData.slice(rotationOffset),
+        ...charData.slice(0, rotationOffset)
       ];
-      
+
       // Further shuffle the rotated characters with the seed
       // Use character ID or another unique property in the hash calculation
       const shuffledChars = [...rotatedChars].sort((a, b) => {
-      const hashA = (seed * (a.Name.length + a.Anime.length)) % charData.length;
-      const hashB = (seed * (b.Name.length + b.Anime.length)) % charData.length;
-      return hashA - hashB;
+        const hashA = (seed * (a.Name.length + a.Anime.length)) % charData.length;
+        const hashB = (seed * (b.Name.length + b.Anime.length)) % charData.length;
+        return hashA - hashB;
       });
 
       // Get the first four unique characters
       chars = [];
       let i = 0;
       while (chars.length < count && i < shuffledChars.length) {
-      // Ensure we don't add duplicates
-      if (!chars.some(char => char.Name === shuffledChars[i].Name)) {
-        chars.push(shuffledChars[i]);
-      }
-      i++;
+        // Ensure we don't add duplicates
+        if (!chars.some(char => char.Name === shuffledChars[i].Name)) {
+          chars.push(shuffledChars[i]);
+        }
+        i++;
       }
     }
     return chars;
   }
 
+  function saveDailyAnswers(selection: ImageTarget[], score: number) {
+    if (targets) {
+      localStorage.setItem("imagequiz_daily_answers", JSON.stringify(selection));
+      localStorage.setItem("imagequiz_daily_score", JSON.stringify(score));
+    }
+
+  }
+
   function checkCorrectAnswers() {
     if (targets) {
+      if (hasBeenSolvedToday("imagequiz")) {
+        const dailyAnswers = localStorage.getItem("imagequiz_daily_answers");
+        const dailyScore = localStorage.getItem("imagequiz_daily_score");
+        if (dailyAnswers && dailyScore) {
+          const parsedAnswers = JSON.parse(dailyAnswers) as ImageTarget[];
+          const parsedScore = JSON.parse(dailyScore) as number;
+          setElements(parsedAnswers);
+          setScore(parsedScore);
+          return;
+        }
+      }
+
       const selectionCopy = [...elements];
       let correctAnime = 0;
       let correctCharacter = 0;
@@ -229,11 +258,17 @@ export default function ImageCharacterQuiz({
         }
       }
       const finalScore = calculatePoints(correctAnime, correctCharacter);
+      if (!endlessMode) {
+        saveDailyAnswers(selectionCopy, finalScore);
+      }
       setScore(finalScore);
       setElements(selectionCopy);
       if (streakRef) {
         streakRef.current?.setStreak();
       }
+
+      const utcDate = getDailyUTCDate();
+      localStorage.setItem("imagequiz_HasBeenSolvedToday", utcDate.toISOString());
     }
   }
 
@@ -258,7 +293,7 @@ export default function ImageCharacterQuiz({
     >
       <DayStreak
         ref={streakRef}
-        streakKey={"imageStreak"}
+        streakKey={streakKey}
         colorRotate="250deg"
         sx={{ top: "-5px" }}
       ></DayStreak>
@@ -367,7 +402,7 @@ export default function ImageCharacterQuiz({
         >
           Reset
         </Button>}
-        {!endlessMode && <Box/>}
+        {!endlessMode && <Box />}
         {isSolving && <Typography color={"white"} fontSize={"24px"}>🏆 {score}</Typography>}
         <Button
           sx={{

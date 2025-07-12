@@ -26,6 +26,46 @@ export default function CharacterList({
     }
   }
 
+  function getCardBorderColor(key: string, item: Character) {
+    return item.ValidFields?.includes(key) ? `2px solid ${COLORS.quiz.success_light}` : `2px solid ${COLORS.quiz.light}`
+  }
+
+  function getCardBackgroundColor(key: string, item: Character) {
+    return item.ValidFields?.includes(key) ? COLORS.quiz.success : COLORS.quiz.main;
+  }
+
+
+  function findPartialGenreMatch(item: Character, targetChar: Character | null) {
+    if (!targetChar) return false;
+
+    // If both genres are the same, return false
+    if (JSON.stringify(item.Genre) === JSON.stringify(targetChar.Genre)) return false
+
+    // Special case for "Slice of Life" - check before splitting
+    if (item.Genre === "Slice of Life" && targetChar.Genre === "Slice of Life") {
+      return true;
+    }
+
+    const targetGenres = targetChar.Genre.split(" ").map((genre) => genre.trim());
+    const itemGenres = item.Genre.split(" ").map((genre) => genre.trim());
+
+    // Check for partial matches between item and target genres
+    const res = itemGenres.some(itemGenre => {
+      // Handle Romance/Romantic matching
+      if (itemGenre === "Romance" && targetGenres.some(g => g === "Romantic" || g === "Romance")) {
+        return true;
+      }
+      if (itemGenre === "Romantic" && targetGenres.some(g => g === "Romance" || g === "Romantic")) {
+        return true;
+      }
+
+      // Default case - exact match
+      return targetGenres.includes(itemGenre);
+    });
+
+    return res;
+  }
+
   return (
     <Box>
       <Box
@@ -216,12 +256,10 @@ export default function CharacterList({
                   display: "flex",
                   alignItems: "center",
                   padding: "10px",
-                  backgroundColor: item.ValidFields?.includes("Sex")
-                    ? COLORS.quiz.success
-                    : COLORS.quiz.main,
+                  backgroundColor: getCardBackgroundColor("Sex", item),
                   height: "100%",
                   borderRadius: "4px",
-                  border: item.ValidFields?.includes("Sex") ? `2px solid ${COLORS.quiz.success_light}` : `2px solid ${COLORS.quiz.light}`,
+                  border: getCardBorderColor("Sex", item),
 
                 }}
               >
@@ -244,12 +282,10 @@ export default function CharacterList({
                   display: "flex",
                   alignItems: "center",
                   padding: "10px",
-                  backgroundColor: item.ValidFields?.includes("Age_Group")
-                    ? COLORS.quiz.success
-                    : COLORS.quiz.main,
+                  backgroundColor: getCardBackgroundColor("Age_Group", item),
                   height: "100%",
                   borderRadius: "4px",
-                  border: item.ValidFields?.includes("Age_Group") ? `2px solid ${COLORS.quiz.success_light}` : `2px solid ${COLORS.quiz.light}`,
+                  border: getCardBorderColor("Age_Group", item),
 
                 }}
               >
@@ -276,12 +312,10 @@ export default function CharacterList({
                   display: "flex",
                   alignItems: "center",
                   padding: "10px",
-                  backgroundColor: item.ValidFields?.includes("Hair_Color")
-                    ? COLORS.quiz.success
-                    : COLORS.quiz.main,
+                  backgroundColor: getCardBackgroundColor("Hair_Color", item),
                   height: "100%",
                   borderRadius: "4px",
-                  border: item.ValidFields?.includes("Hair_Color") ? `2px solid ${COLORS.quiz.success_light}` : `2px solid ${COLORS.quiz.light}`,
+                  border: getCardBorderColor("Hair_Color", item),
 
                 }}
               >
@@ -304,12 +338,10 @@ export default function CharacterList({
                   display: "flex",
                   alignItems: "center",
                   padding: "10px",
-                  backgroundColor: item.ValidFields?.includes("Eye_Color")
-                    ? COLORS.quiz.success
-                    : COLORS.quiz.main,
+                  backgroundColor: getCardBackgroundColor("Eye_Color", item),
                   height: "100%",
                   borderRadius: "4px",
-                  border: item.ValidFields?.includes("Eye_Color") ? `2px solid ${COLORS.quiz.success_light}` : `2px solid ${COLORS.quiz.light}`,
+                  border: getCardBorderColor("Eye_Color", item),
 
                 }}
               >
@@ -332,12 +364,10 @@ export default function CharacterList({
                   display: "flex",
                   alignItems: "center",
                   padding: "10px",
-                  backgroundColor: item.ValidFields?.includes("Height")
-                    ? COLORS.quiz.success
-                    : COLORS.quiz.main,
+                  backgroundColor: getCardBackgroundColor("Height", item),
                   height: "100%",
                   borderRadius: "4px",
-                  border: item.ValidFields?.includes("Height") ? `2px solid ${COLORS.quiz.success_light}` : `2px solid ${COLORS.quiz.light}`,
+                  border: getCardBorderColor("Height", item),
 
                 }}
               >
@@ -361,12 +391,10 @@ export default function CharacterList({
                   display: "flex",
                   alignItems: "center",
                   padding: "10px",
-                  backgroundColor: item.ValidFields?.includes("Origin")
-                    ? COLORS.quiz.success
-                    : COLORS.quiz.main,
+                  backgroundColor: getCardBackgroundColor("Origin", item),
                   height: "100%",
                   borderRadius: "4px",
-                  border: item.ValidFields?.includes("Origin") ? `2px solid ${COLORS.quiz.success_light}` : `2px solid ${COLORS.quiz.light}`,
+                  border: getCardBorderColor("Origin", item),
 
                 }}
               >
@@ -389,14 +417,10 @@ export default function CharacterList({
                   display: "flex",
                   alignItems: "center",
                   padding: "10px",
-                  backgroundColor: item.ValidFields?.includes(
-                    "First_Release_Year"
-                  )
-                    ? COLORS.quiz.success
-                    : COLORS.quiz.main,
+                  backgroundColor: getCardBackgroundColor("First_Release_Year", item),
                   height: "100%",
                   borderRadius: "4px",
-                  border: item.ValidFields?.includes("First_Release_Year") ? `2px solid ${COLORS.quiz.success_light}` : `2px solid ${COLORS.quiz.light}`,
+                  border: getCardBorderColor("First_Release_Year", item),
 
                 }}
               >
@@ -423,14 +447,10 @@ export default function CharacterList({
                   display: "flex",
                   alignItems: "center",
                   padding: "10px",
-                  backgroundColor: item.ValidFields?.includes(
-                    "Genre"
-                  )
-                    ? COLORS.quiz.success
-                    : COLORS.quiz.main,
+                  backgroundColor: findPartialGenreMatch(item, targetChar) ? COLORS.quiz.warning : getCardBackgroundColor("Genre", item),
                   height: "100%",
                   borderRadius: "4px",
-                  border: item.ValidFields?.includes("Genre") ? `2px solid ${COLORS.quiz.success_light}` : `2px solid ${COLORS.quiz.light}`,
+                  border: findPartialGenreMatch(item, targetChar) ? `2px solid ${COLORS.quiz.warning_light}` : getCardBorderColor("Genre", item),
 
                 }}
               >

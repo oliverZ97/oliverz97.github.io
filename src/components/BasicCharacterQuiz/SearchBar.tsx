@@ -94,7 +94,7 @@ export function SearchBar({
       {!endlessMode && originalCharData && (
         <Box display={"flex"} alignItems={"center"} gap={2} sx={{
           background: "linear-gradient(90deg,rgba(0, 53, 84, 1) 0%, rgba(0, 100, 148, 1) 100%)",
-          width: "100%", borderTopLeftRadius: "8px", borderRightTopRadius: "8px", paddingX: 2, paddingY: 1,
+          width: "100%", borderTopLeftRadius: "8px", borderTopRightRadius: "8px", paddingX: 2, paddingY: 1,
         }}>
           <Typography fontSize="16px" textAlign={"center"} fontWeight={"bold"} color={"white"}>
             {"Yesterdays character:"}

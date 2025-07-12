@@ -117,3 +117,19 @@ export function getRandomCharacter(charData: Character[], endlessMode = true, is
   const target = charArray[index];
   return target as Character;
 }
+
+export function hasBeenSolvedToday(key: string) {
+  const dailyExpireDate = localStorage.getItem(key + "_HasBeenSolvedToday");
+  if (dailyExpireDate) {
+    const date = new Date(dailyExpireDate).toDateString();
+    const now = new Date().toDateString();
+    if (date === now) {
+      return true;
+    } else {
+      localStorage.removeItem(key + "_HasBeenSolvedToday");
+      return false;
+    }
+  } else {
+    return false;
+  }
+}

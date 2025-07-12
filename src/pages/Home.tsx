@@ -21,6 +21,7 @@ import { VERSION } from "common/version";
 import MenuIcon from '@mui/icons-material/Menu';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { KissMarryKill } from "components/KissMarryKill/KissMarryKill";
+import { AnimeIndex } from "components/AnimeIndex";
 
 
 export interface Score {
@@ -100,25 +101,9 @@ const Home = () => {
         }}
       >
         <DrawerBasic title="Anime Index" position={{ top: "120px" }} icon={<HelpOutlineIcon fontSize="large" />} sx={{ padding: 2 }}>
-          <Typography
-            sx={{
-              fontSize: "24px",
-              fontWeight: "bold",
-              marginBottom: 2,
-              color: COLORS.quiz.primary_text,
-            }}
-          >
-            Current Anime Index
-          </Typography>
-          {animeData.map((item) => (
-            <Typography
-              key={item}
-              fontSize={"12px"}
-              color={COLORS.quiz.primary_text}
-            >
-              {item}
-            </Typography>
-          ))}
+          <AnimeIndex
+            animeData={animeData}
+          />
         </DrawerBasic>
 
         <DrawerBasic title="Gamemodes" position={{ top: "40px" }} icon={<MenuIcon fontSize="large" />}>

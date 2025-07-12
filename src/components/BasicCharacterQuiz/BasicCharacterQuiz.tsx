@@ -10,7 +10,7 @@ import { compareObjects, getImgSrc } from "common/quizUtils";
 import { Score } from "pages/Home";
 import { DayStreak } from "components/Streak";
 import { StreakRef } from "components/Streak";
-import { getDailyUTCDate, getRandomCharacter, isIncludedInDifficulty } from "common/utils";
+import { getDailyUTCDate, getRandomCharacter, hasBeenSolvedToday, isIncludedInDifficulty } from "common/utils";
 
 interface HintRef {
   resetHint: () => void;
@@ -122,7 +122,7 @@ export default function BasicCharacterQuiz({
         target = getRandomCharacter(charData);
       }
     } else {
-      const hasSolvedToday = hasBeenSolvedToday();
+      const hasSolvedToday = hasBeenSolvedToday("charquiz");
       if (hasSolvedToday) {
         setIsCorrect(true);
       }
@@ -178,7 +178,7 @@ export default function BasicCharacterQuiz({
         setIsCorrect(true);
         if (!endlessMode) {
           const utcDate = getDailyUTCDate();
-          localStorage.setItem("HasBeenSolvedToday", utcDate.toISOString());
+          localStorage.setItem("charquiz_HasBeenSolvedToday", utcDate.toISOString());
         }
         if (points > 0) {
           //Set Highscore
@@ -215,21 +215,6 @@ export default function BasicCharacterQuiz({
     }
   }
 
-  function hasBeenSolvedToday() {
-    const dailyExpireDate = localStorage.getItem("HasBeenSolvedToday");
-    if (dailyExpireDate) {
-      const date = new Date(dailyExpireDate).toDateString();
-      const now = new Date().toDateString();
-      if (date === now) {
-        return true;
-      } else {
-        localStorage.removeItem("HasBeenSolvedToday");
-        return false;
-      }
-    } else {
-      return false;
-    }
-  }
 
   function reducePointsForHint(costs: number) {
     setUsedHints(usedHints + 1);

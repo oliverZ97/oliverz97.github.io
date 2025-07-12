@@ -29,7 +29,7 @@ export const RevealCard = forwardRef(
 
     function listTagList(tagList: string) {
       const tags = tagList.split(";");
-      if(tags.length > 1) {
+      if (tags.length > 1) {
         return tags.filter((tag) => tag !== "-").map((tag) => <Typography sx={{
           color: COLORS.quiz.primary_text,
           textTransform: "capitalize",
@@ -65,7 +65,7 @@ export const RevealCard = forwardRef(
             height: "100%",
           }}
         >
-            {listTagList(cardText)}
+          {listTagList(cardText)}
         </Box>
         <Box
           sx={{
@@ -74,14 +74,14 @@ export const RevealCard = forwardRef(
             zIndex: 2,
             height: "100%",
             borderRadius: "8px",
-            backdropFilter: revealHint ? "blur(0px)" : "blur(12px)",
+            backdropFilter: revealHint ? "blur(0px)" : "blur(18px)",
             top: 0,
             background: revealHint
               ? "rgba(255, 255, 255, 0.0)"
               : "rgba(255, 255, 255, 0.2)",
             "@keyframes removeBlur": {
               "0%": {
-                backdropFilter: "blur(12px)",
+                backdropFilter: "blur(18px)",
                 background: "rgba(255, 255, 255, 0.2)",
               },
               "100%": {

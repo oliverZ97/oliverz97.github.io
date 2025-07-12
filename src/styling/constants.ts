@@ -13,6 +13,8 @@ export const COLORS = {
     success_light: "#a1f7c7",
     failed: "#ff686b",
     failed_light: "#f28385",
+    warning: "#f5d273",
+    warning_light: "#ffedbd",
     correct: "#a5be00",
     primary_text: "#fff",
     background: "#003554",
