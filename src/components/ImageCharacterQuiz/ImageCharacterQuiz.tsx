@@ -1,6 +1,6 @@
 import { Box, Button, Typography } from "@mui/material";
 import { getImgSrc } from "common/quizUtils";
-import { Character } from "common/types";
+import { Anime, Character } from "common/types";
 import { getDailyUTCDate, getRandomCharacter, hasBeenSolvedToday } from "common/utils";
 import { AnimeAutocomplete } from "components/AnimeAutocomplete";
 import { CharacterAutocomplete } from "components/CharacterAutocomplete";
@@ -10,13 +10,13 @@ import { COLORS } from "styling/constants";
 
 interface ImageCharacterQuizProps {
   charData: Character[];
-  animeData: string[];
+  animeData: Anime[];
   endlessMode?: boolean;
 }
 
 interface ImageTarget {
   character: Character | null;
-  anime: string;
+  anime: Anime | null;
   isCharacterCorrect: boolean;
   isAnimeCorrect: boolean;
 }
@@ -31,25 +31,25 @@ export default function ImageCharacterQuiz({
   const [elements, setElements] = useState<ImageTarget[]>([
     {
       character: null,
-      anime: "",
+      anime: null,
       isCharacterCorrect: false,
       isAnimeCorrect: false,
     },
     {
       character: null,
-      anime: "",
+      anime: null,
       isCharacterCorrect: false,
       isAnimeCorrect: false,
     },
     {
       character: null,
-      anime: "",
+      anime: null,
       isCharacterCorrect: false,
       isAnimeCorrect: false,
     },
     {
       character: null,
-      anime: "",
+      anime: null,
       isCharacterCorrect: false,
       isAnimeCorrect: false,
     },
@@ -76,25 +76,25 @@ export default function ImageCharacterQuiz({
     setElements([
       {
         character: null,
-        anime: "",
+        anime: null,
         isCharacterCorrect: false,
         isAnimeCorrect: false,
       },
       {
         character: null,
-        anime: "",
+        anime: null,
         isCharacterCorrect: false,
         isAnimeCorrect: false,
       },
       {
         character: null,
-        anime: "",
+        anime: null,
         isCharacterCorrect: false,
         isAnimeCorrect: false,
       },
       {
         character: null,
-        anime: "",
+        anime: null,
         isCharacterCorrect: false,
         isAnimeCorrect: false,
       },
@@ -139,11 +139,11 @@ export default function ImageCharacterQuiz({
 
   const handleAnimeChange = (
     event: SyntheticEvent<Element, Event>,
-    value: string | null,
+    value: Anime | null,
     reason: any,
     id?: number
   ) => {
-    if (typeof id === "number" && value) {
+    if (typeof id === "number") {
       const elementCopy = [...elements];
       elementCopy[id].anime = value;
       setElements(elementCopy);
@@ -242,11 +242,12 @@ export default function ImageCharacterQuiz({
       for (let i = 0; i < targets?.length; i++) {
         const target = targets[i];
         const selection = selectionCopy[i];
-        if (selection.anime === target.Anime) {
+        if (selection.anime?.Name === target.Anime) {
           selection.isAnimeCorrect = true;
           correctAnime++;
         } else {
-          selection.anime = target.Anime;
+          const targetAnime = animeData.filter((anime) => anime.Name === target.Anime)[0];
+          selection.anime = targetAnime;
           selection.isAnimeCorrect = false;
         }
         if (selection.character?.Name === target.Name) {
@@ -258,17 +259,18 @@ export default function ImageCharacterQuiz({
         }
       }
       const finalScore = calculatePoints(correctAnime, correctCharacter);
-      if (!endlessMode) {
-        saveDailyAnswers(selectionCopy, finalScore);
-      }
+
       setScore(finalScore);
       setElements(selectionCopy);
       if (streakRef) {
         streakRef.current?.setStreak();
       }
 
-      const utcDate = getDailyUTCDate();
-      localStorage.setItem("imagequiz_HasBeenSolvedToday", utcDate.toISOString());
+      if (!endlessMode) {
+        saveDailyAnswers(selectionCopy, finalScore);
+        const utcDate = getDailyUTCDate();
+        localStorage.setItem("imagequiz_HasBeenSolvedToday", utcDate.toISOString());
+      }
     }
   }
 
@@ -370,9 +372,9 @@ export default function ImageCharacterQuiz({
                         whiteSpace: "break-spaces",
                       }}
                     >
-                      {elements[index].anime === ""
+                      {elements[index].anime === null
                         ? "-"
-                        : elements[index].anime}
+                        : elements[index].anime?.Name}
                     </Typography>
                   </Box>
                 )}

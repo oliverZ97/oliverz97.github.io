@@ -1,11 +1,12 @@
 import { Autocomplete, Box, TextField, Typography } from "@mui/material";
+import { Anime } from "common/types";
 import { COLORS } from "styling/constants";
 
 interface AnimeAutocompleteProps {
-   animeData: string[];
+   animeData: Anime[];
    disabled: boolean;
-   value: string | null;
-   handleSearchChange: (event: any, value: string | null, reason: any, id?: number) => void
+   value: Anime | null;
+   handleSearchChange: (event: any, value: Anime | null, reason: any, id?: number) => void
    id?: number;
    width?: number;
 }
@@ -31,16 +32,17 @@ export function AnimeAutocomplete({ animeData, disabled, value, handleSearchChan
          renderInput={(params) => <TextField {...params} label="Anime" />}
          renderOption={(props, option) => (
             <Box component="li" sx={{ '& > *': { m: 0.5 } }} {...props}>
-               <Typography sx={{ marginLeft: 2 }} variant="body2">{option}</Typography>
+               <Typography sx={{ marginLeft: 2 }} variant="body2">{option.Name}</Typography>
             </Box>
          )}
          onChange={(ev, value, reason) => handleSearchChange(ev, value, reason, id)}
          clearOnBlur
          disabled={disabled}
          value={value}
+         getOptionLabel={(option) => option.Name}
          filterOptions={(options, { inputValue }) => {
             // Only filter if there is at least one character in the input
-            return inputValue !== '' ? options.filter((option) => option.toLowerCase().includes(inputValue.toLowerCase())) : [];
+            return inputValue !== '' ? options.filter((option) => option.Name.toLowerCase().includes(inputValue.toLowerCase())) : [];
          }}
       />
    )

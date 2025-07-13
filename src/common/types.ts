@@ -20,4 +20,15 @@ export interface Character {
   ValidFields?: string[];
 }
 
+export interface Anime {
+  Name: string;
+  First_Release_Year: number;
+  Studio: string;
+  Genre: string;
+  Subgenre1?: string;
+  Subgenre2?: string;
+  Tags?: string;
+  ValidFields?: string[];
+}
+
 export type Difficulty = "A" | "B" | "C";

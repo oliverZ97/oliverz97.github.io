@@ -109,8 +109,6 @@ export default function BasicCharacterQuiz({
     }
   }
 
-
-
   function init() {
     setIsCorrect(false);
     resetQuiz();

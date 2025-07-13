@@ -30,7 +30,7 @@ export function getYesterdayUTCDate(): Date {
   return yesterday;
 }
 
-import { Character, Difficulty } from "common/types";
+import { Anime, Character, Difficulty } from "common/types";
 
 export function sortObjectsByKey(
   element1: Record<string, any>,
@@ -116,6 +116,22 @@ export function getRandomCharacter(charData: Character[], endlessMode = true, is
   }
   const target = charArray[index];
   return target as Character;
+}
+
+export function getRandomAnime(animeData: Anime[], endlessMode = true, isPrevious = false) {
+  let animeArray = Object.values(animeData);
+  let index;
+  if (endlessMode) {
+    index = Math.floor(Math.random() * animeArray.length);
+  } else {
+    if (isPrevious) {
+      index = getRandomNumberFromUTCDate(animeArray.length, true);
+    } else {
+      index = getRandomNumberFromUTCDate(animeArray.length);
+    }
+  }
+  const target = animeArray[index];
+  return target as Anime;
 }
 
 export function hasBeenSolvedToday(key: string) {

@@ -1,8 +1,9 @@
 import { Box, Typography } from "@mui/material";
+import { Anime } from "common/types";
 import { COLORS } from "styling/constants";
 
 interface AnimeIndexProps {
-    animeData: string[];
+    animeData: Anime[];
 }
 
 export const AnimeIndex = ({ animeData }: AnimeIndexProps) => {
@@ -19,15 +20,15 @@ export const AnimeIndex = ({ animeData }: AnimeIndexProps) => {
                 Anime Index
             </Typography>
             {
-                animeData.map((item, index) => (
+                animeData.map((item: Anime, index: number) => (
                     <>
-                        {(index === 0 || item[0] !== animeData[index - 1][0]) && <Typography fontWeight={"bold"} color={"white"} marginTop={1}>{item[0]}</Typography>}
+                        {(index === 0 || item.Name[0] !== animeData[index - 1].Name[0]) && <Typography fontWeight={"bold"} color={"white"} marginTop={1}>{item.Name[0]}</Typography>}
                         <Typography
-                            key={item}
+                            key={item.Name}
                             fontSize={"12px"}
                             color={COLORS.quiz.primary_text}
                         >
-                            {item}
+                            {item.Name}
                         </Typography>
                     </>
                 ))

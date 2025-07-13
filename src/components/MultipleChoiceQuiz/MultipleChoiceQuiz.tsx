@@ -2,16 +2,14 @@ import {
   Box,
   Button,
   CircularProgress,
-  colors,
   Typography,
   useTheme,
 } from "@mui/material";
 import { getImgSrc } from "common/quizUtils";
-import { Character } from "common/types";
+import { Anime, Character } from "common/types";
 import { DayStreak, StreakRef } from "components/Streak";
 import { useEffect, useRef, useState } from "react";
 import { COLORS } from "styling/constants";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 import { Score } from "pages/Home";
@@ -19,7 +17,7 @@ import { getRandomCharacter } from "common/utils";
 
 interface ImageCharacterQuizProps {
   charData: Character[];
-  animeData: string[];
+  animeData: Anime[];
 }
 
 interface ImageTarget {
