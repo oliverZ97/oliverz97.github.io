@@ -74,18 +74,15 @@ export const RevealCard = forwardRef(
             zIndex: 2,
             height: "100%",
             borderRadius: "8px",
-            backdropFilter: revealHint ? "blur(0px)" : "blur(18px)",
             top: 0,
             background: revealHint
               ? "rgba(255, 255, 255, 0.0)"
-              : "rgba(255, 255, 255, 0.2)",
+              : COLORS.quiz.main_rgba,
             "@keyframes removeBlur": {
               "0%": {
-                backdropFilter: "blur(18px)",
-                background: "rgba(255, 255, 255, 0.2)",
+                background: COLORS.quiz.main_rgba,
               },
               "100%": {
-                backdropFilter: "blur(0px)",
                 background: "rgba(255, 255, 255, 0.0)",
               },
             },

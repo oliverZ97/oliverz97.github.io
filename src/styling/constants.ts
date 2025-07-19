@@ -5,6 +5,7 @@ export const DIALOG_PAPER_MIN_WIDTH = 600;
 export const COLORS = {
   quiz: {
     main: "#318eb0",
+    main_rgba: "rgba(49, 142, 176, 1)",
     main_hover: "#2782a3",
     secondary: "#006494",
     tertiary: "#00a6fb",
