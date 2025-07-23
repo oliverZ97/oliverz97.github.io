@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
 
-export const VERSION = "1.4.4";
+export const VERSION = "1.4.5";
 
 interface CHAR_VERSION {
   version: number;
@@ -89,6 +89,11 @@ export const CHAR_VERSIONS: CHAR_VERSION[] = [
     date: "2025-07-20T00:00:00.00Z",
     length: 416,
   },
+  {
+    version: 1.16,
+    date: "2025-07-23T00:00:00.00Z",
+    length: 427,
+  },
 ];
 
 export function getCurrentVersion(): CHAR_VERSION {
@@ -97,6 +102,14 @@ export function getCurrentVersion(): CHAR_VERSION {
 
 export function getPreLatestVersion(): CHAR_VERSION {
   return CHAR_VERSIONS[CHAR_VERSIONS.length - 2];
+}
+
+export function getNLatestVersion(n: number): CHAR_VERSION {
+  if (n < CHAR_VERSIONS.length) {
+    return CHAR_VERSIONS[CHAR_VERSIONS.length - n];
+  } else {
+    throw new Error(`Version ${n} is not available. Maximum available version is ${CHAR_VERSIONS.length}.`);
+  }
 }
 
 export function isDateOlderThenPreLatestVersion(date: string) {

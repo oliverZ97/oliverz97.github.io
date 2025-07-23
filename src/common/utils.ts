@@ -31,7 +31,7 @@ export function getYesterdayUTCDate(): Date {
 }
 
 import { Anime, Character, Difficulty } from "common/types";
-import { getPreLatestVersion } from "./version";
+import { getNLatestVersion, getPreLatestVersion } from "./version";
 
 export function sortObjectsByKey(
   element1: Record<string, any>,
@@ -153,7 +153,7 @@ export function getRandomCharacter(
   }: GetRandomCharacterParams = {}
 ) {
   if (usePreviousVersion) {
-    const preLatestVersion = getPreLatestVersion();
+    const preLatestVersion = getNLatestVersion(1);
     charData = charData.filter((char) => {
       const res = compareVersions(char.Version, preLatestVersion.version);
       return res < 0;
@@ -191,7 +191,7 @@ export function getRandomAnime(
   }: GetRandomCharacterParams
 ) {
   if (usePreviousVersion) {
-    const preLatestVersion = getPreLatestVersion();
+    const preLatestVersion = getNLatestVersion(1);
     animeData = animeData.filter((anime) => {
       const res = compareVersions(anime.Version, preLatestVersion.version);
       return res < 0;

@@ -40,7 +40,6 @@ export const AnimeQuiz = ({ animeData, endlessMode }: AnimeQuizProps) => {
   const scoreKey = endlessMode ? "animeScores" : "dailyAnimeScores";
   const streakKey = endlessMode ? "animeStreak" : "dailyAnimeStreak";
 
-  console.log(targetAnime);
   useEffect(() => {
     if (animeData.length > 0 && localAnimeData.length === 0) {
       setLocalAnimeData(animeData);

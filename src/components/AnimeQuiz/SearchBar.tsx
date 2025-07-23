@@ -44,12 +44,12 @@ export function SearchBar({
       if (
         DateTime.fromJSDate(yesterday) < DateTime.fromISO(currentVersionDate)
       ) {
-        const char = getRandomAnime(animeData, {
+        const anime = getRandomAnime(animeData, {
           endlessMode: false,
           isPrevious: true,
           usePreviousVersion: true,
         });
-        return char.Name;
+        return anime.Name;
       }
       const anime = getRandomAnime(animeData, {
         endlessMode: false,
