@@ -25,13 +25,12 @@ import ImageCharacterQuiz from "components/ImageCharacterQuiz/ImageCharacterQuiz
 import DrawerBasic from "components/CustomDrawer";
 import MultipleChoiceQuiz from "components/MultipleChoiceQuiz/MultipleChoiceQuiz";
 import { VERSION } from "common/version";
-import MenuIcon from '@mui/icons-material/Menu';
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import ArticleIcon from '@mui/icons-material/Article';
+import MenuIcon from "@mui/icons-material/Menu";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import ArticleIcon from "@mui/icons-material/Article";
 import { KissMarryKill } from "components/KissMarryKill/KissMarryKill";
 import { AnimeIndex } from "components/AnimeIndex";
 import { AnimeQuiz } from "components/AnimeQuiz/AnimeQuiz";
-
 
 export interface Score {
   points: number;
@@ -41,7 +40,9 @@ export interface Score {
 const Home = () => {
   const [charData, setCharData] = useState<Character[]>([]);
   const [animeData, setAnimeData] = useState<Anime[]>([]);
-  const [showManual, setShowManual] = useState(localStorage.getItem("showManual") !== "false" ? true : false);
+  const [showManual, setShowManual] = useState(
+    localStorage.getItem("showManual") !== "false" ? true : false
+  );
 
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
@@ -55,25 +56,30 @@ const Home = () => {
     if (charData && animeData.length === 0) {
       // Create a map of anime names to prevent duplicates
       const animeMap = new Map();
-      const localAnimeData = charData.map((item: Character) => ({
-        Name: item.Anime,
-        First_Release_Year: item.First_Release_Year,
-        Studio: item.Studio,
-        Genre: item.Genre,
-        Subgenre1: item.Subgenre1,
-        Subgenre2: item.Subgenre2,
-        Tags: item.Tags
-      })).filter(anime => {
-        // If this anime name is not in the map yet, add it and return true to keep it
-        if (!animeMap.has(anime.Name)) {
-          animeMap.set(anime.Name, true);
-          return true;
-        }
-        // Otherwise, it's a duplicate, so return false to filter it out
-        return false;
-      });
+      const localAnimeData = charData
+        .map((item: Character) => ({
+          Name: item.Anime,
+          First_Release_Year: item.First_Release_Year,
+          Studio: item.Studio,
+          Genre: item.Genre,
+          Subgenre1: item.Subgenre1,
+          Subgenre2: item.Subgenre2,
+          Tags: item.Tags,
+          Version: item.Version,
+        }))
+        .filter((anime) => {
+          // If this anime name is not in the map yet, add it and return true to keep it
+          if (!animeMap.has(anime.Name)) {
+            animeMap.set(anime.Name, true);
+            return true;
+          }
+          // Otherwise, it's a duplicate, so return false to filter it out
+          return false;
+        });
 
-      setAnimeData(localAnimeData.sort((a, b) => (a.Name < b.Name ? -1 : 1)) as Anime[]);
+      setAnimeData(
+        localAnimeData.sort((a, b) => (a.Name < b.Name ? -1 : 1)) as Anime[]
+      );
     }
   }, [charData, characterData, animeData]);
 
@@ -131,16 +137,21 @@ const Home = () => {
           position: "relative",
         }}
       >
-        <DrawerBasic title="Anime Index" position={{ top: "120px" }} icon={<ArticleIcon fontSize="large" />} sx={{ padding: 2 }}>
-          <AnimeIndex
-            animeData={animeData}
-          />
+        <DrawerBasic
+          title="Anime Index"
+          position={{ top: "120px" }}
+          icon={<ArticleIcon fontSize="large" />}
+          sx={{ padding: 2 }}
+        >
+          <AnimeIndex animeData={animeData} />
         </DrawerBasic>
 
-        <DrawerBasic title="Gamemodes" position={{ top: "40px" }} icon={<MenuIcon fontSize="large" />}>
+        <DrawerBasic
+          title="Gamemodes"
+          position={{ top: "40px" }}
+          icon={<MenuIcon fontSize="large" />}
+        >
           <Box minHeight={"100vh"}>
-
-
             <Tabs
               variant={matches ? "fullWidth" : "standard"}
               orientation="vertical"
@@ -184,7 +195,6 @@ const Home = () => {
                 {...a11yProps(2)}
               />
               <Divider sx={{ backgroundColor: "white", marginX: 1 }} />
-
 
               <Tab
                 sx={{
@@ -241,13 +251,15 @@ const Home = () => {
           </Box>
         </DrawerBasic>
 
-        <Tooltip title={"How to play"} arrow placement='right'>
-          <Box sx={{
-            position: "absolute",
-            top: "200px",
-            left: 0,
-            zIndex: 1000,
-          }}>
+        <Tooltip title={"How to play"} arrow placement="right">
+          <Box
+            sx={{
+              position: "absolute",
+              top: "200px",
+              left: 0,
+              zIndex: 1000,
+            }}
+          >
             <Button
               variant="outlined"
               sx={{
@@ -277,11 +289,14 @@ const Home = () => {
             alignItems: "center",
           }}
         >
-          <Box sx={{
-            width: "80%", [theme.breakpoints.down('md')]: {
-              marginLeft: '70px',
-            },
-          }}>
+          <Box
+            sx={{
+              width: "80%",
+              [theme.breakpoints.down("md")]: {
+                marginLeft: "70px",
+              },
+            }}
+          >
             <CustomTabPanel value={value} index={0}>
               <BasicCharacterQuiz
                 charData={charData}
@@ -298,10 +313,7 @@ const Home = () => {
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={2}>
-              <AnimeQuiz
-                animeData={animeData}
-                endlessMode={false}
-              ></AnimeQuiz>
+              <AnimeQuiz animeData={animeData} endlessMode={false}></AnimeQuiz>
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={4}>
@@ -320,10 +332,7 @@ const Home = () => {
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={6}>
-              <AnimeQuiz
-                animeData={animeData}
-                endlessMode={true}
-              ></AnimeQuiz>
+              <AnimeQuiz animeData={animeData} endlessMode={true}></AnimeQuiz>
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={7}>
@@ -334,11 +343,8 @@ const Home = () => {
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={8}>
-              <KissMarryKill
-                charData={charData}
-              ></KissMarryKill>
+              <KissMarryKill charData={charData}></KissMarryKill>
             </CustomTabPanel>
-
           </Box>
         </Box>
         <Box
@@ -355,33 +361,99 @@ const Home = () => {
           </Typography>
         </Box>
       </Box>
-      <Dialog sx={{
-        "& .MuiDialog-paper": {
-          backgroundColor: COLORS.quiz.background,
-          color: "white",
-        },
-      }} open={showManual} onClose={handleClose}>
+      <Dialog
+        sx={{
+          "& .MuiDialog-paper": {
+            backgroundColor: COLORS.quiz.background,
+            color: "white",
+          },
+        }}
+        open={showManual}
+        onClose={handleClose}
+      >
         <DialogTitle>How to play</DialogTitle>
         <DialogContent>
           <DialogContentText sx={{ color: "white" }}>
-            <Typography>This website offers various anime-related quizzes. You can choose between character quizzes, image quizzes, and anime quizzes. Each quiz has a daily mode and an endless mode. You can switch the gamemodes using the upper left menu icon. </Typography>
-            <Typography marginTop={2}>When guessing the character, you will be given clues to help you. Pay attention to the clues and use them to make your guess!</Typography>
-            <Box display={"flex"} alignItems="center" gap={1} marginTop={2}>
-              <Box sx={{ borderRadius: "50px", backgroundColor: COLORS.quiz.success, border: "2px solid", borderColor: COLORS.quiz.success_light, width: "30px", height: "30px" }}></Box>
+            <Typography>
+              This website offers various anime-related quizzes. You can choose
+              between character quizzes, image quizzes, and anime quizzes. Each
+              quiz has a daily mode and an endless mode. You can switch the
+              gamemodes using the upper left menu icon.{" "}
+            </Typography>
+            <Typography sx={{ marginTop: 2 }}>
+              When guessing the character, you will be given clues to help you.
+              Pay attention to the clues and use them to make your guess!
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+                marginTop: 2,
+              }}
+            >
+              <Box
+                sx={{
+                  borderRadius: "50px",
+                  backgroundColor: COLORS.quiz.success,
+                  border: "2px solid",
+                  borderColor: COLORS.quiz.success_light,
+                  width: "30px",
+                  height: "30px",
+                }}
+              ></Box>
               <Typography>All Clues Match</Typography>
             </Box>
-            <Box display={"flex"} alignItems="center" gap={1} marginTop={2}>
-              <Box sx={{ borderRadius: "50px", backgroundColor: COLORS.quiz.warning, border: "2px solid", borderColor: COLORS.quiz.warning_light, width: "30px", height: "30px" }}></Box>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+                marginTop: 2,
+              }}
+            >
+              <Box
+                sx={{
+                  borderRadius: "50px",
+                  backgroundColor: COLORS.quiz.warning,
+                  border: "2px solid",
+                  borderColor: COLORS.quiz.warning_light,
+                  width: "30px",
+                  height: "30px",
+                }}
+              ></Box>
               <Typography>At least one of the Clues Match</Typography>
             </Box>
-            <Box display={"flex"} alignItems="center" gap={1} marginTop={2}>
-              <Box sx={{ borderRadius: "50px", backgroundColor: COLORS.quiz.main, border: "2px solid", borderColor: COLORS.quiz.light, width: "30px", height: "30px" }}></Box>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+                marginTop: 2,
+              }}
+            >
+              <Box
+                sx={{
+                  borderRadius: "50px",
+                  backgroundColor: COLORS.quiz.main,
+                  border: "2px solid",
+                  borderColor: COLORS.quiz.light,
+                  width: "30px",
+                  height: "30px",
+                }}
+              ></Box>
               <Typography>None of the Clues Match</Typography>
             </Box>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button variant="outlined" sx={{ color: "white", borderColor: "white" }} onClick={handleClose}>Let's Go</Button>
+          <Button
+            variant="outlined"
+            sx={{ color: "white", borderColor: "white" }}
+            onClick={handleClose}
+          >
+            Let's Go
+          </Button>
         </DialogActions>
       </Dialog>
     </>

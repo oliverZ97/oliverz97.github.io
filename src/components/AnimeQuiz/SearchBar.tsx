@@ -1,14 +1,9 @@
-import {
-  Box,
-  Typography,
-  Button,
-  useTheme,
-  Tooltip,
-} from "@mui/material";
-import { getImgSrc } from "common/quizUtils";
+import { Box, Typography, Button, useTheme, Tooltip } from "@mui/material";
 import { Anime } from "common/types";
-import { getRandomAnime } from "common/utils";
+import { getRandomAnime, getYesterdayUTCDate } from "common/utils";
+import { getCurrentVersion } from "common/version";
 import { AnimeAutocomplete } from "components/AnimeAutocomplete";
+import { DateTime } from "luxon";
 import { COLORS } from "styling/constants";
 
 interface SearchBarProps {
@@ -17,17 +12,13 @@ interface SearchBarProps {
   isCorrect: boolean;
   selectedOption: Anime | null;
   animeData: Anime[];
-  handleSearchChange: (
-    event: any,
-    value: Anime | null,
-    reason: any
-  ) => void;
+  handleSearchChange: (event: any, value: Anime | null, reason: any) => void;
   init: () => void;
   showGiveUp: boolean;
   gaveUp: boolean;
   handleGiveUp: () => void;
   endlessMode?: boolean;
-  originalAnimeData: Anime[]
+  originalAnimeData: Anime[];
 }
 
 export function SearchBar({
@@ -42,41 +33,75 @@ export function SearchBar({
   gaveUp,
   handleGiveUp,
   endlessMode = true,
-  originalAnimeData
+  originalAnimeData,
 }: SearchBarProps) {
   const theme = useTheme();
 
   function getYesterdaysAnime(animeData: Anime[]) {
     if (animeData.length > 0) {
-      const anime = getRandomAnime(animeData, false, true);
+      const currentVersionDate = getCurrentVersion().date;
+      const yesterday = getYesterdayUTCDate();
+      if (
+        DateTime.fromJSDate(yesterday) < DateTime.fromISO(currentVersionDate)
+      ) {
+        const char = getRandomAnime(animeData, {
+          endlessMode: false,
+          isPrevious: true,
+          usePreviousVersion: true,
+        });
+        return char.Name;
+      }
+      const anime = getRandomAnime(animeData, {
+        endlessMode: false,
+        isPrevious: true,
+        usePreviousVersion: false,
+      });
       return anime.Name;
     } else {
-      return "-"
+      return "-";
     }
   }
 
   return (
-    <Box sx={{
-      display: "flex",
-      flexDirection: "column",
-      gap: 4,
-      alignItems: "center",
-      justifyContent: "space-between",
-      background: "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
-      borderRadius: 2,
-      border: `1px solid ${COLORS.quiz.light}`,
-      width: "100%",
-      [theme.breakpoints.down("md")]: {
+    <Box
+      sx={{
+        display: "flex",
         flexDirection: "column",
-        padding: 2,
-      },
-    }}>
+        gap: 4,
+        alignItems: "center",
+        justifyContent: "space-between",
+        background:
+          "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
+        borderRadius: 2,
+        border: `1px solid ${COLORS.quiz.light}`,
+        width: "100%",
+        [theme.breakpoints.down("md")]: {
+          flexDirection: "column",
+          padding: 2,
+        },
+      }}
+    >
       {!endlessMode && originalAnimeData && (
-        <Box display={"flex"} alignItems={"center"} gap={2} sx={{
-          background: "linear-gradient(90deg,rgba(0, 53, 84, 1) 0%, rgba(0, 100, 148, 1) 100%)",
-          width: "100%", borderTopLeftRadius: "8px", borderTopRightRadius: "8px", paddingX: 2, paddingY: 1,
-        }}>
-          <Typography fontSize="16px" textAlign={"center"} fontWeight={"bold"} color={"white"}>
+        <Box
+          display={"flex"}
+          alignItems={"center"}
+          gap={2}
+          sx={{
+            background:
+              "linear-gradient(90deg,rgba(0, 53, 84, 1) 0%, rgba(0, 100, 148, 1) 100%)",
+            width: "100%",
+            borderTopLeftRadius: "8px",
+            borderTopRightRadius: "8px",
+            paddingX: 2,
+            paddingY: 1,
+          }}
+        >
+          <Typography
+            fontSize="16px"
+            textAlign={"center"}
+            fontWeight={"bold"}
+            color={"white"}
+          >
             {"Yesterdays anime: " + getYesterdaysAnime(originalAnimeData)}
           </Typography>
         </Box>
@@ -109,7 +134,7 @@ export function SearchBar({
             alignItems: "center",
             gap: 1,
             position: "relative",
-            marginTop: endlessMode ? 2 : 0
+            marginTop: endlessMode ? 2 : 0,
           }}
         >
           <AnimeAutocomplete
@@ -130,24 +155,24 @@ export function SearchBar({
           )}
         </Box>
         <Box sx={{ display: "flex", gap: 1 }}>
-          {endlessMode && <Button
-            onClick={init}
-            sx={{
-              backgroundColor: COLORS.quiz.main,
-              border: `2px solid ${COLORS.quiz.light}`,
-              color: "white",
-              "&:hover": {
-                backgroundColor: COLORS.quiz.secondary,
-              },
-            }}
-            variant="outlined"
-          >
-            RESET QUIZ
-          </Button>}
-
+          {endlessMode && (
+            <Button
+              onClick={init}
+              sx={{
+                backgroundColor: COLORS.quiz.main,
+                border: `2px solid ${COLORS.quiz.light}`,
+                color: "white",
+                "&:hover": {
+                  backgroundColor: COLORS.quiz.secondary,
+                },
+              }}
+              variant="outlined"
+            >
+              RESET QUIZ
+            </Button>
+          )}
         </Box>
-
-      </Box >
+      </Box>
     </Box>
   );
 }

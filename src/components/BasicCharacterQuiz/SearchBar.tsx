@@ -9,9 +9,10 @@ import {
 } from "@mui/material";
 import { getImgSrc } from "common/quizUtils";
 import { Character, Difficulty } from "common/types";
-import { getRandomCharacter } from "common/utils";
+import { getRandomCharacter, getYesterdayUTCDate } from "common/utils";
+import { getCurrentVersion } from "common/version";
 import { CharacterAutocomplete } from "components/CharacterAutocomplete";
-import { useEffect } from "react";
+import { DateTime } from "luxon";
 import { COLORS } from "styling/constants";
 
 interface SearchBarProps {
@@ -32,7 +33,7 @@ interface SearchBarProps {
   gaveUp: boolean;
   handleGiveUp: () => void;
   endlessMode?: boolean;
-  originalCharData: Character[]
+  originalCharData: Character[];
 }
 
 export function SearchBar({
@@ -49,7 +50,7 @@ export function SearchBar({
   gaveUp,
   handleGiveUp,
   endlessMode = true,
-  originalCharData
+  originalCharData,
 }: SearchBarProps) {
   const theme = useTheme();
 
@@ -60,58 +61,94 @@ export function SearchBar({
     if (newDifficulty && newDifficulty !== difficulty) {
       setDifficulty(newDifficulty as Difficulty);
       setTimeout(() => {
-        init()
-      }, 400)
+        init();
+      }, 400);
     }
-
   };
 
   function getYesterdaysChar(charData: Character[]) {
     if (charData.length > 0) {
-      const char = getRandomCharacter(charData, false, true);
+      const currentVersionDate = getCurrentVersion().date;
+      const yesterday = getYesterdayUTCDate();
+      if (
+        DateTime.fromJSDate(yesterday) < DateTime.fromISO(currentVersionDate)
+      ) {
+        const char = getRandomCharacter(charData, {
+          endlessMode: false,
+          isPrevious: true,
+          usePreviousVersion: true,
+        });
+        return char.Name;
+      }
+      const char = getRandomCharacter(charData, {
+        endlessMode: false,
+        isPrevious: true,
+      });
       return char.Name;
     } else {
-      return "-"
+      return "-";
     }
   }
 
   return (
-    <Box sx={{
-      display: "flex",
-      flexDirection: "column",
-      gap: 4,
-      alignItems: "center",
-      justifyContent: "space-between",
-      background: "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
-      borderRadius: 2,
-      border: `1px solid ${COLORS.quiz.light}`,
-      width: "100%",
-      [theme.breakpoints.down("md")]: {
+    <Box
+      sx={{
+        display: "flex",
         flexDirection: "column",
-        padding: 2,
-      },
-    }}>
+        gap: 4,
+        alignItems: "center",
+        justifyContent: "space-between",
+        background:
+          "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
+        borderRadius: 2,
+        border: `1px solid ${COLORS.quiz.light}`,
+        width: "100%",
+        [theme.breakpoints.down("md")]: {
+          flexDirection: "column",
+          padding: 2,
+        },
+      }}
+    >
       {!endlessMode && originalCharData && (
-        <Box display={"flex"} alignItems={"center"} gap={2} sx={{
-          background: "linear-gradient(90deg,rgba(0, 53, 84, 1) 0%, rgba(0, 100, 148, 1) 100%)",
-          width: "100%", borderTopLeftRadius: "8px", borderTopRightRadius: "8px", paddingX: 2, paddingY: 1,
-        }}>
-          <Typography fontSize="16px" textAlign={"center"} fontWeight={"bold"} color={"white"}>
+        <Box
+          display={"flex"}
+          alignItems={"center"}
+          gap={2}
+          sx={{
+            background:
+              "linear-gradient(90deg,rgba(0, 53, 84, 1) 0%, rgba(0, 100, 148, 1) 100%)",
+            width: "100%",
+            borderTopLeftRadius: "8px",
+            borderTopRightRadius: "8px",
+            paddingX: 2,
+            paddingY: 1,
+          }}
+        >
+          <Typography
+            fontSize="16px"
+            textAlign={"center"}
+            fontWeight={"bold"}
+            color={"white"}
+          >
             {"Yesterdays character:"}
           </Typography>
 
-          <Tooltip title={getYesterdaysChar(originalCharData)} placement="bottom" slotProps={{
-            popper: {
-              modifiers: [
-                {
-                  name: 'offset',
-                  options: {
-                    offset: [0, -24],
+          <Tooltip
+            title={getYesterdaysChar(originalCharData)}
+            placement="bottom"
+            slotProps={{
+              popper: {
+                modifiers: [
+                  {
+                    name: "offset",
+                    options: {
+                      offset: [0, -24],
+                    },
                   },
-                },
-              ],
-            },
-          }}>
+                ],
+              },
+            }}
+          >
             <Box
               sx={{ maxWidth: "60px", height: "50px", objectFit: "cover" }}
               component={"img"}
@@ -148,7 +185,7 @@ export function SearchBar({
             alignItems: "center",
             gap: 1,
             position: "relative",
-            marginTop: endlessMode ? 2 : 0
+            marginTop: endlessMode ? 2 : 0,
           }}
         >
           <CharacterAutocomplete
@@ -171,44 +208,47 @@ export function SearchBar({
           )}
         </Box>
         <Box sx={{ display: "flex", gap: 1 }}>
-          {endlessMode && < ToggleButtonGroup
-            value={difficulty}
-            exclusive
-            onChange={handleDifficulty}
-            aria-label="text alignment"
-            size="small"
-            sx={{
-              backgroundColor: COLORS.quiz.main, border: `2px solid ${COLORS.quiz.light}`,
-            }}
-          >
-            <ToggleButton value="A" aria-label="left aligned">
-              <Typography sx={{ color: "white" }}>Easy</Typography>
-            </ToggleButton>
-            <ToggleButton value="B" aria-label="centered">
-              <Typography sx={{ color: "white" }}>Normal</Typography>
-            </ToggleButton>
-            <ToggleButton value="C" aria-label="right aligned">
-              <Typography sx={{ color: "white" }}>Hard</Typography>
-            </ToggleButton>
-          </ToggleButtonGroup>}
-          {endlessMode && <Button
-            onClick={init}
-            sx={{
-              backgroundColor: COLORS.quiz.main,
-              border: `2px solid ${COLORS.quiz.light}`,
-              color: "white",
-              "&:hover": {
-                backgroundColor: COLORS.quiz.secondary,
-              },
-            }}
-            variant="outlined"
-          >
-            RESET QUIZ
-          </Button>}
-
+          {endlessMode && (
+            <ToggleButtonGroup
+              value={difficulty}
+              exclusive
+              onChange={handleDifficulty}
+              aria-label="text alignment"
+              size="small"
+              sx={{
+                backgroundColor: COLORS.quiz.main,
+                border: `2px solid ${COLORS.quiz.light}`,
+              }}
+            >
+              <ToggleButton value="A" aria-label="left aligned">
+                <Typography sx={{ color: "white" }}>Easy</Typography>
+              </ToggleButton>
+              <ToggleButton value="B" aria-label="centered">
+                <Typography sx={{ color: "white" }}>Normal</Typography>
+              </ToggleButton>
+              <ToggleButton value="C" aria-label="right aligned">
+                <Typography sx={{ color: "white" }}>Hard</Typography>
+              </ToggleButton>
+            </ToggleButtonGroup>
+          )}
+          {endlessMode && (
+            <Button
+              onClick={init}
+              sx={{
+                backgroundColor: COLORS.quiz.main,
+                border: `2px solid ${COLORS.quiz.light}`,
+                color: "white",
+                "&:hover": {
+                  backgroundColor: COLORS.quiz.secondary,
+                },
+              }}
+              variant="outlined"
+            >
+              RESET QUIZ
+            </Button>
+          )}
         </Box>
-
-      </Box >
+      </Box>
     </Box>
   );
 }

@@ -31,6 +31,7 @@ export function getYesterdayUTCDate(): Date {
 }
 
 import { Anime, Character, Difficulty } from "common/types";
+import { getPreLatestVersion } from "./version";
 
 export function sortObjectsByKey(
   element1: Record<string, any>,
@@ -85,12 +86,19 @@ export function getDailyUTCDate() {
   return utcDate;
 }
 
-
-export function getRandomCharacterArray(charData: Character[], count: number, gender = "all") {
+export function getRandomCharacterArray(
+  charData: Character[],
+  count: number,
+  gender = "all"
+) {
   let counter = 0;
   let chars: Character[] = [];
   while (counter < Math.max(0, count)) {
-    const char = getRandomCharacter(charData, undefined, undefined, gender);
+    const char = getRandomCharacter(charData, {
+      endlessMode: undefined,
+      isPrevious: undefined,
+      gender,
+    });
     if (!chars.some((item) => item.Name === char.Name)) {
       chars.push(char);
       counter++;
@@ -99,10 +107,61 @@ export function getRandomCharacterArray(charData: Character[], count: number, ge
   return chars;
 }
 
-export function getRandomCharacter(charData: Character[], endlessMode = true, isPrevious = false, gender = "all") {
+/**
+ * Compares two version strings in the format "major.minor".
+ * @param version1 First version string (e.g. "1.8")
+ * @param version2 Second version string (e.g. "1.15")
+ * @returns -1 if version1 < version2, 0 if equal, 1 if version1 > version2
+ */
+export function compareVersions(
+  version1: string | number,
+  version2: string | number
+): number {
+  const v1String = String(version1);
+  const v2String = String(version2);
+
+  const [major1, minor1] = v1String.split(".").map(Number);
+  const [major2, minor2] = v2String.split(".").map(Number);
+
+  // Compare major versions first
+  if (major1 !== major2) {
+    return major1 > major2 ? 1 : -1;
+  }
+
+  // If major versions are equal, compare minor versions
+  if (minor1 !== minor2) {
+    return minor1 > minor2 ? 1 : -1;
+  }
+
+  // Versions are equal
+  return 0;
+}
+
+interface GetRandomCharacterParams {
+  endlessMode?: boolean;
+  isPrevious?: boolean;
+  usePreviousVersion?: boolean;
+  gender?: string;
+}
+export function getRandomCharacter(
+  charData: Character[],
+  {
+    endlessMode = true,
+    isPrevious = false,
+    usePreviousVersion = false,
+    gender = "all",
+  }: GetRandomCharacterParams = {}
+) {
+  if (usePreviousVersion) {
+    const preLatestVersion = getPreLatestVersion();
+    charData = charData.filter((char) => {
+      const res = compareVersions(char.Version, preLatestVersion.version);
+      return res < 0;
+    });
+  }
   let charArray = Object.values(charData);
   if (gender !== "all") {
-    charArray = charArray.filter((char) => char.Sex.toLowerCase() === gender)
+    charArray = charArray.filter((char) => char.Sex.toLowerCase() === gender);
   }
   let index;
   if (endlessMode) {
@@ -118,7 +177,26 @@ export function getRandomCharacter(charData: Character[], endlessMode = true, is
   return target as Character;
 }
 
-export function getRandomAnime(animeData: Anime[], endlessMode = true, isPrevious = false) {
+interface GetRandomCharacterParams {
+  endlessMode?: boolean;
+  isPrevious?: boolean;
+  usePreviousVersion?: boolean;
+}
+export function getRandomAnime(
+  animeData: Anime[],
+  {
+    endlessMode = true,
+    isPrevious = false,
+    usePreviousVersion = false,
+  }: GetRandomCharacterParams
+) {
+  if (usePreviousVersion) {
+    const preLatestVersion = getPreLatestVersion();
+    animeData = animeData.filter((anime) => {
+      const res = compareVersions(anime.Version, preLatestVersion.version);
+      return res < 0;
+    });
+  }
   let animeArray = Object.values(animeData);
   let index;
   if (endlessMode) {

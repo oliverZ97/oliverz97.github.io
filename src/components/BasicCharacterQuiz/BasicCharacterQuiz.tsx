@@ -10,7 +10,12 @@ import { compareObjects, getImgSrc } from "common/quizUtils";
 import { Score } from "pages/Home";
 import { DayStreak } from "components/Streak";
 import { StreakRef } from "components/Streak";
-import { getDailyUTCDate, getRandomCharacter, hasBeenSolvedToday, isIncludedInDifficulty } from "common/utils";
+import {
+  getDailyUTCDate,
+  getRandomCharacter,
+  hasBeenSolvedToday,
+  isIncludedInDifficulty,
+} from "common/utils";
 
 interface HintRef {
   resetHint: () => void;
@@ -114,10 +119,10 @@ export default function BasicCharacterQuiz({
     resetQuiz();
 
     //select random character
-    let target = getRandomCharacter(charData, endlessMode ? true : false);
+    let target = getRandomCharacter(charData, { endlessMode: endlessMode });
     if (endlessMode) {
       while (!isIncludedInDifficulty(target, difficulty)) {
-        target = getRandomCharacter(charData);
+        target = getRandomCharacter(charData, { endlessMode: endlessMode });
       }
     } else {
       const hasSolvedToday = hasBeenSolvedToday("charquiz");
@@ -176,7 +181,10 @@ export default function BasicCharacterQuiz({
         setIsCorrect(true);
         if (!endlessMode) {
           const utcDate = getDailyUTCDate();
-          localStorage.setItem("charquiz_HasBeenSolvedToday", utcDate.toISOString());
+          localStorage.setItem(
+            "charquiz_HasBeenSolvedToday",
+            utcDate.toISOString()
+          );
         }
         if (points > 0) {
           //Set Highscore
@@ -194,7 +202,7 @@ export default function BasicCharacterQuiz({
           if (localScores) {
             scores = JSON.parse(localScores);
             scores.push(scoreObj);
-          } else[(scores = [scoreObj])];
+          } else [(scores = [scoreObj])];
 
           //sort
           scores.sort((a: Score, b: Score) => (a.points < b.points ? 1 : -1));
@@ -213,7 +221,6 @@ export default function BasicCharacterQuiz({
     }
   }
 
-
   function reducePointsForHint(costs: number) {
     setUsedHints(usedHints + 1);
     setPoints(points - costs < 0 ? 0 : points - costs);
@@ -221,16 +228,19 @@ export default function BasicCharacterQuiz({
 
   return (
     <Box position={"relative"}>
-      <Box sx={{
-        borderRadius: 2,
-        background: "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
-        marginBottom: 4,
-        border: `1px solid ${COLORS.quiz.light}`,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        paddingY: 2,
-      }}>
+      <Box
+        sx={{
+          borderRadius: 2,
+          background:
+            "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
+          marginBottom: 4,
+          border: `1px solid ${COLORS.quiz.light}`,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          paddingY: 2,
+        }}
+      >
         <Box
           sx={{
             display: "flex",
@@ -239,7 +249,6 @@ export default function BasicCharacterQuiz({
           }}
         >
           <Box sx={{ display: "flex", height: "70px", alignItems: "center" }}>
-
             {scores.map((item, index) => (
               <Box
                 key={index}
@@ -262,15 +271,18 @@ export default function BasicCharacterQuiz({
                 </Typography>
               </Box>
             ))}
-            {scores.length === 0 && <Typography sx={{ color: COLORS.quiz.primary_text }} textAlign={"center"}>
-              <Typography component={"span"}>
-                No Scores available.
+            {scores.length === 0 && (
+              <Typography
+                sx={{ color: COLORS.quiz.primary_text }}
+                textAlign={"center"}
+              >
+                <Typography component={"span"}>No Scores available.</Typography>
+                <br />
+                <Typography component={"span"}>
+                  You should definitely change that (*≧ω≦*)
+                </Typography>
               </Typography>
-              <br />
-              <Typography component={"span"}>
-                You should definitely change that (*≧ω≦*)
-              </Typography>
-            </Typography>}
+            )}
           </Box>
         </Box>
 
@@ -360,8 +372,9 @@ export default function BasicCharacterQuiz({
               paddingY: 3,
               marginTop: 4,
               borderRadius: 2,
-              border: gaveUp ? `2px solid ${COLORS.quiz.failed_light}` : `2px solid ${COLORS.quiz.success_light}`,
-
+              border: gaveUp
+                ? `2px solid ${COLORS.quiz.failed_light}`
+                : `2px solid ${COLORS.quiz.success_light}`,
             }}
           >
             <Typography
@@ -377,11 +390,10 @@ export default function BasicCharacterQuiz({
               component={"img"}
               height={"276px"}
               sx={{
-                objectFit: "cover"
+                objectFit: "cover",
               }}
               src={getImgSrc(targetChar?.Name)}
             ></Box>
-
           </Box>
         </Box>
       )}

@@ -29,6 +29,7 @@ export interface Anime {
   Subgenre2?: string;
   Tags?: string;
   ValidFields?: string[];
+  Version: number;
 }
 
 export type Difficulty = "A" | "B" | "C";

@@ -1,7 +1,11 @@
 import { Box, Button, Typography } from "@mui/material";
 import { getImgSrc } from "common/quizUtils";
 import { Anime, Character } from "common/types";
-import { getDailyUTCDate, getRandomCharacter, hasBeenSolvedToday } from "common/utils";
+import {
+  getDailyUTCDate,
+  getRandomCharacter,
+  hasBeenSolvedToday,
+} from "common/utils";
 import { AnimeAutocomplete } from "components/AnimeAutocomplete";
 import { CharacterAutocomplete } from "components/CharacterAutocomplete";
 import { DayStreak, StreakRef } from "components/Streak";
@@ -25,7 +29,9 @@ const BASEPOINTS_ANIME = 1000;
 const BASEPOINTS_CHAR = 1500;
 
 export default function ImageCharacterQuiz({
-  charData, animeData, endlessMode = true
+  charData,
+  animeData,
+  endlessMode = true,
 }: ImageCharacterQuizProps) {
   const [isSolving, setIsSolving] = useState(false);
   const [elements, setElements] = useState<ImageTarget[]>([
@@ -107,7 +113,6 @@ export default function ImageCharacterQuiz({
   function resetTargets() {
     let targets: Character[] = [];
     if (endlessMode) {
-
       const targetCharacters = getRandomCharacterArray(4);
       targets = targetCharacters;
     } else {
@@ -150,7 +155,10 @@ export default function ImageCharacterQuiz({
     }
   };
 
-  function getRandomCharacterArray(count: number, endlessMode = true): Character[] {
+  function getRandomCharacterArray(
+    count: number,
+    endlessMode = true
+  ): Character[] {
     let counter = 0;
     let chars: Character[] = [];
     if (endlessMode) {
@@ -168,7 +176,10 @@ export default function ImageCharacterQuiz({
       const customTestDate = new Date("2025-01-05T10:00:00Z");
       const today = isTestMode ? customTestDate : new Date();
 
-      const dayOfYear = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / (1000 * 60 * 60 * 24));
+      const dayOfYear = Math.floor(
+        (today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) /
+          (1000 * 60 * 60 * 24)
+      );
       const yearSignature = `${today.getFullYear()}`;
 
       // Create a seed using the day of year and year
@@ -189,14 +200,16 @@ export default function ImageCharacterQuiz({
       // Create a rotated copy of the character data
       const rotatedChars = [
         ...charData.slice(rotationOffset),
-        ...charData.slice(0, rotationOffset)
+        ...charData.slice(0, rotationOffset),
       ];
 
       // Further shuffle the rotated characters with the seed
       // Use character ID or another unique property in the hash calculation
       const shuffledChars = [...rotatedChars].sort((a, b) => {
-        const hashA = (seed * (a.Name.length + a.Anime.length)) % charData.length;
-        const hashB = (seed * (b.Name.length + b.Anime.length)) % charData.length;
+        const hashA =
+          (seed * (a.Name.length + a.Anime.length)) % charData.length;
+        const hashB =
+          (seed * (b.Name.length + b.Anime.length)) % charData.length;
         return hashA - hashB;
       });
 
@@ -205,7 +218,7 @@ export default function ImageCharacterQuiz({
       let i = 0;
       while (chars.length < count && i < shuffledChars.length) {
         // Ensure we don't add duplicates
-        if (!chars.some(char => char.Name === shuffledChars[i].Name)) {
+        if (!chars.some((char) => char.Name === shuffledChars[i].Name)) {
           chars.push(shuffledChars[i]);
         }
         i++;
@@ -216,10 +229,12 @@ export default function ImageCharacterQuiz({
 
   function saveDailyAnswers(selection: ImageTarget[], score: number) {
     if (targets) {
-      localStorage.setItem("imagequiz_daily_answers", JSON.stringify(selection));
+      localStorage.setItem(
+        "imagequiz_daily_answers",
+        JSON.stringify(selection)
+      );
       localStorage.setItem("imagequiz_daily_score", JSON.stringify(score));
     }
-
   }
 
   function checkCorrectAnswers() {
@@ -246,7 +261,9 @@ export default function ImageCharacterQuiz({
           selection.isAnimeCorrect = true;
           correctAnime++;
         } else {
-          const targetAnime = animeData.filter((anime) => anime.Name === target.Anime)[0];
+          const targetAnime = animeData.filter(
+            (anime) => anime.Name === target.Anime
+          )[0];
           selection.anime = targetAnime;
           selection.isAnimeCorrect = false;
         }
@@ -269,7 +286,10 @@ export default function ImageCharacterQuiz({
       if (!endlessMode) {
         saveDailyAnswers(selectionCopy, finalScore);
         const utcDate = getDailyUTCDate();
-        localStorage.setItem("imagequiz_HasBeenSolvedToday", utcDate.toISOString());
+        localStorage.setItem(
+          "imagequiz_HasBeenSolvedToday",
+          utcDate.toISOString()
+        );
       }
     }
   }
@@ -284,7 +304,8 @@ export default function ImageCharacterQuiz({
     <Box
       sx={{
         position: "relative",
-        background: "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
+        background:
+          "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
         padding: 4,
         borderRadius: 2,
         border: `1px solid ${COLORS.quiz.light}`,
@@ -326,7 +347,7 @@ export default function ImageCharacterQuiz({
                   component={"img"}
                   height={"276px"}
                   sx={{
-                    objectFit: "cover"
+                    objectFit: "cover",
                   }}
                   src={getImgSrc(char.Name)}
                 ></Box>
@@ -390,22 +411,28 @@ export default function ImageCharacterQuiz({
           width: "100%",
         }}
       >
-        {endlessMode && <Button
-          sx={{
-            color: COLORS.quiz.light,
-            borderColor: COLORS.quiz.light,
-            "&:hover": {
-              fontWeight: "bold",
-              borderColor: COLORS.quiz.tertiary,
-            },
-          }}
-          variant="outlined"
-          onClick={resetImageQuiz}
-        >
-          Reset
-        </Button>}
+        {endlessMode && (
+          <Button
+            sx={{
+              color: COLORS.quiz.light,
+              borderColor: COLORS.quiz.light,
+              "&:hover": {
+                fontWeight: "bold",
+                borderColor: COLORS.quiz.tertiary,
+              },
+            }}
+            variant="outlined"
+            onClick={resetImageQuiz}
+          >
+            Reset
+          </Button>
+        )}
         {!endlessMode && <Box />}
-        {isSolving && <Typography color={"white"} fontSize={"24px"}>🏆 {score}</Typography>}
+        {isSolving && (
+          <Typography color={"white"} fontSize={"24px"}>
+            🏆 {score}
+          </Typography>
+        )}
         <Button
           sx={{
             backgroundColor: COLORS.quiz.tertiary,
