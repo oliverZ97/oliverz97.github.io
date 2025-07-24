@@ -54,10 +54,12 @@ const Home = () => {
       ] as Character[]);
     }
     if (charData && animeData.length === 0) {
-      // Create a map of anime names to prevent duplicates
+      // Create a map to track anime entries with lowest version numbers
       const animeMap = new Map();
-      const localAnimeData = charData
-        .map((item: Character) => ({
+
+      // First pass: populate the map with anime entries
+      charData.forEach((item: Character) => {
+        const animeEntry = {
           Name: item.Anime,
           First_Release_Year: item.First_Release_Year,
           Studio: item.Studio,
@@ -66,16 +68,19 @@ const Home = () => {
           Subgenre2: item.Subgenre2,
           Tags: item.Tags,
           Version: item.Version,
-        }))
-        .filter((anime) => {
-          // If this anime name is not in the map yet, add it and return true to keep it
-          if (!animeMap.has(anime.Name)) {
-            animeMap.set(anime.Name, true);
-            return true;
-          }
-          // Otherwise, it's a duplicate, so return false to filter it out
-          return false;
-        });
+        };
+
+        // If this anime isn't in the map yet or has a lower version number, update the map
+        if (
+          !animeMap.has(item.Anime) ||
+          item.Version < animeMap.get(item.Anime).Version
+        ) {
+          animeMap.set(item.Anime, animeEntry);
+        }
+      });
+
+      // Convert map values to array
+      const localAnimeData = Array.from(animeMap.values());
 
       setAnimeData(
         localAnimeData.sort((a, b) => (a.Name < b.Name ? -1 : 1)) as Anime[]

@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
 
-export const VERSION = "1.4.5";
+export const VERSION = "1.4.6";
 
 interface CHAR_VERSION {
   version: number;
@@ -108,7 +108,9 @@ export function getNLatestVersion(n: number): CHAR_VERSION {
   if (n < CHAR_VERSIONS.length) {
     return CHAR_VERSIONS[CHAR_VERSIONS.length - n];
   } else {
-    throw new Error(`Version ${n} is not available. Maximum available version is ${CHAR_VERSIONS.length}.`);
+    throw new Error(
+      `Version ${n} is not available. Maximum available version is ${CHAR_VERSIONS.length}.`
+    );
   }
 }
 
