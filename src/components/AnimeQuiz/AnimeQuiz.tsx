@@ -2,6 +2,7 @@ import { Box, Typography, useTheme } from "@mui/material";
 import { compareObjects } from "common/quizUtils";
 import { Anime } from "common/types";
 import {
+  gaveUpOnTodaysQuiz,
   getDailyUTCDate,
   getRandomAnime,
   hasBeenSolvedToday,
@@ -97,8 +98,12 @@ export const AnimeQuiz = ({ animeData, endlessMode }: AnimeQuizProps) => {
       target = getRandomAnime(animeData, {});
     } else {
       const hasSolvedToday = hasBeenSolvedToday("animequiz");
+      const gaveUpToday = gaveUpOnTodaysQuiz("animequiz");
       if (hasSolvedToday) {
         setIsCorrect(true);
+      }
+      if (gaveUpToday) {
+        setGaveUp(true);
       }
     }
     setTargetAnime(target as Anime);
@@ -146,9 +151,13 @@ export const AnimeQuiz = ({ animeData, endlessMode }: AnimeQuizProps) => {
         setIsCorrect(true);
         if (!endlessMode) {
           const utcDate = getDailyUTCDate();
+          const solveData = {
+            date: utcDate.toISOString(),
+            gaveUp: reason === "giveUp",
+          };
           localStorage.setItem(
             "animequiz_HasBeenSolvedToday",
-            utcDate.toISOString()
+            JSON.stringify(solveData)
           );
         }
         if (points > 0) {

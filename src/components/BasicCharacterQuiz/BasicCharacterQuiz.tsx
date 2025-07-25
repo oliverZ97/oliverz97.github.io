@@ -11,6 +11,7 @@ import { Score } from "pages/Home";
 import { DayStreak } from "components/Streak";
 import { StreakRef } from "components/Streak";
 import {
+  gaveUpOnTodaysQuiz,
   getDailyUTCDate,
   getRandomCharacter,
   hasBeenSolvedToday,
@@ -126,8 +127,12 @@ export default function BasicCharacterQuiz({
       }
     } else {
       const hasSolvedToday = hasBeenSolvedToday("charquiz");
+      const gaveUpToday = gaveUpOnTodaysQuiz("charquiz");
       if (hasSolvedToday) {
         setIsCorrect(true);
+      }
+      if (gaveUpToday) {
+        setGaveUp(true);
       }
     }
     setTargetCharacter(target as Character);
@@ -181,9 +186,13 @@ export default function BasicCharacterQuiz({
         setIsCorrect(true);
         if (!endlessMode) {
           const utcDate = getDailyUTCDate();
+          const solveData = {
+            date: utcDate.toISOString(),
+            gaveUp: reason === "giveUp",
+          };
           localStorage.setItem(
             "charquiz_HasBeenSolvedToday",
-            utcDate.toISOString()
+            JSON.stringify(solveData)
           );
         }
         if (points > 0) {

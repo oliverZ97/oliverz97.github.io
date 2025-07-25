@@ -213,14 +213,33 @@ export function getRandomAnime(
 }
 
 export function hasBeenSolvedToday(key: string) {
-  const dailyExpireDate = localStorage.getItem(key + "_HasBeenSolvedToday");
-  if (dailyExpireDate) {
-    const date = new Date(dailyExpireDate).toDateString();
+  const solvedInfo = localStorage.getItem(key + "_HasBeenSolvedToday");
+  if (solvedInfo) {
+    const { date: solvedDate } = JSON.parse(solvedInfo);
+
+    const date = new Date(solvedDate).toDateString();
     const now = new Date().toDateString();
     if (date === now) {
       return true;
     } else {
       localStorage.removeItem(key + "_HasBeenSolvedToday");
+      return false;
+    }
+  } else {
+    return false;
+  }
+}
+
+export function gaveUpOnTodaysQuiz(key: string) {
+  const solvedInfo = localStorage.getItem(key + "_HasBeenSolvedToday");
+  if (solvedInfo) {
+    const { date: solvedDate, gaveUp } = JSON.parse(solvedInfo);
+
+    const date = new Date(solvedDate).toDateString();
+    const now = new Date().toDateString();
+    if (date === now) {
+      return gaveUp;
+    } else {
       return false;
     }
   } else {

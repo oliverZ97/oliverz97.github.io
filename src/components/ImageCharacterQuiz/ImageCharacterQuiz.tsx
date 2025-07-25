@@ -286,9 +286,12 @@ export default function ImageCharacterQuiz({
       if (!endlessMode) {
         saveDailyAnswers(selectionCopy, finalScore);
         const utcDate = getDailyUTCDate();
+        const solveData = {
+          date: utcDate.toISOString(),
+        };
         localStorage.setItem(
           "imagequiz_HasBeenSolvedToday",
-          utcDate.toISOString()
+          JSON.stringify(solveData)
         );
       }
     }
