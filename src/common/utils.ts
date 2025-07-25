@@ -215,6 +215,10 @@ export function getRandomAnime(
 export function hasBeenSolvedToday(key: string) {
   const solvedInfo = localStorage.getItem(key + "_HasBeenSolvedToday");
   if (solvedInfo) {
+    if (!solvedInfo?.includes("gaveUp")) {
+      localStorage.removeItem(key + "_HasBeenSolvedToday");
+      return false;
+    }
     const { date: solvedDate } = JSON.parse(solvedInfo);
 
     const date = new Date(solvedDate).toDateString();
@@ -232,7 +236,12 @@ export function hasBeenSolvedToday(key: string) {
 
 export function gaveUpOnTodaysQuiz(key: string) {
   const solvedInfo = localStorage.getItem(key + "_HasBeenSolvedToday");
+
   if (solvedInfo) {
+    if (!solvedInfo?.includes("gaveUp")) {
+      localStorage.removeItem(key + "_HasBeenSolvedToday");
+      return false;
+    }
     const { date: solvedDate, gaveUp } = JSON.parse(solvedInfo);
 
     const date = new Date(solvedDate).toDateString();
