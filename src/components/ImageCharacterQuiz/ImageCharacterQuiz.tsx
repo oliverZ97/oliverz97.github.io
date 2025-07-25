@@ -5,6 +5,7 @@ import {
   getDailyUTCDate,
   getRandomCharacter,
   hasBeenSolvedToday,
+  QUIZ_KEY,
 } from "common/utils";
 import { AnimeAutocomplete } from "components/AnimeAutocomplete";
 import { CharacterAutocomplete } from "components/CharacterAutocomplete";
@@ -27,6 +28,9 @@ interface ImageTarget {
 
 const BASEPOINTS_ANIME = 1000;
 const BASEPOINTS_CHAR = 1500;
+const ANSWER_KEY = QUIZ_KEY.IMAGE + "_daily_answers";
+const SCORE_KEY = QUIZ_KEY.IMAGE + "_daily_score";
+const IMAGE_SOLVED_KEY = QUIZ_KEY.IMAGE + "_HasBeenSolvedToday";
 
 export default function ImageCharacterQuiz({
   charData,
@@ -64,7 +68,7 @@ export default function ImageCharacterQuiz({
   const [score, setScore] = useState(0);
 
   const streakRef = useRef<StreakRef | null>(null);
-  const streakKey = endlessMode ? "imageStreak" : "dailyImageStreak";
+  const STREAK_KEY = endlessMode ? "imageStreak" : "dailyImageStreak";
 
   useEffect(() => {
     if (!targets) {
@@ -116,12 +120,12 @@ export default function ImageCharacterQuiz({
       const targetCharacters = getRandomCharacterArray(4);
       targets = targetCharacters;
     } else {
-      const hasSolvedToday = hasBeenSolvedToday("imagequiz");
+      const hasSolvedToday = hasBeenSolvedToday(QUIZ_KEY.IMAGE);
       if (hasSolvedToday) {
         setIsSolving(true);
       } else {
-        localStorage.removeItem("imagequiz_daily_answers");
-        localStorage.removeItem("imagequiz_daily_score");
+        localStorage.removeItem(ANSWER_KEY);
+        localStorage.removeItem(SCORE_KEY);
       }
       const targetCharacters = getRandomCharacterArray(4, false);
       targets = targetCharacters;
@@ -229,19 +233,16 @@ export default function ImageCharacterQuiz({
 
   function saveDailyAnswers(selection: ImageTarget[], score: number) {
     if (targets) {
-      localStorage.setItem(
-        "imagequiz_daily_answers",
-        JSON.stringify(selection)
-      );
-      localStorage.setItem("imagequiz_daily_score", JSON.stringify(score));
+      localStorage.setItem(ANSWER_KEY, JSON.stringify(selection));
+      localStorage.setItem(SCORE_KEY, JSON.stringify(score));
     }
   }
 
   function checkCorrectAnswers() {
     if (targets) {
-      if (hasBeenSolvedToday("imagequiz")) {
-        const dailyAnswers = localStorage.getItem("imagequiz_daily_answers");
-        const dailyScore = localStorage.getItem("imagequiz_daily_score");
+      if (hasBeenSolvedToday(QUIZ_KEY.IMAGE)) {
+        const dailyAnswers = localStorage.getItem(ANSWER_KEY);
+        const dailyScore = localStorage.getItem(SCORE_KEY);
         if (dailyAnswers && dailyScore) {
           const parsedAnswers = JSON.parse(dailyAnswers) as ImageTarget[];
           const parsedScore = JSON.parse(dailyScore) as number;
@@ -289,10 +290,7 @@ export default function ImageCharacterQuiz({
         const solveData = {
           date: utcDate.toISOString(),
         };
-        localStorage.setItem(
-          "imagequiz_HasBeenSolvedToday",
-          JSON.stringify(solveData)
-        );
+        localStorage.setItem(IMAGE_SOLVED_KEY, JSON.stringify(solveData));
       }
     }
   }
@@ -319,7 +317,7 @@ export default function ImageCharacterQuiz({
     >
       <DayStreak
         ref={streakRef}
-        streakKey={streakKey}
+        streakKey={STREAK_KEY}
         colorRotate="250deg"
         sx={{ top: "-5px" }}
       ></DayStreak>

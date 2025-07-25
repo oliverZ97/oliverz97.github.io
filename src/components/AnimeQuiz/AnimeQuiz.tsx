@@ -6,6 +6,7 @@ import {
   getDailyUTCDate,
   getRandomAnime,
   hasBeenSolvedToday,
+  QUIZ_KEY,
 } from "common/utils";
 import { DayStreak, StreakRef } from "components/Streak";
 import JSConfetti from "js-confetti";
@@ -17,6 +18,7 @@ import { SearchBar } from "./SearchBar";
 
 const BASEPOINTS = 150;
 const REDUCEFACTOR = 10;
+const ANIME_SOLVED_KEY = QUIZ_KEY.ANIME + "_HasBeenSolvedToday";
 
 interface AnimeQuizProps {
   animeData: Anime[];
@@ -38,8 +40,8 @@ export const AnimeQuiz = ({ animeData, endlessMode }: AnimeQuizProps) => {
 
   const theme = useTheme();
 
-  const scoreKey = endlessMode ? "animeScores" : "dailyAnimeScores";
-  const streakKey = endlessMode ? "animeStreak" : "dailyAnimeStreak";
+  const SCORE_KEY = endlessMode ? "animeScores" : "dailyAnimeScores";
+  const STREAK_KEY = endlessMode ? "animeStreak" : "dailyAnimeStreak";
 
   useEffect(() => {
     if (animeData.length > 0 && localAnimeData.length === 0) {
@@ -63,7 +65,7 @@ export const AnimeQuiz = ({ animeData, endlessMode }: AnimeQuizProps) => {
 
   useEffect(() => {
     //get scores
-    const scores = localStorage.getItem(scoreKey);
+    const scores = localStorage.getItem(SCORE_KEY);
     if (scores) {
       const scoreArr = JSON.parse(scores) as Score[];
 
@@ -97,8 +99,8 @@ export const AnimeQuiz = ({ animeData, endlessMode }: AnimeQuizProps) => {
     if (endlessMode) {
       target = getRandomAnime(animeData, {});
     } else {
-      const hasSolvedToday = hasBeenSolvedToday("animequiz");
-      const gaveUpToday = gaveUpOnTodaysQuiz("animequiz");
+      const hasSolvedToday = hasBeenSolvedToday(QUIZ_KEY.ANIME);
+      const gaveUpToday = gaveUpOnTodaysQuiz(QUIZ_KEY.ANIME);
       if (hasSolvedToday) {
         setIsCorrect(true);
       }
@@ -155,10 +157,7 @@ export const AnimeQuiz = ({ animeData, endlessMode }: AnimeQuizProps) => {
             date: utcDate.toISOString(),
             gaveUp: reason === "giveUp",
           };
-          localStorage.setItem(
-            "animequiz_HasBeenSolvedToday",
-            JSON.stringify(solveData)
-          );
+          localStorage.setItem(ANIME_SOLVED_KEY, JSON.stringify(solveData));
         }
         if (points > 0) {
           //Set Highscore
@@ -171,7 +170,7 @@ export const AnimeQuiz = ({ animeData, endlessMode }: AnimeQuizProps) => {
             }),
           };
 
-          let localScores = localStorage.getItem(scoreKey);
+          let localScores = localStorage.getItem(SCORE_KEY);
           let scores;
           if (localScores) {
             scores = JSON.parse(localScores);
@@ -182,7 +181,7 @@ export const AnimeQuiz = ({ animeData, endlessMode }: AnimeQuizProps) => {
           scores.sort((a: Score, b: Score) => (a.points < b.points ? 1 : -1));
           setScores(scores.slice(0, 3));
           const scoreString = JSON.stringify(scores);
-          localStorage.setItem(scoreKey, scoreString);
+          localStorage.setItem(SCORE_KEY, scoreString);
           if (streakRef) {
             streakRef.current?.setStreak();
           }
@@ -269,7 +268,7 @@ export const AnimeQuiz = ({ animeData, endlessMode }: AnimeQuizProps) => {
             },
           }}
         >
-          <DayStreak ref={streakRef} streakKey={streakKey}></DayStreak>
+          <DayStreak ref={streakRef} streakKey={STREAK_KEY}></DayStreak>
         </Box>
       </Box>
       <SearchBar

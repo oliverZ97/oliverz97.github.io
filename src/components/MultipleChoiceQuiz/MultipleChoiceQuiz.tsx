@@ -29,7 +29,8 @@ interface ImageTarget {
 
 let score = 0;
 let topThree: Score[] = [];
-const scores = localStorage.getItem("multiple_choice_scores");
+const MULTIPLE_CHOICE_SCORE_KEY = "multiple_choice_scores";
+const scores = localStorage.getItem(MULTIPLE_CHOICE_SCORE_KEY);
 if (scores) {
   const scoreArr = JSON.parse(scores) as Score[];
   topThree = scoreArr.slice(0, 3);
@@ -83,18 +84,18 @@ export default function MultipleChoiceQuiz({
       }),
     };
 
-    let localScores = localStorage.getItem("multiple_choice_scores");
+    let localScores = localStorage.getItem(MULTIPLE_CHOICE_SCORE_KEY);
     let scores;
     if (localScores) {
       scores = JSON.parse(localScores);
       scores.push(scoreObj);
-    } else[(scores = [scoreObj])];
+    } else [(scores = [scoreObj])];
 
     //sort
     scores.sort((a: Score, b: Score) => (a.points < b.points ? 1 : -1));
     setScores(scores.slice(0, 3));
     const scoreString = JSON.stringify(scores);
-    localStorage.setItem("multiple_choice_scores", scoreString);
+    localStorage.setItem(MULTIPLE_CHOICE_SCORE_KEY, scoreString);
     if (streakRef) {
       streakRef.current?.setStreak();
     }
@@ -230,7 +231,7 @@ export default function MultipleChoiceQuiz({
   function useSkipJoker() {
     setSkipJoker("active");
     skipQuestion();
-    score = (Math.max(score - 3, 0));
+    score = Math.max(score - 3, 0);
     setSkipJoker("used");
   }
 
@@ -239,14 +240,15 @@ export default function MultipleChoiceQuiz({
       <Box
         sx={{
           borderRadius: 2,
-          background: "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
+          background:
+            "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
           marginBottom: 4,
           border: `1px solid ${COLORS.quiz.light}`,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           paddingY: 2,
-          position: "relative"
+          position: "relative",
         }}
       >
         <Box sx={{ display: "flex", height: "70px", alignItems: "center" }}>
@@ -267,20 +269,21 @@ export default function MultipleChoiceQuiz({
               <Typography fontSize={"12px"}>
                 {"Points: " + item.points}
               </Typography>
-              <Typography fontSize={"12px"}>
-                {"Date: " + item.date}
-              </Typography>
+              <Typography fontSize={"12px"}>{"Date: " + item.date}</Typography>
             </Box>
           ))}
-          {scores.length === 0 && <Typography sx={{ color: COLORS.quiz.primary_text }} textAlign={"center"}>
-            <Typography component={"span"}>
-              No Scores available.
+          {scores.length === 0 && (
+            <Typography
+              sx={{ color: COLORS.quiz.primary_text }}
+              textAlign={"center"}
+            >
+              <Typography component={"span"}>No Scores available.</Typography>
+              <br />
+              <Typography component={"span"}>
+                You should definitely change that (*≧ω≦*)
+              </Typography>
             </Typography>
-            <br />
-            <Typography component={"span"}>
-              You should definitely change that (*≧ω≦*)
-            </Typography>
-          </Typography>}
+          )}
         </Box>
       </Box>
       <DayStreak
@@ -291,7 +294,8 @@ export default function MultipleChoiceQuiz({
       <Box
         sx={{
           position: "relative",
-          background: "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
+          background:
+            "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
           padding: 4,
           borderRadius: 2,
           border: `1px solid ${COLORS.quiz.light}`,
@@ -418,7 +422,7 @@ export default function MultipleChoiceQuiz({
                     component={"img"}
                     height={"276px"}
                     sx={{
-                      objectFit: "cover"
+                      objectFit: "cover",
                     }}
                     src={getImgSrc(target.Name)}
                   ></Box>

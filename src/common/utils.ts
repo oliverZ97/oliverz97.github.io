@@ -212,10 +212,15 @@ export function getRandomAnime(
   return target as Anime;
 }
 
-export function hasBeenSolvedToday(key: string) {
+export enum QUIZ_KEY {
+  CHAR = "charquiz",
+  ANIME = "animequiz",
+  IMAGE = "imagequiz",
+}
+export function hasBeenSolvedToday(key: QUIZ_KEY) {
   const solvedInfo = localStorage.getItem(key + "_HasBeenSolvedToday");
   if (solvedInfo) {
-    if (!solvedInfo?.includes("gaveUp")) {
+    if (!solvedInfo?.includes("gaveUp") && key !== QUIZ_KEY.IMAGE) {
       localStorage.removeItem(key + "_HasBeenSolvedToday");
       return false;
     }
@@ -234,11 +239,11 @@ export function hasBeenSolvedToday(key: string) {
   }
 }
 
-export function gaveUpOnTodaysQuiz(key: string) {
+export function gaveUpOnTodaysQuiz(key: QUIZ_KEY) {
   const solvedInfo = localStorage.getItem(key + "_HasBeenSolvedToday");
 
   if (solvedInfo) {
-    if (!solvedInfo?.includes("gaveUp")) {
+    if (!solvedInfo?.includes("gaveUp") && key !== QUIZ_KEY.IMAGE) {
       localStorage.removeItem(key + "_HasBeenSolvedToday");
       return false;
     }

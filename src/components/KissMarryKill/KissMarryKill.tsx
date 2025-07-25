@@ -1,11 +1,9 @@
 import {
   Box,
   Button,
-  ButtonGroup,
   FormControl,
   FormControlLabel,
   FormLabel,
-  IconButton,
   Radio,
   RadioGroup,
   Typography,
@@ -13,18 +11,10 @@ import {
 import { getImgSrc } from "common/quizUtils";
 import { Character } from "common/types";
 import { getRandomCharacterArray } from "common/utils";
-import {
-  createRef,
-  RefObject,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { useEffect, useRef, useState } from "react";
 import { COLORS } from "styling/constants";
 import { ButtonContainer, State } from "./ButtonContainer";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import React from "react";
 
 interface StateRef {
   resetState: () => void;

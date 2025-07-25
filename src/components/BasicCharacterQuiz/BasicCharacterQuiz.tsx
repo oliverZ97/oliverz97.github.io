@@ -16,6 +16,7 @@ import {
   getRandomCharacter,
   hasBeenSolvedToday,
   isIncludedInDifficulty,
+  QUIZ_KEY,
 } from "common/utils";
 
 interface HintRef {
@@ -24,6 +25,7 @@ interface HintRef {
 
 const BASEPOINTS = 150;
 const REDUCEFACTOR = 10;
+const CHAR_SOLVED_KEY = QUIZ_KEY.CHAR + "_HasBeenSolvedToday";
 
 interface BasicCharacterQuizProps {
   charData: Character[];
@@ -54,8 +56,8 @@ export default function BasicCharacterQuiz({
 
   const theme = useTheme();
 
-  const scoreKey = endlessMode ? "scores" : "dailyScores";
-  const streakKey = endlessMode ? "basicStreak" : "dailyBasicStreak";
+  const SCORE_KEY = endlessMode ? "scores" : "dailyScores";
+  const STREAK_KEY = endlessMode ? "basicStreak" : "dailyBasicStreak";
 
   useEffect(() => {
     if (charData.length > 0 && localCharData.length === 0) {
@@ -79,7 +81,7 @@ export default function BasicCharacterQuiz({
 
   useEffect(() => {
     //get scores
-    const scores = localStorage.getItem(scoreKey);
+    const scores = localStorage.getItem(SCORE_KEY);
     if (scores) {
       const scoreArr = JSON.parse(scores) as Score[];
 
@@ -126,8 +128,8 @@ export default function BasicCharacterQuiz({
         target = getRandomCharacter(charData, { endlessMode: endlessMode });
       }
     } else {
-      const hasSolvedToday = hasBeenSolvedToday("charquiz");
-      const gaveUpToday = gaveUpOnTodaysQuiz("charquiz");
+      const hasSolvedToday = hasBeenSolvedToday(QUIZ_KEY.CHAR);
+      const gaveUpToday = gaveUpOnTodaysQuiz(QUIZ_KEY.CHAR);
       if (hasSolvedToday) {
         setIsCorrect(true);
       }
@@ -190,10 +192,7 @@ export default function BasicCharacterQuiz({
             date: utcDate.toISOString(),
             gaveUp: reason === "giveUp",
           };
-          localStorage.setItem(
-            "charquiz_HasBeenSolvedToday",
-            JSON.stringify(solveData)
-          );
+          localStorage.setItem(CHAR_SOLVED_KEY, JSON.stringify(solveData));
         }
         if (points > 0) {
           //Set Highscore
@@ -206,7 +205,7 @@ export default function BasicCharacterQuiz({
             }),
           };
 
-          let localScores = localStorage.getItem(scoreKey);
+          let localScores = localStorage.getItem(SCORE_KEY);
           let scores;
           if (localScores) {
             scores = JSON.parse(localScores);
@@ -217,7 +216,7 @@ export default function BasicCharacterQuiz({
           scores.sort((a: Score, b: Score) => (a.points < b.points ? 1 : -1));
           setScores(scores.slice(0, 3));
           const scoreString = JSON.stringify(scores);
-          localStorage.setItem(scoreKey, scoreString);
+          localStorage.setItem(SCORE_KEY, scoreString);
           if (streakRef) {
             streakRef.current?.setStreak();
           }
@@ -340,7 +339,7 @@ export default function BasicCharacterQuiz({
             cardTitle="Anime"
           ></RevealCard>
         </Box>
-        <DayStreak ref={streakRef} streakKey={streakKey}></DayStreak>
+        <DayStreak ref={streakRef} streakKey={STREAK_KEY}></DayStreak>
       </Box>
 
       <SearchBar
