@@ -220,6 +220,11 @@ export enum QUIZ_KEY {
 export function hasBeenSolvedToday(key: QUIZ_KEY) {
   const solvedInfo = localStorage.getItem(key + "_HasBeenSolvedToday");
   if (solvedInfo) {
+    if (!solvedInfo?.includes("{")) {
+      // If the format is not JSON, it might be an old version or corrupted data
+      localStorage.removeItem(key + "_HasBeenSolvedToday");
+      return false;
+    }
     if (!solvedInfo?.includes("gaveUp") && key !== QUIZ_KEY.IMAGE) {
       localStorage.removeItem(key + "_HasBeenSolvedToday");
       return false;
