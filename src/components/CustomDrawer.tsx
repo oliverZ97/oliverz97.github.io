@@ -1,8 +1,6 @@
-import { Box, Button, Drawer, List, ListItem, ListItemButton, Divider, Tooltip, SvgIconTypeMap, SxProps, Theme } from '@mui/material';
+import { Box, Button, Drawer, Tooltip, SxProps, Theme } from '@mui/material';
 import * as React from 'react';
 import { COLORS } from 'styling/constants';
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import { OverridableComponent } from '@mui/material/OverridableComponent';
 
 interface Position {
 	top?: string | number;
@@ -17,9 +15,10 @@ interface CustomDrawerProps {
 	icon?: React.ReactNode;
 	sx?: SxProps<Theme>;
 	title?: string;
+	onOpenFn?: () => void;
 }
 
-export default function CustomDrawer({ children, position, icon, sx, title }: CustomDrawerProps) {
+export default function CustomDrawer({ children, position, icon, sx, title, onOpenFn }: CustomDrawerProps) {
 	const [open, setOpen] = React.useState(false);
 
 	const toggleDrawer =
@@ -33,6 +32,7 @@ export default function CustomDrawer({ children, position, icon, sx, title }: Cu
 			}
 
 			setOpen(inOpen);
+			if (onOpenFn) onOpenFn();
 		};
 
 	return (

@@ -6,6 +6,7 @@ import {
   getRandomCharacter,
   hasBeenSolvedToday,
   QUIZ_KEY,
+  setDailyScore,
 } from "common/utils";
 import { AnimeAutocomplete } from "components/AnimeAutocomplete";
 import { CharacterAutocomplete } from "components/CharacterAutocomplete";
@@ -182,7 +183,7 @@ export default function ImageCharacterQuiz({
 
       const dayOfYear = Math.floor(
         (today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) /
-          (1000 * 60 * 60 * 24)
+        (1000 * 60 * 60 * 24)
       );
       const yearSignature = `${today.getFullYear()}`;
 
@@ -291,6 +292,7 @@ export default function ImageCharacterQuiz({
           date: utcDate.toISOString(),
         };
         localStorage.setItem(IMAGE_SOLVED_KEY, JSON.stringify(solveData));
+        setDailyScore(utcDate.toISOString(), finalScore, QUIZ_KEY.IMAGE);
       }
     }
   }

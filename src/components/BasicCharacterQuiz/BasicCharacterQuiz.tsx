@@ -17,6 +17,7 @@ import {
   hasBeenSolvedToday,
   isIncludedInDifficulty,
   QUIZ_KEY,
+  setDailyScore,
 } from "common/utils";
 
 interface HintRef {
@@ -193,6 +194,7 @@ export default function BasicCharacterQuiz({
             gaveUp: reason === "giveUp",
           };
           localStorage.setItem(CHAR_SOLVED_KEY, JSON.stringify(solveData));
+          setDailyScore(utcDate.toISOString(), points, QUIZ_KEY.CHAR);
         }
         if (points > 0) {
           //Set Highscore
@@ -210,7 +212,7 @@ export default function BasicCharacterQuiz({
           if (localScores) {
             scores = JSON.parse(localScores);
             scores.push(scoreObj);
-          } else [(scores = [scoreObj])];
+          } else[(scores = [scoreObj])];
 
           //sort
           scores.sort((a: Score, b: Score) => (a.points < b.points ? 1 : -1));

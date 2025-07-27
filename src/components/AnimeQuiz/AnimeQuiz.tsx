@@ -7,6 +7,7 @@ import {
   getRandomAnime,
   hasBeenSolvedToday,
   QUIZ_KEY,
+  setDailyScore,
 } from "common/utils";
 import { DayStreak, StreakRef } from "components/Streak";
 import JSConfetti from "js-confetti";
@@ -158,6 +159,7 @@ export const AnimeQuiz = ({ animeData, endlessMode }: AnimeQuizProps) => {
             gaveUp: reason === "giveUp",
           };
           localStorage.setItem(ANIME_SOLVED_KEY, JSON.stringify(solveData));
+          setDailyScore(utcDate.toISOString(), points, QUIZ_KEY.ANIME);
         }
         if (points > 0) {
           //Set Highscore
@@ -175,7 +177,7 @@ export const AnimeQuiz = ({ animeData, endlessMode }: AnimeQuizProps) => {
           if (localScores) {
             scores = JSON.parse(localScores);
             scores.push(scoreObj);
-          } else [(scores = [scoreObj])];
+          } else[(scores = [scoreObj])];
 
           //sort
           scores.sort((a: Score, b: Score) => (a.points < b.points ? 1 : -1));

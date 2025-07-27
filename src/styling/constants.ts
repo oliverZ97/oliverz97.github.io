@@ -21,6 +21,7 @@ export const COLORS = {
     background: "#003554",
     light: "#90d0f0",
     hearts: "#d6477b",
-    disabled: "#ccc8c9"
+    disabled: "#ccc8c9",
+    light_red: "#d16b81"
   },
 };
