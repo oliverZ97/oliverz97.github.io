@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Button, Typography, useTheme } from "@mui/material";
 import { RevealCard } from "components/RevealCard";
 import { COLORS } from "styling/constants";
 import CharacterList from "./CharacterList";
@@ -19,6 +19,7 @@ import {
   QUIZ_KEY,
   setDailyScore,
 } from "common/utils";
+import { LemonButton } from "components/LemonButton";
 
 interface HintRef {
   resetHint: () => void;
@@ -31,11 +32,13 @@ const CHAR_SOLVED_KEY = QUIZ_KEY.CHAR + "_HasBeenSolvedToday";
 interface BasicCharacterQuizProps {
   charData: Character[];
   endlessMode?: boolean;
+  changeQuizMode?: (event: React.SyntheticEvent, id: number) => void;
 }
 
 export default function BasicCharacterQuiz({
   charData,
   endlessMode = true,
+  changeQuizMode
 }: BasicCharacterQuizProps) {
   const [searchHistory, setSearchHistory] = useState<Character[]>([]);
   const [selectedOption, setSelectedOption] = useState<Character | null>(null);
@@ -365,6 +368,7 @@ export default function BasicCharacterQuiz({
         <Box
           sx={{
             display: "flex",
+            flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
           }}
@@ -405,6 +409,7 @@ export default function BasicCharacterQuiz({
               src={getImgSrc(targetChar?.Name)}
             ></Box>
           </Box>
+          <LemonButton onClick={(event) => changeQuizMode?.(event, 1)} text="Next: Image Quiz" />
         </Box>
       )}
       {(endlessMode || (!endlessMode && !isCorrect)) && (

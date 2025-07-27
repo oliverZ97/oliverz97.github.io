@@ -10,6 +10,7 @@ import {
 } from "common/utils";
 import { AnimeAutocomplete } from "components/AnimeAutocomplete";
 import { CharacterAutocomplete } from "components/CharacterAutocomplete";
+import { LemonButton } from "components/LemonButton";
 import { DayStreak, StreakRef } from "components/Streak";
 import { SyntheticEvent, useEffect, useRef, useState } from "react";
 import { COLORS } from "styling/constants";
@@ -18,6 +19,8 @@ interface ImageCharacterQuizProps {
   charData: Character[];
   animeData: Anime[];
   endlessMode?: boolean;
+  changeQuizMode?: (event: React.SyntheticEvent, id: number) => void;
+
 }
 
 interface ImageTarget {
@@ -37,6 +40,7 @@ export default function ImageCharacterQuiz({
   charData,
   animeData,
   endlessMode = true,
+  changeQuizMode
 }: ImageCharacterQuizProps) {
   const [isSolving, setIsSolving] = useState(false);
   const [elements, setElements] = useState<ImageTarget[]>([
@@ -304,151 +308,156 @@ export default function ImageCharacterQuiz({
   }
 
   return (
-    <Box
-      sx={{
-        position: "relative",
-        background:
-          "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
-        padding: 4,
-        borderRadius: 2,
-        border: `1px solid ${COLORS.quiz.light}`,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <DayStreak
-        ref={streakRef}
-        streakKey={STREAK_KEY}
-        colorRotate="250deg"
-        sx={{ top: "-5px" }}
-      ></DayStreak>
-
-      <Box>
-        <Box
-          sx={{
-            display: "flex",
-            gap: 4,
-            flexWrap: "wrap",
-            justifyContent: "center",
-          }}
-        >
-          {targets &&
-            targets.map((char: Character, index) => (
-              <Box
-                key={char.Name}
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "flex-start",
-                  alignItems: "center",
-                  gap: 2,
-                }}
-              >
-                <Box
-                  width={"200px"}
-                  component={"img"}
-                  height={"276px"}
-                  sx={{
-                    objectFit: "cover",
-                  }}
-                  src={getImgSrc(char.Name)}
-                ></Box>
-                {!isSolving && (
-                  <CharacterAutocomplete
-                    width={200}
-                    charData={charData}
-                    disabled={false}
-                    value={elements[index].character}
-                    handleSearchChange={handleCharacterChange}
-                    id={index}
-                  ></CharacterAutocomplete>
-                )}
-                {!isSolving && (
-                  <AnimeAutocomplete
-                    width={200}
-                    animeData={animeData}
-                    disabled={false}
-                    value={elements[index].anime}
-                    handleSearchChange={handleAnimeChange}
-                    id={index}
-                  ></AnimeAutocomplete>
-                )}
-                {isSolving && (
-                  <Box sx={{ width: 200 }}>
-                    <Typography
-                      sx={{
-                        fontWeight: "bold",
-                        color: elements[index].isCharacterCorrect
-                          ? COLORS.quiz.correct
-                          : COLORS.quiz.failed,
-                        marginBottom: 1,
-                      }}
-                    >
-                      {elements[index].character?.Name ?? "-"}
-                    </Typography>
-                    <Typography
-                      sx={{
-                        fontWeight: "bold",
-                        color: elements[index].isAnimeCorrect
-                          ? COLORS.quiz.correct
-                          : COLORS.quiz.failed,
-                        whiteSpace: "break-spaces",
-                      }}
-                    >
-                      {elements[index].anime === null
-                        ? "-"
-                        : elements[index].anime?.Name}
-                    </Typography>
-                  </Box>
-                )}
-              </Box>
-            ))}
-        </Box>
-      </Box>
+    <Box display={"flex"} flexDirection="column" alignItems="center" width={"100%"}>
       <Box
         sx={{
+          position: "relative",
+          background:
+            "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
+          padding: 4,
+          borderRadius: 2,
+          border: `1px solid ${COLORS.quiz.light}`,
           display: "flex",
-          justifyContent: "space-between",
-          marginTop: 4,
+          flexDirection: "column",
+          alignItems: "center",
           width: "100%",
         }}
       >
-        {endlessMode && (
+        <DayStreak
+          ref={streakRef}
+          streakKey={STREAK_KEY}
+          colorRotate="250deg"
+          sx={{ top: "-5px" }}
+        ></DayStreak>
+
+        <Box>
+          <Box
+            sx={{
+              display: "flex",
+              gap: 4,
+              flexWrap: "wrap",
+              justifyContent: "center",
+            }}
+          >
+            {targets &&
+              targets.map((char: Character, index) => (
+                <Box
+                  key={char.Name}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                    gap: 2,
+                  }}
+                >
+                  <Box
+                    width={"200px"}
+                    component={"img"}
+                    height={"276px"}
+                    sx={{
+                      objectFit: "cover",
+                    }}
+                    src={getImgSrc(char.Name)}
+                  ></Box>
+                  {!isSolving && (
+                    <CharacterAutocomplete
+                      width={200}
+                      charData={charData}
+                      disabled={false}
+                      value={elements[index].character}
+                      handleSearchChange={handleCharacterChange}
+                      id={index}
+                    ></CharacterAutocomplete>
+                  )}
+                  {!isSolving && (
+                    <AnimeAutocomplete
+                      width={200}
+                      animeData={animeData}
+                      disabled={false}
+                      value={elements[index].anime}
+                      handleSearchChange={handleAnimeChange}
+                      id={index}
+                    ></AnimeAutocomplete>
+                  )}
+                  {isSolving && (
+                    <Box sx={{ width: 200 }}>
+                      <Typography
+                        sx={{
+                          fontWeight: "bold",
+                          color: elements[index].isCharacterCorrect
+                            ? COLORS.quiz.correct
+                            : COLORS.quiz.failed,
+                          marginBottom: 1,
+                        }}
+                      >
+                        {elements[index].character?.Name ?? "-"}
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontWeight: "bold",
+                          color: elements[index].isAnimeCorrect
+                            ? COLORS.quiz.correct
+                            : COLORS.quiz.failed,
+                          whiteSpace: "break-spaces",
+                        }}
+                      >
+                        {elements[index].anime === null
+                          ? "-"
+                          : elements[index].anime?.Name}
+                      </Typography>
+                    </Box>
+                  )}
+                </Box>
+              ))}
+          </Box>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginTop: 4,
+            width: "100%",
+          }}
+        >
+          {endlessMode && (
+            <Button
+              sx={{
+                color: COLORS.quiz.light,
+                borderColor: COLORS.quiz.light,
+                "&:hover": {
+                  fontWeight: "bold",
+                  borderColor: COLORS.quiz.tertiary,
+                },
+              }}
+              variant="outlined"
+              onClick={resetImageQuiz}
+            >
+              Reset
+            </Button>
+          )}
+          {!endlessMode && <Box />}
+          {isSolving && (
+            <Typography color={"white"} fontSize={"24px"}>
+              🏆 {score}
+            </Typography>
+          )}
           <Button
             sx={{
-              color: COLORS.quiz.light,
-              borderColor: COLORS.quiz.light,
+              backgroundColor: COLORS.quiz.tertiary,
               "&:hover": {
-                fontWeight: "bold",
-                borderColor: COLORS.quiz.tertiary,
+                backgroundColor: COLORS.quiz.tertiary_hover,
               },
             }}
-            variant="outlined"
-            onClick={resetImageQuiz}
+            variant="contained"
+            onClick={() => setIsSolving(true)}
           >
-            Reset
+            Solve
           </Button>
-        )}
-        {!endlessMode && <Box />}
-        {isSolving && (
-          <Typography color={"white"} fontSize={"24px"}>
-            🏆 {score}
-          </Typography>
-        )}
-        <Button
-          sx={{
-            backgroundColor: COLORS.quiz.tertiary,
-            "&:hover": {
-              backgroundColor: COLORS.quiz.tertiary_hover,
-            },
-          }}
-          variant="contained"
-          onClick={() => setIsSolving(true)}
-        >
-          Solve
-        </Button>
+        </Box>
       </Box>
-    </Box>
+      {!endlessMode && isSolving && <LemonButton onClick={(event) => changeQuizMode?.(event, 2)} text="Next: Anime Quiz" />}
+
+    </Box >
   );
 }

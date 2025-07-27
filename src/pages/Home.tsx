@@ -318,6 +318,7 @@ const Home = () => {
               <BasicCharacterQuiz
                 charData={charData}
                 endlessMode={false}
+                changeQuizMode={(event: React.SyntheticEvent, id: number) => handleChange(event, id)}
               ></BasicCharacterQuiz>
             </CustomTabPanel>
 
@@ -326,6 +327,7 @@ const Home = () => {
                 animeData={animeData}
                 charData={charData}
                 endlessMode={false}
+                changeQuizMode={(event: React.SyntheticEvent, id: number) => handleChange(event, id)}
               ></ImageCharacterQuiz>
             </CustomTabPanel>
 
