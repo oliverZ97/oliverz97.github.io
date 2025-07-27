@@ -41,7 +41,7 @@ export const LemonButton = ({ onClick, text }: { onClick: (event: any) => void, 
                 component={"img"}
                 src={!import.meta.env.PROD
                     ? "/src/assets/Remon.png"
-                    : "assets/characters/Remon.png"}
+                    : "assets/Remon.png"}
                 width={"40px"}
             />
             <Typography flexGrow={1} fontWeight={"bold"} fontSize={"16px"} fontFamily={"roboto"} color={"white"}>
