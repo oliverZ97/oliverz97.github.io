@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build && ncp src/assets/characters docs/assets/characters",
-    "copy": "ncp src/assets/characters docs/assets/characters",
+    "build": "tsc && vite build && ncp src/assets docs/assets",
+    "copy": "ncp src/assets docs/assets",
     "preview": "vite preview",
     "prepare": "husky install"
   },
