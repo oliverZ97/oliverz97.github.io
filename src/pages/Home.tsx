@@ -1,11 +1,6 @@
 import {
   Box,
   Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
   Divider,
   Tab,
   Tabs,
@@ -32,6 +27,7 @@ import { KissMarryKill } from "components/KissMarryKill/KissMarryKill";
 import { AnimeIndex } from "components/AnimeIndex";
 import { AnimeQuiz } from "components/AnimeQuiz/AnimeQuiz";
 import { getDailyScore, getDailyUTCDate } from "common/utils";
+import { dialogManager } from "components/HowToPlayDialogPortal";
 
 export interface Score {
   points: number;
@@ -41,9 +37,6 @@ export interface Score {
 const Home = () => {
   const [charData, setCharData] = useState<Character[]>([]);
   const [animeData, setAnimeData] = useState<Anime[]>([]);
-  const [showManual, setShowManual] = useState(
-    localStorage.getItem("showManual") !== "false" ? true : false
-  );
   const [getTotalScore, setGetTotalScore] = useState(getDailyScore(getDailyUTCDate().toISOString()));
 
   const theme = useTheme();
@@ -123,11 +116,6 @@ const Home = () => {
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
-  };
-
-  const handleClose = () => {
-    localStorage.setItem("showManual", "false");
-    setShowManual(false);
   };
 
   return (
@@ -291,7 +279,10 @@ const Home = () => {
                   borderColor: "transparent",
                 },
               }}
-              onClick={() => setShowManual(true)}
+              onClick={() => {
+                console.log('Help button clicked');
+                dialogManager.setShowManual(true);
+              }}
             >
               <HelpOutlineIcon fontSize="large" />
             </Button>
@@ -380,101 +371,6 @@ const Home = () => {
           </Typography>
         </Box>
       </Box>
-      <Dialog
-        sx={{
-          "& .MuiDialog-paper": {
-            backgroundColor: COLORS.quiz.background,
-            color: "white",
-          },
-        }}
-        open={showManual}
-        onClose={handleClose}
-      >
-        <DialogTitle>How to play</DialogTitle>
-        <DialogContent>
-          <DialogContentText sx={{ color: "white" }}>
-            <Typography>
-              This website offers various anime-related quizzes. You can choose
-              between character quizzes, image quizzes, and anime quizzes. Each
-              quiz has a daily mode and an endless mode. You can switch the
-              gamemodes using the upper left menu icon.{" "}
-            </Typography>
-            <Typography sx={{ marginTop: 2 }}>
-              When guessing the character, you will be given clues to help you.
-              Pay attention to the clues and use them to make your guess!
-            </Typography>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 1,
-                marginTop: 2,
-              }}
-            >
-              <Box
-                sx={{
-                  borderRadius: "50px",
-                  backgroundColor: COLORS.quiz.success,
-                  border: "2px solid",
-                  borderColor: COLORS.quiz.success_light,
-                  width: "30px",
-                  height: "30px",
-                }}
-              ></Box>
-              <Typography>All Clues Match</Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 1,
-                marginTop: 2,
-              }}
-            >
-              <Box
-                sx={{
-                  borderRadius: "50px",
-                  backgroundColor: COLORS.quiz.warning,
-                  border: "2px solid",
-                  borderColor: COLORS.quiz.warning_light,
-                  width: "30px",
-                  height: "30px",
-                }}
-              ></Box>
-              <Typography>At least one of the Clues Match</Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 1,
-                marginTop: 2,
-              }}
-            >
-              <Box
-                sx={{
-                  borderRadius: "50px",
-                  backgroundColor: COLORS.quiz.main,
-                  border: "2px solid",
-                  borderColor: COLORS.quiz.light,
-                  width: "30px",
-                  height: "30px",
-                }}
-              ></Box>
-              <Typography>None of the Clues Match</Typography>
-            </Box>
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            variant="outlined"
-            sx={{ color: "white", borderColor: "white" }}
-            onClick={handleClose}
-          >
-            Let's Go
-          </Button>
-        </DialogActions>
-      </Dialog>
     </>
   );
 };
