@@ -34,6 +34,7 @@ interface SearchBarProps {
   handleGiveUp: () => void;
   endlessMode?: boolean;
   originalCharData: Character[];
+  showPreviewImage?: boolean;
 }
 
 export function SearchBar({
@@ -51,6 +52,7 @@ export function SearchBar({
   handleGiveUp,
   endlessMode = true,
   originalCharData,
+  showPreviewImage = true,
 }: SearchBarProps) {
   const theme = useTheme();
 
@@ -194,7 +196,7 @@ export function SearchBar({
             disabled={isCorrect}
             value={selectedOption}
             handleSearchChange={handleSearchChange}
-            showPreviewImage
+            showPreviewImage={showPreviewImage}
           ></CharacterAutocomplete>
           {showGiveUp && !gaveUp && (
             <Button

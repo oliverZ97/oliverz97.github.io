@@ -32,6 +32,7 @@ import { KissMarryKill } from "components/KissMarryKill/KissMarryKill";
 import { AnimeIndex } from "components/AnimeIndex";
 import { AnimeQuiz } from "components/AnimeQuiz/AnimeQuiz";
 import { getDailyScore, getDailyUTCDate } from "common/utils";
+import BlurredCharacterQuiz from "components/BlurredCharacterQuiz/BlurredCharacterQuiz";
 
 export interface Score {
   points: number;
@@ -44,7 +45,9 @@ const Home = () => {
   const [showManual, setShowManual] = useState(
     localStorage.getItem("showManual") !== "false" ? true : false
   );
-  const [getTotalScore, setGetTotalScore] = useState(getDailyScore(getDailyUTCDate().toISOString()));
+  const [getTotalScore, setGetTotalScore] = useState(
+    getDailyScore(getDailyUTCDate().toISOString())
+  );
 
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
@@ -157,9 +160,16 @@ const Home = () => {
           title="Gamemodes"
           position={{ top: "40px" }}
           icon={<MenuIcon fontSize="large" />}
-          onOpenFn={() => { setGetTotalScore(getDailyScore(getDailyUTCDate().toISOString())) }}
+          onOpenFn={() => {
+            setGetTotalScore(getDailyScore(getDailyUTCDate().toISOString()));
+          }}
         >
-          <Box minHeight={"100vh"} display={"flex"} flexDirection="column" justifyContent={"space-between"}>
+          <Box
+            minHeight={"100vh"}
+            display={"flex"}
+            flexDirection="column"
+            justifyContent={"space-between"}
+          >
             <Box>
               <Tabs
                 variant={matches ? "fullWidth" : "standard"}
@@ -255,14 +265,35 @@ const Home = () => {
                   label="Kiss, Marry, Kill"
                   {...a11yProps(8)}
                 />
+                <Tab
+                  sx={{
+                    color: COLORS.quiz.light,
+                    "&.Mui-selected": {
+                      color: "white",
+                    },
+                  }}
+                  label="Blurred Character Quiz"
+                  {...a11yProps(9)}
+                />
               </Tabs>
               <Divider sx={{ backgroundColor: "white", marginX: 1 }}></Divider>
             </Box>
             <Box padding={2} sx={{ color: "white" }}>
               <Typography>Today's score:</Typography>
               <Typography>
-                <Typography component={"span"} sx={{ fontWeight: "bold", color: COLORS.quiz.light_red, marginRight: 1 }}>{getTotalScore}</Typography>
-                <Typography component={"span"} fontSize={12}>/30000</Typography>
+                <Typography
+                  component={"span"}
+                  sx={{
+                    fontWeight: "bold",
+                    color: COLORS.quiz.light_red,
+                    marginRight: 1,
+                  }}
+                >
+                  {getTotalScore}
+                </Typography>
+                <Typography component={"span"} fontSize={12}>
+                  /30000
+                </Typography>
               </Typography>
             </Box>
           </Box>
@@ -318,7 +349,9 @@ const Home = () => {
               <BasicCharacterQuiz
                 charData={charData}
                 endlessMode={false}
-                changeQuizMode={(event: React.SyntheticEvent, id: number) => handleChange(event, id)}
+                changeQuizMode={(event: React.SyntheticEvent, id: number) =>
+                  handleChange(event, id)
+                }
               ></BasicCharacterQuiz>
             </CustomTabPanel>
 
@@ -327,7 +360,9 @@ const Home = () => {
                 animeData={animeData}
                 charData={charData}
                 endlessMode={false}
-                changeQuizMode={(event: React.SyntheticEvent, id: number) => handleChange(event, id)}
+                changeQuizMode={(event: React.SyntheticEvent, id: number) =>
+                  handleChange(event, id)
+                }
               ></ImageCharacterQuiz>
             </CustomTabPanel>
 
@@ -363,6 +398,10 @@ const Home = () => {
 
             <CustomTabPanel value={value} index={8}>
               <KissMarryKill charData={charData}></KissMarryKill>
+            </CustomTabPanel>
+
+            <CustomTabPanel value={value} index={9}>
+              <BlurredCharacterQuiz charData={charData}></BlurredCharacterQuiz>
             </CustomTabPanel>
           </Box>
         </Box>

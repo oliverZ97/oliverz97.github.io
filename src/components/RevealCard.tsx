@@ -3,14 +3,18 @@ import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { COLORS } from "styling/constants";
 
 interface RevealCardProps {
+  disabled?: boolean;
   cardText: string;
   cardTitle: string;
-  costs: number;
-  onReveal: () => void;
+  costs?: number;
+  onReveal?: () => void;
 }
 
 export const RevealCard = forwardRef(
-  ({ cardText, cardTitle, costs, onReveal }: RevealCardProps, ref) => {
+  (
+    { cardText, cardTitle, costs, onReveal, disabled }: RevealCardProps,
+    ref
+  ) => {
     const [revealHint, setRevealHint] = useState(false);
 
     const resetHint = () => {
@@ -18,7 +22,7 @@ export const RevealCard = forwardRef(
     };
 
     useEffect(() => {
-      if (revealHint) {
+      if (revealHint && onReveal) {
         onReveal();
       }
     }, [revealHint]);
@@ -30,15 +34,30 @@ export const RevealCard = forwardRef(
     function listTagList(tagList: string) {
       const tags = tagList.split(";");
       if (tags.length > 1) {
-        return tags.filter((tag) => tag !== "-").map((tag) => <Typography sx={{
-          color: COLORS.quiz.primary_text,
-          textTransform: "capitalize",
-        }} fontSize={"13px"}>{tag}</Typography>)
+        return tags
+          .filter((tag) => tag !== "-")
+          .map((tag) => (
+            <Typography
+              sx={{
+                color: COLORS.quiz.primary_text,
+                textTransform: "capitalize",
+              }}
+              fontSize={"13px"}
+            >
+              {tag}
+            </Typography>
+          ));
       } else {
-        return <Typography sx={{
-          color: COLORS.quiz.primary_text,
-          textTransform: "capitalize",
-        }}>{tagList}</Typography>
+        return (
+          <Typography
+            sx={{
+              color: COLORS.quiz.primary_text,
+              textTransform: "capitalize",
+            }}
+          >
+            {tagList}
+          </Typography>
+        );
       }
     }
 
@@ -51,9 +70,10 @@ export const RevealCard = forwardRef(
           minHeight: "58px",
           padding: 0,
           borderRadius: "9px",
-          border: `2px solid ${COLORS.quiz.light}`
+          border: `2px solid ${COLORS.quiz.light}`,
         }}
         onClick={() => setRevealHint(true)}
+        disabled={disabled}
       >
         <Box
           sx={{
@@ -117,20 +137,22 @@ export const RevealCard = forwardRef(
           <Typography sx={{ textTransform: "capitalize", color: "black" }}>
             {cardTitle}
           </Typography>
-          <Box
-            sx={{
-              padding: 1,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "#12616e",
-              borderRadius: "4px",
-            }}
-          >
-            <Typography sx={{ color: COLORS.quiz.primary_text }}>
-              {costs}
-            </Typography>
-          </Box>
+          {costs && (
+            <Box
+              sx={{
+                padding: 1,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#12616e",
+                borderRadius: "4px",
+              }}
+            >
+              <Typography sx={{ color: COLORS.quiz.primary_text }}>
+                {costs}
+              </Typography>
+            </Box>
+          )}
         </Box>
       </Button>
     );
