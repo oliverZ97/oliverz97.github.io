@@ -34,6 +34,7 @@ import { AnimeIndex } from "components/AnimeIndex";
 import { AnimeQuiz } from "components/AnimeQuiz/AnimeQuiz";
 import { getDailyScore, getDailyUTCDate } from "common/utils";
 import BlurredCharacterQuiz from "components/BlurredCharacterQuiz/BlurredCharacterQuiz";
+import { dialogManager } from "components/HowToPlayDialogPortal";
 
 export interface Score {
   points: number;
@@ -43,9 +44,6 @@ export interface Score {
 const Home = () => {
   const [charData, setCharData] = useState<Character[]>([]);
   const [animeData, setAnimeData] = useState<Anime[]>([]);
-  const [showManual, setShowManual] = useState(
-    localStorage.getItem("showManual") !== "false" ? true : false
-  );
   const [getTotalScore, setGetTotalScore] = useState(
     getDailyScore(getDailyUTCDate().toISOString())
   );
@@ -129,11 +127,6 @@ const Home = () => {
     setValue(newValue);
   };
 
-  const handleClose = () => {
-    localStorage.setItem("showManual", "false");
-    setShowManual(false);
-  };
-
   return (
     <>
       <Box
@@ -145,6 +138,7 @@ const Home = () => {
           backgroundSize: "cover",
           maxWidth: "100%",
           minHeight: "100vh",
+          position: "relative",
 
         }}
       >
@@ -328,7 +322,10 @@ const Home = () => {
                     borderColor: "transparent",
                   },
                 }}
-                onClick={() => setShowManual(true)}
+                onClick={() => {
+                  console.log('Help button clicked');
+                  dialogManager.setShowManual(true);
+                }}
               >
                 <HelpOutlineIcon fontSize="large" />
               </Button>
@@ -586,25 +583,35 @@ const Home = () => {
             </Box>
           </DrawerBasic></Box>
           <Box sx={{ display: "flex", justifyContent: "center", maxWidth: "33.33%", boxShadow: 1 }} flexGrow={1}> <Tooltip title={"How to play"} arrow placement="right">
-
-            <Button
-              variant="outlined"
+            <Box
               sx={{
-                backgroundColor: COLORS.quiz.secondary,
-                color: "white",
-                borderColor: "transparent",
-                height: "60px",
-                width: "100%",
-                "&:hover": {
-                  backgroundColor: COLORS.quiz.main,
-                  borderColor: "transparent",
-                },
-                borderRadius: 0,
+                position: "absolute",
+                top: "200px",
+                left: 0,
+                zIndex: 1000,
               }}
-              onClick={() => setShowManual(true)}
             >
-              <HelpOutlineIcon fontSize="large" />
-            </Button>
+              <Button
+                variant="outlined"
+                sx={{
+                  backgroundColor: COLORS.quiz.secondary,
+                  color: "white",
+                  borderColor: "transparent",
+                  height: "60px",
+                  borderRadius: 0,
+                  "&:hover": {
+                    backgroundColor: COLORS.quiz.main,
+                    borderColor: "transparent",
+                  },
+                }}
+                onClick={() => {
+                  console.log('Help button clicked');
+                  dialogManager.setShowManual(true);
+                }}
+              >
+                <HelpOutlineIcon fontSize="large" />
+              </Button>
+            </Box>
           </Tooltip></Box>
         </Box>
       </Box >
