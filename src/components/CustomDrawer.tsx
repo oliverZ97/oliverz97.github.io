@@ -1,4 +1,4 @@
-import { Box, Button, Drawer, Tooltip, SxProps, Theme } from '@mui/material';
+import { Box, Button, Drawer, Tooltip, SxProps, Theme, useTheme } from '@mui/material';
 import * as React from 'react';
 import { COLORS } from 'styling/constants';
 
@@ -20,6 +20,7 @@ interface CustomDrawerProps {
 
 export default function CustomDrawer({ children, position, icon, sx, title, onOpenFn }: CustomDrawerProps) {
 	const [open, setOpen] = React.useState(false);
+	const theme = useTheme();
 
 	const toggleDrawer =
 		(inOpen: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -36,11 +37,20 @@ export default function CustomDrawer({ children, position, icon, sx, title, onOp
 		};
 
 	return (
-		<Box sx={{ display: 'flex' }}>
+		<Box sx={{
+			display: 'flex', [theme.breakpoints.down("md")]: {
+				width: "100%",
+			},
+		}}>
 			<Tooltip title={title} arrow placement='right'>
 				<Button variant="contained" sx={{
 					position: "absolute", top: position?.top ?? "initial", bottom: position?.bottom ?? "initial", left: position?.left ?? "initial", right: position?.right ?? "initial", backgroundColor: COLORS.quiz.secondary, height: "60px", borderTopLeftRadius: 0, borderBottomLeftRadius: 0, "&:hover": {
 						backgroundColor: COLORS.quiz.main,
+					},
+					[theme.breakpoints.down("md")]: {
+						position: "initial",
+						width: "100%",
+						borderRadius: 0,
 					},
 				}} onClick={toggleDrawer(true)}>
 					{icon}

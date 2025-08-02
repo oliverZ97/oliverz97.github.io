@@ -34,6 +34,7 @@ interface SearchBarProps {
   handleGiveUp: () => void;
   endlessMode?: boolean;
   originalCharData: Character[];
+  showPreviewImage?: boolean;
 }
 
 export function SearchBar({
@@ -51,6 +52,7 @@ export function SearchBar({
   handleGiveUp,
   endlessMode = true,
   originalCharData,
+  showPreviewImage = true,
 }: SearchBarProps) {
   const theme = useTheme();
 
@@ -163,7 +165,7 @@ export function SearchBar({
           display: "flex",
           gap: 4,
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent: "center",
           borderRadius: 2,
           marginBottom: 2,
           paddingX: 2,
@@ -173,7 +175,11 @@ export function SearchBar({
           },
         }}
       >
-        <Box>
+        <Box sx={{
+          position: "absolute", left: 16, [theme.breakpoints.down("md")]: {
+            position: "initial"
+          },
+        }}>
           <Typography sx={{ color: "white" }}>{"Points: " + points}</Typography>
           <Typography sx={{ color: "white" }}>
             {"Tries: " + searchHistory.length}
@@ -183,9 +189,14 @@ export function SearchBar({
           sx={{
             display: "flex",
             alignItems: "center",
+            justifyContent: "center",
             gap: 1,
             position: "relative",
             marginTop: endlessMode ? 2 : 0,
+            width: "60%",
+            [theme.breakpoints.down("md")]: {
+              width: "100%",
+            },
           }}
         >
           <CharacterAutocomplete
@@ -194,7 +205,7 @@ export function SearchBar({
             disabled={isCorrect}
             value={selectedOption}
             handleSearchChange={handleSearchChange}
-            showPreviewImage
+            showPreviewImage={showPreviewImage}
           ></CharacterAutocomplete>
           {showGiveUp && !gaveUp && (
             <Button
@@ -207,7 +218,7 @@ export function SearchBar({
             </Button>
           )}
         </Box>
-        <Box sx={{ display: "flex", gap: 1 }}>
+        <Box sx={{ position: "absolute", right: 16, display: "flex", gap: 1, [theme.breakpoints.down("md")]: { flexDirection: "column", position: "initial" } }}>
           {endlessMode && (
             <ToggleButtonGroup
               value={difficulty}

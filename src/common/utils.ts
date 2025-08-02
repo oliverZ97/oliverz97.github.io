@@ -216,6 +216,7 @@ export enum QUIZ_KEY {
   CHAR = "charquiz",
   ANIME = "animequiz",
   IMAGE = "imagequiz",
+  BLUR = "blurquiz",
 }
 export function hasBeenSolvedToday(key: QUIZ_KEY) {
   const solvedInfo = localStorage.getItem(key + "_HasBeenSolvedToday");
@@ -276,21 +277,26 @@ export function getDailyScore(date: string): number {
   }
 }
 
-export function setDailyScore(date: string, score: number, key: QUIZ_KEY): void {
+export function setDailyScore(
+  date: string,
+  score: number,
+  key: QUIZ_KEY
+): void {
   const scores = localStorage.getItem("scorelog");
   if (scores) {
     const scoreLog = JSON.parse(scores);
     if (scoreLog[date]) {
       scoreLog[date][key] = score;
-      scoreLog[date].totalScore =
-        (scoreLog[date].totalScore || 0) + score;
+      scoreLog[date].totalScore = (scoreLog[date].totalScore || 0) + score;
     } else {
       scoreLog[date] = { [key]: score };
       scoreLog[date].totalScore = score;
     }
     localStorage.setItem("scorelog", JSON.stringify(scoreLog));
   } else {
-    localStorage.setItem("scorelog", JSON.stringify({ [date]: { [key]: score, totalScore: score } }));
+    localStorage.setItem(
+      "scorelog",
+      JSON.stringify({ [date]: { [key]: score, totalScore: score } })
+    );
   }
-
 }

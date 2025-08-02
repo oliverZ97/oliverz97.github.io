@@ -89,7 +89,7 @@ export default function MultipleChoiceQuiz({
     if (localScores) {
       scores = JSON.parse(localScores);
       scores.push(scoreObj);
-    } else [(scores = [scoreObj])];
+    } else[(scores = [scoreObj])];
 
     //sort
     scores.sort((a: Score, b: Score) => (a.points < b.points ? 1 : -1));
@@ -236,7 +236,7 @@ export default function MultipleChoiceQuiz({
   }
 
   return (
-    <Box position={"relative"}>
+    <Box position={"relative"} sx={{ overflowX: "hidden" }}>
       <Box
         sx={{
           borderRadius: 2,

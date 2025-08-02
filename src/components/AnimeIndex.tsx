@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { Anime } from "common/types";
 import { COLORS } from "styling/constants";
 
@@ -7,8 +7,10 @@ interface AnimeIndexProps {
 }
 
 export const AnimeIndex = ({ animeData }: AnimeIndexProps) => {
+  const theme = useTheme();
+
   return (
-    <Box>
+    <Box sx={{ [theme.breakpoints.down("md")]: { padding: 2 } }}>
       <Typography
         sx={{
           fontSize: "24px",
