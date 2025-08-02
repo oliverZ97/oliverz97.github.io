@@ -18,7 +18,6 @@ import {
   QUIZ_KEY,
   setDailyScore,
 } from "common/utils";
-import { LemonButton } from "components/LemonButton";
 import CharacterList from "./CharacterList";
 
 interface HintRef {
@@ -26,7 +25,6 @@ interface HintRef {
 }
 
 const BASEPOINTS = 1000;
-const REDUCEFACTOR = 1;
 const CHAR_SOLVED_KEY = QUIZ_KEY.BLUR + "_HasBeenSolvedToday";
 
 interface BasicCharacterQuizProps {
@@ -44,7 +42,6 @@ export default function BasicCharacterQuiz({
   const [selectedOption, setSelectedOption] = useState<Character | null>(null);
   const [targetChar, setTargetCharacter] = useState<Character | null>(null);
   const [points, setPoints] = useState(10000);
-  const [usedHints, setUsedHints] = useState(0);
   const [isCorrect, setIsCorrect] = useState(false);
   const [localCharData, setLocalCharData] = useState<Character[]>([]);
   const [scores, setScores] = useState<Score[]>([]);
@@ -106,7 +103,6 @@ export default function BasicCharacterQuiz({
     setLocalCharData([...charData.sort((a, b) => (a.Name < b.Name ? -1 : 1))]);
     setSearchHistory([]);
     setPoints(10000);
-    setUsedHints(0);
     setShowGiveUp(false);
     setGaveUp(false);
     if (genreHintRef.current) {
@@ -411,22 +407,6 @@ export default function BasicCharacterQuiz({
         originalCharData={charData}
         showPreviewImage={false}
       ></SearchBar>
-
-      {targetChar && isCorrect && (
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <LemonButton
-            onClick={(event) => changeQuizMode?.(event, 1)}
-            text="Next: Image Quiz"
-          />
-        </Box>
-      )}
       {(endlessMode || (!endlessMode && !isCorrect)) && (
         <CharacterList
           searchHistory={searchHistory}
