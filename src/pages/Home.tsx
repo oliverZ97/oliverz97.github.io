@@ -34,7 +34,6 @@ import { AnimeIndex } from "components/AnimeIndex";
 import { AnimeQuiz } from "components/AnimeQuiz/AnimeQuiz";
 import { getDailyScore, getDailyUTCDate } from "common/utils";
 import BlurredCharacterQuiz from "components/BlurredCharacterQuiz/BlurredCharacterQuiz";
-import DeviceDebug from "components/DeviceDebug";
 
 export interface Score {
   points: number;
@@ -149,7 +148,6 @@ const Home = () => {
 
         }}
       >
-        <DeviceDebug show={true} />
         <Box position={"relative"} sx={{
           [theme.breakpoints.down("md")]: {
             display: "none"
