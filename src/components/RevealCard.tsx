@@ -1,4 +1,5 @@
-import { Box, Button, Typography, useTheme } from "@mui/material";
+import { Theme } from "@emotion/react";
+import { Box, Button, SxProps, Typography, useTheme } from "@mui/material";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { COLORS } from "styling/constants";
 
@@ -8,11 +9,12 @@ interface RevealCardProps {
   cardTitle: string;
   costs?: number;
   onReveal?: () => void;
+  sx?: SxProps<Theme>;
 }
 
 export const RevealCard = forwardRef(
   (
-    { cardText, cardTitle, costs, onReveal, disabled }: RevealCardProps,
+    { cardText, cardTitle, costs, onReveal, disabled, sx }: RevealCardProps,
     ref
   ) => {
     const [revealHint, setRevealHint] = useState(false);
@@ -70,7 +72,8 @@ export const RevealCard = forwardRef(
           minHeight: "58px",
           padding: 0,
           borderRadius: "9px",
-          border: `2px solid ${COLORS.quiz.light}`,
+          border: `2px solid ${disabled ? COLORS.quiz.disabled_border : COLORS.quiz.light}`,
+          ...sx
         }}
         onClick={() => setRevealHint(true)}
         disabled={disabled}
@@ -78,7 +81,7 @@ export const RevealCard = forwardRef(
         <Box
           sx={{
             padding: 2,
-            backgroundColor: COLORS.quiz.main,
+            backgroundColor: disabled ? COLORS.quiz.disabled : COLORS.quiz.main,
             borderRadius: "8px",
             width: "100%",
             minHeight: "58px",
@@ -97,7 +100,7 @@ export const RevealCard = forwardRef(
             top: 0,
             background: revealHint
               ? "rgba(255, 255, 255, 0.0)"
-              : COLORS.quiz.main_rgba,
+              : disabled ? COLORS.quiz.disabled : COLORS.quiz.main_rgba,
             "@keyframes removeBlur": {
               "0%": {
                 background: COLORS.quiz.main_rgba,

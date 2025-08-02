@@ -22,6 +22,7 @@ export const COLORS = {
     light: "#90d0f0",
     hearts: "#d6477b",
     disabled: "#ccc8c9",
+    disabled_border: "#8a8788",
     light_red: "#d16b81"
   },
 };

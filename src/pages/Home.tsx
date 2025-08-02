@@ -7,6 +7,7 @@ import {
   DialogContentText,
   DialogTitle,
   Divider,
+  Hidden,
   Tab,
   Tabs,
   Tooltip,
@@ -144,190 +145,196 @@ const Home = () => {
           backgroundSize: "cover",
           maxWidth: "100%",
           minHeight: "100vh",
-          position: "relative",
+
         }}
       >
-        <DrawerBasic
-          title="Anime Index"
-          position={{ top: "120px" }}
-          icon={<ArticleIcon fontSize="large" />}
-          sx={{ padding: 2 }}
-        >
-          <AnimeIndex animeData={animeData} />
-        </DrawerBasic>
-
-        <DrawerBasic
-          title="Gamemodes"
-          position={{ top: "40px" }}
-          icon={<MenuIcon fontSize="large" />}
-          onOpenFn={() => {
-            setGetTotalScore(getDailyScore(getDailyUTCDate().toISOString()));
-          }}
-        >
-          <Box
-            minHeight={"100vh"}
-            display={"flex"}
-            flexDirection="column"
-            justifyContent={"space-between"}
+        <Box position={"relative"} sx={{
+          [theme.breakpoints.down("md")]: {
+            display: "none"
+          },
+        }}>
+          <DrawerBasic
+            title="Anime Index"
+            position={{ top: "120px" }}
+            icon={<ArticleIcon fontSize="large" />}
+            sx={{ padding: 2 }}
           >
-            <Box>
-              <Tabs
-                variant={matches ? "fullWidth" : "standard"}
-                orientation="vertical"
-                sx={{
-                  "& .MuiTabs-indicator": {
-                    backgroundColor: COLORS.quiz.light,
-                  },
-                }}
-                value={value}
-                onChange={handleChange}
-                aria-label="basic tabs example"
-              >
-                <Tab
-                  sx={{
-                    color: COLORS.quiz.light,
-                    "&.Mui-selected": {
-                      color: "white",
-                    },
-                  }}
-                  label="Daily Character Quiz"
-                  {...a11yProps(0)}
-                />
-                <Tab
-                  sx={{
-                    color: COLORS.quiz.light,
-                    "&.Mui-selected": {
-                      color: "white",
-                    },
-                  }}
-                  label="Daily Image Quiz"
-                  {...a11yProps(1)}
-                />
-                <Tab
-                  sx={{
-                    color: COLORS.quiz.light,
-                    "&.Mui-selected": {
-                      color: "white",
-                    },
-                  }}
-                  label="Daily Anime Quiz"
-                  {...a11yProps(2)}
-                />
-                <Divider sx={{ backgroundColor: "white", marginX: 1 }} />
+            <AnimeIndex animeData={animeData} />
+          </DrawerBasic>
 
-                <Tab
-                  sx={{
-                    color: COLORS.quiz.light,
-                    "&.Mui-selected": {
-                      color: "white",
-                    },
-                  }}
-                  label="Endless Character Quiz"
-                  {...a11yProps(4)}
-                />
-                <Tab
-                  sx={{
-                    color: COLORS.quiz.light,
-                    "&.Mui-selected": {
-                      color: "white",
-                    },
-                  }}
-                  label="Endless Image Quiz"
-                  {...a11yProps(5)}
-                />
-                <Tab
-                  sx={{
-                    color: COLORS.quiz.light,
-                    "&.Mui-selected": {
-                      color: "white",
-                    },
-                  }}
-                  label="Endless Anime Quiz"
-                  {...a11yProps(6)}
-                />
-                <Tab
-                  sx={{
-                    color: COLORS.quiz.light,
-                    "&.Mui-selected": {
-                      color: "white",
-                    },
-                  }}
-                  label="Multiple Choice Quiz"
-                  {...a11yProps(7)}
-                />
-                <Tab
-                  sx={{
-                    color: COLORS.quiz.light,
-                    "&.Mui-selected": {
-                      color: "white",
-                    },
-                  }}
-                  label="Kiss, Marry, Kill"
-                  {...a11yProps(8)}
-                />
-                <Tab
-                  sx={{
-                    color: COLORS.quiz.light,
-                    "&.Mui-selected": {
-                      color: "white",
-                    },
-                  }}
-                  label="Blurred Character Quiz"
-                  {...a11yProps(9)}
-                />
-              </Tabs>
-              <Divider sx={{ backgroundColor: "white", marginX: 1 }}></Divider>
-            </Box>
-            <Box padding={2} sx={{ color: "white" }}>
-              <Typography>Today's score:</Typography>
-              <Typography>
-                <Typography
-                  component={"span"}
-                  sx={{
-                    fontWeight: "bold",
-                    color: COLORS.quiz.light_red,
-                    marginRight: 1,
-                  }}
-                >
-                  {getTotalScore}
-                </Typography>
-                <Typography component={"span"} fontSize={12}>
-                  /30000
-                </Typography>
-              </Typography>
-            </Box>
-          </Box>
-        </DrawerBasic>
-
-        <Tooltip title={"How to play"} arrow placement="right">
-          <Box
-            sx={{
-              position: "absolute",
-              top: "200px",
-              left: 0,
-              zIndex: 1000,
+          <DrawerBasic
+            title="Gamemodes"
+            position={{ top: "40px" }}
+            icon={<MenuIcon fontSize="large" />}
+            onOpenFn={() => {
+              setGetTotalScore(getDailyScore(getDailyUTCDate().toISOString()));
             }}
           >
-            <Button
-              variant="outlined"
-              sx={{
-                backgroundColor: COLORS.quiz.secondary,
-                color: "white",
-                borderColor: "transparent",
-                height: "60px",
-                borderTopLeftRadius: 0,
-                borderBottomLeftRadius: 0,
-                "&:hover": {
-                  backgroundColor: COLORS.quiz.main,
-                  borderColor: "transparent",
-                },
-              }}
-              onClick={() => setShowManual(true)}
+            <Box
+              minHeight={"100vh"}
+              display={"flex"}
+              flexDirection="column"
+              justifyContent={"space-between"}
             >
-              <HelpOutlineIcon fontSize="large" />
-            </Button>
-          </Box>
-        </Tooltip>
+              <Box>
+                <Tabs
+                  variant={matches ? "fullWidth" : "standard"}
+                  orientation="vertical"
+                  sx={{
+                    "& .MuiTabs-indicator": {
+                      backgroundColor: COLORS.quiz.light,
+                    },
+                  }}
+                  value={value}
+                  onChange={handleChange}
+                  aria-label="basic tabs example"
+                >
+                  <Tab
+                    sx={{
+                      color: COLORS.quiz.light,
+                      "&.Mui-selected": {
+                        color: "white",
+                      },
+                    }}
+                    label="Daily Character Quiz"
+                    {...a11yProps(0)}
+                  />
+                  <Tab
+                    sx={{
+                      color: COLORS.quiz.light,
+                      "&.Mui-selected": {
+                        color: "white",
+                      },
+                    }}
+                    label="Daily Image Quiz"
+                    {...a11yProps(1)}
+                  />
+                  <Tab
+                    sx={{
+                      color: COLORS.quiz.light,
+                      "&.Mui-selected": {
+                        color: "white",
+                      },
+                    }}
+                    label="Daily Anime Quiz"
+                    {...a11yProps(2)}
+                  />
+                  <Divider sx={{ backgroundColor: "white", marginX: 1 }} />
+
+                  <Tab
+                    sx={{
+                      color: COLORS.quiz.light,
+                      "&.Mui-selected": {
+                        color: "white",
+                      },
+                    }}
+                    label="Endless Character Quiz"
+                    {...a11yProps(4)}
+                  />
+                  <Tab
+                    sx={{
+                      color: COLORS.quiz.light,
+                      "&.Mui-selected": {
+                        color: "white",
+                      },
+                    }}
+                    label="Endless Image Quiz"
+                    {...a11yProps(5)}
+                  />
+                  <Tab
+                    sx={{
+                      color: COLORS.quiz.light,
+                      "&.Mui-selected": {
+                        color: "white",
+                      },
+                    }}
+                    label="Endless Anime Quiz"
+                    {...a11yProps(6)}
+                  />
+                  <Tab
+                    sx={{
+                      color: COLORS.quiz.light,
+                      "&.Mui-selected": {
+                        color: "white",
+                      },
+                    }}
+                    label="Multiple Choice Quiz"
+                    {...a11yProps(7)}
+                  />
+                  <Tab
+                    sx={{
+                      color: COLORS.quiz.light,
+                      "&.Mui-selected": {
+                        color: "white",
+                      },
+                    }}
+                    label="Kiss, Marry, Kill"
+                    {...a11yProps(8)}
+                  />
+                  <Tab
+                    sx={{
+                      color: COLORS.quiz.light,
+                      "&.Mui-selected": {
+                        color: "white",
+                      },
+                    }}
+                    label="Blurred Character Quiz"
+                    {...a11yProps(9)}
+                  />
+                </Tabs>
+                <Divider sx={{ backgroundColor: "white", marginX: 1 }}></Divider>
+              </Box>
+              <Box padding={2} sx={{ color: "white" }}>
+                <Typography>Today's score:</Typography>
+                <Typography>
+                  <Typography
+                    component={"span"}
+                    sx={{
+                      fontWeight: "bold",
+                      color: COLORS.quiz.light_red,
+                      marginRight: 1,
+                    }}
+                  >
+                    {getTotalScore}
+                  </Typography>
+                  <Typography component={"span"} fontSize={12}>
+                    /30000
+                  </Typography>
+                </Typography>
+              </Box>
+            </Box>
+          </DrawerBasic>
+
+          <Tooltip title={"How to play"} arrow placement="right">
+            <Box
+              sx={{
+                position: "absolute",
+                top: "200px",
+                left: 0,
+                zIndex: 1000,
+              }}
+            >
+              <Button
+                variant="outlined"
+                sx={{
+                  backgroundColor: COLORS.quiz.secondary,
+                  color: "white",
+                  borderColor: "transparent",
+                  height: "60px",
+                  borderTopLeftRadius: 0,
+                  borderBottomLeftRadius: 0,
+                  "&:hover": {
+                    backgroundColor: COLORS.quiz.main,
+                    borderColor: "transparent",
+                  },
+                }}
+                onClick={() => setShowManual(true)}
+              >
+                <HelpOutlineIcon fontSize="large" />
+              </Button>
+            </Box>
+          </Tooltip>
+        </Box>
 
         <Box
           sx={{
@@ -335,13 +342,16 @@ const Home = () => {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
+            [theme.breakpoints.down("md")]: {
+              minHeight: "100vh",
+            },
           }}
         >
           <Box
             sx={{
               width: "80%",
               [theme.breakpoints.down("md")]: {
-                marginLeft: "70px",
+                width: "95%",
               },
             }}
           >
@@ -412,13 +422,192 @@ const Home = () => {
             width: "100%",
             display: "flex",
             justifyContent: "flex-end",
+            [theme.breakpoints.down("md")]: {
+              display: "none",
+            },
           }}
         >
           <Typography sx={{ color: "white", padding: 1 }}>
             {"Version " + VERSION}
           </Typography>
         </Box>
-      </Box>
+        <Box position={"sticky"} sx={{
+          bottom: 0, display: "flex", zIndex: 1000, [theme.breakpoints.up("md")]: {
+            display: "none"
+          },
+        }}>
+          <Box sx={{ backgroundColor: "red", display: "flex", justifyContent: "center" }} flexGrow={1}>
+            <DrawerBasic
+              title="Anime Index"
+              icon={<ArticleIcon fontSize="large" />}
+            >
+              <AnimeIndex animeData={animeData} />
+            </DrawerBasic>
+          </Box>
+          <Box sx={{ backgroundColor: "green", display: "flex", justifyContent: "center" }} flexGrow={1}><DrawerBasic
+            title="Gamemodes"
+            icon={<MenuIcon fontSize="large" />}
+            onOpenFn={() => {
+              setGetTotalScore(getDailyScore(getDailyUTCDate().toISOString()));
+            }}
+          >
+            <Box
+              minHeight={"100vh"}
+              display={"flex"}
+              flexDirection="column"
+              justifyContent={"space-between"}
+            >
+              <Box>
+                <Tabs
+                  variant={matches ? "fullWidth" : "standard"}
+                  orientation="vertical"
+                  sx={{
+                    "& .MuiTabs-indicator": {
+                      backgroundColor: COLORS.quiz.light,
+                    },
+                  }}
+                  value={value}
+                  onChange={handleChange}
+                  aria-label="basic tabs example"
+                >
+                  <Tab
+                    sx={{
+                      color: COLORS.quiz.light,
+                      "&.Mui-selected": {
+                        color: "white",
+                      },
+                    }}
+                    label="Daily Character Quiz"
+                    {...a11yProps(0)}
+                  />
+                  <Tab
+                    sx={{
+                      color: COLORS.quiz.light,
+                      "&.Mui-selected": {
+                        color: "white",
+                      },
+                    }}
+                    label="Daily Image Quiz"
+                    {...a11yProps(1)}
+                  />
+                  <Tab
+                    sx={{
+                      color: COLORS.quiz.light,
+                      "&.Mui-selected": {
+                        color: "white",
+                      },
+                    }}
+                    label="Daily Anime Quiz"
+                    {...a11yProps(2)}
+                  />
+                  <Divider sx={{ backgroundColor: "white", marginX: 1 }} />
+
+                  <Tab
+                    sx={{
+                      color: COLORS.quiz.light,
+                      "&.Mui-selected": {
+                        color: "white",
+                      },
+                    }}
+                    label="Endless Character Quiz"
+                    {...a11yProps(4)}
+                  />
+                  <Tab
+                    sx={{
+                      color: COLORS.quiz.light,
+                      "&.Mui-selected": {
+                        color: "white",
+                      },
+                    }}
+                    label="Endless Image Quiz"
+                    {...a11yProps(5)}
+                  />
+                  <Tab
+                    sx={{
+                      color: COLORS.quiz.light,
+                      "&.Mui-selected": {
+                        color: "white",
+                      },
+                    }}
+                    label="Endless Anime Quiz"
+                    {...a11yProps(6)}
+                  />
+                  <Tab
+                    sx={{
+                      color: COLORS.quiz.light,
+                      "&.Mui-selected": {
+                        color: "white",
+                      },
+                    }}
+                    label="Multiple Choice Quiz"
+                    {...a11yProps(7)}
+                  />
+                  <Tab
+                    sx={{
+                      color: COLORS.quiz.light,
+                      "&.Mui-selected": {
+                        color: "white",
+                      },
+                    }}
+                    label="Kiss, Marry, Kill"
+                    {...a11yProps(8)}
+                  />
+                  <Tab
+                    sx={{
+                      color: COLORS.quiz.light,
+                      "&.Mui-selected": {
+                        color: "white",
+                      },
+                    }}
+                    label="Blurred Character Quiz"
+                    {...a11yProps(9)}
+                  />
+                </Tabs>
+                <Divider sx={{ backgroundColor: "white", marginX: 1 }}></Divider>
+              </Box>
+              <Box padding={2} sx={{ color: "white" }}>
+                <Typography>Today's score:</Typography>
+                <Typography>
+                  <Typography
+                    component={"span"}
+                    sx={{
+                      fontWeight: "bold",
+                      color: COLORS.quiz.light_red,
+                      marginRight: 1,
+                    }}
+                  >
+                    {getTotalScore}
+                  </Typography>
+                  <Typography component={"span"} fontSize={12}>
+                    /30000
+                  </Typography>
+                </Typography>
+              </Box>
+            </Box>
+          </DrawerBasic></Box>
+          <Box sx={{ display: "flex", justifyContent: "center", maxWidth: "33.33%", boxShadow: 1 }} flexGrow={1}> <Tooltip title={"How to play"} arrow placement="right">
+
+            <Button
+              variant="outlined"
+              sx={{
+                backgroundColor: COLORS.quiz.secondary,
+                color: "white",
+                borderColor: "transparent",
+                height: "60px",
+                width: "100%",
+                "&:hover": {
+                  backgroundColor: COLORS.quiz.main,
+                  borderColor: "transparent",
+                },
+                borderRadius: 0,
+              }}
+              onClick={() => setShowManual(true)}
+            >
+              <HelpOutlineIcon fontSize="large" />
+            </Button>
+          </Tooltip></Box>
+        </Box>
+      </Box >
       <Dialog
         sx={{
           "& .MuiDialog-paper": {
@@ -519,3 +708,4 @@ const Home = () => {
 };
 
 export default Home;
+

@@ -1,4 +1,4 @@
-import { Box, Button, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { RevealCard } from "components/RevealCard";
 import { COLORS } from "styling/constants";
 import { SearchBar } from "../BasicCharacterQuiz/SearchBar";
@@ -52,6 +52,8 @@ export default function BasicCharacterQuiz({
   const [showGiveUp, setShowGiveUp] = useState(false);
   const [gaveUp, setGaveUp] = useState(false);
   const [blurFactor, setBlurFactor] = useState(50);
+
+  const theme = useTheme();
 
   const genreHintRef = useRef<HintRef | null>(null);
   const animeHintRef = useRef<HintRef | null>(null);
@@ -208,7 +210,7 @@ export default function BasicCharacterQuiz({
           if (localScores) {
             scores = JSON.parse(localScores);
             scores.push(scoreObj);
-          } else [(scores = [scoreObj])];
+          } else[(scores = [scoreObj])];
 
           //sort
           scores.sort((a: Score, b: Score) => (a.points < b.points ? 1 : -1));
@@ -307,30 +309,56 @@ export default function BasicCharacterQuiz({
           alignItems={"center"}
           gap={4}
           width={"100%"}
-          border="1px solid red"
+          position={"relative"}
+          sx={{
+            [theme.breakpoints.down("md")]: {
+              flexDirection: "column",
+            },
+          }}
         >
           <Box
-            marginRight={"20px"}
-            paddingLeft={"calc(50% - 100px)"}
-            display={"flex"}
-            flexDirection={"column"}
-            justifyContent={"space-between"}
-            gap={2}
-            border={`1px solid ${COLORS.quiz.light}`}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              gap: 2,
+              position: "absolute",
+              left: "calc(50% - 420px)", // Position from center: half of parent width - desired margin - card width
+              zIndex: 1,
+              [theme.breakpoints.down("md")]: {
+                position: "initial",
+              },
+            }}
           >
             <RevealCard
-              onReveal={() => {}}
+              onReveal={() => { }}
               ref={tagsHintRef}
               cardText={targetChar?.Studio ?? ""}
               cardTitle="Studio"
               disabled={searchHistory.length <= 3}
+              sx={{
+                width: "250px",
+              }}
             ></RevealCard>
             <RevealCard
-              onReveal={() => {}}
+              onReveal={() => { }}
               ref={tagsHintRef}
               cardText={targetChar?.First_Release_Year.toString() ?? ""}
               cardTitle="First Release Year"
               disabled={searchHistory.length <= 6}
+              sx={{
+                width: "250px",
+              }}
+            ></RevealCard>
+            <RevealCard
+              onReveal={() => { }}
+              ref={tagsHintRef}
+              cardText={targetChar?.Anime.toString() ?? ""}
+              cardTitle="Anime"
+              disabled={searchHistory.length <= 8}
+              sx={{
+                width: "250px",
+              }}
             ></RevealCard>
           </Box>
           {targetChar && (
