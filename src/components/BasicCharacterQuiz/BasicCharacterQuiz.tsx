@@ -409,7 +409,9 @@ export default function BasicCharacterQuiz({
               src={getImgSrc(targetChar?.Name)}
             ></Box>
           </Box>
-          <LemonButton onClick={(event) => changeQuizMode?.(event, 1)} text="Next: Image Quiz" />
+          {!endlessMode && (
+            <LemonButton onClick={(event) => changeQuizMode?.(event, 1)} text="Next: Image Quiz" />
+          )}
         </Box>
       )}
       {(endlessMode || (!endlessMode && !isCorrect)) && (

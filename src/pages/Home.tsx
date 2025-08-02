@@ -1,11 +1,6 @@
 import {
   Box,
   Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
   Divider,
   Hidden,
   Tab,
@@ -323,7 +318,6 @@ const Home = () => {
                   },
                 }}
                 onClick={() => {
-                  console.log('Help button clicked');
                   dialogManager.setShowManual(true);
                 }}
               >
@@ -582,134 +576,38 @@ const Home = () => {
               </Box>
             </Box>
           </DrawerBasic></Box>
-          <Box sx={{ display: "flex", justifyContent: "center", maxWidth: "33.33%", boxShadow: 1 }} flexGrow={1}> <Tooltip title={"How to play"} arrow placement="right">
-            <Box
-              sx={{
-                position: "absolute",
-                top: "200px",
-                left: 0,
-                zIndex: 1000,
-              }}
-            >
-              <Button
-                variant="outlined"
+          <Box sx={{ display: "flex", justifyContent: "center", maxWidth: "33.33%", boxShadow: 1 }} flexGrow={1}>
+            <Tooltip title={"How to play"} arrow placement="right">
+              <Box
                 sx={{
-                  backgroundColor: COLORS.quiz.secondary,
-                  color: "white",
-                  borderColor: "transparent",
-                  height: "60px",
-                  borderRadius: 0,
-                  "&:hover": {
-                    backgroundColor: COLORS.quiz.main,
-                    borderColor: "transparent",
-                  },
-                }}
-                onClick={() => {
-                  console.log('Help button clicked');
-                  dialogManager.setShowManual(true);
+                  width: "100%",
                 }}
               >
-                <HelpOutlineIcon fontSize="large" />
-              </Button>
-            </Box>
-          </Tooltip></Box>
+                <Button
+                  variant="outlined"
+                  sx={{
+                    backgroundColor: COLORS.quiz.secondary,
+                    color: "white",
+                    borderColor: "transparent",
+                    height: "60px",
+                    borderRadius: 0,
+                    "&:hover": {
+                      backgroundColor: COLORS.quiz.main,
+                      borderColor: "transparent",
+                    },
+                    width: "100%",
+                  }}
+                  onClick={() => {
+                    console.log('Help button clicked');
+                    dialogManager.setShowManual(true);
+                  }}
+                >
+                  <HelpOutlineIcon fontSize="large" />
+                </Button>
+              </Box>
+            </Tooltip></Box>
         </Box>
       </Box >
-      <Dialog
-        sx={{
-          "& .MuiDialog-paper": {
-            backgroundColor: COLORS.quiz.background,
-            color: "white",
-          },
-        }}
-        open={showManual}
-        onClose={handleClose}
-      >
-        <DialogTitle>How to play</DialogTitle>
-        <DialogContent>
-          <DialogContentText sx={{ color: "white" }}>
-            <Typography>
-              This website offers various anime-related quizzes. You can choose
-              between character quizzes, image quizzes, and anime quizzes. Each
-              quiz has a daily mode and an endless mode. You can switch the
-              gamemodes using the upper left menu icon.{" "}
-            </Typography>
-            <Typography sx={{ marginTop: 2 }}>
-              When guessing the character, you will be given clues to help you.
-              Pay attention to the clues and use them to make your guess!
-            </Typography>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 1,
-                marginTop: 2,
-              }}
-            >
-              <Box
-                sx={{
-                  borderRadius: "50px",
-                  backgroundColor: COLORS.quiz.success,
-                  border: "2px solid",
-                  borderColor: COLORS.quiz.success_light,
-                  width: "30px",
-                  height: "30px",
-                }}
-              ></Box>
-              <Typography>All Clues Match</Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 1,
-                marginTop: 2,
-              }}
-            >
-              <Box
-                sx={{
-                  borderRadius: "50px",
-                  backgroundColor: COLORS.quiz.warning,
-                  border: "2px solid",
-                  borderColor: COLORS.quiz.warning_light,
-                  width: "30px",
-                  height: "30px",
-                }}
-              ></Box>
-              <Typography>At least one of the Clues Match</Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 1,
-                marginTop: 2,
-              }}
-            >
-              <Box
-                sx={{
-                  borderRadius: "50px",
-                  backgroundColor: COLORS.quiz.main,
-                  border: "2px solid",
-                  borderColor: COLORS.quiz.light,
-                  width: "30px",
-                  height: "30px",
-                }}
-              ></Box>
-              <Typography>None of the Clues Match</Typography>
-            </Box>
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            variant="outlined"
-            sx={{ color: "white", borderColor: "white" }}
-            onClick={handleClose}
-          >
-            Let's Go
-          </Button>
-        </DialogActions>
-      </Dialog>
     </>
   );
 };
