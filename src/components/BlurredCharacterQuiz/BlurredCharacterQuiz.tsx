@@ -60,8 +60,8 @@ export default function BasicCharacterQuiz({
   const studioHintRef = useRef<HintRef | null>(null);
   const streakRef = useRef<StreakRef | null>(null);
 
-  const SCORE_KEY = endlessMode ? "scores" : "dailyScores";
-  const STREAK_KEY = endlessMode ? "basicStreak" : "dailyBasicStreak";
+  const SCORE_KEY = endlessMode ? "blurScores" : "dailyBlurScores";
+  const STREAK_KEY = endlessMode ? "blurStreak" : "dailyBlurStreak";
 
   useEffect(() => {
     if (charData.length > 0 && localCharData.length === 0) {
