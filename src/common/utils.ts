@@ -1,6 +1,7 @@
 export function getRandomNumberFromUTCDate(
   max: number,
-  isPrevious = false
+  isPrevious = false,
+  mode: "blurred" | "normal" = "normal",
 ): number {
   if (max <= 0 || !Number.isInteger(max)) {
     throw new Error("Max must be a positive integer.");
@@ -15,10 +16,15 @@ export function getRandomNumberFromUTCDate(
   hash = (hash ^ (hash >>> 13)) * 0xc2b2ae35;
   hash = hash ^ (hash >>> 16);
 
+  //adjust hash based on mode
+  if (mode === "blurred") {
+    hash = (hash ^ (hash >>> 8)) * 0x85ebca6b;
+    hash = (hash ^ (hash >>> 4)) * 0xc2b2ae35;
+    hash = hash ^ (hash >>> 2);
+  }
+
   const positiveHash = Math.abs(hash);
-
   const randomNumber = positiveHash % max;
-
   return randomNumber;
 }
 
@@ -83,6 +89,9 @@ export function getDailyUTCDate() {
   const utcDate = new Date(
     Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
   ); // Create UTC date at 00:00:00
+
+  //add days for TESTING purposes
+  //utcDate.setUTCDate(utcDate.getUTCDate() + 0);
   return utcDate;
 }
 
@@ -142,6 +151,7 @@ interface GetRandomCharacterParams {
   isPrevious?: boolean;
   usePreviousVersion?: boolean;
   gender?: string;
+  quizMode?: "blurred" | "normal";
 }
 export function getRandomCharacter(
   charData: Character[],
@@ -150,6 +160,7 @@ export function getRandomCharacter(
     isPrevious = false,
     usePreviousVersion = false,
     gender = "all",
+    quizMode = "normal"
   }: GetRandomCharacterParams = {}
 ) {
   if (usePreviousVersion) {
@@ -167,13 +178,18 @@ export function getRandomCharacter(
   if (endlessMode) {
     index = Math.floor(Math.random() * charArray.length);
   } else {
+    // Create a seed based on the quizMode to get different daily characters
+    // for different quiz modes
     if (isPrevious) {
-      index = getRandomNumberFromUTCDate(charArray.length, true);
+      // Use a hash function to create a different but consistent index for each mode
+      index = (getRandomNumberFromUTCDate(charArray.length, true, quizMode)) % charArray.length;
+
     } else {
-      index = getRandomNumberFromUTCDate(charArray.length);
+      index = (getRandomNumberFromUTCDate(charArray.length, false, quizMode)) % charArray.length;
     }
   }
   const target = charArray[index];
+  console.log(target.Name);
   return target as Character;
 }
 

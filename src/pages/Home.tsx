@@ -2,9 +2,6 @@ import {
   Box,
   Button,
   Divider,
-  Hidden,
-  Tab,
-  Tabs,
   Tooltip,
   Typography,
   useMediaQuery,
@@ -30,6 +27,7 @@ import { AnimeQuiz } from "components/AnimeQuiz/AnimeQuiz";
 import { getDailyScore, getDailyUTCDate } from "common/utils";
 import BlurredCharacterQuiz from "components/BlurredCharacterQuiz/BlurredCharacterQuiz";
 import { dialogManager } from "components/HowToPlayDialogPortal";
+import { NavigationTabs } from "components/NavigationTabs";
 
 export interface Score {
   points: number;
@@ -44,7 +42,6 @@ const Home = () => {
   );
 
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("md"));
 
   useEffect(() => {
     if (charData.length === 0) {
@@ -166,111 +163,7 @@ const Home = () => {
               justifyContent={"space-between"}
             >
               <Box>
-                <Tabs
-                  variant={matches ? "fullWidth" : "standard"}
-                  orientation="vertical"
-                  sx={{
-                    "& .MuiTabs-indicator": {
-                      backgroundColor: COLORS.quiz.light,
-                    },
-                  }}
-                  value={value}
-                  onChange={handleChange}
-                  aria-label="basic tabs example"
-                >
-                  <Tab
-                    sx={{
-                      color: COLORS.quiz.light,
-                      "&.Mui-selected": {
-                        color: "white",
-                      },
-                    }}
-                    label="Daily Character Quiz"
-                    {...a11yProps(0)}
-                  />
-                  <Tab
-                    sx={{
-                      color: COLORS.quiz.light,
-                      "&.Mui-selected": {
-                        color: "white",
-                      },
-                    }}
-                    label="Daily Image Quiz"
-                    {...a11yProps(1)}
-                  />
-                  <Tab
-                    sx={{
-                      color: COLORS.quiz.light,
-                      "&.Mui-selected": {
-                        color: "white",
-                      },
-                    }}
-                    label="Daily Anime Quiz"
-                    {...a11yProps(2)}
-                  />
-                  <Divider sx={{ backgroundColor: "white", marginX: 1 }} />
-
-                  <Tab
-                    sx={{
-                      color: COLORS.quiz.light,
-                      "&.Mui-selected": {
-                        color: "white",
-                      },
-                    }}
-                    label="Endless Character Quiz"
-                    {...a11yProps(4)}
-                  />
-                  <Tab
-                    sx={{
-                      color: COLORS.quiz.light,
-                      "&.Mui-selected": {
-                        color: "white",
-                      },
-                    }}
-                    label="Endless Image Quiz"
-                    {...a11yProps(5)}
-                  />
-                  <Tab
-                    sx={{
-                      color: COLORS.quiz.light,
-                      "&.Mui-selected": {
-                        color: "white",
-                      },
-                    }}
-                    label="Endless Anime Quiz"
-                    {...a11yProps(6)}
-                  />
-                  <Tab
-                    sx={{
-                      color: COLORS.quiz.light,
-                      "&.Mui-selected": {
-                        color: "white",
-                      },
-                    }}
-                    label="Multiple Choice Quiz"
-                    {...a11yProps(7)}
-                  />
-                  <Tab
-                    sx={{
-                      color: COLORS.quiz.light,
-                      "&.Mui-selected": {
-                        color: "white",
-                      },
-                    }}
-                    label="Kiss, Marry, Kill"
-                    {...a11yProps(8)}
-                  />
-                  <Tab
-                    sx={{
-                      color: COLORS.quiz.light,
-                      "&.Mui-selected": {
-                        color: "white",
-                      },
-                    }}
-                    label="Blurred Character Quiz"
-                    {...a11yProps(9)}
-                  />
-                </Tabs>
+                <NavigationTabs value={value} handleChange={handleChange} />
                 <Divider sx={{ backgroundColor: "white", marginX: 1 }}></Divider>
               </Box>
               <Box padding={2} sx={{ color: "white" }}>
@@ -287,7 +180,7 @@ const Home = () => {
                     {getTotalScore}
                   </Typography>
                   <Typography component={"span"} fontSize={12}>
-                    /30000
+                    /40000
                   </Typography>
                 </Typography>
               </Box>
@@ -368,17 +261,23 @@ const Home = () => {
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={2}>
-              <AnimeQuiz animeData={animeData} endlessMode={false}></AnimeQuiz>
+              <AnimeQuiz animeData={animeData} endlessMode={false} changeQuizMode={(event: React.SyntheticEvent, id: number) =>
+                handleChange(event, id)
+              }></AnimeQuiz>
             </CustomTabPanel>
 
-            <CustomTabPanel value={value} index={4}>
+            <CustomTabPanel value={value} index={3}>
+              <BlurredCharacterQuiz charData={charData} endlessMode={false}></BlurredCharacterQuiz>
+            </CustomTabPanel>
+
+            <CustomTabPanel value={value} index={5}>
               <BasicCharacterQuiz
                 charData={charData}
                 endlessMode={true}
               ></BasicCharacterQuiz>
             </CustomTabPanel>
 
-            <CustomTabPanel value={value} index={5}>
+            <CustomTabPanel value={value} index={6}>
               <ImageCharacterQuiz
                 animeData={animeData}
                 charData={charData}
@@ -386,22 +285,22 @@ const Home = () => {
               ></ImageCharacterQuiz>
             </CustomTabPanel>
 
-            <CustomTabPanel value={value} index={6}>
+            <CustomTabPanel value={value} index={7}>
               <AnimeQuiz animeData={animeData} endlessMode={true}></AnimeQuiz>
             </CustomTabPanel>
 
-            <CustomTabPanel value={value} index={7}>
+            <CustomTabPanel value={value} index={8}>
               <MultipleChoiceQuiz
                 animeData={animeData}
                 charData={charData}
               ></MultipleChoiceQuiz>
             </CustomTabPanel>
 
-            <CustomTabPanel value={value} index={8}>
+            <CustomTabPanel value={value} index={9}>
               <KissMarryKill charData={charData}></KissMarryKill>
             </CustomTabPanel>
 
-            <CustomTabPanel value={value} index={9}>
+            <CustomTabPanel value={value} index={10}>
               <BlurredCharacterQuiz charData={charData}></BlurredCharacterQuiz>
             </CustomTabPanel>
           </Box>
@@ -449,111 +348,7 @@ const Home = () => {
               justifyContent={"space-between"}
             >
               <Box>
-                <Tabs
-                  variant={matches ? "fullWidth" : "standard"}
-                  orientation="vertical"
-                  sx={{
-                    "& .MuiTabs-indicator": {
-                      backgroundColor: COLORS.quiz.light,
-                    },
-                  }}
-                  value={value}
-                  onChange={handleChange}
-                  aria-label="basic tabs example"
-                >
-                  <Tab
-                    sx={{
-                      color: COLORS.quiz.light,
-                      "&.Mui-selected": {
-                        color: "white",
-                      },
-                    }}
-                    label="Daily Character Quiz"
-                    {...a11yProps(0)}
-                  />
-                  <Tab
-                    sx={{
-                      color: COLORS.quiz.light,
-                      "&.Mui-selected": {
-                        color: "white",
-                      },
-                    }}
-                    label="Daily Image Quiz"
-                    {...a11yProps(1)}
-                  />
-                  <Tab
-                    sx={{
-                      color: COLORS.quiz.light,
-                      "&.Mui-selected": {
-                        color: "white",
-                      },
-                    }}
-                    label="Daily Anime Quiz"
-                    {...a11yProps(2)}
-                  />
-                  <Divider sx={{ backgroundColor: "white", marginX: 1 }} />
-
-                  <Tab
-                    sx={{
-                      color: COLORS.quiz.light,
-                      "&.Mui-selected": {
-                        color: "white",
-                      },
-                    }}
-                    label="Endless Character Quiz"
-                    {...a11yProps(4)}
-                  />
-                  <Tab
-                    sx={{
-                      color: COLORS.quiz.light,
-                      "&.Mui-selected": {
-                        color: "white",
-                      },
-                    }}
-                    label="Endless Image Quiz"
-                    {...a11yProps(5)}
-                  />
-                  <Tab
-                    sx={{
-                      color: COLORS.quiz.light,
-                      "&.Mui-selected": {
-                        color: "white",
-                      },
-                    }}
-                    label="Endless Anime Quiz"
-                    {...a11yProps(6)}
-                  />
-                  <Tab
-                    sx={{
-                      color: COLORS.quiz.light,
-                      "&.Mui-selected": {
-                        color: "white",
-                      },
-                    }}
-                    label="Multiple Choice Quiz"
-                    {...a11yProps(7)}
-                  />
-                  <Tab
-                    sx={{
-                      color: COLORS.quiz.light,
-                      "&.Mui-selected": {
-                        color: "white",
-                      },
-                    }}
-                    label="Kiss, Marry, Kill"
-                    {...a11yProps(8)}
-                  />
-                  <Tab
-                    sx={{
-                      color: COLORS.quiz.light,
-                      "&.Mui-selected": {
-                        color: "white",
-                      },
-                    }}
-                    label="Blurred Character Quiz"
-                    {...a11yProps(9)}
-                  />
-                </Tabs>
+                <NavigationTabs value={value} handleChange={handleChange} />
                 <Divider sx={{ backgroundColor: "white", marginX: 1 }}></Divider>
               </Box>
               <Box padding={2} sx={{ color: "white" }}>
@@ -570,7 +365,7 @@ const Home = () => {
                     {getTotalScore}
                   </Typography>
                   <Typography component={"span"} fontSize={12}>
-                    /30000
+                    /40000
                   </Typography>
                 </Typography>
               </Box>
@@ -598,7 +393,6 @@ const Home = () => {
                     width: "100%",
                   }}
                   onClick={() => {
-                    console.log('Help button clicked');
                     dialogManager.setShowManual(true);
                   }}
                 >

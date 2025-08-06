@@ -17,6 +17,7 @@ export default function CharacterList({
   const theme = useTheme();
 
   function checkValueDiff(value1: number, value2: number) {
+    if (!value1 || !value2) return;
     if (value1 > value2) {
       return <ArrowDownwardIcon />;
     } else if (value1 < value2) {
@@ -371,7 +372,7 @@ export default function CharacterList({
 
                 }}
               >
-                <Typography>{item.Height}</Typography>
+                <Typography>{item.Height ?? "?"}</Typography>
                 {checkValueDiff(item.Height ?? 0, targetChar?.Height ?? 0)}
               </Box>
             </Box>

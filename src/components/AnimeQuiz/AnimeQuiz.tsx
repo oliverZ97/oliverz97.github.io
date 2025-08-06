@@ -16,6 +16,7 @@ import { SyntheticEvent, useEffect, useRef, useState } from "react";
 import { COLORS } from "styling/constants";
 import AnimeList from "./AnimeList";
 import { SearchBar } from "./SearchBar";
+import { LemonButton } from "components/LemonButton";
 
 const BASEPOINTS = 150;
 const REDUCEFACTOR = 10;
@@ -24,9 +25,10 @@ const ANIME_SOLVED_KEY = QUIZ_KEY.ANIME + "_HasBeenSolvedToday";
 interface AnimeQuizProps {
   animeData: Anime[];
   endlessMode?: boolean;
+  changeQuizMode?: (event: React.SyntheticEvent, id: number) => void;
 }
 
-export const AnimeQuiz = ({ animeData, endlessMode }: AnimeQuizProps) => {
+export const AnimeQuiz = ({ animeData, endlessMode, changeQuizMode }: AnimeQuizProps) => {
   const [searchHistory, setSearchHistory] = useState<Anime[]>([]);
   const [selectedOption, setSelectedOption] = useState<Anime | null>(null);
   const [targetAnime, setTargetAnime] = useState<Anime | null>(null);
@@ -292,6 +294,7 @@ export const AnimeQuiz = ({ animeData, endlessMode }: AnimeQuizProps) => {
         <Box
           sx={{
             display: "flex",
+            flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
           }}
@@ -327,6 +330,7 @@ export const AnimeQuiz = ({ animeData, endlessMode }: AnimeQuizProps) => {
               {targetAnime?.Name}
             </Typography>
           </Box>
+          {!endlessMode && <LemonButton onClick={(event) => changeQuizMode?.(event, 3)} text="Next: Blurred Character Quiz" />}
         </Box>
       )}
 

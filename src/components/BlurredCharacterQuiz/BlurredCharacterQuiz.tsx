@@ -36,7 +36,6 @@ interface BasicCharacterQuizProps {
 export default function BasicCharacterQuiz({
   charData,
   endlessMode = true,
-  changeQuizMode,
 }: BasicCharacterQuizProps) {
   const [searchHistory, setSearchHistory] = useState<Character[]>([]);
   const [selectedOption, setSelectedOption] = useState<Character | null>(null);
@@ -49,13 +48,16 @@ export default function BasicCharacterQuiz({
   const [showGiveUp, setShowGiveUp] = useState(false);
   const [gaveUp, setGaveUp] = useState(false);
   const [blurFactor, setBlurFactor] = useState(50);
+  // Add a state to track if we should freeze the blur
+  const [freezeBlur, setFreezeBlur] = useState(false);
+  // Store the last blur value before freezing
+  const [frozenBlurValue, setFrozenBlurValue] = useState(50);
 
   const theme = useTheme();
 
-  const genreHintRef = useRef<HintRef | null>(null);
+  const releaseHintRef = useRef<HintRef | null>(null);
   const animeHintRef = useRef<HintRef | null>(null);
   const studioHintRef = useRef<HintRef | null>(null);
-  const tagsHintRef = useRef<HintRef | null>(null);
   const streakRef = useRef<StreakRef | null>(null);
 
   const SCORE_KEY = endlessMode ? "scores" : "dailyScores";
@@ -72,6 +74,13 @@ export default function BasicCharacterQuiz({
       init();
     }
   }, [localCharData, init, targetChar]);
+
+  // Ensure blur factor is properly set whenever targetChar changes
+  useEffect(() => {
+    if (targetChar && !isCorrect && !gaveUp) {
+      setBlurWithFreeze(50); // Reset to full blur when a new character is loaded
+    }
+  }, [targetChar, isCorrect, gaveUp]);
 
   useEffect(() => {
     if (selectedOption) {
@@ -93,29 +102,63 @@ export default function BasicCharacterQuiz({
   }, []);
 
   useEffect(() => {
-    if (points <= 0) {
+    if (points <= 0 && !showGiveUp) {
+      // Only set showGiveUp to true when points reach zero
+      // Freeze the blur when showing the "Give Up" button
       setShowGiveUp(true);
+      setFreezeBlur(true);
+      // Store the current blur value
+      setFrozenBlurValue(blurFactor);
+
+      // Force a direct log to see what's happening with blur values
     }
-  }, [points]);
+  }, [points, showGiveUp, blurFactor]);
+
+  // Safeguard to ensure blurFactor is never accidentally 0 unless the puzzle is solved
+  useEffect(() => {
+    if (blurFactor === 0 && !isCorrect && !gaveUp && targetChar && !freezeBlur) {
+      // If blur factor is 0 but the puzzle isn't solved, reset it
+      // But don't do this if blur is frozen
+      setBlurWithFreeze(50);
+    }
+  }, [blurFactor, isCorrect, gaveUp, targetChar, freezeBlur]);
+
+  function setBlurWithFreeze(newValue: number) {
+    // If blur is frozen, always use the frozen value unless setting to 0 for correct answer
+    if (freezeBlur) {
+      if (newValue === 0) {
+        // Only allow setting to 0 (for correct answer)
+        setBlurFactor(0);
+      } else {
+        // Otherwise keep the frozen value
+        setBlurFactor(frozenBlurValue);
+      }
+    } else {
+      // Normal case - not frozen
+      setBlurFactor(newValue);
+    }
+  }
 
   function resetQuiz() {
+    // Reset all blur-related states
+    setFreezeBlur(false);
+    setFrozenBlurValue(50);
     setBlurFactor(50);
+
+    // Reset other states
     setLocalCharData([...charData.sort((a, b) => (a.Name < b.Name ? -1 : 1))]);
     setSearchHistory([]);
     setPoints(10000);
     setShowGiveUp(false);
     setGaveUp(false);
-    if (genreHintRef.current) {
-      genreHintRef.current.resetHint();
+    if (releaseHintRef.current) {
+      releaseHintRef.current.resetHint();
     }
     if (animeHintRef.current) {
       animeHintRef?.current.resetHint();
     }
     if (studioHintRef.current) {
       studioHintRef?.current.resetHint();
-    }
-    if (tagsHintRef.current) {
-      tagsHintRef?.current.resetHint();
     }
   }
 
@@ -124,19 +167,24 @@ export default function BasicCharacterQuiz({
     resetQuiz();
 
     //select random character
-    let target = getRandomCharacter(charData, { endlessMode: endlessMode });
+    let target = getRandomCharacter(charData, { endlessMode: endlessMode, quizMode: "blurred" });
     if (endlessMode) {
       while (!isIncludedInDifficulty(target, difficulty)) {
-        target = getRandomCharacter(charData, { endlessMode: endlessMode });
+        target = getRandomCharacter(charData, { endlessMode: endlessMode, quizMode: "blurred" });
       }
     } else {
       const hasSolvedToday = hasBeenSolvedToday(QUIZ_KEY.BLUR);
       const gaveUpToday = gaveUpOnTodaysQuiz(QUIZ_KEY.BLUR);
       if (hasSolvedToday) {
         setIsCorrect(true);
+        setBlurFactor(0);
+        setFrozenBlurValue(0);
       }
       if (gaveUpToday) {
         setGaveUp(true);
+        setBlurFactor(0);
+        setFrozenBlurValue(0);
+
       }
     }
     setTargetCharacter(target as Character);
@@ -149,7 +197,7 @@ export default function BasicCharacterQuiz({
     setLocalCharData(tempArray);
   }
 
-  function calculateSelectionPoints(correctFieldCount: number) {
+  function calculateSelectionPoints() {
     const baseValue = BASEPOINTS;
     let roundPoints = baseValue;
     setPoints(points - roundPoints < 0 ? 0 : points - roundPoints);
@@ -169,7 +217,8 @@ export default function BasicCharacterQuiz({
       setSearchHistory([value, ...searchHistory]);
 
       if (res.all.length + 1 === Object.keys(targetChar).length) {
-        setBlurFactor(0);
+        // Always allow setting blur to 0 for a correct answer
+        setBlurWithFreeze(0);
         if (reason !== "giveUp") {
           const jsConfetti = new JSConfetti();
           jsConfetti.addConfetti({
@@ -219,10 +268,22 @@ export default function BasicCharacterQuiz({
         }
         return;
       }
-      setBlurFactor(blurFactor - 5);
+
+      // Calculate new points before changing blur
+      const oldPoints = points;
 
       //calculate point reduce
-      calculateSelectionPoints(res.short.length);
+      calculateSelectionPoints();
+
+      // Check if we just hit zero points
+      if (oldPoints > 0 && points <= 0) {
+        // If we just hit zero points, freeze the blur at current value
+        setFreezeBlur(true);
+        setFrozenBlurValue(blurFactor);
+      } else if (!freezeBlur) {
+        // Only change blur if we're not frozen
+        setBlurWithFreeze(blurFactor - 5);
+      }
     }
   }
 
@@ -328,7 +389,7 @@ export default function BasicCharacterQuiz({
           >
             <RevealCard
               onReveal={() => { }}
-              ref={tagsHintRef}
+              ref={studioHintRef}
               cardText={targetChar?.Studio ?? ""}
               cardTitle="Studio"
               disabled={searchHistory.length <= 3}
@@ -338,7 +399,7 @@ export default function BasicCharacterQuiz({
             ></RevealCard>
             <RevealCard
               onReveal={() => { }}
-              ref={tagsHintRef}
+              ref={releaseHintRef}
               cardText={targetChar?.First_Release_Year.toString() ?? ""}
               cardTitle="First Release Year"
               disabled={searchHistory.length <= 6}
@@ -348,7 +409,7 @@ export default function BasicCharacterQuiz({
             ></RevealCard>
             <RevealCard
               onReveal={() => { }}
-              ref={tagsHintRef}
+              ref={animeHintRef}
               cardText={targetChar?.Anime.toString() ?? ""}
               cardTitle="Anime"
               disabled={searchHistory.length <= 8}
@@ -363,6 +424,9 @@ export default function BasicCharacterQuiz({
               sx={{
                 gap: 2,
                 position: "relative",
+                width: "300px",
+                height: "420px",
+                overflow: "hidden",
               }}
             >
               <Box
@@ -371,20 +435,56 @@ export default function BasicCharacterQuiz({
                 height={"420px"}
                 sx={{
                   objectFit: "cover",
+                  opacity: blurFactor === 0 ? 1 : 0,
+                  transition: "opacity 0.3s ease",
                 }}
                 src={getImgSrc(targetChar.Name)}
-              ></Box>
-              <Box
-                sx={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  height: "420px",
-                  backdropFilter: `blur(${blurFactor}px)`,
-                }}
               />
+
+              {/* Blurred copy of the image */}
+              {blurFactor > 0 && (
+                <Box
+                  sx={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    width: "300px",
+                    height: "420px",
+                    backgroundImage: `url(${getImgSrc(targetChar.Name)})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    // Use frozen blur value if blur is frozen
+                    filter: `blur(${freezeBlur ? frozenBlurValue : blurFactor}px)`,
+                    transform: "scale(1.1)", // Prevent edge artifacts from blur
+                    opacity: blurFactor === 0 ? 0 : 1, // Hide when solved
+                  }}
+                />
+              )}
+
+              {/* Additional overlay for consistent blur on different displays */}
+              {blurFactor > 0 && (
+                <Box
+                  sx={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    height: "420px",
+                    // Use frozen blur value if blur is frozen
+                    backdropFilter: `blur(${freezeBlur
+                      ? Math.min(frozenBlurValue / 2, 20)
+                      : Math.min(blurFactor / 2, 20)}px)`,
+                    backgroundColor: `rgba(255, 255, 255, ${freezeBlur
+                      ? frozenBlurValue / 100 * 0.1
+                      : blurFactor / 100 * 0.1
+                      })`,
+                    zIndex: 1,
+                  }}
+                />
+              )}
             </Box>
           )}
         </Box>
@@ -399,13 +499,27 @@ export default function BasicCharacterQuiz({
         selectedOption={selectedOption}
         charData={localCharData}
         handleSearchChange={handleSearchChange}
-        init={init}
-        handleGiveUp={() => handleSearchChange(null, targetChar, "giveUp")}
+        init={() => {
+          // Reset freeze state when initializing
+          setFreezeBlur(false);
+          // When restarting, make sure to properly set the blur
+          init();
+        }}
+        handleGiveUp={() => {
+          // Store current blur value before giving up
+          setFrozenBlurValue(blurFactor);
+          setFreezeBlur(true);
+          console.log('Giving up - freezing blur at:', blurFactor);
+
+          // Then handle the give up action
+          handleSearchChange(null, targetChar, "giveUp");
+        }}
         showGiveUp={showGiveUp}
         gaveUp={gaveUp}
         endlessMode={endlessMode}
         originalCharData={charData}
         showPreviewImage={false}
+        mode="blurred"
       ></SearchBar>
       {(endlessMode || (!endlessMode && !isCorrect)) && (
         <CharacterList

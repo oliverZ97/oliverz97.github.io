@@ -35,6 +35,7 @@ interface SearchBarProps {
   endlessMode?: boolean;
   originalCharData: Character[];
   showPreviewImage?: boolean;
+  mode?: "blurred" | "normal";
 }
 
 export function SearchBar({
@@ -53,6 +54,7 @@ export function SearchBar({
   endlessMode = true,
   originalCharData,
   showPreviewImage = true,
+  mode = "normal",
 }: SearchBarProps) {
   const theme = useTheme();
 
@@ -79,12 +81,14 @@ export function SearchBar({
           endlessMode: false,
           isPrevious: true,
           usePreviousVersion: true,
+          quizMode: mode
         });
         return char.Name;
       }
       const char = getRandomCharacter(charData, {
         endlessMode: false,
         isPrevious: true,
+        quizMode: mode
       });
       return char.Name;
     } else {
@@ -207,18 +211,18 @@ export function SearchBar({
             handleSearchChange={handleSearchChange}
             showPreviewImage={showPreviewImage}
           ></CharacterAutocomplete>
+
+        </Box>
+        <Box sx={{ position: "absolute", right: 16, display: "flex", gap: 1, [theme.breakpoints.down("md")]: { flexDirection: "column", position: "initial" } }}>
           {showGiveUp && !gaveUp && (
             <Button
               onClick={handleGiveUp}
-              sx={{ height: "40px", position: "absolute", right: -100 }}
               color="error"
               variant="contained"
             >
               Give Up!
             </Button>
           )}
-        </Box>
-        <Box sx={{ position: "absolute", right: 16, display: "flex", gap: 1, [theme.breakpoints.down("md")]: { flexDirection: "column", position: "initial" } }}>
           {endlessMode && (
             <ToggleButtonGroup
               value={difficulty}
@@ -251,6 +255,7 @@ export function SearchBar({
                 color: "white",
                 "&:hover": {
                   backgroundColor: COLORS.quiz.secondary,
+                  border: `2px solid ${COLORS.quiz.light}`,
                 },
               }}
               variant="outlined"
