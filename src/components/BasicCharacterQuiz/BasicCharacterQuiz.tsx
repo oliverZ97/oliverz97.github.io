@@ -20,6 +20,7 @@ import {
   setDailyScore,
 } from "common/utils";
 import { LemonButton } from "components/LemonButton";
+import Debug from "components/Debug";
 
 interface HintRef {
   resetHint: () => void;
@@ -59,6 +60,7 @@ export default function BasicCharacterQuiz({
   const streakRef = useRef<StreakRef | null>(null);
 
   const theme = useTheme();
+  const isDevMode = localStorage.getItem("mode") === "dev";
 
   const SCORE_KEY = endlessMode ? "scores" : "dailyScores";
   const STREAK_KEY = endlessMode ? "basicStreak" : "dailyBasicStreak";
@@ -420,6 +422,7 @@ export default function BasicCharacterQuiz({
           targetChar={targetChar}
         ></CharacterList>
       )}
+      {isDevMode && charData && <Debug charData={charData} animeData={[]} />}
     </Box>
   );
 }

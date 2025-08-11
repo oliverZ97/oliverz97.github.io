@@ -2,12 +2,12 @@ export function getRandomNumberFromUTCDate(
   max: number,
   isPrevious = false,
   mode: "blurred" | "normal" = "normal",
+  date?: Date
 ): number {
   if (max <= 0 || !Number.isInteger(max)) {
     throw new Error("Max must be a positive integer.");
   }
-
-  const utcDate = isPrevious ? getYesterdayUTCDate() : getDailyUTCDate();
+  const utcDate = date ? cleanUTCDate(date) : isPrevious ? getYesterdayUTCDate() : getDailyUTCDate();
   const dailyTimestamp = utcDate.getTime();
 
   // Hash the daily timestamp to create a more distributed value.
@@ -16,11 +16,14 @@ export function getRandomNumberFromUTCDate(
   hash = (hash ^ (hash >>> 13)) * 0xc2b2ae35;
   hash = hash ^ (hash >>> 16);
 
-  //adjust hash based on mode
+  // For blurred mode, create a different but consistent hash
   if (mode === "blurred") {
-    hash = (hash ^ (hash >>> 8)) * 0x85ebca6b;
-    hash = (hash ^ (hash >>> 4)) * 0xc2b2ae35;
-    hash = hash ^ (hash >>> 2);
+    // Use a different seed value but maintain uniform distribution
+    const blurSeed = 0x27d4eb2d;
+    hash = (hash ^ blurSeed) >>> 0; // Ensure unsigned 32-bit integer
+    hash = (hash ^ (hash >>> 16)) * 0x85ebca6b;
+    hash = (hash ^ (hash >>> 13)) * 0xc2b2ae35;
+    hash = hash ^ (hash >>> 16);
   }
 
   const positiveHash = Math.abs(hash);
@@ -36,8 +39,14 @@ export function getYesterdayUTCDate(): Date {
   return yesterday;
 }
 
+export function cleanUTCDate(date: Date): Date {
+  date.setUTCHours(0, 0, 0, 0);
+  return date;
+}
+
 import { Anime, Character, Difficulty } from "common/types";
 import { getNLatestVersion, getPreLatestVersion } from "./version";
+import { DateTime } from "luxon";
 
 export function sortObjectsByKey(
   element1: Record<string, any>,
@@ -152,6 +161,7 @@ interface GetRandomCharacterParams {
   usePreviousVersion?: boolean;
   gender?: string;
   quizMode?: "blurred" | "normal";
+  numberOfEntries?: number;
 }
 export function getRandomCharacter(
   charData: Character[],
@@ -189,11 +199,10 @@ export function getRandomCharacter(
     }
   }
   const target = charArray[index];
-  console.log(target.Name);
   return target as Character;
 }
 
-interface GetRandomCharacterParams {
+interface GetRandomAnimeParams {
   endlessMode?: boolean;
   isPrevious?: boolean;
   usePreviousVersion?: boolean;
@@ -204,7 +213,7 @@ export function getRandomAnime(
     endlessMode = true,
     isPrevious = false,
     usePreviousVersion = false,
-  }: GetRandomCharacterParams
+  }: GetRandomAnimeParams
 ) {
   if (usePreviousVersion) {
     const preLatestVersion = getNLatestVersion(1);
@@ -315,4 +324,62 @@ export function setDailyScore(
       JSON.stringify({ [date]: { [key]: score, totalScore: score } })
     );
   }
+}
+
+export function debugGetRandomCharacter(
+  charData: Character[],
+  {
+    endlessMode = true,
+    isPrevious = false,
+    usePreviousVersion = false,
+    gender = "all",
+    quizMode = "normal",
+    numberOfEntries = 1
+  }: GetRandomCharacterParams = {}
+) {
+  let charArray = Object.values(charData);
+  if (gender !== "all") {
+    charArray = charArray.filter((char) => char.Sex.toLowerCase() === gender);
+  }
+  const targets: Record<string, Character> = {};
+  const stats: Record<string, number> = {};
+  for (let i = 0; i < numberOfEntries; i++) {
+    let index;
+    let date;
+    if (!isPrevious) {
+      date = DateTime.now().plus({ days: i + 1 }).toJSDate();
+    } else {
+      date = DateTime.now().minus({ days: i + 1 }).toJSDate();
+    }
+    if (usePreviousVersion) {
+      const preLatestVersion = getNLatestVersion(1);
+      charData = charData.filter((char) => {
+        const res = compareVersions(char.Version, preLatestVersion.version);
+        return res < 0;
+      });
+    }
+
+    if (endlessMode) {
+      index = Math.floor(Math.random() * charArray.length);
+    } else {
+      // Create a seed based on the quizMode to get different daily characters
+      // for different quiz modes
+      if (isPrevious) {
+        // Use a hash function to create a different but consistent index for each mode
+        index = (getRandomNumberFromUTCDate(charArray.length, true, quizMode, date)) % charArray.length;
+
+      } else {
+        index = (getRandomNumberFromUTCDate(charArray.length, false, quizMode, date)) % charArray.length;
+      }
+    }
+    const target = charArray[index];
+    targets[date.toISOString()] = {
+      ...target,
+    };
+    stats[index] = (stats[index] || 0) + 1;
+  }
+
+  console.log(stats);
+
+  return targets;
 }
