@@ -420,71 +420,81 @@ export default function BasicCharacterQuiz({
           </Box>
           {targetChar && (
             <Box
-              key={targetChar.Name}
+              key={`${targetChar.Name}-container-${Date.now()}`} // Force re-render with unique key
               sx={{
                 gap: 2,
                 position: "relative",
                 width: "300px",
                 height: "420px",
                 overflow: "hidden",
+                backgroundColor: "rgba(200, 200, 200, 0.2)",
+                border: "1px solid rgba(0, 0, 0, 0.1)",
               }}
             >
+
+
+              {/* Primary blurred background using multiple techniques */}
               <Box
-                width={"300px"}
-                component={"img"}
-                height={"420px"}
                 sx={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  width: "300px",
+                  height: "420px",
+                  backgroundImage: `url(${getImgSrc(targetChar.Name)})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  filter: `blur(${freezeBlur ? frozenBlurValue : blurFactor}px)`,
+                  transform: "scale(1.05)",
+                  zIndex: 1,
+                  willChange: "filter, opacity",
+                }}
+              />
+
+              {/* Redundant image element as additional backup */}
+              <Box
+                component="img"
+                src={getImgSrc(targetChar.Name)}
+                sx={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "300px",
+                  height: "420px",
+                  objectFit: "cover",
+                  filter: `blur(${freezeBlur ? frozenBlurValue : blurFactor}px)`,
+                  opacity: blurFactor > 0 ? 0.5 : 0, // Low opacity backup when blurred
+                  zIndex: 1,
+                }}
+                loading="eager"
+              />
+
+              {/* Clean image for when solved */}
+              <Box
+                component="img"
+                src={getImgSrc(targetChar.Name)}
+                sx={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "300px",
+                  height: "420px",
                   objectFit: "cover",
                   opacity: blurFactor === 0 ? 1 : 0,
                   transition: "opacity 0.3s ease",
+                  zIndex: 2,
                 }}
-                src={getImgSrc(targetChar.Name)}
+                loading="eager"
+                onError={(e) => {
+                  // If image fails to load, try reloading once
+                  const target = e.currentTarget;
+                  const currentSrc = target.src;
+                  target.src = "";
+                  setTimeout(() => { target.src = currentSrc; }, 200);
+                }}
               />
-
-              {/* Blurred copy of the image */}
-              {blurFactor > 0 && (
-                <Box
-                  sx={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    width: "300px",
-                    height: "420px",
-                    backgroundImage: `url(${getImgSrc(targetChar.Name)})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    // Use frozen blur value if blur is frozen
-                    filter: `blur(${freezeBlur ? frozenBlurValue : blurFactor}px)`,
-                    transform: "scale(1.1)", // Prevent edge artifacts from blur
-                    opacity: blurFactor === 0 ? 0 : 1, // Hide when solved
-                  }}
-                />
-              )}
-
-              {/* Additional overlay for consistent blur on different displays */}
-              {blurFactor > 0 && (
-                <Box
-                  sx={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    height: "420px",
-                    // Use frozen blur value if blur is frozen
-                    backdropFilter: `blur(${freezeBlur
-                      ? Math.min(frozenBlurValue / 2, 20)
-                      : Math.min(blurFactor / 2, 20)}px)`,
-                    backgroundColor: `rgba(255, 255, 255, ${freezeBlur
-                      ? frozenBlurValue / 100 * 0.1
-                      : blurFactor / 100 * 0.1
-                      })`,
-                    zIndex: 1,
-                  }}
-                />
-              )}
             </Box>
           )}
         </Box>
