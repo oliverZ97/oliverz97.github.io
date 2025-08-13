@@ -305,7 +305,7 @@ export const HowToPlayDialogPortal: React.FC = () => {
                     <Calendar
                         title="Score Calendar"
                         data={calendarData}
-                        cellStyling={{ height: "65px", width: "65px" }}
+                        cellStyling={{ height: "65px", width: "80px" }}
                         ignoreOpener={true}
                         onClose={handleCloseScoreCalendar}
                     />
