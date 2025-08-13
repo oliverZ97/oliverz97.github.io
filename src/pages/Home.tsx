@@ -4,7 +4,6 @@ import {
   Divider,
   Tooltip,
   Typography,
-  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -24,10 +23,12 @@ import ArticleIcon from "@mui/icons-material/Article";
 import { KissMarryKill } from "components/KissMarryKill/KissMarryKill";
 import { AnimeIndex } from "components/AnimeIndex";
 import { AnimeQuiz } from "components/AnimeQuiz/AnimeQuiz";
-import { getDailyScore, getDailyUTCDate } from "common/utils";
+import { formatScoresForCalendar, getDailyScore, getDailyUTCDate, getScoreLogs } from "common/utils";
 import BlurredCharacterQuiz from "components/BlurredCharacterQuiz/BlurredCharacterQuiz";
-import { dialogManager } from "components/HowToPlayDialogPortal";
+import { dialogManager } from "components/DialogPortal";
 import { NavigationTabs } from "components/NavigationTabs";
+import SportsScoreIcon from '@mui/icons-material/SportsScore';
+import { CalendarEntry } from "components/Calendar";
 
 export interface Score {
   points: number;
@@ -40,8 +41,12 @@ const Home = () => {
   const [getTotalScore, setGetTotalScore] = useState(
     getDailyScore(getDailyUTCDate().toISOString())
   );
-
   const theme = useTheme();
+
+  function getCalendarData() {
+    const scoreLogs = getScoreLogs();
+    return formatScoresForCalendar(scoreLogs);
+  }
 
   useEffect(() => {
     if (charData.length === 0) {
@@ -106,13 +111,6 @@ const Home = () => {
     );
   }
 
-  function a11yProps(index: number) {
-    return {
-      id: `simple-tab-${index}`,
-      "aria-controls": `simple-tabpanel-${index}`,
-    };
-  }
-
   const [value, setValue] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -166,23 +164,26 @@ const Home = () => {
                 <NavigationTabs value={value} handleChange={handleChange} />
                 <Divider sx={{ backgroundColor: "white", marginX: 1 }}></Divider>
               </Box>
-              <Box padding={2} sx={{ color: "white" }}>
-                <Typography>Today's score:</Typography>
-                <Typography>
-                  <Typography
-                    component={"span"}
-                    sx={{
-                      fontWeight: "bold",
-                      color: COLORS.quiz.light_red,
-                      marginRight: 1,
-                    }}
-                  >
-                    {getTotalScore}
+              <Box display={"flex"} justifyContent={"space-between"} alignItems={"center"}>
+
+                <Box padding={2} sx={{ color: "white" }}>
+                  <Typography>Today's score:</Typography>
+                  <Typography>
+                    <Typography
+                      component={"span"}
+                      sx={{
+                        fontWeight: "bold",
+                        color: COLORS.quiz.light_red,
+                        marginRight: 1,
+                      }}
+                    >
+                      {getTotalScore}
+                    </Typography>
+                    <Typography component={"span"} fontSize={12}>
+                      /40000
+                    </Typography>
                   </Typography>
-                  <Typography component={"span"} fontSize={12}>
-                    /40000
-                  </Typography>
-                </Typography>
+                </Box>
               </Box>
             </Box>
           </DrawerBasic>
@@ -215,6 +216,38 @@ const Home = () => {
                 }}
               >
                 <HelpOutlineIcon fontSize="large" />
+              </Button>
+            </Box>
+          </Tooltip>
+
+          <Tooltip title={"Score Calendar"} arrow placement="right">
+            <Box
+              sx={{
+                position: "absolute",
+                top: "280px",
+                left: 0,
+                zIndex: 1000,
+              }}
+            >
+              <Button
+                variant="outlined"
+                sx={{
+                  backgroundColor: COLORS.quiz.secondary,
+                  color: "white",
+                  borderColor: "transparent",
+                  height: "60px",
+                  borderTopLeftRadius: 0,
+                  borderBottomLeftRadius: 0,
+                  "&:hover": {
+                    backgroundColor: COLORS.quiz.main,
+                    borderColor: "transparent",
+                  },
+                }}
+                onClick={() => {
+                  dialogManager.setShowScoreCalendar(true, getCalendarData());
+                }}
+              >
+                <SportsScoreIcon fontSize="large" />
               </Button>
             </Box>
           </Tooltip>
@@ -401,6 +434,7 @@ const Home = () => {
               </Box>
             </Tooltip></Box>
         </Box>
+
       </Box >
     </>
   );

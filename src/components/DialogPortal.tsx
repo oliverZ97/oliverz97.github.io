@@ -2,15 +2,29 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { Dialog, DialogTitle, DialogContent, DialogContentText, Typography, Box, DialogActions, Button } from "@mui/material";
 import { COLORS } from "styling/constants";
+import Calendar from './Calendar';
+
+// Define dialog types
+export type DialogType = 'howToPlay' | 'scoreCalendar';
+
+// Define calendar data type
+export interface CalendarData {
+    // Define your calendar data structure here
+    [date: string]: any;
+}
 
 // Create a singleton dialog manager that's independent from React's component tree
 class DialogManager {
     private static instance: DialogManager;
-    private listeners: ((show: boolean) => void)[] = [];
+    private listeners: ((dialogStates: Record<DialogType, boolean>, calendarData?: CalendarData) => void)[] = [];
     private showManualState: boolean;
+    private showScoreCalendarState: boolean;
+    private calendarDataState: CalendarData | undefined;
 
     private constructor() {
         this.showManualState = localStorage.getItem("showManual") !== "false" ? true : false;
+        this.showScoreCalendarState = false;
+        this.calendarDataState = undefined;
     }
 
     public static getInstance(): DialogManager {
@@ -20,28 +34,78 @@ class DialogManager {
         return DialogManager.instance;
     }
 
-    // Get current state
+    // Get current state for manual
     get showManual(): boolean {
         return this.showManualState;
     }
 
-    // Set state and notify all subscribers
+    // Get current state for score calendar
+    get showScoreCalendar(): boolean {
+        return this.showScoreCalendarState;
+    }
+
+    // Get calendar data
+    get calendarData(): CalendarData | undefined {
+        return this.calendarDataState;
+    }
+
+    // Get all dialog states
+    get dialogStates(): Record<DialogType, boolean> {
+        return {
+            howToPlay: this.showManualState,
+            scoreCalendar: this.showScoreCalendarState
+        };
+    }
+
+    // Set manual dialog state and notify all subscribers
     setShowManual(show: boolean): void {
-        console.log('DialogManager: setShowManual called with', show);
+        //console.log('DialogManager: setShowManual called with', show);
         this.showManualState = show;
         this.notifyListeners();
     }
 
-    // Close dialog and save to localStorage
+    // Set score calendar dialog state and notify all subscribers
+    setShowScoreCalendar(show: boolean, calendarData?: CalendarData): void {
+        //console.log('DialogManager: setShowScoreCalendar called with', show);
+        this.showScoreCalendarState = show;
+        if (calendarData) {
+            this.calendarDataState = calendarData;
+        }
+        this.notifyListeners();
+    }
+
+    // Open a specific dialog (and close others)
+    openDialog(type: DialogType, calendarData?: CalendarData): void {
+        if (type === 'howToPlay') {
+            this.showManualState = true;
+            this.showScoreCalendarState = false;
+        } else if (type === 'scoreCalendar') {
+            this.showManualState = false;
+            this.showScoreCalendarState = true;
+            if (calendarData) {
+                this.calendarDataState = calendarData;
+            }
+        }
+        this.notifyListeners();
+    }
+
+    // Close manual dialog and save to localStorage
     handleCloseManual(): void {
-        console.log('DialogManager: handleCloseManual called');
+        //console.log('DialogManager: handleCloseManual called');
         localStorage.setItem("showManual", "false");
         this.showManualState = false;
         this.notifyListeners();
     }
 
+    // Close score calendar dialog
+    handleCloseScoreCalendar(): void {
+        //console.log('DialogManager: handleCloseScoreCalendar called');
+        this.showScoreCalendarState = false;
+        this.notifyListeners();
+    }
+
     // Add a new listener
-    subscribe(listener: (show: boolean) => void): () => void {
+    subscribe(listener: (dialogStates: Record<DialogType, boolean>, calendarData?: CalendarData) => void): () => void {
         this.listeners.push(listener);
         // Return unsubscribe function
         return () => {
@@ -51,8 +115,13 @@ class DialogManager {
 
     // Notify all listeners of state change
     private notifyListeners(): void {
-        console.log('DialogManager: notifying', this.listeners.length, 'listeners with state', this.showManualState);
-        this.listeners.forEach(listener => listener(this.showManualState));
+        // console.log('DialogManager: notifying', this.listeners.length, 'listeners with states',
+        //     {
+        //         howToPlay: this.showManualState,
+        //         scoreCalendar: this.showScoreCalendarState,
+        //         calendarData: this.calendarDataState
+        //     });
+        this.listeners.forEach(listener => listener(this.dialogStates, this.calendarDataState));
     }
 }
 
@@ -61,24 +130,29 @@ export const dialogManager = DialogManager.getInstance();
 
 // Component that will render the dialog using a portal
 export const HowToPlayDialogPortal: React.FC = () => {
-    const [showDialog, setShowDialog] = useState(dialogManager.showManual);
+    const [dialogStates, setDialogStates] = useState(dialogManager.dialogStates);
+    const [calendarData, setCalendarData] = useState<CalendarData | undefined>(dialogManager.calendarData);
 
     useEffect(() => {
         // Subscribe to changes
-        const unsubscribe = dialogManager.subscribe((show) => {
-            setShowDialog(show);
+        const unsubscribe = dialogManager.subscribe((states, data) => {
+            setDialogStates(states);
+            if (data) setCalendarData(data);
         });
 
         // Cleanup subscription
         return () => unsubscribe();
     }, []);
 
-    const handleClose = () => {
+    const handleCloseManual = () => {
         dialogManager.handleCloseManual();
     };
 
+    const handleCloseScoreCalendar = () => {
+        dialogManager.handleCloseScoreCalendar();
+    };
+
     // Create and manage the portal container
-    // Using a more reliable approach to handle the portal element
     const [portalElement, setPortalElement] = useState<HTMLElement | null>(null);
 
     useEffect(() => {
@@ -95,10 +169,11 @@ export const HowToPlayDialogPortal: React.FC = () => {
         // Cleanup function
         return () => {
             // In cleanup, we don't remove the element to avoid issues with React 18 StrictMode
-            // This is a safer approach that prevents potential issues with double unmounting
         };
-    }, []);    // Prepare the dialog content
-    const dialogContent = (
+    }, []);
+
+    // Prepare the manual dialog content
+    const manualDialogContent = (
         <Dialog
             sx={{
                 "& .MuiDialog-paper": {
@@ -106,8 +181,8 @@ export const HowToPlayDialogPortal: React.FC = () => {
                     color: "white",
                 }
             }}
-            open={showDialog}
-            onClose={handleClose}
+            open={dialogStates.howToPlay}
+            onClose={handleCloseManual}
             keepMounted={false}
             TransitionProps={{
                 appear: false,
@@ -196,7 +271,7 @@ export const HowToPlayDialogPortal: React.FC = () => {
                     sx={{ color: "white", borderColor: "white" }}
                     onClick={(e) => {
                         e.stopPropagation();
-                        handleClose();
+                        handleCloseManual();
                     }}
                 >
                     Let's Go
@@ -205,9 +280,49 @@ export const HowToPlayDialogPortal: React.FC = () => {
         </Dialog>
     );
 
+    // Score calendar dialog content
+    const scoreCalendarDialogContent = (
+        <Dialog
+            sx={{
+                "& .MuiDialog-paper": {
+                    backgroundColor: COLORS.quiz.background,
+                    color: "white",
+                    maxWidth: "95vw",
+                    width: "auto"
+                }
+            }}
+            open={dialogStates.scoreCalendar}
+            onClose={handleCloseScoreCalendar}
+            keepMounted={false}
+            TransitionProps={{
+                appear: false,
+                mountOnEnter: true,
+                unmountOnExit: true
+            }}
+        >
+            <DialogContent>
+                {calendarData && (
+                    <Calendar
+                        title="Score Calendar"
+                        data={calendarData}
+                        cellStyling={{ height: "65px", width: "65px" }}
+                        ignoreOpener={true}
+                        onClose={handleCloseScoreCalendar}
+                    />
+                )}
+            </DialogContent>
+        </Dialog>
+    );
+
     // Use ReactDOM.createPortal to render outside the component tree
     if (!portalElement) return null;
 
-    // Use the stable portalElement reference for createPortal
-    return ReactDOM.createPortal(dialogContent, portalElement);
+    // Return both dialogs at once through the portal
+    return ReactDOM.createPortal(
+        <>
+            {manualDialogContent}
+            {dialogStates.scoreCalendar && scoreCalendarDialogContent}
+        </>,
+        portalElement
+    );
 };

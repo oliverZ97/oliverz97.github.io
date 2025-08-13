@@ -109,6 +109,7 @@ export function cleanUTCDate(date: Date): Date {
 import { Anime, Character, Difficulty } from "common/types";
 import { getNLatestVersion, getPreLatestVersion } from "./version";
 import { DateTime } from "luxon";
+import { CalendarEntry } from "components/Calendar";
 
 export function sortObjectsByKey(
   element1: Record<string, any>,
@@ -277,7 +278,7 @@ export function getRandomCharacter(
 
       if (recentChars.includes(potentialTarget.Name)) {
         // For testing/debugging only: track that we detected a duplicate
-        console.debug('Detected duplicate daily character:', potentialTarget.Name);
+        //console.debug('Detected duplicate daily character:', potentialTarget.Name);
       }
     }
   }
@@ -338,7 +339,7 @@ export function getRandomAnime(
 
       if (recentAnimes.includes(potentialTarget.Name)) {
         // For testing/debugging only
-        console.debug('Detected duplicate daily anime:', potentialTarget.Name);
+        //console.debug('Detected duplicate daily anime:', potentialTarget.Name);
       }
     }
   }
@@ -702,4 +703,26 @@ export function debugGetRandomCharacter(
   console.log(`Lower variance indicates more even distribution`);
 
   return targets;
+}
+
+export function getScoreLogs(): Record<string, { [key: string]: number }> {
+  const scoreLog = localStorage.getItem("scorelog");
+  if (scoreLog) {
+    return JSON.parse(scoreLog);
+  }
+  return {};
+}
+
+export function formatScoresForCalendar(scoreLogs: Record<string, { [key: string]: number }>): Record<string, CalendarEntry> {
+  const entries: Record<string, CalendarEntry> = {};
+
+  for (const [date, scores] of Object.entries(scoreLogs)) {
+    const dateKey = DateTime.fromISO(date).toFormat('yyyy-MM-dd');
+    entries[dateKey] = {
+      value: scores.totalScore.toString(),
+      date: DateTime.fromISO(date),
+    };
+
+  }
+  return entries;
 }
