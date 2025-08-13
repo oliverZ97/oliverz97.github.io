@@ -25,4 +25,7 @@ export const COLORS = {
     disabled_border: "#8a8788",
     light_red: "#d16b81"
   },
+  calendar: {
+    entryColors: ["#ff686b", "#99c2ab", "#f5d273"]
+  }
 };

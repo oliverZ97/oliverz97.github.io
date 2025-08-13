@@ -13,10 +13,11 @@ export interface Character {
   First_Release_Year: number;
   Difficulty: Difficulty;
   Studio: string;
+  Version: number;
   Subgenre1?: string;
   Subgenre2?: string;
   Tags?: string;
-  Version: number;
+  Birthday?: string;
   ValidFields?: string[];
 }
 

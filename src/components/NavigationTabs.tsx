@@ -133,6 +133,16 @@ export function NavigationTabs({ value, handleChange }: TabPanelProps) {
                 label="Endless Blurred Character Quiz"
                 {...a11yProps(10)}
             />
+            <Tab
+                sx={{
+                    color: COLORS.quiz.light,
+                    "&.Mui-selected": {
+                        color: "white",
+                    },
+                }}
+                label="Character Birthdays"
+                {...a11yProps(11)}
+            />
         </Tabs>
     )
 }

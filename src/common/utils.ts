@@ -713,16 +713,57 @@ export function getScoreLogs(): Record<string, { [key: string]: number }> {
   return {};
 }
 
-export function formatScoresForCalendar(scoreLogs: Record<string, { [key: string]: number }>): Record<string, CalendarEntry> {
-  const entries: Record<string, CalendarEntry> = {};
+export function formatScoresForCalendar(scoreLogs: Record<string, { [key: string]: number }>): Record<string, CalendarEntry[]> {
+  const entries: Record<string, CalendarEntry[]> = {};
 
   for (const [date, scores] of Object.entries(scoreLogs)) {
     const dateKey = DateTime.fromISO(date).toFormat('yyyy-MM-dd');
-    entries[dateKey] = {
+    entries[dateKey] = [{
       value: scores.totalScore.toString(),
       date: DateTime.fromISO(date),
-    };
-
+    }];
   }
   return entries;
+}
+
+export function getCharacterBirthdaysAsCalendarData(charData: Character[]) {
+  const entries: Record<string, CalendarEntry[]> = {};
+  const currentYear = DateTime.now().year;
+
+  charData.forEach((char) => {
+    if (char.Birthday && char.Birthday.includes('.')) {
+      // Parse the birthday format (assuming it's "DD.MM" format)
+      const [day, month] = char.Birthday.split('.').map(Number);
+
+      // Create a DateTime object for this birthday in the current year
+      // We'll use this as a key to store in our data structure
+      const birthday = DateTime.utc(currentYear, month, day);
+      const dateKey = birthday.toFormat('yyyy-MM-dd');
+
+      const dateEntry: CalendarEntry = {
+        value: char.Name,
+        date: birthday,
+        isRecurring: true // Mark as recurring so calendar knows to show it every year
+      };
+
+      entries[dateKey] = entries[dateKey] || [];
+      entries[dateKey].push(dateEntry);
+    }
+  });
+
+  return entries;
+}
+
+// Example of combining regular events with recurring birthday events:
+export function combineCalendarData(...dataSources: Record<string, CalendarEntry[]>[]) {
+  const combined: Record<string, CalendarEntry[]> = {};
+
+  dataSources.forEach(source => {
+    Object.entries(source).forEach(([date, entries]) => {
+      combined[date] = combined[date] || [];
+      combined[date].push(...entries);
+    });
+  });
+
+  return combined;
 }

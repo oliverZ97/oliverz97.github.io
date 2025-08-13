@@ -23,12 +23,12 @@ import ArticleIcon from "@mui/icons-material/Article";
 import { KissMarryKill } from "components/KissMarryKill/KissMarryKill";
 import { AnimeIndex } from "components/AnimeIndex";
 import { AnimeQuiz } from "components/AnimeQuiz/AnimeQuiz";
-import { formatScoresForCalendar, getDailyScore, getDailyUTCDate, getScoreLogs } from "common/utils";
+import { formatScoresForCalendar, getCharacterBirthdaysAsCalendarData, getDailyScore, getDailyUTCDate, getScoreLogs } from "common/utils";
 import BlurredCharacterQuiz from "components/BlurredCharacterQuiz/BlurredCharacterQuiz";
 import { dialogManager } from "components/DialogPortal";
 import { NavigationTabs } from "components/NavigationTabs";
 import SportsScoreIcon from '@mui/icons-material/SportsScore';
-import { CalendarEntry } from "components/Calendar";
+import Calendar, { CalendarEntry } from "components/Calendar";
 
 export interface Score {
   points: number;
@@ -335,6 +335,10 @@ const Home = () => {
 
             <CustomTabPanel value={value} index={10}>
               <BlurredCharacterQuiz charData={charData}></BlurredCharacterQuiz>
+            </CustomTabPanel>
+
+            <CustomTabPanel value={value} index={11}>
+              <Calendar title="Birthdays" ignoreOpener={true} data={getCharacterBirthdaysAsCalendarData(charData)}></Calendar>
             </CustomTabPanel>
           </Box>
         </Box>
