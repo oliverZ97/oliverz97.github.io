@@ -13,7 +13,7 @@ export interface Character {
   First_Release_Year: number;
   Difficulty: Difficulty;
   Studio: string;
-  Version: number;
+  Version: string;
   Subgenre1?: string;
   Subgenre2?: string;
   Tags?: string;
@@ -30,7 +30,7 @@ export interface Anime {
   Subgenre2?: string;
   Tags?: string;
   ValidFields?: string[];
-  Version: number;
+  Version: string;
 }
 
 export type Difficulty = "A" | "B" | "C";

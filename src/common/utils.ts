@@ -195,11 +195,11 @@ export function getRandomCharacterArray(
  * @returns -1 if version1 < version2, 0 if equal, 1 if version1 > version2
  */
 export function compareVersions(
-  version1: string | number,
-  version2: string | number
+  version1: string,
+  version2: string
 ): number {
-  const v1String = String(version1);
-  const v2String = String(version2);
+  const v1String = version1.replace("v", "");
+  const v2String = version2.replace("v", "");
 
   const [major1, minor1] = v1String.split(".").map(Number);
   const [major2, minor2] = v2String.split(".").map(Number);
@@ -241,7 +241,7 @@ export function getRandomCharacter(
   }: GetRandomCharacterParams = {}
 ) {
   if (usePreviousVersion) {
-    const preLatestVersion = getNLatestVersion(1);
+    const preLatestVersion = getNLatestVersion(2);
     charData = charData.filter((char) => {
       const res = compareVersions(char.Version, preLatestVersion.version);
       return res < 0;
