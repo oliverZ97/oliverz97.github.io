@@ -21,11 +21,12 @@ export function sameDate(date1: Date, date2: Date) {
 }
 
 export function checkAgeGroup(value: string) {
-  if ("12-18" === value) return 1;
-  if ("19-30" === value) return 2;
-  if ("31-50" === value) return 3;
-  if ("51-70" === value) return 4;
-  if ("100+" === value) return 5;
+  if ("0-11" === value) return 1;
+  if ("12-18" === value) return 2;
+  if ("19-30" === value) return 3;
+  if ("31-50" === value) return 4;
+  if ("51-70" === value) return 5;
+  if ("100+" === value) return 6;
 }
 
 export function getImgSrc(name: string) {
