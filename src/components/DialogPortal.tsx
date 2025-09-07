@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom';
 import { Dialog, DialogTitle, DialogContent, DialogContentText, Typography, Box, DialogActions, Button } from "@mui/material";
 import { COLORS } from "styling/constants";
 import Calendar from './Calendar';
+import Settings from './Settings';
 
 // Define dialog types
-export type DialogType = 'howToPlay' | 'scoreCalendar';
+export type DialogType = 'howToPlay' | 'scoreCalendar' | 'settings';
 
 // Define calendar data type
 export interface CalendarData {
@@ -18,12 +19,14 @@ class DialogManager {
     private static instance: DialogManager;
     private listeners: ((dialogStates: Record<DialogType, boolean>, calendarData?: CalendarData) => void)[] = [];
     private showManualState: boolean;
+    private showSettingsState: boolean;
     private showScoreCalendarState: boolean;
     private calendarDataState: CalendarData | undefined;
 
     private constructor() {
         this.showManualState = localStorage.getItem("showManual") !== "false" ? true : false;
         this.showScoreCalendarState = false;
+        this.showSettingsState = false;
         this.calendarDataState = undefined;
     }
 
@@ -49,11 +52,17 @@ class DialogManager {
         return this.calendarDataState;
     }
 
+    // Get current state for settings
+    get showSettings(): boolean {
+        return this.showSettingsState;
+    }
+
     // Get all dialog states
     get dialogStates(): Record<DialogType, boolean> {
         return {
             howToPlay: this.showManualState,
-            scoreCalendar: this.showScoreCalendarState
+            scoreCalendar: this.showScoreCalendarState,
+            settings: this.showSettingsState
         };
     }
 
@@ -74,6 +83,13 @@ class DialogManager {
         this.notifyListeners();
     }
 
+    // Set settings dialog state and notify all subscribers
+    setShowSettings(show: boolean): void {
+        //console.log('DialogManager: setShowSettings called with', show);
+        this.showSettingsState = show;
+        this.notifyListeners();
+    }
+
     // Open a specific dialog (and close others)
     openDialog(type: DialogType, calendarData?: CalendarData): void {
         if (type === 'howToPlay') {
@@ -85,6 +101,10 @@ class DialogManager {
             if (calendarData) {
                 this.calendarDataState = calendarData;
             }
+        } else if (type === 'settings') {
+            this.showManualState = false;
+            this.showScoreCalendarState = false;
+            this.showSettingsState = true;
         }
         this.notifyListeners();
     }
@@ -101,6 +121,13 @@ class DialogManager {
     handleCloseScoreCalendar(): void {
         //console.log('DialogManager: handleCloseScoreCalendar called');
         this.showScoreCalendarState = false;
+        this.notifyListeners();
+    }
+
+    // Close settings dialog
+    handleCloseSettings(): void {
+        //console.log('DialogManager: handleCloseSettings called');
+        this.showSettingsState = false;
         this.notifyListeners();
     }
 
@@ -151,6 +178,10 @@ export const HowToPlayDialogPortal: React.FC = () => {
     const handleCloseScoreCalendar = () => {
         dialogManager.handleCloseScoreCalendar();
     };
+
+    const handleCloseSettings = () => {
+        dialogManager.handleCloseSettings();
+    }
 
     // Create and manage the portal container
     const [portalElement, setPortalElement] = useState<HTMLElement | null>(null);
@@ -314,6 +345,31 @@ export const HowToPlayDialogPortal: React.FC = () => {
         </Dialog>
     );
 
+    const settingsDialogContent = (
+        <Dialog
+            sx={{
+                "& .MuiDialog-paper": {
+                    backgroundColor: COLORS.quiz.background,
+                    color: "white",
+                    maxWidth: "95vw",
+                    width: "auto"
+                }
+            }}
+            open={dialogStates.settings}
+            onClose={handleCloseSettings}
+            keepMounted={false}
+            TransitionProps={{
+                appear: false,
+                mountOnEnter: true,
+                unmountOnExit: true
+            }}
+        >
+            <DialogContent>
+                <Settings />
+            </DialogContent>
+        </Dialog>
+    );
+
     // Use ReactDOM.createPortal to render outside the component tree
     if (!portalElement) return null;
 
@@ -322,6 +378,7 @@ export const HowToPlayDialogPortal: React.FC = () => {
         <>
             {manualDialogContent}
             {dialogStates.scoreCalendar && scoreCalendarDialogContent}
+            {dialogStates.settings && settingsDialogContent}
         </>,
         portalElement
     );

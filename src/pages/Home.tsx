@@ -28,7 +28,8 @@ import BlurredCharacterQuiz from "components/BlurredCharacterQuiz/BlurredCharact
 import { dialogManager } from "components/DialogPortal";
 import { NavigationTabs } from "components/NavigationTabs";
 import SportsScoreIcon from '@mui/icons-material/SportsScore';
-import Calendar, { CalendarEntry } from "components/Calendar";
+import Calendar from "components/Calendar";
+import SettingsIcon from '@mui/icons-material/Settings';
 
 export interface Score {
   points: number;
@@ -252,6 +253,38 @@ const Home = () => {
             </Box>
           </Tooltip>
         </Box>
+
+        <Tooltip title={"Settings"} arrow placement="right">
+          <Box
+            sx={{
+              position: "absolute",
+              top: "360px",
+              left: 0,
+              zIndex: 1000,
+            }}
+          >
+            <Button
+              variant="outlined"
+              sx={{
+                backgroundColor: COLORS.quiz.secondary,
+                color: "white",
+                borderColor: "transparent",
+                height: "60px",
+                borderTopLeftRadius: 0,
+                borderBottomLeftRadius: 0,
+                "&:hover": {
+                  backgroundColor: COLORS.quiz.main,
+                  borderColor: "transparent",
+                },
+              }}
+              onClick={() => {
+                dialogManager.setShowSettings(true);
+              }}
+            >
+              <SettingsIcon fontSize="large" />
+            </Button>
+          </Box>
+        </Tooltip>
 
         <Box
           sx={{
