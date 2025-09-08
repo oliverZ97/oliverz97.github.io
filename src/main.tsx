@@ -9,7 +9,7 @@ import { RouterProvider } from "react-router-dom";
 import Router from "routes/Router";
 import { ThemeProvider } from "@mui/material";
 import { theme } from "styling/theme";
-import { HowToPlayDialogPortal } from "components/DialogPortal";
+import { HowToPlayDialogPortal } from "components/Dialogs/DialogPortal";
 
 // Create dialog root element before React initializes
 if (!document.getElementById('dialog-root')) {

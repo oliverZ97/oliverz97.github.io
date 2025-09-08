@@ -1,4 +1,4 @@
-import { Box, Button, Dialog, IconButton, SxProps, Theme, Typography } from "@mui/material";
+import { Box, Button, IconButton, SxProps, Theme, Typography } from "@mui/material";
 import { DateTime, MonthNumbers } from "luxon";
 import { useState } from "react";
 import { COLORS } from "styling/constants";
@@ -15,28 +15,17 @@ interface CalendarProps {
     title: string;
     data: Record<string, CalendarEntry[]>;
     cellStyling?: SxProps<Theme>;
-    opener?: React.ReactNode;
-    closeDrawer?: () => void;
-    closeOnCalendarClose?: boolean;
-    ignoreOpener?: boolean;
-    onClose?: () => void; // Add onClose prop for external close handling
 }
 
 export default function Calendar({
     title,
     data,
     cellStyling,
-    opener,
-    closeDrawer,
-    closeOnCalendarClose,
-    onClose
 }: CalendarProps) {
     const [selectedDate, setSelectedDate] = useState(DateTime.now().toUTC());
     const [currentMonth, setCurrentMonth] = useState(selectedDate.month);
     const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const daysInMonth = DateTime.local(selectedDate.year, currentMonth).daysInMonth ?? 0;
-
-    console.log(data)
 
     const handleDateChange = (date: DateTime) => {
         // Create a UTC date at the same calendar date

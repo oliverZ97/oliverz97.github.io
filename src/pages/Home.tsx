@@ -25,11 +25,12 @@ import { AnimeIndex } from "components/AnimeIndex";
 import { AnimeQuiz } from "components/AnimeQuiz/AnimeQuiz";
 import { formatScoresForCalendar, getCharacterBirthdaysAsCalendarData, getDailyScore, getDailyUTCDate, getScoreLogs } from "common/utils";
 import BlurredCharacterQuiz from "components/BlurredCharacterQuiz/BlurredCharacterQuiz";
-import { dialogManager } from "components/DialogPortal";
+import { dialogManager } from "components/Dialogs/DialogPortal";
 import { NavigationTabs } from "components/NavigationTabs";
-import SportsScoreIcon from '@mui/icons-material/SportsScore';
 import Calendar from "components/Calendar";
 import SettingsIcon from '@mui/icons-material/Settings';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 export interface Score {
   points: number;
@@ -213,7 +214,7 @@ const Home = () => {
                   },
                 }}
                 onClick={() => {
-                  dialogManager.setShowManual(true);
+                  dialogManager.openDialog('howToPlay');
                 }}
               >
                 <HelpOutlineIcon fontSize="large" />
@@ -245,46 +246,79 @@ const Home = () => {
                   },
                 }}
                 onClick={() => {
-                  dialogManager.setShowScoreCalendar(true, getCalendarData());
+                  dialogManager.openDialog('scoreCalendar', getCalendarData());
                 }}
               >
-                <SportsScoreIcon fontSize="large" />
+                <CalendarMonthIcon fontSize="large" />
+              </Button>
+            </Box>
+          </Tooltip>
+          <Tooltip title={"Statistics"} arrow placement="right">
+            <Box
+              sx={{
+                position: "absolute",
+                top: "360px",
+                left: 0,
+                zIndex: 1000,
+              }}
+            >
+              <Button
+                variant="outlined"
+                sx={{
+                  backgroundColor: COLORS.quiz.secondary,
+                  color: "white",
+                  borderColor: "transparent",
+                  height: "60px",
+                  borderTopLeftRadius: 0,
+                  borderBottomLeftRadius: 0,
+                  "&:hover": {
+                    backgroundColor: COLORS.quiz.main,
+                    borderColor: "transparent",
+                  },
+                }}
+                onClick={() => {
+                  dialogManager.openDialog('statistics');
+                }}
+              >
+                <BarChartIcon fontSize="large" />
+              </Button>
+            </Box>
+          </Tooltip>
+          <Tooltip title={"Settings"} arrow placement="right">
+            <Box
+              sx={{
+                position: "absolute",
+                top: "440px",
+                left: 0,
+                zIndex: 1000,
+              }}
+            >
+              <Button
+                variant="outlined"
+                sx={{
+                  backgroundColor: COLORS.quiz.secondary,
+                  color: "white",
+                  borderColor: "transparent",
+                  height: "60px",
+                  borderTopLeftRadius: 0,
+                  borderBottomLeftRadius: 0,
+                  "&:hover": {
+                    backgroundColor: COLORS.quiz.main,
+                    borderColor: "transparent",
+                  },
+                }}
+                onClick={() => {
+                  dialogManager.openDialog('settings');
+                }}
+              >
+                <SettingsIcon fontSize="large" />
               </Button>
             </Box>
           </Tooltip>
         </Box>
 
-        <Tooltip title={"Settings"} arrow placement="right">
-          <Box
-            sx={{
-              position: "absolute",
-              top: "360px",
-              left: 0,
-              zIndex: 1000,
-            }}
-          >
-            <Button
-              variant="outlined"
-              sx={{
-                backgroundColor: COLORS.quiz.secondary,
-                color: "white",
-                borderColor: "transparent",
-                height: "60px",
-                borderTopLeftRadius: 0,
-                borderBottomLeftRadius: 0,
-                "&:hover": {
-                  backgroundColor: COLORS.quiz.main,
-                  borderColor: "transparent",
-                },
-              }}
-              onClick={() => {
-                dialogManager.setShowSettings(true);
-              }}
-            >
-              <SettingsIcon fontSize="large" />
-            </Button>
-          </Box>
-        </Tooltip>
+
+
 
         <Box
           sx={{
@@ -371,7 +405,7 @@ const Home = () => {
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={11}>
-              <Calendar title="Birthdays" ignoreOpener={true} data={getCharacterBirthdaysAsCalendarData(charData)}></Calendar>
+              <Calendar title="Birthdays" data={getCharacterBirthdaysAsCalendarData(charData)}></Calendar>
             </CustomTabPanel>
           </Box>
         </Box>
@@ -463,7 +497,7 @@ const Home = () => {
                     width: "100%",
                   }}
                   onClick={() => {
-                    dialogManager.setShowManual(true);
+                    dialogManager.openDialog('howToPlay');
                   }}
                 >
                   <HelpOutlineIcon fontSize="large" />
