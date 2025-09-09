@@ -7,14 +7,19 @@ export function getRandomNumberFromUTCDate(
   if (max <= 0 || !Number.isInteger(max)) {
     throw new Error("Max must be a positive integer.");
   }
-  const utcDate = date ? cleanUTCDate(date) : isPrevious ? getYesterdayUTCDate() : getDailyUTCDate();
+  const utcDate = date
+    ? cleanUTCDate(date)
+    : isPrevious
+    ? getYesterdayUTCDate()
+    : getDailyUTCDate();
   const dailyTimestamp = utcDate.getTime();
   const yearMonth = utcDate.getUTCFullYear() * 100 + utcDate.getUTCMonth();
 
   // Create multiple seeds based on different aspects of the date
   const seed1 = dailyTimestamp;
   const seed2 = utcDate.getUTCDate() + yearMonth * 31;
-  const seed3 = utcDate.getUTCDate() * utcDate.getUTCMonth() + utcDate.getUTCFullYear();
+  const seed3 =
+    utcDate.getUTCDate() * utcDate.getUTCMonth() + utcDate.getUTCFullYear();
 
   // Enhanced hash function with multiple seeds for better distribution
   let hash = seed1;
@@ -38,7 +43,7 @@ export function getRandomNumberFromUTCDate(
   // Use a prime number close to max for better distribution
   // This helps avoid patterns when max is a composite number
   const primeFactor = findNearestPrime(max);
-  const randomNumber = positiveHash % primeFactor % max;
+  const randomNumber = (positiveHash % primeFactor) % max;
 
   return randomNumber;
 }
@@ -57,7 +62,10 @@ export function getYesterdayUTCDate(): Date {
  */
 export function findNearestPrime(n: number): number {
   // For small numbers, use a lookup table of common primes
-  const smallPrimes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97];
+  const smallPrimes = [
+    2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71,
+    73, 79, 83, 89, 97,
+  ];
 
   // If n is small, return the largest prime <= n
   if (n <= 100) {
@@ -110,6 +118,7 @@ import { Anime, Character, Difficulty } from "common/types";
 import { getNLatestVersion, getPreLatestVersion } from "./version";
 import { DateTime } from "luxon";
 import { CalendarEntry } from "components/Calendar";
+import { getCurrentUserProfile } from "./profileUtils";
 
 export function sortObjectsByKey(
   element1: Record<string, any>,
@@ -194,10 +203,7 @@ export function getRandomCharacterArray(
  * @param version2 Second version string (e.g. "1.15")
  * @returns -1 if version1 < version2, 0 if equal, 1 if version1 > version2
  */
-export function compareVersions(
-  version1: string,
-  version2: string
-): number {
+export function compareVersions(version1: string, version2: string): number {
   const v1String = version1.replace("v", "");
   const v2String = version2.replace("v", "");
 
@@ -237,7 +243,7 @@ export function getRandomCharacter(
     gender = "all",
     quizMode = "normal",
     avoidRecentDuplicates = true,
-    date = undefined
+    date = undefined,
   }: GetRandomCharacterParams = {}
 ) {
   if (usePreviousVersion) {
@@ -262,14 +268,18 @@ export function getRandomCharacter(
     // First, get the deterministic index based on date
     // This ensures the daily character is always the same for a given date
     if (isPrevious) {
-      index = (getRandomNumberFromUTCDate(charArray.length, true, quizMode, date)) % charArray.length;
+      index =
+        getRandomNumberFromUTCDate(charArray.length, true, quizMode, date) %
+        charArray.length;
     } else {
-      index = (getRandomNumberFromUTCDate(charArray.length, false, quizMode, date)) % charArray.length;
+      index =
+        getRandomNumberFromUTCDate(charArray.length, false, quizMode, date) %
+        charArray.length;
     }
 
     // Apply deduplication ONLY when developing or debugging
     // In normal operation, we want deterministic daily characters
-    if (avoidRecentDuplicates && window.location.hostname === 'localhost') {
+    if (avoidRecentDuplicates && window.location.hostname === "localhost") {
       // Get recently used characters
       const recentChars = getRecentlyUsedCharacters();
 
@@ -309,7 +319,7 @@ export function getRandomAnime(
     isPrevious = false,
     usePreviousVersion = false,
     avoidRecentDuplicates = true,
-    date = undefined
+    date = undefined,
   }: GetRandomAnimeParams
 ) {
   if (usePreviousVersion) {
@@ -327,13 +337,23 @@ export function getRandomAnime(
   } else {
     // For daily deterministic selection, get the index first
     if (isPrevious) {
-      index = getRandomNumberFromUTCDate(animeArray.length, true, "normal", date);
+      index = getRandomNumberFromUTCDate(
+        animeArray.length,
+        true,
+        "normal",
+        date
+      );
     } else {
-      index = getRandomNumberFromUTCDate(animeArray.length, false, "normal", date);
+      index = getRandomNumberFromUTCDate(
+        animeArray.length,
+        false,
+        "normal",
+        date
+      );
     }
 
     // Apply deduplication ONLY when developing or debugging
-    if (avoidRecentDuplicates && window.location.hostname === 'localhost') {
+    if (avoidRecentDuplicates && window.location.hostname === "localhost") {
       const recentAnimes = getRecentlyUsedAnimes();
       const potentialTarget = animeArray[index];
 
@@ -353,7 +373,8 @@ export function getRandomAnime(
   }
 
   return target as Anime;
-} export enum QUIZ_KEY {
+}
+export enum QUIZ_KEY {
   CHAR = "charquiz",
   ANIME = "animequiz",
   IMAGE = "imagequiz",
@@ -404,22 +425,28 @@ export function addToRecentCharacters(characterName: string): void {
   }
 
   // Save back to localStorage
-  localStorage.setItem(RECENT_CHARS_KEY, JSON.stringify({
-    characters: recentChars,
-    lastUpdated: new Date().toISOString()
-  }));
+  localStorage.setItem(
+    RECENT_CHARS_KEY,
+    JSON.stringify({
+      characters: recentChars,
+      lastUpdated: new Date().toISOString(),
+    })
+  );
 }
 
 /**
  * Check for duplicate character selections across a range of future dates.
  * This is useful for content creators to plan ahead and identify potential duplicates
  * without affecting the daily character selection.
- * 
+ *
  * @param charData The character data array
  * @param days Number of days to look ahead
  * @returns An object with information about duplicate selections
  */
-export function analyzeFutureDuplicates(charData: Character[], days: number = 90): Record<string, any> {
+export function analyzeFutureDuplicates(
+  charData: Character[],
+  days: number = 90
+): Record<string, any> {
   const startDate = new Date();
   const characters: Record<string, any> = {};
   const duplicates: Record<string, any[]> = {};
@@ -436,10 +463,10 @@ export function analyzeFutureDuplicates(charData: Character[], days: number = 90
       gender: "all",
       quizMode: "normal",
       avoidRecentDuplicates: false,
-      date: futureDate
+      date: futureDate,
     });
 
-    const dateString = futureDate.toISOString().split('T')[0];
+    const dateString = futureDate.toISOString().split("T")[0];
 
     // Check if this character has appeared before
     if (characters[character.Name]) {
@@ -448,7 +475,7 @@ export function analyzeFutureDuplicates(charData: Character[], days: number = 90
       // Record this duplicate
       if (!duplicates[character.Name]) {
         duplicates[character.Name] = [
-          { date: characters[character.Name].date, character }
+          { date: characters[character.Name].date, character },
         ];
       }
 
@@ -458,7 +485,7 @@ export function analyzeFutureDuplicates(charData: Character[], days: number = 90
     // Store this character
     characters[character.Name] = {
       date: dateString,
-      index: i
+      index: i,
     };
   }
 
@@ -466,7 +493,7 @@ export function analyzeFutureDuplicates(charData: Character[], days: number = 90
     totalDays: days,
     uniqueCharacters: Object.keys(characters).length,
     duplicateCount,
-    duplicates
+    duplicates,
   };
 }
 
@@ -541,10 +568,13 @@ export function addToRecentAnimes(animeName: string): void {
   }
 
   // Save back to localStorage
-  localStorage.setItem(RECENT_ANIMES_KEY, JSON.stringify({
-    animes: recentAnimes,
-    lastUpdated: new Date().toISOString()
-  }));
+  localStorage.setItem(
+    RECENT_ANIMES_KEY,
+    JSON.stringify({
+      animes: recentAnimes,
+      lastUpdated: new Date().toISOString(),
+    })
+  );
 }
 
 export function gaveUpOnTodaysQuiz(key: QUIZ_KEY) {
@@ -584,8 +614,13 @@ export function setDailyScore(
   score: number,
   key: QUIZ_KEY
 ): void {
+  const currentProfile = getCurrentUserProfile();
+  if (!currentProfile) {
+    return; // Do not track score if disabled in settings
+  }
   const scores = localStorage.getItem("scorelog");
   if (scores) {
+    //Migration to User related score tracking
     const scoreLog = JSON.parse(scores);
     if (scoreLog[date]) {
       scoreLog[date][key] = score;
@@ -594,11 +629,42 @@ export function setDailyScore(
       scoreLog[date] = { [key]: score };
       scoreLog[date].totalScore = score;
     }
-    localStorage.setItem("scorelog", JSON.stringify(scoreLog));
-  } else {
+
+    const profileStatistics = {
+      scores: scoreLog,
+      user: currentProfile.id,
+    };
     localStorage.setItem(
-      "scorelog",
-      JSON.stringify({ [date]: { [key]: score, totalScore: score } })
+      "profile_" + currentProfile.id,
+      JSON.stringify(profileStatistics)
+    );
+    localStorage.removeItem("scorelog");
+  } else if (localStorage.getItem("profile_" + currentProfile.id)) {
+    const profileData = localStorage.getItem("profile_" + currentProfile.id);
+    if (profileData) {
+      const profileStatistics = JSON.parse(profileData);
+      if (profileStatistics.scores[date]) {
+        profileStatistics.scores[date][key] = score;
+        profileStatistics.scores[date].totalScore =
+          (profileStatistics.scores[date].totalScore || 0) + score;
+      } else {
+        profileStatistics.scores[date] = { [key]: score };
+        profileStatistics.scores[date].totalScore = score;
+      }
+      localStorage.setItem(
+        "profile_" + currentProfile.id,
+        JSON.stringify(profileStatistics)
+      );
+    }
+  } else {
+    const profileStatistics = {
+      scores: { [date]: { [key]: score, totalScore: score } },
+      user: currentProfile.id,
+    };
+
+    localStorage.setItem(
+      "profile_" + currentProfile.id,
+      JSON.stringify(profileStatistics)
     );
   }
 }
@@ -611,7 +677,7 @@ export function debugGetRandomCharacter(
     usePreviousVersion = false,
     gender = "all",
     quizMode = "normal",
-    numberOfEntries = 1
+    numberOfEntries = 1,
   }: GetRandomCharacterParams = {}
 ) {
   let charArray = Object.values(charData);
@@ -636,20 +702,27 @@ export function debugGetRandomCharacter(
       isPrevious: false,
       gender,
       quizMode,
-      avoidRecentDuplicates: false
+      avoidRecentDuplicates: false,
     });
     dailyEntries[`Run ${i + 1}`] = todayChar;
   }
-  console.log('Deterministic daily character test (should be identical):', dailyEntries);
+  console.log(
+    "Deterministic daily character test (should be identical):",
+    dailyEntries
+  );
 
   // Test distribution across many days
   for (let i = 0; i < numberOfEntries; i++) {
     let index;
     let date;
     if (!isPrevious) {
-      date = DateTime.now().plus({ days: i + 1 }).toJSDate();
+      date = DateTime.now()
+        .plus({ days: i + 1 })
+        .toJSDate();
     } else {
-      date = DateTime.now().minus({ days: i + 1 }).toJSDate();
+      date = DateTime.now()
+        .minus({ days: i + 1 })
+        .toJSDate();
     }
     if (usePreviousVersion) {
       const preLatestVersion = getNLatestVersion(1);
@@ -663,7 +736,13 @@ export function debugGetRandomCharacter(
       index = Math.floor(Math.random() * charArray.length);
     } else {
       // Use our improved random distribution
-      index = (getRandomNumberFromUTCDate(charArray.length, isPrevious, quizMode, date)) % charArray.length;
+      index =
+        getRandomNumberFromUTCDate(
+          charArray.length,
+          isPrevious,
+          quizMode,
+          date
+        ) % charArray.length;
     }
 
     const target = charArray[index];
@@ -689,17 +768,25 @@ export function debugGetRandomCharacter(
     }
   }
 
-  console.log('Distribution Statistics:', stats);
-  console.log(`Unique characters: ${uniqueCount}, Duplicates: ${duplicateCount}`);
+  console.log("Distribution Statistics:", stats);
+  console.log(
+    `Unique characters: ${uniqueCount}, Duplicates: ${duplicateCount}`
+  );
   console.log(`Unique names: ${Object.keys(selectedNames).length}`);
 
   // Calculate distribution quality metrics
   const indices = Object.keys(stats).map(Number);
   const values = Object.values(stats);
   const mean = values.reduce((sum, val) => sum + val, 0) / values.length;
-  const variance = values.reduce((sum, val) => sum + Math.pow(val - mean, 2), 0) / values.length;
+  const variance =
+    values.reduce((sum, val) => sum + Math.pow(val - mean, 2), 0) /
+    values.length;
 
-  console.log(`Distribution metrics - Mean: ${mean.toFixed(2)}, Variance: ${variance.toFixed(2)}`);
+  console.log(
+    `Distribution metrics - Mean: ${mean.toFixed(
+      2
+    )}, Variance: ${variance.toFixed(2)}`
+  );
   console.log(`Lower variance indicates more even distribution`);
 
   return targets;
@@ -713,15 +800,19 @@ export function getScoreLogs(): Record<string, { [key: string]: number }> {
   return {};
 }
 
-export function formatScoresForCalendar(scoreLogs: Record<string, { [key: string]: number }>): Record<string, CalendarEntry[]> {
+export function formatScoresForCalendar(
+  scoreLogs: Record<string, { [key: string]: number }>
+): Record<string, CalendarEntry[]> {
   const entries: Record<string, CalendarEntry[]> = {};
 
   for (const [date, scores] of Object.entries(scoreLogs)) {
-    const dateKey = DateTime.fromISO(date).toFormat('yyyy-MM-dd');
-    entries[dateKey] = [{
-      value: scores.totalScore.toString(),
-      date: DateTime.fromISO(date),
-    }];
+    const dateKey = DateTime.fromISO(date).toFormat("yyyy-MM-dd");
+    entries[dateKey] = [
+      {
+        value: scores.totalScore.toString(),
+        date: DateTime.fromISO(date),
+      },
+    ];
   }
   return entries;
 }
@@ -731,19 +822,19 @@ export function getCharacterBirthdaysAsCalendarData(charData: Character[]) {
   const currentYear = DateTime.now().year;
 
   charData.forEach((char) => {
-    if (char.Birthday && char.Birthday.includes('.')) {
+    if (char.Birthday && char.Birthday.includes(".")) {
       // Parse the birthday format (assuming it's "DD.MM" format)
-      const [day, month] = char.Birthday.split('.').map(Number);
+      const [day, month] = char.Birthday.split(".").map(Number);
 
       // Create a DateTime object for this birthday in the current year
       // We'll use this as a key to store in our data structure
       const birthday = DateTime.utc(currentYear, month, day);
-      const dateKey = birthday.toFormat('yyyy-MM-dd');
+      const dateKey = birthday.toFormat("yyyy-MM-dd");
 
       const dateEntry: CalendarEntry = {
         value: char.Name,
         date: birthday,
-        isRecurring: true // Mark as recurring so calendar knows to show it every year
+        isRecurring: true, // Mark as recurring so calendar knows to show it every year
       };
 
       entries[dateKey] = entries[dateKey] || [];
@@ -755,10 +846,12 @@ export function getCharacterBirthdaysAsCalendarData(charData: Character[]) {
 }
 
 // Example of combining regular events with recurring birthday events:
-export function combineCalendarData(...dataSources: Record<string, CalendarEntry[]>[]) {
+export function combineCalendarData(
+  ...dataSources: Record<string, CalendarEntry[]>[]
+) {
   const combined: Record<string, CalendarEntry[]> = {};
 
-  dataSources.forEach(source => {
+  dataSources.forEach((source) => {
     Object.entries(source).forEach(([date, entries]) => {
       combined[date] = combined[date] || [];
       combined[date].push(...entries);
