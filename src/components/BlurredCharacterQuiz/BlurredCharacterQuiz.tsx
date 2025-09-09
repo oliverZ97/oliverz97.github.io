@@ -19,6 +19,10 @@ import {
   setDailyScore,
 } from "common/utils";
 import CharacterList from "./CharacterList";
+import {
+  saveFieldToTotalStatistics,
+  StatisticFields,
+} from "common/profileUtils";
 
 interface HintRef {
   resetHint: () => void;
@@ -116,7 +120,13 @@ export default function BasicCharacterQuiz({
 
   // Safeguard to ensure blurFactor is never accidentally 0 unless the puzzle is solved
   useEffect(() => {
-    if (blurFactor === 0 && !isCorrect && !gaveUp && targetChar && !freezeBlur) {
+    if (
+      blurFactor === 0 &&
+      !isCorrect &&
+      !gaveUp &&
+      targetChar &&
+      !freezeBlur
+    ) {
       // If blur factor is 0 but the puzzle isn't solved, reset it
       // But don't do this if blur is frozen
       setBlurWithFreeze(50);
@@ -167,10 +177,16 @@ export default function BasicCharacterQuiz({
     resetQuiz();
 
     //select random character
-    let target = getRandomCharacter(charData, { endlessMode: endlessMode, quizMode: "blurred" });
+    let target = getRandomCharacter(charData, {
+      endlessMode: endlessMode,
+      quizMode: "blurred",
+    });
     if (endlessMode) {
       while (!isIncludedInDifficulty(target, difficulty)) {
-        target = getRandomCharacter(charData, { endlessMode: endlessMode, quizMode: "blurred" });
+        target = getRandomCharacter(charData, {
+          endlessMode: endlessMode,
+          quizMode: "blurred",
+        });
       }
     } else {
       const hasSolvedToday = hasBeenSolvedToday(QUIZ_KEY.BLUR);
@@ -184,7 +200,6 @@ export default function BasicCharacterQuiz({
         setGaveUp(true);
         setBlurFactor(0);
         setFrozenBlurValue(0);
-
       }
     }
     setTargetCharacter(target as Character);
@@ -225,8 +240,10 @@ export default function BasicCharacterQuiz({
             emojis: ["🎉", "🍛", "🍣", "✨", "🍜", "🌸", "🍙"],
             emojiSize: 30,
           });
+          saveFieldToTotalStatistics([StatisticFields.totalWins], 1);
         } else {
           setGaveUp(true);
+          saveFieldToTotalStatistics([StatisticFields.totalLosses], 1);
         }
 
         setIsCorrect(true);
@@ -238,6 +255,14 @@ export default function BasicCharacterQuiz({
           };
           localStorage.setItem(CHAR_SOLVED_KEY, JSON.stringify(solveData));
           setDailyScore(utcDate.toISOString(), points, QUIZ_KEY.BLUR);
+          saveFieldToTotalStatistics(
+            [
+              StatisticFields.totalGamesPlayed,
+              StatisticFields.totalBlurredCharactersGuessed,
+            ],
+            1
+          );
+          saveFieldToTotalStatistics([StatisticFields.totalScore], points);
         }
         if (points > 0) {
           //Set Highscore
@@ -255,7 +280,7 @@ export default function BasicCharacterQuiz({
           if (localScores) {
             scores = JSON.parse(localScores);
             scores.push(scoreObj);
-          } else[(scores = [scoreObj])];
+          } else [(scores = [scoreObj])];
 
           //sort
           scores.sort((a: Score, b: Score) => (a.points < b.points ? 1 : -1));
@@ -388,7 +413,7 @@ export default function BasicCharacterQuiz({
             }}
           >
             <RevealCard
-              onReveal={() => { }}
+              onReveal={() => {}}
               ref={studioHintRef}
               cardText={targetChar?.Studio ?? ""}
               cardTitle="Studio"
@@ -398,7 +423,7 @@ export default function BasicCharacterQuiz({
               }}
             ></RevealCard>
             <RevealCard
-              onReveal={() => { }}
+              onReveal={() => {}}
               ref={releaseHintRef}
               cardText={targetChar?.First_Release_Year.toString() ?? ""}
               cardTitle="First Release Year"
@@ -408,7 +433,7 @@ export default function BasicCharacterQuiz({
               }}
             ></RevealCard>
             <RevealCard
-              onReveal={() => { }}
+              onReveal={() => {}}
               ref={animeHintRef}
               cardText={targetChar?.Anime.toString() ?? ""}
               cardTitle="Anime"
@@ -431,8 +456,6 @@ export default function BasicCharacterQuiz({
                 border: "1px solid rgba(0, 0, 0, 0.1)",
               }}
             >
-
-
               {/* Primary blurred background using multiple techniques */}
               <Box
                 sx={{
@@ -446,7 +469,9 @@ export default function BasicCharacterQuiz({
                   backgroundImage: `url(${getImgSrc(targetChar.Name)})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
-                  filter: `blur(${freezeBlur ? frozenBlurValue : blurFactor}px)`,
+                  filter: `blur(${
+                    freezeBlur ? frozenBlurValue : blurFactor
+                  }px)`,
                   transform: "scale(1.05)",
                   zIndex: 1,
                   willChange: "filter, opacity",
@@ -464,7 +489,9 @@ export default function BasicCharacterQuiz({
                   width: "300px",
                   height: "420px",
                   objectFit: "cover",
-                  filter: `blur(${freezeBlur ? frozenBlurValue : blurFactor}px)`,
+                  filter: `blur(${
+                    freezeBlur ? frozenBlurValue : blurFactor
+                  }px)`,
                   opacity: blurFactor > 0 ? 0.5 : 0, // Low opacity backup when blurred
                   zIndex: 1,
                 }}
@@ -492,7 +519,9 @@ export default function BasicCharacterQuiz({
                   const target = e.currentTarget;
                   const currentSrc = target.src;
                   target.src = "";
-                  setTimeout(() => { target.src = currentSrc; }, 200);
+                  setTimeout(() => {
+                    target.src = currentSrc;
+                  }, 200);
                 }}
               />
             </Box>
@@ -519,7 +548,7 @@ export default function BasicCharacterQuiz({
           // Store current blur value before giving up
           setFrozenBlurValue(blurFactor);
           setFreezeBlur(true);
-          console.log('Giving up - freezing blur at:', blurFactor);
+          console.log("Giving up - freezing blur at:", blurFactor);
 
           // Then handle the give up action
           handleSearchChange(null, targetChar, "giveUp");

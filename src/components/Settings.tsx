@@ -58,6 +58,7 @@ export default function Settings() {
           value={currentUser ? currentUser.username : defaultUser.username}
           onChange={(e: SelectChangeEvent) => {
             setCurrentUserProfile(e.target.value as string);
+            setCurrentUser(getCurrentUserProfile());
           }}
         >
           {existingProfiles.map((profile: string) => (

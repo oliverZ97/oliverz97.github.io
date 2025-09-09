@@ -1,4 +1,8 @@
 import { Box, SxProps, Theme, Typography, useTheme } from "@mui/material";
+import {
+  getCurrentUserProfile,
+  saveStreakToProfile,
+} from "common/profileUtils";
 import { isMoreThanADay, sameDate } from "common/quizUtils";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { COLORS } from "styling/constants";
@@ -62,14 +66,35 @@ export const DayStreak = forwardRef(
             streak: streakObj.streak + 1,
           };
 
-          localStorage.setItem(streakKey, JSON.stringify(newStreak));
+          saveStreakToProfile(
+            today.getTime().toString(),
+            streakKey,
+            newStreak.streak
+          );
           setCurrentStreak(newStreak);
         }
       },
     }));
 
     function getStreak() {
-      const streak = localStorage.getItem(streakKey);
+      let streak = localStorage.getItem(streakKey);
+      if (!streak) {
+        const currentProfile = getCurrentUserProfile();
+        const profileStr = localStorage.getItem(
+          `profile_${currentProfile?.id}`
+        );
+        if (profileStr) {
+          const profile = JSON.parse(profileStr);
+          if (profile?.streaks?.[`${streakKey}_streak`]) {
+            streak = JSON.stringify({
+              date: undefined,
+              streak: profile.streaks[`${streakKey}_streak`],
+            });
+          }
+        }
+      } else {
+        localStorage.removeItem(streakKey);
+      }
 
       if (streak) {
         const streakObj: Streak = JSON.parse(streak);

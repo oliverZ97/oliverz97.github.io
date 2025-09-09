@@ -21,6 +21,12 @@ import {
 } from "common/utils";
 import { LemonButton } from "components/LemonButton";
 import Debug from "components/Debug";
+import {
+  getCurrentUserProfile,
+  saveFieldToTotalStatistics,
+  saveHighscoreToProfile,
+  StatisticFields,
+} from "common/profileUtils";
 
 interface HintRef {
   resetHint: () => void;
@@ -39,7 +45,7 @@ interface BasicCharacterQuizProps {
 export default function BasicCharacterQuiz({
   charData,
   endlessMode = true,
-  changeQuizMode
+  changeQuizMode,
 }: BasicCharacterQuizProps) {
   const [searchHistory, setSearchHistory] = useState<Character[]>([]);
   const [selectedOption, setSelectedOption] = useState<Character | null>(null);
@@ -187,8 +193,10 @@ export default function BasicCharacterQuiz({
             emojis: ["🎉", "🍛", "🍣", "✨", "🍜", "🌸", "🍙"],
             emojiSize: 30,
           });
+          saveFieldToTotalStatistics([StatisticFields.totalWins], 1);
         } else {
           setGaveUp(true);
+          saveFieldToTotalStatistics([StatisticFields.totalLosses], 1);
         }
 
         setIsCorrect(true);
@@ -200,6 +208,14 @@ export default function BasicCharacterQuiz({
           };
           localStorage.setItem(CHAR_SOLVED_KEY, JSON.stringify(solveData));
           setDailyScore(utcDate.toISOString(), points, QUIZ_KEY.CHAR);
+          saveFieldToTotalStatistics(
+            [
+              StatisticFields.totalGamesPlayed,
+              StatisticFields.totalCharactersGuessed,
+            ],
+            1
+          );
+          saveFieldToTotalStatistics([StatisticFields.totalScore], points);
         }
         if (points > 0) {
           //Set Highscore
@@ -213,26 +229,43 @@ export default function BasicCharacterQuiz({
           };
 
           let localScores = localStorage.getItem(SCORE_KEY);
-          let scores;
-          if (localScores) {
-            scores = JSON.parse(localScores);
-            scores.push(scoreObj);
-          } else[(scores = [scoreObj])];
+          if (!localScores) {
+            const currentProfile = getCurrentUserProfile();
+            if (currentProfile) {
+              const profileStr = localStorage.getItem(
+                `profile_${currentProfile.id}`
+              );
+              if (profileStr) {
+                const profile = JSON.parse(profileStr);
+                const profileScores =
+                  profile?.highscores?.[`${SCORE_KEY}_highscore`];
+                if (profileScores) {
+                  localScores = profileScores;
+                }
+              }
+            } else {
+              localStorage.removeItem(SCORE_KEY);
+            }
+            let scores;
+            if (localScores) {
+              scores = JSON.parse(localScores);
+              scores.push(scoreObj);
+            } else [(scores = [scoreObj])];
 
-          //sort
-          scores.sort((a: Score, b: Score) => (a.points < b.points ? 1 : -1));
-          setScores(scores.slice(0, 3));
-          const scoreString = JSON.stringify(scores);
-          localStorage.setItem(SCORE_KEY, scoreString);
-          if (streakRef) {
-            streakRef.current?.setStreak();
+            //sort
+            scores.sort((a: Score, b: Score) => (a.points < b.points ? 1 : -1));
+            setScores(scores.slice(0, 3));
+            saveHighscoreToProfile(SCORE_KEY, scoreObj);
+            if (streakRef) {
+              streakRef.current?.setStreak();
+            }
           }
+          return;
         }
-        return;
-      }
 
-      //calculate point reduce
-      calculateSelectionPoints(res.short.length);
+        //calculate point reduce
+        calculateSelectionPoints(res.short.length);
+      }
     }
   }
 
@@ -412,7 +445,10 @@ export default function BasicCharacterQuiz({
             ></Box>
           </Box>
           {!endlessMode && (
-            <LemonButton onClick={(event) => changeQuizMode?.(event, 1)} text="Next: Image Quiz" />
+            <LemonButton
+              onClick={(event) => changeQuizMode?.(event, 1)}
+              text="Next: Image Quiz"
+            />
           )}
         </Box>
       )}

@@ -600,7 +600,13 @@ export function gaveUpOnTodaysQuiz(key: QUIZ_KEY) {
 }
 
 export function getDailyScore(date: string): number {
-  const dailyScore = localStorage.getItem("scorelog");
+  const currentProfile = getCurrentUserProfile();
+  if (!currentProfile) {
+    return 0; // Do not track score if disabled in settings
+  }
+  const dailyScore = localStorage.getItem(
+    `userProfile_${currentProfile.username}`
+  );
   if (dailyScore) {
     const scoreLog = JSON.parse(dailyScore);
     return scoreLog[date]?.totalScore || 0;
@@ -793,7 +799,11 @@ export function debugGetRandomCharacter(
 }
 
 export function getScoreLogs(): Record<string, { [key: string]: number }> {
-  const scoreLog = localStorage.getItem("scorelog");
+  const currentProfile = getCurrentUserProfile();
+  if (!currentProfile) return {};
+  const scoreLog = localStorage.getItem(
+    `userProfile_${currentProfile.username}`
+  );
   if (scoreLog) {
     return JSON.parse(scoreLog);
   }

@@ -17,6 +17,10 @@ import { COLORS } from "styling/constants";
 import AnimeList from "./AnimeList";
 import { SearchBar } from "./SearchBar";
 import { LemonButton } from "components/LemonButton";
+import {
+  saveFieldToTotalStatistics,
+  StatisticFields,
+} from "common/profileUtils";
 
 const BASEPOINTS = 150;
 const REDUCEFACTOR = 10;
@@ -28,7 +32,11 @@ interface AnimeQuizProps {
   changeQuizMode?: (event: React.SyntheticEvent, id: number) => void;
 }
 
-export const AnimeQuiz = ({ animeData, endlessMode, changeQuizMode }: AnimeQuizProps) => {
+export const AnimeQuiz = ({
+  animeData,
+  endlessMode,
+  changeQuizMode,
+}: AnimeQuizProps) => {
   const [searchHistory, setSearchHistory] = useState<Anime[]>([]);
   const [selectedOption, setSelectedOption] = useState<Anime | null>(null);
   const [targetAnime, setTargetAnime] = useState<Anime | null>(null);
@@ -149,8 +157,10 @@ export const AnimeQuiz = ({ animeData, endlessMode, changeQuizMode }: AnimeQuizP
             emojis: ["🎉", "🍛", "🍣", "✨", "🍜", "🌸", "🍙"],
             emojiSize: 30,
           });
+          saveFieldToTotalStatistics([StatisticFields.totalWins], 1);
         } else {
           setGaveUp(true);
+          saveFieldToTotalStatistics([StatisticFields.totalLosses], 1);
         }
 
         setIsCorrect(true);
@@ -162,6 +172,14 @@ export const AnimeQuiz = ({ animeData, endlessMode, changeQuizMode }: AnimeQuizP
           };
           localStorage.setItem(ANIME_SOLVED_KEY, JSON.stringify(solveData));
           setDailyScore(utcDate.toISOString(), points, QUIZ_KEY.ANIME);
+          saveFieldToTotalStatistics(
+            [
+              StatisticFields.totalGamesPlayed,
+              StatisticFields.totalAnimesGuessed,
+            ],
+            1
+          );
+          saveFieldToTotalStatistics([StatisticFields.totalScore], points);
         }
         if (points > 0) {
           //Set Highscore
@@ -179,7 +197,7 @@ export const AnimeQuiz = ({ animeData, endlessMode, changeQuizMode }: AnimeQuizP
           if (localScores) {
             scores = JSON.parse(localScores);
             scores.push(scoreObj);
-          } else[(scores = [scoreObj])];
+          } else [(scores = [scoreObj])];
 
           //sort
           scores.sort((a: Score, b: Score) => (a.points < b.points ? 1 : -1));
@@ -330,7 +348,12 @@ export const AnimeQuiz = ({ animeData, endlessMode, changeQuizMode }: AnimeQuizP
               {targetAnime?.Name}
             </Typography>
           </Box>
-          {!endlessMode && <LemonButton onClick={(event) => changeQuizMode?.(event, 3)} text="Next: Blurred Character Quiz" />}
+          {!endlessMode && (
+            <LemonButton
+              onClick={(event) => changeQuizMode?.(event, 3)}
+              text="Next: Blurred Character Quiz"
+            />
+          )}
         </Box>
       )}
 

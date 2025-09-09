@@ -1,4 +1,8 @@
 import { Box, Button, Typography } from "@mui/material";
+import {
+  saveFieldToTotalStatistics,
+  StatisticFields,
+} from "common/profileUtils";
 import { getImgSrc } from "common/quizUtils";
 import { Anime, Character } from "common/types";
 import {
@@ -20,7 +24,6 @@ interface ImageCharacterQuizProps {
   animeData: Anime[];
   endlessMode?: boolean;
   changeQuizMode?: (event: React.SyntheticEvent, id: number) => void;
-
 }
 
 interface ImageTarget {
@@ -40,7 +43,7 @@ export default function ImageCharacterQuiz({
   charData,
   animeData,
   endlessMode = true,
-  changeQuizMode
+  changeQuizMode,
 }: ImageCharacterQuizProps) {
   const [isSolving, setIsSolving] = useState(false);
   const [elements, setElements] = useState<ImageTarget[]>([
@@ -187,7 +190,7 @@ export default function ImageCharacterQuiz({
 
       const dayOfYear = Math.floor(
         (today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) /
-        (1000 * 60 * 60 * 24)
+          (1000 * 60 * 60 * 24)
       );
       const yearSignature = `${today.getFullYear()}`;
 
@@ -297,6 +300,15 @@ export default function ImageCharacterQuiz({
         };
         localStorage.setItem(IMAGE_SOLVED_KEY, JSON.stringify(solveData));
         setDailyScore(utcDate.toISOString(), finalScore, QUIZ_KEY.IMAGE);
+        saveFieldToTotalStatistics(
+          [StatisticFields.totalWins, StatisticFields.totalGamesPlayed],
+          1
+        );
+        saveFieldToTotalStatistics(
+          [StatisticFields.totalCharacterImagesGuessed],
+          4
+        );
+        saveFieldToTotalStatistics([StatisticFields.totalScore], finalScore);
       }
     }
   }
@@ -308,7 +320,12 @@ export default function ImageCharacterQuiz({
   }
 
   return (
-    <Box display={"flex"} flexDirection="column" alignItems="center" width={"100%"}>
+    <Box
+      display={"flex"}
+      flexDirection="column"
+      alignItems="center"
+      width={"100%"}
+    >
       <Box
         sx={{
           position: "relative",
@@ -456,8 +473,12 @@ export default function ImageCharacterQuiz({
           </Button>
         </Box>
       </Box>
-      {!endlessMode && isSolving && <LemonButton onClick={(event) => changeQuizMode?.(event, 2)} text="Next: Anime Quiz" />}
-
-    </Box >
+      {!endlessMode && isSolving && (
+        <LemonButton
+          onClick={(event) => changeQuizMode?.(event, 2)}
+          text="Next: Anime Quiz"
+        />
+      )}
+    </Box>
   );
 }
