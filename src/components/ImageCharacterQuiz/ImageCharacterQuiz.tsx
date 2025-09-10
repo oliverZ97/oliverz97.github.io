@@ -39,6 +39,13 @@ const ANSWER_KEY = QUIZ_KEY.IMAGE + "_daily_answers";
 const SCORE_KEY = QUIZ_KEY.IMAGE + "_daily_score";
 const IMAGE_SOLVED_KEY = QUIZ_KEY.IMAGE + "_HasBeenSolvedToday";
 
+const characterPreset = {
+  character: null,
+  anime: null,
+  isCharacterCorrect: false,
+  isAnimeCorrect: false,
+};
+
 export default function ImageCharacterQuiz({
   charData,
   animeData,
@@ -47,30 +54,10 @@ export default function ImageCharacterQuiz({
 }: ImageCharacterQuizProps) {
   const [isSolving, setIsSolving] = useState(false);
   const [elements, setElements] = useState<ImageTarget[]>([
-    {
-      character: null,
-      anime: null,
-      isCharacterCorrect: false,
-      isAnimeCorrect: false,
-    },
-    {
-      character: null,
-      anime: null,
-      isCharacterCorrect: false,
-      isAnimeCorrect: false,
-    },
-    {
-      character: null,
-      anime: null,
-      isCharacterCorrect: false,
-      isAnimeCorrect: false,
-    },
-    {
-      character: null,
-      anime: null,
-      isCharacterCorrect: false,
-      isAnimeCorrect: false,
-    },
+    { ...characterPreset },
+    { ...characterPreset },
+    { ...characterPreset },
+    { ...characterPreset },
   ]);
   const [targets, setTargets] = useState<Character[] | null>(null);
   const [score, setScore] = useState(0);
@@ -92,30 +79,10 @@ export default function ImageCharacterQuiz({
 
   function resetImageQuiz() {
     setElements([
-      {
-        character: null,
-        anime: null,
-        isCharacterCorrect: false,
-        isAnimeCorrect: false,
-      },
-      {
-        character: null,
-        anime: null,
-        isCharacterCorrect: false,
-        isAnimeCorrect: false,
-      },
-      {
-        character: null,
-        anime: null,
-        isCharacterCorrect: false,
-        isAnimeCorrect: false,
-      },
-      {
-        character: null,
-        anime: null,
-        isCharacterCorrect: false,
-        isAnimeCorrect: false,
-      },
+      { ...characterPreset },
+      { ...characterPreset },
+      { ...characterPreset },
+      { ...characterPreset },
     ]);
     resetTargets();
     setScore(0);

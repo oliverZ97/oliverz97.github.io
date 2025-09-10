@@ -66,11 +66,7 @@ export const DayStreak = forwardRef(
             streak: streakObj.streak + 1,
           };
 
-          saveStreakToProfile(
-            today.getTime().toString(),
-            streakKey,
-            newStreak.streak
-          );
+          saveStreakToProfile(streakKey, newStreak);
           setCurrentStreak(newStreak);
         }
       },

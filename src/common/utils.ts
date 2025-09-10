@@ -649,6 +649,11 @@ export function setDailyScore(
     const profileData = localStorage.getItem("profile_" + currentProfile.id);
     if (profileData) {
       const profileStatistics = JSON.parse(profileData);
+      // Ensure scores object exists
+      if (!profileStatistics.scores) {
+        profileStatistics.scores = {};
+      }
+
       if (profileStatistics.scores[date]) {
         profileStatistics.scores[date][key] = score;
         profileStatistics.scores[date].totalScore =

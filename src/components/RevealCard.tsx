@@ -38,8 +38,9 @@ export const RevealCard = forwardRef(
       if (tags.length > 1) {
         return tags
           .filter((tag) => tag !== "-")
-          .map((tag) => (
+          .map((tag, index) => (
             <Typography
+              key={index}
               sx={{
                 color: COLORS.quiz.primary_text,
                 textTransform: "capitalize",
@@ -72,8 +73,10 @@ export const RevealCard = forwardRef(
           minHeight: "58px",
           padding: 0,
           borderRadius: "9px",
-          border: `2px solid ${disabled ? COLORS.quiz.disabled_border : COLORS.quiz.light}`,
-          ...sx
+          border: `2px solid ${
+            disabled ? COLORS.quiz.disabled_border : COLORS.quiz.light
+          }`,
+          ...sx,
         }}
         onClick={() => setRevealHint(true)}
         disabled={disabled}
@@ -100,7 +103,9 @@ export const RevealCard = forwardRef(
             top: 0,
             background: revealHint
               ? "rgba(255, 255, 255, 0.0)"
-              : disabled ? COLORS.quiz.disabled : COLORS.quiz.main_rgba,
+              : disabled
+              ? COLORS.quiz.disabled
+              : COLORS.quiz.main_rgba,
             "@keyframes removeBlur": {
               "0%": {
                 background: COLORS.quiz.main_rgba,

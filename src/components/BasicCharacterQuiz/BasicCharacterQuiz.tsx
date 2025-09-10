@@ -22,11 +22,13 @@ import {
 import { LemonButton } from "components/LemonButton";
 import Debug from "components/Debug";
 import {
+  getCurrentUserLog,
   getCurrentUserProfile,
   saveFieldToTotalStatistics,
   saveHighscoreToProfile,
   StatisticFields,
 } from "common/profileUtils";
+import { get } from "react-hook-form";
 
 interface HintRef {
   resetHint: () => void;
@@ -68,7 +70,7 @@ export default function BasicCharacterQuiz({
   const theme = useTheme();
   const isDevMode = localStorage.getItem("mode") === "dev";
 
-  const SCORE_KEY = endlessMode ? "scores" : "dailyScores";
+  const SCORE_KEY = endlessMode ? "scores" : "charQuiz";
   const STREAK_KEY = endlessMode ? "basicStreak" : "dailyBasicStreak";
 
   useEffect(() => {
@@ -178,6 +180,8 @@ export default function BasicCharacterQuiz({
     value: Character | null,
     reason: any
   ) {
+    const userLog = getCurrentUserLog();
+
     if (value && targetChar) {
       const res = compareObjects(value, targetChar);
       value.ValidFields = res.all;
@@ -193,7 +197,9 @@ export default function BasicCharacterQuiz({
             emojis: ["🎉", "🍛", "🍣", "✨", "🍜", "🌸", "🍙"],
             emojiSize: 30,
           });
+          console.log("Correct!");
           saveFieldToTotalStatistics([StatisticFields.totalWins], 1);
+          console.log("Correct!");
         } else {
           setGaveUp(true);
           saveFieldToTotalStatistics([StatisticFields.totalLosses], 1);
@@ -201,6 +207,7 @@ export default function BasicCharacterQuiz({
 
         setIsCorrect(true);
         if (!endlessMode) {
+          console.log("Saving daily score!");
           const utcDate = getDailyUTCDate();
           const solveData = {
             date: utcDate.toISOString(),
@@ -208,6 +215,7 @@ export default function BasicCharacterQuiz({
           };
           localStorage.setItem(CHAR_SOLVED_KEY, JSON.stringify(solveData));
           setDailyScore(utcDate.toISOString(), points, QUIZ_KEY.CHAR);
+          console.log("start saving stats!");
           saveFieldToTotalStatistics(
             [
               StatisticFields.totalGamesPlayed,
@@ -216,6 +224,7 @@ export default function BasicCharacterQuiz({
             1
           );
           saveFieldToTotalStatistics([StatisticFields.totalScore], points);
+          console.log("finished saving stats!");
         }
         if (points > 0) {
           //Set Highscore

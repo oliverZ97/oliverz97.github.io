@@ -1,3 +1,4 @@
+import { Streak } from "components/Streak";
 import { v4 as uuidv4 } from "uuid";
 
 export function downloadStats() {
@@ -69,6 +70,20 @@ export function loadUserProfile(username: string) {
   return null;
 }
 
+export function getCurrentUserLog() {
+  const currentProfile = getCurrentUserProfile();
+  if (!currentProfile) return null;
+  const userLogStr = localStorage.getItem(`profile_${currentProfile.id}`);
+  if (userLogStr) {
+    return JSON.parse(userLogStr);
+  }
+  return { userId: currentProfile.id };
+}
+
+export function setUserLog(userLog: UserLogs) {
+  localStorage.setItem(`profile_${userLog.userId}`, JSON.stringify(userLog));
+}
+
 export function setCurrentUserProfile(username: string) {
   localStorage.setItem("currentUserProfile", username);
 }
@@ -101,67 +116,44 @@ export function saveFieldToTotalStatistics(
   fields: StatisticFields[],
   value: number
 ) {
-  const currentProfile = getCurrentUserProfile();
-  if (!currentProfile) {
-    return; // Do not track score if disabled in settings
-  }
-  const userId = currentProfile.id;
-  const userLogStr = localStorage.getItem(`profile_${userId}`);
-  if (userLogStr) {
-    const userLogs: UserLogs = JSON.parse(userLogStr || "{}");
-
+  const userLog = getCurrentUserLog();
+  if (userLog) {
     //Add field to statistics log group
-    if (!userLogs.statistics) {
-      userLogs.statistics = {};
+    if (!userLog.statistics) {
+      userLog.statistics = {};
     }
     for (const field of fields) {
-      if (!userLogs.statistics[field]) {
-        userLogs.statistics[field] = 0;
+      if (!userLog.statistics[field]) {
+        userLog.statistics[field] = 0;
       }
-      userLogs.statistics[field] += value;
+      userLog.statistics[field] += value;
     }
-    localStorage.setItem(`profile_${userId}`, JSON.stringify(userLogs));
+    setUserLog(userLog);
   }
 }
 
-export function saveStreakToProfile(
-  date: string,
-  quizKey: string,
-  streak: number
-) {
-  const currentProfile = getCurrentUserProfile();
-  if (!currentProfile) {
-    return; // Do not track score if disabled in settings
-  }
-  const userId = currentProfile.id;
-  const userLogStr = localStorage.getItem(`profile_${userId}`);
-  if (userLogStr) {
-    const userLogs: UserLogs = JSON.parse(userLogStr || "{}");
-
+export function saveStreakToProfile(quizKey: string, streak: Streak) {
+  const userLog = getCurrentUserLog();
+  if (userLog) {
     //Add field to statistics log group
-    if (!userLogs.statistics) {
-      userLogs.streaks = {};
+    if (!userLog.streaks) {
+      userLog.streaks = {};
     }
-    userLogs.streaks[`${quizKey}_streak`] = streak;
-    localStorage.setItem(`profile_${userId}`, JSON.stringify(userLogs));
+    userLog.streaks[quizKey] = streak;
+    setUserLog(userLog);
   }
 }
 
+//saves the best three scores of each quiz to the profile
 export function saveHighscoreToProfile(quizKey: string, score: Score) {
-  const currentProfile = getCurrentUserProfile();
-  if (!currentProfile) {
-    return; // Do not track score if disabled in settings
-  }
-  const userId = currentProfile.id;
-  const userLogStr = localStorage.getItem(`profile_${userId}`);
-  if (userLogStr) {
-    const userLogs: UserLogs = JSON.parse(userLogStr || "{}");
-
-    //Add field to statistics log group
-    if (!userLogs.highscores) {
-      userLogs.highscores = {};
+  const userLog = getCurrentUserLog();
+  if (userLog) {
+    // Ensure highscores object exists
+    if (!userLog.highscores) {
+      userLog.highscores = {};
     }
-    userLogs.highscores[`${quizKey}_highscore`] = [score];
-    localStorage.setItem(`profile_${userId}`, JSON.stringify(userLogs));
+
+    userLog.highscores[`${quizKey}_highscore`] = [score];
+    setUserLog(userLog);
   }
 }
