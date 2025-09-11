@@ -118,7 +118,11 @@ import { Anime, Character, Difficulty } from "common/types";
 import { getNLatestVersion, getPreLatestVersion } from "./version";
 import { DateTime } from "luxon";
 import { CalendarEntry } from "components/Calendar";
-import { getCurrentUserLog, getCurrentUserProfile } from "./profileUtils";
+import {
+  getCurrentUserLog,
+  getCurrentUserProfile,
+  SolvedKeys,
+} from "./profileUtils";
 
 export function sortObjectsByKey(
   element1: Record<string, any>,
@@ -498,25 +502,16 @@ export function analyzeFutureDuplicates(
 }
 
 export function hasBeenSolvedToday(key: QUIZ_KEY) {
-  const solvedInfo = localStorage.getItem(key + "_HasBeenSolvedToday");
+  const profile = getCurrentUserProfile();
+  if (!profile) return false;
+  const solvedInfo = profile[(key + "Solved") as SolvedKeys];
   if (solvedInfo) {
-    if (!solvedInfo?.includes("{")) {
-      // If the format is not JSON, it might be an old version or corrupted data
-      localStorage.removeItem(key + "_HasBeenSolvedToday");
-      return false;
-    }
-    if (!solvedInfo?.includes("gaveUp") && key !== QUIZ_KEY.IMAGE) {
-      localStorage.removeItem(key + "_HasBeenSolvedToday");
-      return false;
-    }
-    const { date: solvedDate } = JSON.parse(solvedInfo);
-
-    const date = new Date(solvedDate).toDateString();
+    const date = new Date(solvedInfo.date).toDateString();
     const now = new Date().toDateString();
     if (date === now) {
       return true;
     } else {
-      localStorage.removeItem(key + "_HasBeenSolvedToday");
+      profile[(key + "Solved") as SolvedKeys] = undefined;
       return false;
     }
   } else {
@@ -641,12 +636,12 @@ export function setDailyScore(
       user: currentProfile.id,
     };
     localStorage.setItem(
-      "profile_" + currentProfile.id,
+      "stats_" + currentProfile.id,
       JSON.stringify(profileStatistics)
     );
     localStorage.removeItem("scorelog");
-  } else if (localStorage.getItem("profile_" + currentProfile.id)) {
-    const profileData = localStorage.getItem("profile_" + currentProfile.id);
+  } else if (localStorage.getItem("stats_" + currentProfile.id)) {
+    const profileData = localStorage.getItem("stats_" + currentProfile.id);
     if (profileData) {
       const profileStatistics = JSON.parse(profileData);
       // Ensure scores object exists
@@ -663,7 +658,7 @@ export function setDailyScore(
         profileStatistics.scores[date].totalScore = score;
       }
       localStorage.setItem(
-        "profile_" + currentProfile.id,
+        "stats_" + currentProfile.id,
         JSON.stringify(profileStatistics)
       );
     }
@@ -674,7 +669,7 @@ export function setDailyScore(
     };
 
     localStorage.setItem(
-      "profile_" + currentProfile.id,
+      "stats_" + currentProfile.id,
       JSON.stringify(profileStatistics)
     );
   }

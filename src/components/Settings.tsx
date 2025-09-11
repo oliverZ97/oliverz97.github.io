@@ -15,9 +15,12 @@ import {
   loadExistingProfiles,
   loadUserProfile,
   setCurrentUserProfile,
+  setUserLog,
+  UserLogs,
   UserProfile,
 } from "common/profileUtils";
 import { useState } from "react";
+import Fileupload from "./Fileupload";
 
 export default function Settings() {
   const [existingProfiles, setExistingProfiles] = useState(
@@ -28,6 +31,14 @@ export default function Settings() {
   );
 
   const [newUsername, setNewUsername] = useState("");
+
+  function handleImport(data: UserLogs) {
+    // Handle the imported user logs data
+    createUserProfile(data.user);
+    setUserLog(data);
+    setExistingProfiles(loadExistingProfiles());
+    setCurrentUser(getCurrentUserProfile());
+  }
 
   return (
     <Box sx={{ minWidth: 600 }}>
@@ -110,6 +121,7 @@ export default function Settings() {
           >
             Create
           </Button>
+          <Fileupload onFileLoaded={handleImport} />
         </Box>
       </Box>
       <Button variant="outlined" onClick={downloadStats}>

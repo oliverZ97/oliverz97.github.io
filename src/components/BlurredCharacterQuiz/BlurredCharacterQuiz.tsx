@@ -21,7 +21,9 @@ import {
 import CharacterList from "./CharacterList";
 import {
   saveFieldToTotalStatistics,
+  saveHasBeenSolvedToday,
   saveHighscoreToProfile,
+  SolvedKeys,
   StatisticFields,
 } from "common/profileUtils";
 
@@ -30,7 +32,7 @@ interface HintRef {
 }
 
 const BASEPOINTS = 1000;
-const CHAR_SOLVED_KEY = QUIZ_KEY.BLUR + "_HasBeenSolvedToday";
+const CHAR_SOLVED_KEY = (QUIZ_KEY.BLUR + "Solved") as SolvedKeys;
 
 interface BasicCharacterQuizProps {
   charData: Character[];
@@ -254,7 +256,7 @@ export default function BasicCharacterQuiz({
             date: utcDate.toISOString(),
             gaveUp: reason === "giveUp",
           };
-          localStorage.setItem(CHAR_SOLVED_KEY, JSON.stringify(solveData));
+          saveHasBeenSolvedToday(CHAR_SOLVED_KEY, solveData);
           setDailyScore(utcDate.toISOString(), points, QUIZ_KEY.BLUR);
           saveFieldToTotalStatistics(
             [

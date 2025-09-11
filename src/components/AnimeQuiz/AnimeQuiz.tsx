@@ -19,13 +19,15 @@ import { SearchBar } from "./SearchBar";
 import { LemonButton } from "components/LemonButton";
 import {
   saveFieldToTotalStatistics,
+  saveHasBeenSolvedToday,
   saveHighscoreToProfile,
+  SolvedKeys,
   StatisticFields,
 } from "common/profileUtils";
 
 const BASEPOINTS = 150;
 const REDUCEFACTOR = 10;
-const ANIME_SOLVED_KEY = QUIZ_KEY.ANIME + "_HasBeenSolvedToday";
+const ANIME_SOLVED_KEY = (QUIZ_KEY.ANIME + "Solved") as SolvedKeys;
 
 interface AnimeQuizProps {
   animeData: Anime[];
@@ -171,7 +173,7 @@ export const AnimeQuiz = ({
             date: utcDate.toISOString(),
             gaveUp: reason === "giveUp",
           };
-          localStorage.setItem(ANIME_SOLVED_KEY, JSON.stringify(solveData));
+          saveHasBeenSolvedToday(ANIME_SOLVED_KEY, solveData);
           setDailyScore(utcDate.toISOString(), points, QUIZ_KEY.ANIME);
           saveFieldToTotalStatistics(
             [

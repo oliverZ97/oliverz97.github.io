@@ -25,7 +25,9 @@ import {
   getCurrentUserLog,
   getCurrentUserProfile,
   saveFieldToTotalStatistics,
+  saveHasBeenSolvedToday,
   saveHighscoreToProfile,
+  SolvedKeys,
   StatisticFields,
 } from "common/profileUtils";
 
@@ -35,7 +37,7 @@ interface HintRef {
 
 const BASEPOINTS = 150;
 const REDUCEFACTOR = 10;
-const CHAR_SOLVED_KEY = QUIZ_KEY.CHAR + "_HasBeenSolvedToday";
+const CHAR_SOLVED_KEY = (QUIZ_KEY.CHAR + "Solved") as SolvedKeys;
 
 interface BasicCharacterQuizProps {
   charData: Character[];
@@ -212,7 +214,8 @@ export default function BasicCharacterQuiz({
             date: utcDate.toISOString(),
             gaveUp: reason === "giveUp",
           };
-          localStorage.setItem(CHAR_SOLVED_KEY, JSON.stringify(solveData));
+          console.log("solveData", solveData);
+          saveHasBeenSolvedToday(CHAR_SOLVED_KEY, solveData);
           setDailyScore(utcDate.toISOString(), points, QUIZ_KEY.CHAR);
           console.log("start saving stats!");
           saveFieldToTotalStatistics(
@@ -241,7 +244,7 @@ export default function BasicCharacterQuiz({
             const currentProfile = getCurrentUserProfile();
             if (currentProfile) {
               const profileStr = localStorage.getItem(
-                `profile_${currentProfile.id}`
+                `stats_${currentProfile.id}`
               );
               if (profileStr) {
                 const profile = JSON.parse(profileStr);

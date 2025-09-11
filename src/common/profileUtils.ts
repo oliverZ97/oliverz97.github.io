@@ -5,14 +5,13 @@ export function downloadStats() {
   //Download statistic data from local storage
   const currentProfile = getCurrentUserProfile();
   if (!currentProfile) return;
-  const username = currentProfile.username;
-  const scoreLog = localStorage.getItem(`userProfile_${username}`);
+  const scoreLog = localStorage.getItem(`stats_${currentProfile.id}`);
   if (scoreLog) {
     const blob = new Blob([scoreLog], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "user_statistics.json";
+    a.download = `user_${currentProfile.username}.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -24,6 +23,16 @@ export interface UserProfile {
   id: string;
   username: string;
   createdAt: string;
+  charquizSolved?: SolveData;
+  animeQuizSolved?: SolveData;
+  blurQuizSolved?: SolveData;
+  imageQuizSolved?: SolveData;
+}
+
+export interface SolveData {
+  date: string;
+  gaveUp?: boolean;
+  score?: number;
 }
 
 export interface UserLogs {
@@ -31,7 +40,7 @@ export interface UserLogs {
   scores: { [key: string]: Record<string, number> };
   streaks: { [key: string]: Streak };
   highscores: { [key: string]: Score[] };
-  user: string;
+  user: UserProfile;
 }
 
 export interface Score {
@@ -45,14 +54,26 @@ export const defaultUser: UserProfile = {
   createdAt: new Date().toISOString(),
 };
 
-export function createUserProfile(username: string) {
-  const uuid = uuidv4();
-  const userProfile: UserProfile = {
-    id: uuid,
-    username: username,
-    createdAt: new Date().toISOString(),
-  };
-  localStorage.setItem(`userProfile_${username}`, JSON.stringify(userProfile));
+export function createUserProfile(user: UserProfile | string) {
+  let username = "";
+  if (typeof user !== "string") {
+    const userProfile = loadUserProfile(user.username);
+    if (userProfile) return; //User already exists
+    localStorage.setItem(`userProfile_${user.username}`, JSON.stringify(user));
+    username = user.username;
+  } else {
+    const uuid = uuidv4();
+    const userProfile: UserProfile = {
+      id: uuid,
+      username: user,
+      createdAt: new Date().toISOString(),
+    };
+    username = user;
+    localStorage.setItem(
+      `userProfile_${username}`,
+      JSON.stringify(userProfile)
+    );
+  }
   const existingProfilesStr = localStorage.getItem("existingProfiles");
   let existingProfiles: string[] = existingProfilesStr
     ? JSON.parse(existingProfilesStr)
@@ -73,12 +94,12 @@ export function loadUserProfile(username: string) {
 export function getCurrentUserLog(): UserLogs | null {
   const currentProfile = getCurrentUserProfile();
   if (!currentProfile) return null;
-  const userLogStr = localStorage.getItem(`profile_${currentProfile.id}`);
+  const userLogStr = localStorage.getItem(`stats_${currentProfile.id}`);
   if (userLogStr) {
     return JSON.parse(userLogStr);
   }
   return {
-    user: currentProfile.id,
+    user: currentProfile,
     statistics: {},
     scores: {},
     streaks: {},
@@ -87,8 +108,7 @@ export function getCurrentUserLog(): UserLogs | null {
 }
 
 export function setUserLog(userLog: UserLogs) {
-  console.log("Saving user log", userLog);
-  localStorage.setItem(`profile_${userLog.user}`, JSON.stringify(userLog));
+  localStorage.setItem(`stats_${userLog.user.id}`, JSON.stringify(userLog));
 }
 
 export function setCurrentUserProfile(username: string) {
@@ -177,4 +197,28 @@ export function getHighscoresFromProfile(quizKey: string): Score[] {
     return userLog.highscores[`${quizKey}_highscore`] || [];
   }
   return [];
+}
+
+export type SolvedKeys =
+  | "charquizSolved"
+  | "animeQuizSolved"
+  | "blurQuizSolved"
+  | "imageQuizSolved";
+export function saveHasBeenSolvedToday(
+  quizKey: SolvedKeys,
+  solveData: SolveData
+) {
+  const userProfile = getCurrentUserProfile();
+  if (userProfile && solveData) {
+    userProfile[quizKey] = solveData;
+  }
+
+  setUserProfile(userProfile!);
+}
+
+function setUserProfile(userProfile: UserProfile) {
+  localStorage.setItem(
+    `userProfile_${userProfile.username}`,
+    JSON.stringify(userProfile)
+  );
 }

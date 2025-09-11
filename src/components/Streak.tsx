@@ -76,9 +76,7 @@ export const DayStreak = forwardRef(
       let streak = localStorage.getItem(streakKey);
       if (!streak) {
         const currentProfile = getCurrentUserProfile();
-        const profileStr = localStorage.getItem(
-          `profile_${currentProfile?.id}`
-        );
+        const profileStr = localStorage.getItem(`stats_${currentProfile?.id}`);
         if (profileStr) {
           const profile = JSON.parse(profileStr);
           if (profile?.streaks?.[`${streakKey}_streak`]) {

@@ -1,6 +1,8 @@
 import { Box, Button, Typography } from "@mui/material";
 import {
   saveFieldToTotalStatistics,
+  saveHasBeenSolvedToday,
+  SolvedKeys,
   StatisticFields,
 } from "common/profileUtils";
 import { getImgSrc } from "common/quizUtils";
@@ -37,7 +39,7 @@ const BASEPOINTS_ANIME = 1000;
 const BASEPOINTS_CHAR = 1500;
 const ANSWER_KEY = QUIZ_KEY.IMAGE + "_daily_answers";
 const SCORE_KEY = QUIZ_KEY.IMAGE + "_daily_score";
-const IMAGE_SOLVED_KEY = QUIZ_KEY.IMAGE + "_HasBeenSolvedToday";
+const IMAGE_SOLVED_KEY = (QUIZ_KEY.IMAGE + "Solved") as SolvedKeys;
 
 const characterPreset = {
   character: null,
@@ -265,7 +267,7 @@ export default function ImageCharacterQuiz({
         const solveData = {
           date: utcDate.toISOString(),
         };
-        localStorage.setItem(IMAGE_SOLVED_KEY, JSON.stringify(solveData));
+        saveHasBeenSolvedToday(IMAGE_SOLVED_KEY, solveData);
         setDailyScore(utcDate.toISOString(), finalScore, QUIZ_KEY.IMAGE);
         saveFieldToTotalStatistics(
           [StatisticFields.totalWins, StatisticFields.totalGamesPlayed],
