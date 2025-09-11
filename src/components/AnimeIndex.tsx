@@ -1,5 +1,6 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { Anime } from "common/types";
+import React from "react";
 import { COLORS } from "styling/constants";
 
 interface AnimeIndexProps {
@@ -22,7 +23,7 @@ export const AnimeIndex = ({ animeData }: AnimeIndexProps) => {
         Anime Index
       </Typography>
       {animeData.map((item: Anime, index: number) => (
-        <>
+        <React.Fragment key={item.Name}>
           {(index === 0 || item.Name[0] !== animeData[index - 1].Name[0]) && (
             <Typography
               sx={{ fontWeight: "bold", color: "white", marginTop: 1 }}
@@ -37,7 +38,7 @@ export const AnimeIndex = ({ animeData }: AnimeIndexProps) => {
           >
             {item.Name}
           </Typography>
-        </>
+        </React.Fragment>
       ))}
     </Box>
   );

@@ -21,6 +21,7 @@ import {
 import CharacterList from "./CharacterList";
 import {
   saveFieldToTotalStatistics,
+  saveHighscoreToProfile,
   StatisticFields,
 } from "common/profileUtils";
 
@@ -64,7 +65,7 @@ export default function BasicCharacterQuiz({
   const studioHintRef = useRef<HintRef | null>(null);
   const streakRef = useRef<StreakRef | null>(null);
 
-  const SCORE_KEY = endlessMode ? "blurScores" : "dailyBlurScores";
+  const SCORE_KEY = endlessMode ? "blurQuiz" : "dailyBlurQuiz";
   const STREAK_KEY = endlessMode ? "blurStreak" : "dailyBlurStreak";
 
   useEffect(() => {
@@ -285,8 +286,7 @@ export default function BasicCharacterQuiz({
           //sort
           scores.sort((a: Score, b: Score) => (a.points < b.points ? 1 : -1));
           setScores(scores.slice(0, 3));
-          const scoreString = JSON.stringify(scores);
-          localStorage.setItem(SCORE_KEY, scoreString);
+          saveHighscoreToProfile(SCORE_KEY, scoreObj);
           if (streakRef) {
             streakRef.current?.setStreak();
           }

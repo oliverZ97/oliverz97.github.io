@@ -14,6 +14,10 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 
 import { Score } from "pages/Home";
 import { getRandomCharacter } from "common/utils";
+import {
+  getHighscoresFromProfile,
+  saveHighscoreToProfile,
+} from "common/profileUtils";
 
 interface ImageCharacterQuizProps {
   charData: Character[];
@@ -28,13 +32,9 @@ interface ImageTarget {
 }
 
 let score = 0;
+const MULTIPLE_CHOICE_SCORE_KEY = "multiple_choice_quiz";
 let topThree: Score[] = [];
-const MULTIPLE_CHOICE_SCORE_KEY = "multiple_choice_scores";
-const scores = localStorage.getItem(MULTIPLE_CHOICE_SCORE_KEY);
-if (scores) {
-  const scoreArr = JSON.parse(scores) as Score[];
-  topThree = scoreArr.slice(0, 3);
-}
+topThree = getHighscoresFromProfile(MULTIPLE_CHOICE_SCORE_KEY);
 
 export default function MultipleChoiceQuiz({
   charData,
@@ -84,18 +84,19 @@ export default function MultipleChoiceQuiz({
       }),
     };
 
-    let localScores = localStorage.getItem(MULTIPLE_CHOICE_SCORE_KEY);
+    let localScores = getHighscoresFromProfile(MULTIPLE_CHOICE_SCORE_KEY);
     let scores;
     if (localScores) {
-      scores = JSON.parse(localScores);
+      scores = localScores;
       scores.push(scoreObj);
-    } else[(scores = [scoreObj])];
+    } else {
+      scores = [scoreObj];
+    }
 
     //sort
     scores.sort((a: Score, b: Score) => (a.points < b.points ? 1 : -1));
     setScores(scores.slice(0, 3));
-    const scoreString = JSON.stringify(scores);
-    localStorage.setItem(MULTIPLE_CHOICE_SCORE_KEY, scoreString);
+    saveHighscoreToProfile(MULTIPLE_CHOICE_SCORE_KEY, scoreObj);
     if (streakRef) {
       streakRef.current?.setStreak();
     }

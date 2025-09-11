@@ -19,6 +19,7 @@ import { SearchBar } from "./SearchBar";
 import { LemonButton } from "components/LemonButton";
 import {
   saveFieldToTotalStatistics,
+  saveHighscoreToProfile,
   StatisticFields,
 } from "common/profileUtils";
 
@@ -51,7 +52,7 @@ export const AnimeQuiz = ({
 
   const theme = useTheme();
 
-  const SCORE_KEY = endlessMode ? "animeScores" : "dailyAnimeScores";
+  const SCORE_KEY = endlessMode ? "animeQuiz" : "dailyAnimeQuiz";
   const STREAK_KEY = endlessMode ? "animeStreak" : "dailyAnimeStreak";
 
   useEffect(() => {
@@ -202,8 +203,7 @@ export const AnimeQuiz = ({
           //sort
           scores.sort((a: Score, b: Score) => (a.points < b.points ? 1 : -1));
           setScores(scores.slice(0, 3));
-          const scoreString = JSON.stringify(scores);
-          localStorage.setItem(SCORE_KEY, scoreString);
+          saveHighscoreToProfile(SCORE_KEY, scoreObj);
           if (streakRef) {
             streakRef.current?.setStreak();
           }

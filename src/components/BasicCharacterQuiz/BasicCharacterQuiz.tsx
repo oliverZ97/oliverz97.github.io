@@ -28,7 +28,6 @@ import {
   saveHighscoreToProfile,
   StatisticFields,
 } from "common/profileUtils";
-import { get } from "react-hook-form";
 
 interface HintRef {
   resetHint: () => void;
@@ -70,8 +69,8 @@ export default function BasicCharacterQuiz({
   const theme = useTheme();
   const isDevMode = localStorage.getItem("mode") === "dev";
 
-  const SCORE_KEY = endlessMode ? "scores" : "charQuiz";
-  const STREAK_KEY = endlessMode ? "basicStreak" : "dailyBasicStreak";
+  const SCORE_KEY = endlessMode ? "charQuiz" : "dailyCharQuiz";
+  const STREAK_KEY = endlessMode ? "charStreak" : "dailyCharStreak";
 
   useEffect(() => {
     if (charData.length > 0 && localCharData.length === 0) {

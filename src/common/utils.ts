@@ -118,7 +118,7 @@ import { Anime, Character, Difficulty } from "common/types";
 import { getNLatestVersion, getPreLatestVersion } from "./version";
 import { DateTime } from "luxon";
 import { CalendarEntry } from "components/Calendar";
-import { getCurrentUserProfile } from "./profileUtils";
+import { getCurrentUserLog, getCurrentUserProfile } from "./profileUtils";
 
 export function sortObjectsByKey(
   element1: Record<string, any>,
@@ -804,15 +804,8 @@ export function debugGetRandomCharacter(
 }
 
 export function getScoreLogs(): Record<string, { [key: string]: number }> {
-  const currentProfile = getCurrentUserProfile();
-  if (!currentProfile) return {};
-  const scoreLog = localStorage.getItem(
-    `userProfile_${currentProfile.username}`
-  );
-  if (scoreLog) {
-    return JSON.parse(scoreLog);
-  }
-  return {};
+  const logs = getCurrentUserLog();
+  return logs ? logs.scores : {};
 }
 
 export function formatScoresForCalendar(

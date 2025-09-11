@@ -28,10 +28,10 @@ export interface UserProfile {
 
 export interface UserLogs {
   statistics: { [key in StatisticFields]?: number };
-  scoreLog: { [key: string]: number };
-  streaks: { [key: string]: number };
+  scores: { [key: string]: Record<string, number> };
+  streaks: { [key: string]: Streak };
   highscores: { [key: string]: Score[] };
-  userId: string;
+  user: string;
 }
 
 export interface Score {
@@ -70,18 +70,25 @@ export function loadUserProfile(username: string) {
   return null;
 }
 
-export function getCurrentUserLog() {
+export function getCurrentUserLog(): UserLogs | null {
   const currentProfile = getCurrentUserProfile();
   if (!currentProfile) return null;
   const userLogStr = localStorage.getItem(`profile_${currentProfile.id}`);
   if (userLogStr) {
     return JSON.parse(userLogStr);
   }
-  return { userId: currentProfile.id };
+  return {
+    user: currentProfile.id,
+    statistics: {},
+    scores: {},
+    streaks: {},
+    highscores: {},
+  };
 }
 
 export function setUserLog(userLog: UserLogs) {
-  localStorage.setItem(`profile_${userLog.userId}`, JSON.stringify(userLog));
+  console.log("Saving user log", userLog);
+  localStorage.setItem(`profile_${userLog.user}`, JSON.stringify(userLog));
 }
 
 export function setCurrentUserProfile(username: string) {
@@ -154,6 +161,20 @@ export function saveHighscoreToProfile(quizKey: string, score: Score) {
     }
 
     userLog.highscores[`${quizKey}_highscore`] = [score];
+    userLog.highscores[`${quizKey}_highscore`].sort((a: Score, b: Score) =>
+      a.points < b.points ? 1 : -1
+    );
+    userLog.highscores[`${quizKey}_highscore`] = userLog.highscores[
+      `${quizKey}_highscore`
+    ].slice(0, 3);
     setUserLog(userLog);
   }
+}
+
+export function getHighscoresFromProfile(quizKey: string): Score[] {
+  const userLog = getCurrentUserLog();
+  if (userLog && userLog.highscores) {
+    return userLog.highscores[`${quizKey}_highscore`] || [];
+  }
+  return [];
 }

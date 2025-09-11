@@ -23,14 +23,20 @@ import ArticleIcon from "@mui/icons-material/Article";
 import { KissMarryKill } from "components/KissMarryKill/KissMarryKill";
 import { AnimeIndex } from "components/AnimeIndex";
 import { AnimeQuiz } from "components/AnimeQuiz/AnimeQuiz";
-import { formatScoresForCalendar, getCharacterBirthdaysAsCalendarData, getDailyScore, getDailyUTCDate, getScoreLogs } from "common/utils";
+import {
+  formatScoresForCalendar,
+  getCharacterBirthdaysAsCalendarData,
+  getDailyScore,
+  getDailyUTCDate,
+  getScoreLogs,
+} from "common/utils";
 import BlurredCharacterQuiz from "components/BlurredCharacterQuiz/BlurredCharacterQuiz";
 import { dialogManager } from "components/Dialogs/DialogPortal";
 import { NavigationTabs } from "components/NavigationTabs";
 import Calendar from "components/Calendar";
-import SettingsIcon from '@mui/icons-material/Settings';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import SettingsIcon from "@mui/icons-material/Settings";
+import BarChartIcon from "@mui/icons-material/BarChart";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
 export interface Score {
   points: number;
@@ -131,14 +137,16 @@ const Home = () => {
           maxWidth: "100%",
           minHeight: "100vh",
           position: "relative",
-
         }}
       >
-        <Box position={"relative"} sx={{
-          [theme.breakpoints.down("md")]: {
-            display: "none"
-          },
-        }}>
+        <Box
+          position={"relative"}
+          sx={{
+            [theme.breakpoints.down("md")]: {
+              display: "none",
+            },
+          }}
+        >
           <DrawerBasic
             title="Anime Index"
             position={{ top: "120px" }}
@@ -164,10 +172,15 @@ const Home = () => {
             >
               <Box>
                 <NavigationTabs value={value} handleChange={handleChange} />
-                <Divider sx={{ backgroundColor: "white", marginX: 1 }}></Divider>
+                <Divider
+                  sx={{ backgroundColor: "white", marginX: 1 }}
+                ></Divider>
               </Box>
-              <Box display={"flex"} justifyContent={"space-between"} alignItems={"center"}>
-
+              <Box
+                display={"flex"}
+                justifyContent={"space-between"}
+                alignItems={"center"}
+              >
                 <Box padding={2} sx={{ color: "white" }}>
                   <Typography>Today's score:</Typography>
                   <Typography>
@@ -214,7 +227,7 @@ const Home = () => {
                   },
                 }}
                 onClick={() => {
-                  dialogManager.openDialog('howToPlay');
+                  dialogManager.openDialog("howToPlay");
                 }}
               >
                 <HelpOutlineIcon fontSize="large" />
@@ -246,7 +259,7 @@ const Home = () => {
                   },
                 }}
                 onClick={() => {
-                  dialogManager.openDialog('scoreCalendar', getCalendarData());
+                  dialogManager.openDialog("scoreCalendar", getCalendarData());
                 }}
               >
                 <CalendarMonthIcon fontSize="large" />
@@ -277,7 +290,7 @@ const Home = () => {
                   },
                 }}
                 onClick={() => {
-                  dialogManager.openDialog('statistics');
+                  dialogManager.openDialog("statistics");
                 }}
               >
                 <BarChartIcon fontSize="large" />
@@ -308,7 +321,7 @@ const Home = () => {
                   },
                 }}
                 onClick={() => {
-                  dialogManager.openDialog('settings');
+                  dialogManager.openDialog("settings");
                 }}
               >
                 <SettingsIcon fontSize="large" />
@@ -316,9 +329,6 @@ const Home = () => {
             </Box>
           </Tooltip>
         </Box>
-
-
-
 
         <Box
           sx={{
@@ -361,13 +371,20 @@ const Home = () => {
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={2}>
-              <AnimeQuiz animeData={animeData} endlessMode={false} changeQuizMode={(event: React.SyntheticEvent, id: number) =>
-                handleChange(event, id)
-              }></AnimeQuiz>
+              <AnimeQuiz
+                animeData={animeData}
+                endlessMode={false}
+                changeQuizMode={(event: React.SyntheticEvent, id: number) =>
+                  handleChange(event, id)
+                }
+              ></AnimeQuiz>
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={3}>
-              <BlurredCharacterQuiz charData={charData} endlessMode={false}></BlurredCharacterQuiz>
+              <BlurredCharacterQuiz
+                charData={charData}
+                endlessMode={false}
+              ></BlurredCharacterQuiz>
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={5}>
@@ -405,7 +422,10 @@ const Home = () => {
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={11}>
-              <Calendar title="Birthdays" data={getCharacterBirthdaysAsCalendarData(charData)}></Calendar>
+              <Calendar
+                title="Birthdays"
+                data={getCharacterBirthdaysAsCalendarData(charData)}
+              ></Calendar>
             </CustomTabPanel>
           </Box>
         </Box>
@@ -425,12 +445,25 @@ const Home = () => {
             {"Version " + VERSION}
           </Typography>
         </Box>
-        <Box position={"sticky"} sx={{
-          bottom: 0, display: "flex", zIndex: 1000, [theme.breakpoints.up("md")]: {
-            display: "none"
-          },
-        }}>
-          <Box sx={{ backgroundColor: "red", display: "flex", justifyContent: "center" }} flexGrow={1}>
+        <Box
+          position={"sticky"}
+          sx={{
+            bottom: 0,
+            display: "flex",
+            zIndex: 1000,
+            [theme.breakpoints.up("md")]: {
+              display: "none",
+            },
+          }}
+        >
+          <Box
+            sx={{
+              backgroundColor: "red",
+              display: "flex",
+              justifyContent: "center",
+            }}
+            flexGrow={1}
+          >
             <DrawerBasic
               title="Anime Index"
               icon={<ArticleIcon fontSize="large" />}
@@ -438,44 +471,65 @@ const Home = () => {
               <AnimeIndex animeData={animeData} />
             </DrawerBasic>
           </Box>
-          <Box sx={{ backgroundColor: "green", display: "flex", justifyContent: "center" }} flexGrow={1}><DrawerBasic
-            title="Gamemodes"
-            icon={<MenuIcon fontSize="large" />}
-            onOpenFn={() => {
-              setGetTotalScore(getDailyScore(getDailyUTCDate().toISOString()));
+          <Box
+            sx={{
+              backgroundColor: "green",
+              display: "flex",
+              justifyContent: "center",
             }}
+            flexGrow={1}
           >
-            <Box
-              minHeight={"100vh"}
-              display={"flex"}
-              flexDirection="column"
-              justifyContent={"space-between"}
+            <DrawerBasic
+              title="Gamemodes"
+              icon={<MenuIcon fontSize="large" />}
+              onOpenFn={() => {
+                setGetTotalScore(
+                  getDailyScore(getDailyUTCDate().toISOString())
+                );
+              }}
             >
-              <Box>
-                <NavigationTabs value={value} handleChange={handleChange} />
-                <Divider sx={{ backgroundColor: "white", marginX: 1 }}></Divider>
-              </Box>
-              <Box padding={2} sx={{ color: "white" }}>
-                <Typography>Today's score:</Typography>
-                <Typography>
-                  <Typography
-                    component={"span"}
-                    sx={{
-                      fontWeight: "bold",
-                      color: COLORS.quiz.light_red,
-                      marginRight: 1,
-                    }}
-                  >
-                    {getTotalScore}
+              <Box
+                minHeight={"100vh"}
+                display={"flex"}
+                flexDirection="column"
+                justifyContent={"space-between"}
+              >
+                <Box>
+                  <NavigationTabs value={value} handleChange={handleChange} />
+                  <Divider
+                    sx={{ backgroundColor: "white", marginX: 1 }}
+                  ></Divider>
+                </Box>
+                <Box padding={2} sx={{ color: "white" }}>
+                  <Typography>Today's score:</Typography>
+                  <Typography>
+                    <Typography
+                      component={"span"}
+                      sx={{
+                        fontWeight: "bold",
+                        color: COLORS.quiz.light_red,
+                        marginRight: 1,
+                      }}
+                    >
+                      {getTotalScore}
+                    </Typography>
+                    <Typography component={"span"} fontSize={12}>
+                      /40000
+                    </Typography>
                   </Typography>
-                  <Typography component={"span"} fontSize={12}>
-                    /40000
-                  </Typography>
-                </Typography>
+                </Box>
               </Box>
-            </Box>
-          </DrawerBasic></Box>
-          <Box sx={{ display: "flex", justifyContent: "center", maxWidth: "33.33%", boxShadow: 1 }} flexGrow={1}>
+            </DrawerBasic>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              maxWidth: "33.33%",
+              boxShadow: 1,
+            }}
+            flexGrow={1}
+          >
             <Tooltip title={"How to play"} arrow placement="right">
               <Box
                 sx={{
@@ -497,19 +551,18 @@ const Home = () => {
                     width: "100%",
                   }}
                   onClick={() => {
-                    dialogManager.openDialog('howToPlay');
+                    dialogManager.openDialog("howToPlay");
                   }}
                 >
                   <HelpOutlineIcon fontSize="large" />
                 </Button>
               </Box>
-            </Tooltip></Box>
+            </Tooltip>
+          </Box>
         </Box>
-
-      </Box >
+      </Box>
     </>
   );
 };
 
 export default Home;
-
