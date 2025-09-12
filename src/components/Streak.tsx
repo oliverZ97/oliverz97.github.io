@@ -14,7 +14,7 @@ interface StreakProps {
 }
 
 export interface Streak {
-  date: string;
+  date?: string;
   streak: number;
 }
 
@@ -24,13 +24,7 @@ export interface StreakRef {
 
 export const DayStreak = forwardRef(
   ({ streakKey, colorRotate = "0deg", sx }: StreakProps, ref) => {
-    const [currentStreak, setCurrentStreak] = useState<
-      | Streak
-      | {
-          streak: number;
-          date: undefined;
-        }
-    >({
+    const [currentStreak, setCurrentStreak] = useState<Streak>({
       streak: 0,
       date: undefined,
     });
@@ -79,19 +73,27 @@ export const DayStreak = forwardRef(
         const profileStr = localStorage.getItem(`stats_${currentProfile?.id}`);
         if (profileStr) {
           const profile = JSON.parse(profileStr);
-          if (profile?.streaks?.[`${streakKey}_streak`]) {
+          if (profile?.streaks?.[`${streakKey}`]) {
+            const streakObj = profile.streaks[`${streakKey}`] as Streak;
             streak = JSON.stringify({
-              date: undefined,
-              streak: profile.streaks[`${streakKey}_streak`],
+              date: streakObj.date,
+              streak: streakObj.streak,
             });
           }
         }
-      } else {
-        localStorage.removeItem(streakKey);
       }
 
       if (streak) {
+        //remove old streaks that are not associated with a profile
+        localStorage.removeItem(streakKey);
+
         const streakObj: Streak = JSON.parse(streak);
+        if (!streakObj.date) {
+          return {
+            streak: 0,
+            date: undefined,
+          };
+        }
         const date = new Date(parseInt(streakObj.date));
         const today = new Date();
         today.setHours(4);

@@ -7,18 +7,24 @@ interface FileuploadProps {
 }
 
 export default function Fileupload({ onFileLoaded }: FileuploadProps) {
-  const [showFileInput, setShowFileInput] = useState(false);
   const [file, setFile] = useState<File | null>(null);
 
   return (
     <>
-      <Button variant="contained" onClick={() => setShowFileInput(true)}>
-        Import
-      </Button>
-      <Box>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+        <Button
+          variant="contained"
+          onClick={() => document.getElementById("fileInput")?.click()}
+        >
+          Import from File
+        </Button>
+
+        {file && <Box sx={{ marginTop: 1 }}>Selected file: {file.name}</Box>}
+
         <input
+          id="fileInput"
           type="file"
-          style={{ display: showFileInput ? "block" : "none" }}
+          style={{ display: "none" }}
           accept="application/json"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             if (e.target.files && e.target.files.length > 0) {
@@ -29,9 +35,7 @@ export default function Fileupload({ onFileLoaded }: FileuploadProps) {
                 if (typeof json === "string") {
                   const data = JSON.parse(json);
                   if (data && onFileLoaded) {
-                    console.log(data);
                     onFileLoaded(data);
-                    setShowFileInput(false);
                   }
                 }
               };

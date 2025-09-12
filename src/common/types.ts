@@ -1,3 +1,5 @@
+import { Streak } from "components/Streak";
+
 export interface Character {
   Name: string;
   Sex: string;
@@ -34,3 +36,49 @@ export interface Anime {
 }
 
 export type Difficulty = "A" | "B" | "C";
+
+export type SolvedKeys =
+  | "charquizSolved"
+  | "animeQuizSolved"
+  | "blurQuizSolved"
+  | "imageQuizSolved";
+
+export enum StatisticFields {
+  totalGamesPlayed = "totalGamesPlayed",
+  totalWins = "totalWins",
+  totalLosses = "totalLosses",
+  totalScore = "totalScore",
+  totalCharactersGuessed = "totalCharactersGuessed",
+  totalBlurredCharactersGuessed = "totalBlurredCharactersGuessed",
+  totalCharacterImagesGuessed = "totalCharacterImagesGuessed",
+  totalAnimesGuessed = "totalAnimesGuessed",
+}
+
+export interface UserProfile {
+  id: string;
+  username: string;
+  createdAt: string;
+  charquizSolved?: SolveData;
+  animeQuizSolved?: SolveData;
+  blurQuizSolved?: SolveData;
+  imageQuizSolved?: SolveData;
+}
+
+export interface SolveData {
+  date: string;
+  gaveUp?: boolean;
+  score?: number;
+}
+
+export interface UserLogs {
+  statistics: { [key in StatisticFields]?: number };
+  scores: { [key: string]: Record<string, number> };
+  streaks: { [key: string]: Streak };
+  highscores: { [key: string]: Score[] };
+  user: UserProfile;
+}
+
+export interface Score {
+  points: number;
+  date: string;
+}

@@ -297,7 +297,7 @@ const Home = () => {
               </Button>
             </Box>
           </Tooltip>
-          <Tooltip title={"Settings"} arrow placement="right">
+          <Tooltip title={"Profile"} arrow placement="right">
             <Box
               sx={{
                 position: "absolute",

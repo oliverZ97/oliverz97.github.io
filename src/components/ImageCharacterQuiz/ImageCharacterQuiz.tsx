@@ -2,11 +2,9 @@ import { Box, Button, Typography } from "@mui/material";
 import {
   saveFieldToTotalStatistics,
   saveHasBeenSolvedToday,
-  SolvedKeys,
-  StatisticFields,
 } from "common/profileUtils";
 import { getImgSrc } from "common/quizUtils";
-import { Anime, Character } from "common/types";
+import { Anime, Character, SolvedKeys, StatisticFields } from "common/types";
 import {
   getDailyUTCDate,
   getRandomCharacter,

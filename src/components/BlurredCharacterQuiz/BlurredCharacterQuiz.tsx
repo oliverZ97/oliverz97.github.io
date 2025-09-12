@@ -3,9 +3,14 @@ import { RevealCard } from "components/RevealCard";
 import { COLORS } from "styling/constants";
 import { SearchBar } from "../BasicCharacterQuiz/SearchBar";
 import { SyntheticEvent, useEffect, useRef, useState } from "react";
-import { Character, Difficulty } from "common/types";
+import {
+  Character,
+  Difficulty,
+  SolvedKeys,
+  StatisticFields,
+} from "common/types";
 import JSConfetti from "js-confetti";
-import { compareObjects, getImgSrc } from "common/quizUtils";
+import { compareObjects, getImgSrc, solveQuizHelper } from "common/quizUtils";
 import { Score } from "pages/Home";
 import { DayStreak } from "components/Streak";
 import { StreakRef } from "components/Streak";
@@ -20,11 +25,10 @@ import {
 } from "common/utils";
 import CharacterList from "./CharacterList";
 import {
+  getHighscoresFromProfile,
   saveFieldToTotalStatistics,
   saveHasBeenSolvedToday,
   saveHighscoreToProfile,
-  SolvedKeys,
-  StatisticFields,
 } from "common/profileUtils";
 
 interface HintRef {
@@ -59,6 +63,8 @@ export default function BasicCharacterQuiz({
   const [freezeBlur, setFreezeBlur] = useState(false);
   // Store the last blur value before freezing
   const [frozenBlurValue, setFrozenBlurValue] = useState(50);
+  const [imageRevealed, setImageRevealed] = useState(false);
+  const [imageKey, setImageKey] = useState(Date.now());
 
   const theme = useTheme();
 
@@ -67,7 +73,6 @@ export default function BasicCharacterQuiz({
   const studioHintRef = useRef<HintRef | null>(null);
   const streakRef = useRef<StreakRef | null>(null);
 
-  const SCORE_KEY = endlessMode ? "blurQuiz" : "dailyBlurQuiz";
   const STREAK_KEY = endlessMode ? "blurStreak" : "dailyBlurStreak";
 
   useEffect(() => {
@@ -99,13 +104,8 @@ export default function BasicCharacterQuiz({
 
   useEffect(() => {
     //get scores
-    const scores = localStorage.getItem(SCORE_KEY);
-    if (scores) {
-      const scoreArr = JSON.parse(scores) as Score[];
-
-      const topThree = scoreArr.slice(0, 3);
-      setScores(topThree);
-    }
+    const scores = getHighscoresFromProfile(QUIZ_KEY.BLUR);
+    updateScores(scores);
   }, []);
 
   useEffect(() => {
@@ -135,6 +135,13 @@ export default function BasicCharacterQuiz({
       setBlurWithFreeze(50);
     }
   }, [blurFactor, isCorrect, gaveUp, targetChar, freezeBlur]);
+
+  function updateScores(scores: Score[]) {
+    if (scores) {
+      const topThree = scores.slice(0, 3);
+      setScores(topThree);
+    }
+  }
 
   function setBlurWithFreeze(newValue: number) {
     // If blur is frozen, always use the frozen value unless setting to 0 for correct answer
@@ -177,6 +184,8 @@ export default function BasicCharacterQuiz({
 
   function init() {
     setIsCorrect(false);
+    setImageRevealed(false); // Reset image reveal state
+    setImageKey(Date.now()); // Force new image loading
     resetQuiz();
 
     //select random character
@@ -198,11 +207,15 @@ export default function BasicCharacterQuiz({
         setIsCorrect(true);
         setBlurFactor(0);
         setFrozenBlurValue(0);
+        setImageRevealed(true); // Add this line
+        setImageKey(Date.now()); // Force image reload
       }
       if (gaveUpToday) {
         setGaveUp(true);
         setBlurFactor(0);
         setFrozenBlurValue(0);
+        setImageRevealed(true); // Add this line
+        setImageKey(Date.now()); // Force image reload
       }
     }
     setTargetCharacter(target as Character);
@@ -237,63 +250,29 @@ export default function BasicCharacterQuiz({
       if (res.all.length + 1 === Object.keys(targetChar).length) {
         // Always allow setting blur to 0 for a correct answer
         setBlurWithFreeze(0);
-        if (reason !== "giveUp") {
-          const jsConfetti = new JSConfetti();
-          jsConfetti.addConfetti({
-            emojis: ["🎉", "🍛", "🍣", "✨", "🍜", "🌸", "🍙"],
-            emojiSize: 30,
-          });
-          saveFieldToTotalStatistics([StatisticFields.totalWins], 1);
-        } else {
-          setGaveUp(true);
-          saveFieldToTotalStatistics([StatisticFields.totalLosses], 1);
-        }
+        setBlurFactor(0); // Explicitly set blur to 0
+        setFrozenBlurValue(0); // Ensure frozen value is 0 too
+        setImageRevealed(true); // Explicitly mark image as revealed
+        setImageKey(Date.now()); // Force image reload
+        solveQuizHelper(
+          reason,
+          setGaveUp,
+          setIsCorrect,
+          endlessMode,
+          CHAR_SOLVED_KEY,
+          QUIZ_KEY.BLUR,
+          points,
+          targetChar,
+          res
+        );
 
-        setIsCorrect(true);
-        if (!endlessMode) {
-          const utcDate = getDailyUTCDate();
-          const solveData = {
-            date: utcDate.toISOString(),
-            gaveUp: reason === "giveUp",
-          };
-          saveHasBeenSolvedToday(CHAR_SOLVED_KEY, solveData);
-          setDailyScore(utcDate.toISOString(), points, QUIZ_KEY.BLUR);
-          saveFieldToTotalStatistics(
-            [
-              StatisticFields.totalGamesPlayed,
-              StatisticFields.totalBlurredCharactersGuessed,
-            ],
-            1
-          );
-          saveFieldToTotalStatistics([StatisticFields.totalScore], points);
-        }
-        if (points > 0) {
-          //Set Highscore
-          const scoreObj = {
-            points: points,
-            date: new Date().toLocaleString("de-DE", {
-              year: "numeric",
-              month: "2-digit",
-              day: "2-digit",
-            }),
-          };
+        //get scores
+        const scores = getHighscoresFromProfile(QUIZ_KEY.BLUR);
+        updateScores(scores);
 
-          let localScores = localStorage.getItem(SCORE_KEY);
-          let scores;
-          if (localScores) {
-            scores = JSON.parse(localScores);
-            scores.push(scoreObj);
-          } else [(scores = [scoreObj])];
-
-          //sort
-          scores.sort((a: Score, b: Score) => (a.points < b.points ? 1 : -1));
-          setScores(scores.slice(0, 3));
-          saveHighscoreToProfile(SCORE_KEY, scoreObj);
-          if (streakRef) {
-            streakRef.current?.setStreak();
-          }
+        if (streakRef.current) {
+          streakRef.current.setStreak();
         }
-        return;
       }
 
       // Calculate new points before changing blur
@@ -503,6 +482,7 @@ export default function BasicCharacterQuiz({
               {/* Clean image for when solved */}
               <Box
                 component="img"
+                key={`clean-image-${imageKey}`} // Force re-render with unique key
                 src={getImgSrc(targetChar.Name)}
                 sx={{
                   position: "absolute",
@@ -511,9 +491,9 @@ export default function BasicCharacterQuiz({
                   width: "300px",
                   height: "420px",
                   objectFit: "cover",
-                  opacity: blurFactor === 0 ? 1 : 0,
+                  opacity: imageRevealed || isCorrect || gaveUp ? 1 : 0, // Use explicit state and fallbacks
                   transition: "opacity 0.3s ease",
-                  zIndex: 2,
+                  zIndex: 10, // Increased to ensure it's on top
                 }}
                 loading="eager"
                 onError={(e) => {
@@ -550,7 +530,6 @@ export default function BasicCharacterQuiz({
           // Store current blur value before giving up
           setFrozenBlurValue(blurFactor);
           setFreezeBlur(true);
-          console.log("Giving up - freezing blur at:", blurFactor);
 
           // Then handle the give up action
           handleSearchChange(null, targetChar, "giveUp");

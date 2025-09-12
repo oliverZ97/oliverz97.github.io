@@ -1,3 +1,9 @@
+import { Anime, Character, Difficulty, SolvedKeys } from "common/types";
+import { getNLatestVersion } from "./version";
+import { DateTime } from "luxon";
+import { CalendarEntry } from "components/Calendar";
+import { getCurrentUserLog, getCurrentUserProfile } from "./profileUtils";
+
 export function getRandomNumberFromUTCDate(
   max: number,
   isPrevious = false,
@@ -113,16 +119,6 @@ export function cleanUTCDate(date: Date): Date {
   date.setUTCHours(0, 0, 0, 0);
   return date;
 }
-
-import { Anime, Character, Difficulty } from "common/types";
-import { getNLatestVersion, getPreLatestVersion } from "./version";
-import { DateTime } from "luxon";
-import { CalendarEntry } from "components/Calendar";
-import {
-  getCurrentUserLog,
-  getCurrentUserProfile,
-  SolvedKeys,
-} from "./profileUtils";
 
 export function sortObjectsByKey(
   element1: Record<string, any>,
@@ -284,13 +280,14 @@ export function getRandomCharacter(
     // Apply deduplication ONLY when developing or debugging
     // In normal operation, we want deterministic daily characters
     if (avoidRecentDuplicates && window.location.hostname === "localhost") {
-      // Get recently used characters
+      // Get recently used characters (these are now hashed)
       const recentChars = getRecentlyUsedCharacters();
 
-      // Check if today's character is a recent duplicate
+      // Check if today's character is a recent duplicate by hashing it first
       const potentialTarget = charArray[index];
+      const hashedName = hashCharacterName(potentialTarget.Name);
 
-      if (recentChars.includes(potentialTarget.Name)) {
+      if (recentChars.includes(hashedName)) {
         // For testing/debugging only: track that we detected a duplicate
         //console.debug('Detected duplicate daily character:', potentialTarget.Name);
       }
@@ -361,7 +358,10 @@ export function getRandomAnime(
       const recentAnimes = getRecentlyUsedAnimes();
       const potentialTarget = animeArray[index];
 
-      if (recentAnimes.includes(potentialTarget.Name)) {
+      // Hash the anime name before checking if it's in the recent list
+      const hashedName = hashAnimeName(potentialTarget.Name);
+
+      if (recentAnimes.includes(hashedName)) {
         // For testing/debugging only
         //console.debug('Detected duplicate daily anime:', potentialTarget.Name);
       }
@@ -388,10 +388,41 @@ export enum QUIZ_KEY {
 // Constants for recent character tracking
 const RECENT_CHARS_KEY = "recentCharacters";
 const MAX_RECENT_CHARS = 30; // Avoid repeating characters from the last 30 days
+const HASH_SALT = "anime-quiz-character-salt"; // Salt for hashing
+
+/**
+ * Creates a simple hash of a string using built-in JavaScript
+ * This is not cryptographically secure but obscures the original text
+ */
+function hashCharacterName(name: string): string {
+  const text = name + HASH_SALT;
+  let hash = 0;
+
+  // Simple but effective string hashing algorithm
+  for (let i = 0; i < text.length; i++) {
+    const char = text.charCodeAt(i);
+    hash = (hash << 5) - hash + char;
+    hash = hash & hash; // Convert to 32bit integer
+  }
+
+  // Add some complexity by mixing in more operations
+  hash = Math.abs(hash);
+  const hashStr = hash.toString(16) + (text.length * 7).toString(16);
+
+  // Add more entropy with a second pass
+  let secondHash = 0;
+  for (let i = 0; i < hashStr.length; i++) {
+    secondHash = (secondHash << 7) - secondHash + hashStr.charCodeAt(i);
+    secondHash = secondHash & secondHash;
+  }
+
+  return Math.abs(secondHash).toString(36) + hashStr;
+}
 
 /**
  * Get the list of recently used character names from local storage.
  * This helps prevent duplicate characters from appearing in daily quizzes.
+ * The names are stored as hashes for privacy.
  */
 export function getRecentlyUsedCharacters(): string[] {
   const stored = localStorage.getItem(RECENT_CHARS_KEY);
@@ -399,9 +430,27 @@ export function getRecentlyUsedCharacters(): string[] {
 
   try {
     const data = JSON.parse(stored);
-    if (Array.isArray(data.characters)) {
-      return data.characters;
+    if (Array.isArray(data.hashedCharacters)) {
+      return data.hashedCharacters;
     }
+
+    // Backward compatibility for old format
+    if (Array.isArray(data.characters)) {
+      // Migrate old data to hashed format
+      const hashedCharacters = data.characters.map(hashCharacterName);
+
+      // Update storage with hashed version
+      localStorage.setItem(
+        RECENT_CHARS_KEY,
+        JSON.stringify({
+          hashedCharacters,
+          lastUpdated: new Date().toISOString(),
+        })
+      );
+
+      return hashedCharacters;
+    }
+
     return [];
   } catch (e) {
     // If there's an error parsing, reset the storage
@@ -413,15 +462,17 @@ export function getRecentlyUsedCharacters(): string[] {
 /**
  * Add a character name to the list of recently used characters.
  * Maintains a limited history to avoid too many restrictions.
+ * Character names are hashed before storage.
  */
 export function addToRecentCharacters(characterName: string): void {
   const recentChars = getRecentlyUsedCharacters();
+  const hashedName = hashCharacterName(characterName);
 
   // Don't add duplicates
-  if (recentChars.includes(characterName)) return;
+  if (recentChars.includes(hashedName)) return;
 
   // Add to the front (most recent)
-  recentChars.unshift(characterName);
+  recentChars.unshift(hashedName);
 
   // Trim to maximum length
   while (recentChars.length > MAX_RECENT_CHARS) {
@@ -432,7 +483,7 @@ export function addToRecentCharacters(characterName: string): void {
   localStorage.setItem(
     RECENT_CHARS_KEY,
     JSON.stringify({
-      characters: recentChars,
+      hashedCharacters: recentChars,
       lastUpdated: new Date().toISOString(),
     })
   );
@@ -522,10 +573,41 @@ export function hasBeenSolvedToday(key: QUIZ_KEY) {
 // Constants for recent anime tracking
 const RECENT_ANIMES_KEY = "recentAnimes";
 const MAX_RECENT_ANIMES = 20; // Avoid repeating anime from the last 20 days
+const ANIME_HASH_SALT = "anime-quiz-anime-salt"; // Salt for hashing anime names
+
+/**
+ * Creates a simple hash of an anime name using built-in JavaScript
+ * This is not cryptographically secure but obscures the original text
+ */
+function hashAnimeName(name: string): string {
+  const text = name + ANIME_HASH_SALT;
+  let hash = 0;
+
+  // Simple but effective string hashing algorithm
+  for (let i = 0; i < text.length; i++) {
+    const char = text.charCodeAt(i);
+    hash = (hash << 5) - hash + char;
+    hash = hash & hash; // Convert to 32bit integer
+  }
+
+  // Add some complexity by mixing in more operations
+  hash = Math.abs(hash);
+  const hashStr = hash.toString(16) + (text.length * 7).toString(16);
+
+  // Add more entropy with a second pass
+  let secondHash = 0;
+  for (let i = 0; i < hashStr.length; i++) {
+    secondHash = (secondHash << 7) - secondHash + hashStr.charCodeAt(i);
+    secondHash = secondHash & secondHash;
+  }
+
+  return Math.abs(secondHash).toString(36) + hashStr;
+}
 
 /**
  * Get the list of recently used anime names from local storage.
  * This helps prevent duplicate anime from appearing in daily quizzes.
+ * The names are stored as hashes for privacy.
  */
 export function getRecentlyUsedAnimes(): string[] {
   const stored = localStorage.getItem(RECENT_ANIMES_KEY);
@@ -533,9 +615,27 @@ export function getRecentlyUsedAnimes(): string[] {
 
   try {
     const data = JSON.parse(stored);
-    if (Array.isArray(data.animes)) {
-      return data.animes;
+    if (Array.isArray(data.hashedAnimes)) {
+      return data.hashedAnimes;
     }
+
+    // Backward compatibility for old format
+    if (Array.isArray(data.animes)) {
+      // Migrate old data to hashed format
+      const hashedAnimes = data.animes.map(hashAnimeName);
+
+      // Update storage with hashed version
+      localStorage.setItem(
+        RECENT_ANIMES_KEY,
+        JSON.stringify({
+          hashedAnimes,
+          lastUpdated: new Date().toISOString(),
+        })
+      );
+
+      return hashedAnimes;
+    }
+
     return [];
   } catch (e) {
     // If there's an error parsing, reset the storage
@@ -547,15 +647,17 @@ export function getRecentlyUsedAnimes(): string[] {
 /**
  * Add an anime name to the list of recently used animes.
  * Maintains a limited history to avoid too many restrictions.
+ * Anime names are hashed before storage.
  */
 export function addToRecentAnimes(animeName: string): void {
   const recentAnimes = getRecentlyUsedAnimes();
+  const hashedName = hashAnimeName(animeName);
 
   // Don't add duplicates
-  if (recentAnimes.includes(animeName)) return;
+  if (recentAnimes.includes(hashedName)) return;
 
   // Add to the front (most recent)
-  recentAnimes.unshift(animeName);
+  recentAnimes.unshift(hashedName);
 
   // Trim to maximum length
   while (recentAnimes.length > MAX_RECENT_ANIMES) {
@@ -566,7 +668,7 @@ export function addToRecentAnimes(animeName: string): void {
   localStorage.setItem(
     RECENT_ANIMES_KEY,
     JSON.stringify({
-      animes: recentAnimes,
+      hashedAnimes: recentAnimes,
       lastUpdated: new Date().toISOString(),
     })
   );

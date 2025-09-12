@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Divider,
   MenuItem,
   Select,
   SelectChangeEvent,
@@ -13,16 +14,14 @@ import {
   downloadStats,
   getCurrentUserProfile,
   loadExistingProfiles,
-  loadUserProfile,
   setCurrentUserProfile,
   setUserLog,
-  UserLogs,
-  UserProfile,
 } from "common/profileUtils";
 import { useState } from "react";
 import Fileupload from "./Fileupload";
+import { UserLogs, UserProfile } from "common/types";
 
-export default function Settings() {
+export default function Profile() {
   const [existingProfiles, setExistingProfiles] = useState(
     loadExistingProfiles()
   );
@@ -43,15 +42,17 @@ export default function Settings() {
   return (
     <Box sx={{ minWidth: 600 }}>
       <Typography variant="h5" gutterBottom>
-        Settings
+        Profile
+      </Typography>
+      <Typography sx={{ marginTop: 4, marginBottom: 1 }}>
+        Active Profile
       </Typography>
       <Box
         display={"flex"}
         alignItems={"center"}
         gap={2}
-        sx={{ marginTop: 4, marginBottom: 4 }}
+        sx={{ marginBottom: 4 }}
       >
-        <Typography>Profile:</Typography>
         <Select
           sx={{
             width: 300,
@@ -82,13 +83,34 @@ export default function Settings() {
           </MenuItem>
         </Select>
       </Box>
-      <Box marginBottom={4}>
-        <Typography sx={{ marginTop: 4 }}>New Profile</Typography>
+      <Button
+        sx={{ marginBottom: 2 }}
+        variant="outlined"
+        onClick={downloadStats}
+      >
+        Export Data
+      </Button>
+      <Divider sx={{ borderColor: "white" }}></Divider>
+      <Typography sx={{ marginTop: 4, textAlign: "center", fontSize: 20 }}>
+        Create New Profile
+      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          marginTop: 1,
+          marginBottom: 4,
+        }}
+      >
         <Box
-          display="flex"
-          alignItems="center"
-          gap={2}
-          sx={{ marginTop: 1, marginBottom: 2 }}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 2,
+            marginTop: 1,
+            marginBottom: 2,
+          }}
         >
           <TextField
             label="Username"
@@ -111,8 +133,10 @@ export default function Settings() {
             }}
           />
           <Button
-            variant="outlined"
+            variant="contained"
+            sx={{ height: "56px" }}
             onClick={() => {
+              if (newUsername.trim() === "") return;
               createUserProfile(newUsername);
               setExistingProfiles(loadExistingProfiles());
               setCurrentUser(getCurrentUserProfile());
@@ -121,12 +145,10 @@ export default function Settings() {
           >
             Create
           </Button>
-          <Fileupload onFileLoaded={handleImport} />
         </Box>
+        <Typography sx={{ marginBottom: 2 }}>OR</Typography>
+        <Fileupload onFileLoaded={handleImport} />
       </Box>
-      <Button variant="outlined" onClick={downloadStats}>
-        Export Data
-      </Button>
     </Box>
   );
 }

@@ -455,6 +455,7 @@ export default function MultipleChoiceQuiz({
                 {target &&
                   answers.map((answer) => (
                     <Button
+                      key={answer.character}
                       sx={{
                         border: `1px solid ${COLORS.quiz.light}`,
                         width: "450px",

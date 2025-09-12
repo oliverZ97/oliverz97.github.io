@@ -1,32 +1,22 @@
 import { Box, Typography, useTheme } from "@mui/material";
-import { compareObjects } from "common/quizUtils";
-import { Anime } from "common/types";
+import { compareObjects, solveQuizHelper } from "common/quizUtils";
+import { Anime, SolvedKeys } from "common/types";
 import {
   gaveUpOnTodaysQuiz,
-  getDailyUTCDate,
   getRandomAnime,
   hasBeenSolvedToday,
   QUIZ_KEY,
-  setDailyScore,
 } from "common/utils";
 import { DayStreak, StreakRef } from "components/Streak";
-import JSConfetti from "js-confetti";
 import { Score } from "pages/Home";
 import { SyntheticEvent, useEffect, useRef, useState } from "react";
 import { COLORS } from "styling/constants";
 import AnimeList from "./AnimeList";
 import { SearchBar } from "./SearchBar";
 import { LemonButton } from "components/LemonButton";
-import {
-  saveFieldToTotalStatistics,
-  saveHasBeenSolvedToday,
-  saveHighscoreToProfile,
-  SolvedKeys,
-  StatisticFields,
-} from "common/profileUtils";
+import { calculateSelectionPoints, removeOptionFromArray } from "./utils";
+import { getHighscoresFromProfile } from "common/profileUtils";
 
-const BASEPOINTS = 150;
-const REDUCEFACTOR = 10;
 const ANIME_SOLVED_KEY = (QUIZ_KEY.ANIME + "Solved") as SolvedKeys;
 
 interface AnimeQuizProps {
@@ -37,7 +27,7 @@ interface AnimeQuizProps {
 
 export const AnimeQuiz = ({
   animeData,
-  endlessMode,
+  endlessMode = true,
   changeQuizMode,
 }: AnimeQuizProps) => {
   const [searchHistory, setSearchHistory] = useState<Anime[]>([]);
@@ -54,7 +44,6 @@ export const AnimeQuiz = ({
 
   const theme = useTheme();
 
-  const SCORE_KEY = endlessMode ? "animeQuiz" : "dailyAnimeQuiz";
   const STREAK_KEY = endlessMode ? "animeStreak" : "dailyAnimeStreak";
 
   useEffect(() => {
@@ -79,13 +68,8 @@ export const AnimeQuiz = ({
 
   useEffect(() => {
     //get scores
-    const scores = localStorage.getItem(SCORE_KEY);
-    if (scores) {
-      const scoreArr = JSON.parse(scores) as Score[];
-
-      const topThree = scoreArr.slice(0, 3);
-      setScores(topThree);
-    }
+    const scores = getHighscoresFromProfile(QUIZ_KEY.ANIME);
+    updateScores(scores);
   }, []);
 
   useEffect(() => {
@@ -93,6 +77,13 @@ export const AnimeQuiz = ({
       setShowGiveUp(true);
     }
   }, [points]);
+
+  function updateScores(scores: Score[]) {
+    if (scores) {
+      const topThree = scores.slice(0, 3);
+      setScores(topThree);
+    }
+  }
 
   function resetQuiz() {
     setLocalAnimeData([
@@ -125,21 +116,6 @@ export const AnimeQuiz = ({
     setTargetAnime(target as Anime);
   }
 
-  function removeOptionFromArray(value: Anime) {
-    const index = localAnimeData.indexOf(value);
-    const tempArray = localAnimeData;
-    tempArray.splice(index, 1);
-    setLocalAnimeData(tempArray);
-  }
-
-  function calculateSelectionPoints(correctFieldCount: number) {
-    const baseValue = Math.max(searchHistory.length, 1) * BASEPOINTS;
-    let difficultyFactor = 2;
-    let roundPoints =
-      baseValue - correctFieldCount * REDUCEFACTOR * difficultyFactor;
-    setPoints(points - roundPoints < 0 ? 0 : points - roundPoints);
-  }
-
   function handleSearchChange(
     event: SyntheticEvent<Element, Event> | null,
     value: Anime | null,
@@ -150,71 +126,37 @@ export const AnimeQuiz = ({
       value.ValidFields = res.all;
 
       setSelectedOption(value);
-      removeOptionFromArray(value);
+      removeOptionFromArray(value, localAnimeData, setLocalAnimeData);
       setSearchHistory([value, ...searchHistory]);
 
       if (res.all.length + 1 === Object.keys(targetAnime).length) {
-        if (reason !== "giveUp") {
-          const jsConfetti = new JSConfetti();
-          jsConfetti.addConfetti({
-            emojis: ["🎉", "🍛", "🍣", "✨", "🍜", "🌸", "🍙"],
-            emojiSize: 30,
-          });
-          saveFieldToTotalStatistics([StatisticFields.totalWins], 1);
-        } else {
-          setGaveUp(true);
-          saveFieldToTotalStatistics([StatisticFields.totalLosses], 1);
-        }
+        solveQuizHelper(
+          reason,
+          setGaveUp,
+          setIsCorrect,
+          endlessMode,
+          ANIME_SOLVED_KEY,
+          QUIZ_KEY.ANIME,
+          points,
+          targetAnime,
+          res
+        );
 
-        setIsCorrect(true);
-        if (!endlessMode) {
-          const utcDate = getDailyUTCDate();
-          const solveData = {
-            date: utcDate.toISOString(),
-            gaveUp: reason === "giveUp",
-          };
-          saveHasBeenSolvedToday(ANIME_SOLVED_KEY, solveData);
-          setDailyScore(utcDate.toISOString(), points, QUIZ_KEY.ANIME);
-          saveFieldToTotalStatistics(
-            [
-              StatisticFields.totalGamesPlayed,
-              StatisticFields.totalAnimesGuessed,
-            ],
-            1
-          );
-          saveFieldToTotalStatistics([StatisticFields.totalScore], points);
-        }
-        if (points > 0) {
-          //Set Highscore
-          const scoreObj = {
-            points: points,
-            date: new Date().toLocaleString("de-DE", {
-              year: "numeric",
-              month: "2-digit",
-              day: "2-digit",
-            }),
-          };
+        //get scores
+        const scores = getHighscoresFromProfile(QUIZ_KEY.ANIME);
+        updateScores(scores);
 
-          let localScores = localStorage.getItem(SCORE_KEY);
-          let scores;
-          if (localScores) {
-            scores = JSON.parse(localScores);
-            scores.push(scoreObj);
-          } else [(scores = [scoreObj])];
-
-          //sort
-          scores.sort((a: Score, b: Score) => (a.points < b.points ? 1 : -1));
-          setScores(scores.slice(0, 3));
-          saveHighscoreToProfile(SCORE_KEY, scoreObj);
-          if (streakRef) {
-            streakRef.current?.setStreak();
-          }
+        if (streakRef.current) {
+          streakRef.current.setStreak();
         }
-        return;
       }
-
       //calculate point reduce
-      calculateSelectionPoints(res.short.length);
+      calculateSelectionPoints(
+        res.short.length,
+        searchHistory,
+        points,
+        setPoints
+      );
     }
   }
 

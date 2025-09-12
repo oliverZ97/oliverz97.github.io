@@ -1,3 +1,19 @@
+import {
+  calculateSelectionPoints,
+  removeOptionFromArray,
+} from "components/BasicCharacterQuiz/utils";
+import JSConfetti from "js-confetti";
+import {
+  getCurrentUserLog,
+  getCurrentUserProfile,
+  saveFieldToTotalStatistics,
+  saveHasBeenSolvedToday,
+  saveHighscoreToProfile,
+} from "./profileUtils";
+import { Anime, Character, Score, SolvedKeys, StatisticFields } from "./types";
+import { getDailyUTCDate, QUIZ_KEY, setDailyScore } from "./utils";
+import { SyntheticEvent } from "react";
+
 export function isMoreThanADay(date1: Date, date2: Date) {
   // Calculate the time difference in milliseconds
   const timeDiff = Math.abs(date2.getTime() - date1.getTime());
@@ -81,4 +97,67 @@ export function compareObjects<T extends Record<string, any>>(
   }
 
   return sameFieldsObj;
+}
+
+export function solveQuizHelper(
+  reason: any,
+  setGaveUp: (value: boolean) => void,
+  setIsCorrect: (value: boolean) => void,
+  endlessMode: boolean,
+  solvedKey: SolvedKeys,
+  quizKey: QUIZ_KEY,
+  points: number,
+  target: Character | Anime | null,
+  correctFields: {
+    all: string[];
+    short: string[];
+  }
+) {
+  if (target) {
+    if (correctFields.all.length + 1 === Object.keys(target).length) {
+      if (reason !== "giveUp") {
+        const jsConfetti = new JSConfetti();
+        jsConfetti.addConfetti({
+          emojis: ["🎉", "🍛", "🍣", "✨", "🍜", "🌸", "🍙"],
+          emojiSize: 30,
+        });
+        saveFieldToTotalStatistics([StatisticFields.totalWins], 1);
+      } else {
+        setGaveUp(true);
+        saveFieldToTotalStatistics([StatisticFields.totalLosses], 1);
+      }
+
+      setIsCorrect(true);
+      if (!endlessMode) {
+        const utcDate = getDailyUTCDate();
+        const solveData = {
+          date: utcDate.toISOString(),
+          gaveUp: reason === "giveUp",
+        };
+        saveHasBeenSolvedToday(solvedKey, solveData);
+        setDailyScore(utcDate.toISOString(), points, quizKey);
+        saveFieldToTotalStatistics(
+          [
+            StatisticFields.totalGamesPlayed,
+            StatisticFields.totalCharactersGuessed,
+          ],
+          1
+        );
+        saveFieldToTotalStatistics([StatisticFields.totalScore], points);
+      }
+      if (points > 0 && !endlessMode) {
+        //Set Highscore
+        const scoreObj = {
+          points: points,
+          date: new Date().toLocaleString("de-DE", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          }),
+        };
+
+        saveHighscoreToProfile(quizKey, scoreObj);
+      }
+    }
+  }
 }

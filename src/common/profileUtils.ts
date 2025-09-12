@@ -1,5 +1,13 @@
 import { Streak } from "components/Streak";
 import { v4 as uuidv4 } from "uuid";
+import {
+  Score,
+  SolveData,
+  SolvedKeys,
+  StatisticFields,
+  UserLogs,
+  UserProfile,
+} from "./types";
 
 export function downloadStats() {
   //Download statistic data from local storage
@@ -19,41 +27,28 @@ export function downloadStats() {
   }
 }
 
-export interface UserProfile {
-  id: string;
-  username: string;
-  createdAt: string;
-  charquizSolved?: SolveData;
-  animeQuizSolved?: SolveData;
-  blurQuizSolved?: SolveData;
-  imageQuizSolved?: SolveData;
-}
-
-export interface SolveData {
-  date: string;
-  gaveUp?: boolean;
-  score?: number;
-}
-
-export interface UserLogs {
-  statistics: { [key in StatisticFields]?: number };
-  scores: { [key: string]: Record<string, number> };
-  streaks: { [key: string]: Streak };
-  highscores: { [key: string]: Score[] };
-  user: UserProfile;
-}
-
-export interface Score {
-  points: number;
-  date: string;
-}
-
 export const defaultUser: UserProfile = {
   id: "guest",
   username: "Guest",
   createdAt: new Date().toISOString(),
 };
 
+/**
+ * Creates a user profile and stores it in local storage.
+ *
+ * If a UserProfile object is provided, it checks if the user already exists.
+ * If the user exists, the function returns early.
+ * If the user doesn't exist, it stores the profile in local storage.
+ *
+ * If a string is provided, it creates a new UserProfile with a generated UUID,
+ * the provided username, and the current timestamp, then stores it in local storage.
+ *
+ * In both cases, the username is added to the list of existing profiles in local storage
+ * and the created profile is set as the current user profile.
+ *
+ * @param user - Either a UserProfile object or a string representing the username
+ * @returns void
+ */
 export function createUserProfile(user: UserProfile | string) {
   let username = "";
   if (typeof user !== "string") {
@@ -83,6 +78,12 @@ export function createUserProfile(user: UserProfile | string) {
   setCurrentUserProfile(username);
 }
 
+/**
+ * Loads a user profile from localStorage.
+ *
+ * @param username - The username whose profile should be loaded
+ * @returns The user profile object if found, or null if no profile exists
+ */
 export function loadUserProfile(username: string) {
   const userProfileStr = localStorage.getItem(`userProfile_${username}`);
   if (userProfileStr) {
@@ -91,6 +92,17 @@ export function loadUserProfile(username: string) {
   return null;
 }
 
+/**
+ * Retrieves the current user's log data from local storage.
+ *
+ * This function first gets the current user profile and then attempts to retrieve
+ * the associated log data from local storage using a key in the format `stats_{userId}`.
+ * If log data exists, it is parsed from JSON and returned.
+ * If no log data exists, a new UserLogs object is initialized with the current user profile
+ * and empty statistics, scores, streaks, and highscores objects.
+ *
+ * @returns {UserLogs | null} The user's log data if a profile exists, otherwise null.
+ */
 export function getCurrentUserLog(): UserLogs | null {
   const currentProfile = getCurrentUserProfile();
   if (!currentProfile) return null;
@@ -107,14 +119,34 @@ export function getCurrentUserLog(): UserLogs | null {
   };
 }
 
+/**
+ * Sets or updates the user log in the localStorage.
+ *
+ * @param userLog - The user logs object to be stored
+ * @remarks The user log is stored as a JSON string in localStorage with the key format `stats_${userId}`
+ */
 export function setUserLog(userLog: UserLogs) {
   localStorage.setItem(`stats_${userLog.user.id}`, JSON.stringify(userLog));
 }
 
+/**
+ * Sets the current user profile by storing the username in the local storage.
+ *
+ * @param username - The username to be stored as the current user profile
+ */
 export function setCurrentUserProfile(username: string) {
   localStorage.setItem("currentUserProfile", username);
 }
 
+/**
+ * Retrieves the current user's profile from local storage.
+ *
+ * This function first checks if a username is stored in localStorage under the key "currentUserProfile".
+ * If a username is found, it loads and returns the corresponding user profile.
+ * If no username is found, it returns null.
+ *
+ * @returns {UserProfile | null} The user profile if a username is found in localStorage, otherwise null
+ */
 export function getCurrentUserProfile(): UserProfile | null {
   const username = localStorage.getItem("currentUserProfile");
   if (username) {
@@ -123,22 +155,28 @@ export function getCurrentUserProfile(): UserProfile | null {
   return null;
 }
 
+/**
+ * Loads existing profiles from local storage.
+ *
+ * @returns {Array} An array of profiles retrieved from localStorage, or an empty array if none exist.
+ * The profiles are parsed from JSON format stored under the key "existingProfiles".
+ */
 export function loadExistingProfiles() {
   const existingProfilesStr = localStorage.getItem("existingProfiles");
   return existingProfilesStr ? JSON.parse(existingProfilesStr) : [];
 }
 
-export enum StatisticFields {
-  totalGamesPlayed = "totalGamesPlayed",
-  totalWins = "totalWins",
-  totalLosses = "totalLosses",
-  totalScore = "totalScore",
-  totalCharactersGuessed = "totalCharactersGuessed",
-  totalBlurredCharactersGuessed = "totalBlurredCharactersGuessed",
-  totalCharacterImagesGuessed = "totalCharacterImagesGuessed",
-  totalAnimesGuessed = "totalAnimesGuessed",
-}
-
+/**
+ * Saves a value to multiple statistic fields in the current user's log.
+ * Creates statistic fields if they don't exist and adds the value to existing ones.
+ *
+ * @param fields - Array of statistic field names to update
+ * @param value - Numeric value to add to each of the specified fields
+ *
+ * @example
+ * // Add 10 points to both 'score' and 'totalPoints' statistics
+ * saveFieldToTotalStatistics(['score', 'totalPoints'], 10);
+ */
 export function saveFieldToTotalStatistics(
   fields: StatisticFields[],
   value: number
@@ -159,6 +197,19 @@ export function saveFieldToTotalStatistics(
   }
 }
 
+/**
+ * Saves a streak for a specific quiz to the user's profile.
+ *
+ * This function retrieves the current user log, adds or updates the streak
+ * information for the specified quiz, and then saves the updated user log.
+ * If the streaks object doesn't exist in the user log, it initializes it.
+ *
+ * @param quizKey - The unique identifier for the quiz
+ * @param streak - The streak object to be saved
+ *
+ * @remarks
+ * The function requires that a user is currently logged in to successfully save the streak.
+ */
 export function saveStreakToProfile(quizKey: string, streak: Streak) {
   const userLog = getCurrentUserLog();
   if (userLog) {
@@ -171,7 +222,21 @@ export function saveStreakToProfile(quizKey: string, streak: Streak) {
   }
 }
 
-//saves the best three scores of each quiz to the profile
+/**
+ * Saves a highscore to the user profile for a specific quiz.
+ *
+ * This function retrieves the current user log, adds the new score to the
+ * appropriate quiz's highscore list, sorts the highscores in descending order
+ * by points, keeps only the top 3 scores, and then updates the user log.
+ *
+ * @param quizKey - The unique identifier for the quiz
+ * @param score - The score object to be saved
+ *
+ * @remarks
+ * - If the user log doesn't exist, the function will do nothing
+ * - If the highscores object doesn't exist in the user log, it will be created
+ * - Only the top 3 scores for each quiz are retained
+ */
 export function saveHighscoreToProfile(quizKey: string, score: Score) {
   const userLog = getCurrentUserLog();
   if (userLog) {
@@ -191,6 +256,13 @@ export function saveHighscoreToProfile(quizKey: string, score: Score) {
   }
 }
 
+/**
+ * Retrieves the highscores for a specific quiz from the user's profile.
+ *
+ * @param quizKey - The unique identifier for the quiz to retrieve highscores for
+ * @returns An array of Score objects representing the highscores for the specified quiz.
+ * Returns an empty array if no highscores exist for the quiz or if the user log is not available.
+ */
 export function getHighscoresFromProfile(quizKey: string): Score[] {
   const userLog = getCurrentUserLog();
   if (userLog && userLog.highscores) {
@@ -199,11 +271,12 @@ export function getHighscoresFromProfile(quizKey: string): Score[] {
   return [];
 }
 
-export type SolvedKeys =
-  | "charquizSolved"
-  | "animeQuizSolved"
-  | "blurQuizSolved"
-  | "imageQuizSolved";
+/**
+ * Saves the solve data for a quiz to the current user's profile.
+ * @param quizKey - The key identifying which quiz was solved.
+ * @param solveData - The data about how the quiz was solved.
+ * @returns void
+ */
 export function saveHasBeenSolvedToday(
   quizKey: SolvedKeys,
   solveData: SolveData
@@ -211,11 +284,21 @@ export function saveHasBeenSolvedToday(
   const userProfile = getCurrentUserProfile();
   if (userProfile && solveData) {
     userProfile[quizKey] = solveData;
+    setUserProfile(userProfile);
   }
-
-  setUserProfile(userProfile!);
 }
 
+/**
+ * Sets the user profile in the local storage.
+ *
+ * @param userProfile - The user profile object to be stored
+ * @example
+ * const userProfile = {
+ *   username: 'johndoe',
+ *   // other user properties
+ * };
+ * setUserProfile(userProfile);
+ */
 function setUserProfile(userProfile: UserProfile) {
   localStorage.setItem(
     `userProfile_${userProfile.username}`,

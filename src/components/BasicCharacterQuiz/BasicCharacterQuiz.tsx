@@ -1,42 +1,30 @@
-import { Box, Button, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { RevealCard } from "components/RevealCard";
 import { COLORS } from "styling/constants";
 import CharacterList from "./CharacterList";
 import { SearchBar } from "./SearchBar";
 import { SyntheticEvent, useEffect, useRef, useState } from "react";
-import { Character, Difficulty } from "common/types";
-import JSConfetti from "js-confetti";
-import { compareObjects, getImgSrc } from "common/quizUtils";
+import { Character, Difficulty, SolvedKeys } from "common/types";
+import { compareObjects, getImgSrc, solveQuizHelper } from "common/quizUtils";
 import { Score } from "pages/Home";
 import { DayStreak } from "components/Streak";
 import { StreakRef } from "components/Streak";
 import {
   gaveUpOnTodaysQuiz,
-  getDailyUTCDate,
   getRandomCharacter,
   hasBeenSolvedToday,
   isIncludedInDifficulty,
   QUIZ_KEY,
-  setDailyScore,
 } from "common/utils";
 import { LemonButton } from "components/LemonButton";
 import Debug from "components/Debug";
-import {
-  getCurrentUserLog,
-  getCurrentUserProfile,
-  saveFieldToTotalStatistics,
-  saveHasBeenSolvedToday,
-  saveHighscoreToProfile,
-  SolvedKeys,
-  StatisticFields,
-} from "common/profileUtils";
+import { calculateSelectionPoints, removeOptionFromArray } from "./utils";
+import { getHighscoresFromProfile } from "common/profileUtils";
 
 interface HintRef {
   resetHint: () => void;
 }
 
-const BASEPOINTS = 150;
-const REDUCEFACTOR = 10;
 const CHAR_SOLVED_KEY = (QUIZ_KEY.CHAR + "Solved") as SolvedKeys;
 
 interface BasicCharacterQuizProps {
@@ -71,7 +59,6 @@ export default function BasicCharacterQuiz({
   const theme = useTheme();
   const isDevMode = localStorage.getItem("mode") === "dev";
 
-  const SCORE_KEY = endlessMode ? "charQuiz" : "dailyCharQuiz";
   const STREAK_KEY = endlessMode ? "charStreak" : "dailyCharStreak";
 
   useEffect(() => {
@@ -96,13 +83,8 @@ export default function BasicCharacterQuiz({
 
   useEffect(() => {
     //get scores
-    const scores = localStorage.getItem(SCORE_KEY);
-    if (scores) {
-      const scoreArr = JSON.parse(scores) as Score[];
-
-      const topThree = scoreArr.slice(0, 3);
-      setScores(topThree);
-    }
+    const scores = getHighscoresFromProfile(QUIZ_KEY.CHAR);
+    updateScores(scores);
   }, []);
 
   useEffect(() => {
@@ -110,6 +92,13 @@ export default function BasicCharacterQuiz({
       setShowGiveUp(true);
     }
   }, [points]);
+
+  function updateScores(scores: Score[]) {
+    if (scores) {
+      const topThree = scores.slice(0, 3);
+      setScores(topThree);
+    }
+  }
 
   function resetQuiz() {
     setLocalCharData([...charData.sort((a, b) => (a.Name < b.Name ? -1 : 1))]);
@@ -155,128 +144,48 @@ export default function BasicCharacterQuiz({
     setTargetCharacter(target as Character);
   }
 
-  function removeOptionFromArray(value: Character) {
-    const index = localCharData.indexOf(value);
-    const tempArray = localCharData;
-    tempArray.splice(index, 1);
-    setLocalCharData(tempArray);
-  }
-
-  function calculateSelectionPoints(correctFieldCount: number) {
-    const baseValue = Math.max(searchHistory.length, 1) * BASEPOINTS;
-    let difficultyFactor = 2;
-    if (difficulty === "B") {
-      difficultyFactor = 1.5;
-    }
-    if (difficulty === "C") {
-      difficultyFactor = 1;
-    }
-    let roundPoints =
-      baseValue - correctFieldCount * REDUCEFACTOR * difficultyFactor;
-    setPoints(points - roundPoints < 0 ? 0 : points - roundPoints);
-  }
-
   function handleSearchChange(
     event: SyntheticEvent<Element, Event> | null,
     value: Character | null,
     reason: any
   ) {
-    const userLog = getCurrentUserLog();
-
     if (value && targetChar) {
       const res = compareObjects(value, targetChar);
       value.ValidFields = res.all;
 
       setSelectedOption(value);
-      removeOptionFromArray(value);
+      removeOptionFromArray(value, localCharData, setLocalCharData);
       setSearchHistory([value, ...searchHistory]);
 
       if (res.all.length + 1 === Object.keys(targetChar).length) {
-        if (reason !== "giveUp") {
-          const jsConfetti = new JSConfetti();
-          jsConfetti.addConfetti({
-            emojis: ["🎉", "🍛", "🍣", "✨", "🍜", "🌸", "🍙"],
-            emojiSize: 30,
-          });
-          console.log("Correct!");
-          saveFieldToTotalStatistics([StatisticFields.totalWins], 1);
-          console.log("Correct!");
-        } else {
-          setGaveUp(true);
-          saveFieldToTotalStatistics([StatisticFields.totalLosses], 1);
+        solveQuizHelper(
+          reason,
+          setGaveUp,
+          setIsCorrect,
+          endlessMode,
+          CHAR_SOLVED_KEY,
+          QUIZ_KEY.CHAR,
+          points,
+          targetChar,
+          res
+        );
+
+        //get scores
+        const scores = getHighscoresFromProfile(QUIZ_KEY.CHAR);
+        updateScores(scores);
+
+        if (streakRef.current) {
+          streakRef.current.setStreak();
         }
-
-        setIsCorrect(true);
-        if (!endlessMode) {
-          console.log("Saving daily score!");
-          const utcDate = getDailyUTCDate();
-          const solveData = {
-            date: utcDate.toISOString(),
-            gaveUp: reason === "giveUp",
-          };
-          console.log("solveData", solveData);
-          saveHasBeenSolvedToday(CHAR_SOLVED_KEY, solveData);
-          setDailyScore(utcDate.toISOString(), points, QUIZ_KEY.CHAR);
-          console.log("start saving stats!");
-          saveFieldToTotalStatistics(
-            [
-              StatisticFields.totalGamesPlayed,
-              StatisticFields.totalCharactersGuessed,
-            ],
-            1
-          );
-          saveFieldToTotalStatistics([StatisticFields.totalScore], points);
-          console.log("finished saving stats!");
-        }
-        if (points > 0) {
-          //Set Highscore
-          const scoreObj = {
-            points: points,
-            date: new Date().toLocaleString("de-DE", {
-              year: "numeric",
-              month: "2-digit",
-              day: "2-digit",
-            }),
-          };
-
-          let localScores = localStorage.getItem(SCORE_KEY);
-          if (!localScores) {
-            const currentProfile = getCurrentUserProfile();
-            if (currentProfile) {
-              const profileStr = localStorage.getItem(
-                `stats_${currentProfile.id}`
-              );
-              if (profileStr) {
-                const profile = JSON.parse(profileStr);
-                const profileScores =
-                  profile?.highscores?.[`${SCORE_KEY}_highscore`];
-                if (profileScores) {
-                  localScores = profileScores;
-                }
-              }
-            } else {
-              localStorage.removeItem(SCORE_KEY);
-            }
-            let scores;
-            if (localScores) {
-              scores = JSON.parse(localScores);
-              scores.push(scoreObj);
-            } else [(scores = [scoreObj])];
-
-            //sort
-            scores.sort((a: Score, b: Score) => (a.points < b.points ? 1 : -1));
-            setScores(scores.slice(0, 3));
-            saveHighscoreToProfile(SCORE_KEY, scoreObj);
-            if (streakRef) {
-              streakRef.current?.setStreak();
-            }
-          }
-          return;
-        }
-
-        //calculate point reduce
-        calculateSelectionPoints(res.short.length);
       }
+      //calculate point reduce
+      calculateSelectionPoints(
+        res.short.length,
+        searchHistory,
+        difficulty,
+        points,
+        setPoints
+      );
     }
   }
 
