@@ -20,6 +20,14 @@ gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
 
+# Grape stuff
+gem "grape"
+gem "grape-swagger"
+gem "grape-entity"
+gem "grape-swagger-entity"
+gem "rswag-ui"
+gem "rack-cors"
+
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 

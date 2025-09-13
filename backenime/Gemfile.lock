@@ -91,6 +91,23 @@ GEM
       reline (>= 0.3.8)
     dotenv (3.1.8)
     drb (2.2.3)
+    dry-core (1.1.0)
+      concurrent-ruby (~> 1.0)
+      logger
+      zeitwerk (~> 2.6)
+    dry-inflector (1.2.0)
+    dry-logic (1.6.0)
+      bigdecimal
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 1.1)
+      zeitwerk (~> 2.6)
+    dry-types (1.8.3)
+      bigdecimal (~> 3.0)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 1.0)
+      dry-inflector (~> 1.0)
+      dry-logic (~> 1.4)
+      zeitwerk (~> 2.6)
     ed25519 (1.4.0)
     erb (5.0.2)
     erubi (1.13.1)
@@ -101,6 +118,21 @@ GEM
       raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    grape (2.4.0)
+      activesupport (>= 6.1)
+      dry-types (>= 1.1)
+      mustermann-grape (~> 1.1.0)
+      rack (>= 2)
+      zeitwerk
+    grape-entity (1.0.1)
+      activesupport (>= 3.0.0)
+      multi_json (>= 1.3.2)
+    grape-swagger (2.1.2)
+      grape (>= 1.7, < 3.0)
+      rack-test (~> 2)
+    grape-swagger-entity (0.7.0)
+      grape-entity (~> 1)
+      grape-swagger (~> 2)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     io-console (0.8.1)
@@ -135,6 +167,11 @@ GEM
     mini_mime (1.1.5)
     minitest (5.25.5)
     msgpack (1.8.0)
+    multi_json (1.17.0)
+    mustermann (3.0.4)
+      ruby2_keywords (~> 0.0.1)
+    mustermann-grape (1.1.0)
+      mustermann (>= 1.0.0)
     net-imap (0.5.10)
       date
       net-protocol
@@ -187,6 +224,9 @@ GEM
     raabro (1.4.0)
     racc (1.8.1)
     rack (3.2.1)
+    rack-cors (3.0.0)
+      logger
+      rack (>= 3.0.14)
     rack-session (2.1.1)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
@@ -231,6 +271,9 @@ GEM
     regexp_parser (2.11.2)
     reline (0.6.2)
       io-console (~> 0.5)
+    rswag-ui (2.16.0)
+      actionpack (>= 5.2, < 8.1)
+      railties (>= 5.2, < 8.1)
     rubocop (1.80.2)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
@@ -260,6 +303,7 @@ GEM
       rubocop-performance (>= 1.24)
       rubocop-rails (>= 2.30)
     ruby-progressbar (1.13.0)
+    ruby2_keywords (0.0.5)
     securerandom (0.4.1)
     solid_cable (3.0.12)
       actioncable (>= 7.2)
@@ -319,10 +363,16 @@ DEPENDENCIES
   bootsnap
   brakeman
   debug
+  grape
+  grape-entity
+  grape-swagger
+  grape-swagger-entity
   kamal
   pg (~> 1.1)
   puma (>= 5.0)
+  rack-cors
   rails (~> 8.0.2, >= 8.0.2.1)
+  rswag-ui
   rubocop-rails-omakase
   solid_cable
   solid_cache
