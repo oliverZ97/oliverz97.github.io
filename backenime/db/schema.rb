@@ -16,7 +16,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_13_132002) do
 
   create_table "animes", force: :cascade do |t|
     t.string "name"
-    t.integer "tag_id"
     t.integer "genre_id"
     t.integer "subgenre_id"
     t.integer "second_subgenre_id"
