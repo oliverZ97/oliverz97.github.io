@@ -16,7 +16,7 @@ module V1
 
     resource :tags do
       desc "Get all tags", {
-        success: ::Entities::TagResponse,
+        success: Entities::TagResponse,
         failure: [
           { code: 401, message: "Unauthorized" }
         ],
@@ -24,11 +24,11 @@ module V1
       }
       get do
         @tags = Tag.all
-        present @tags, with: ::Entities::TagResponse
+        present @tags, with: Entities::TagResponse
       end
 
       desc "Get a specific tag", {
-        success: ::Entities::TagResponse,
+        success: Entities::TagResponse,
         failure: [
           { code: 401, message: "Unauthorized" },
           { code: 404, message: "Not Found" }
@@ -40,11 +40,11 @@ module V1
       end
       get ":id" do
         find_tag
-        present @tag, with: ::Entities::TagResponse
+        present @tag, with: Entities::TagResponse
       end
 
       desc "Create a new tag", {
-        success: ::Entities::TagResponse,
+        success: Entities::TagResponse,
         failure: [
           { code: 401, message: "Unauthorized" },
           { code: 422, message: "Unprocessable Entity" }
@@ -57,14 +57,14 @@ module V1
       post do
         @tag = Tag.new(tag_params)
         if @tag.save
-          present @tag, with: ::Entities::TagResponse
+          present @tag, with: Entities::TagResponse
         else
           error!({ errors: @tag.errors.full_messages }, 422)
         end
       end
 
       desc "Update an existing tag", {
-        success: ::Entities::TagResponse,
+        success: Entities::TagResponse,
         failure: [
           { code: 401, message: "Unauthorized" },
           { code: 404, message: "Not Found" },
@@ -79,7 +79,7 @@ module V1
       put ":id" do
         find_tag
         if @tag.update(tag_params)
-          present @tag, with: ::Entities::TagResponse
+          present @tag, with: Entities::TagResponse
         else
           error!({ errors: @tag.errors.full_messages }, 422)
         end

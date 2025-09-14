@@ -6,7 +6,10 @@ class V1::ApiGrape < Grape::API
   default_format :json
 
   # Mount your endpoints here
-  mount V1::AnimeQuiz
+  # mount V1::Animes
+  # mount V1::Characters
+  mount V1::Genres
+  mount V1::Tags
 
   add_swagger_documentation(
     api_version: "v1",
