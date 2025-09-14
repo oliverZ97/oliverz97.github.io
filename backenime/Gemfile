@@ -27,6 +27,7 @@ gem "grape-entity"
 gem "grape-swagger-entity"
 gem "rswag-ui"
 gem "rack-cors"
+gem "byebug"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false

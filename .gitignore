@@ -1,4 +1,4 @@
 /node_modules
 /.vscode/settings.json
-
+/backenime/.byebug_history
 .env.local

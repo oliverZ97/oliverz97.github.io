@@ -2,6 +2,8 @@
 
 module V1
   class Tags < Grape::API
+    helpers ApiHelpers
+
     helpers do
       def tag_params
         ActionController::Parameters.new(params).permit(:name)
@@ -22,7 +24,12 @@ module V1
         ],
         tags: [ "tags" ]
       }
+      params do
+        requires :login, type: String, desc: "Login of AdminUser"
+        requires :authentication_token, type: String, desc: "Authentication Token - can be fetched by login action"
+      end
       get do
+        authenticate!
         @tags = Tag.all
         present @tags, with: Entities::TagResponse
       end
@@ -36,9 +43,12 @@ module V1
         tags: [ "tags" ]
       }
       params do
+        requires :login, type: String, desc: "Login of AdminUser"
+        requires :authentication_token, type: String, desc: "Authentication Token - can be fetched by login action"
         requires :id, type: Integer, desc: "Tag ID"
       end
       get ":id" do
+        authenticate!
         find_tag
         present @tag, with: Entities::TagResponse
       end
@@ -52,9 +62,12 @@ module V1
         tags: [ "tags" ]
       }
       params do
+        requires :login, type: String, desc: "Login of AdminUser"
+        requires :authentication_token, type: String, desc: "Authentication Token - can be fetched by login action"
         requires :name, type: String, desc: "Tag name"
       end
       post do
+        authenticate!
         @tag = Tag.new(tag_params)
         if @tag.save
           present @tag, with: Entities::TagResponse
@@ -73,10 +86,13 @@ module V1
         tags: [ "tags" ]
       }
       params do
+        requires :login, type: String, desc: "Login of AdminUser"
+        requires :authentication_token, type: String, desc: "Authentication Token - can be fetched by login action"
         requires :id, type: Integer, desc: "Tag ID"
         optional :name, type: String, desc: "Tag name"
       end
       put ":id" do
+        authenticate!
         find_tag
         if @tag.update(tag_params)
           present @tag, with: Entities::TagResponse
@@ -93,9 +109,12 @@ module V1
         tags: [ "tags" ]
       }
       params do
+        requires :login, type: String, desc: "Login of AdminUser"
+        requires :authentication_token, type: String, desc: "Authentication Token - can be fetched by login action"
         requires :id, type: Integer, desc: "Tag ID"
       end
       delete ":id" do
+        authenticate!
         find_tag
         if @tag.destroy
           { success: true, message: "Tag successfully deleted" }
