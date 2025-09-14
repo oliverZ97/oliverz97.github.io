@@ -37,6 +37,7 @@ import Calendar from "components/Calendar";
 import SettingsIcon from "@mui/icons-material/Settings";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import { Avatar } from "components/Profile/Avatar";
 
 export interface Score {
   points: number;
@@ -301,8 +302,8 @@ const Home = () => {
             <Box
               sx={{
                 position: "absolute",
-                top: "440px",
-                left: 0,
+                top: 40,
+                right: 0,
                 zIndex: 1000,
               }}
             >
@@ -312,19 +313,20 @@ const Home = () => {
                   backgroundColor: COLORS.quiz.secondary,
                   color: "white",
                   borderColor: "transparent",
-                  height: "60px",
-                  borderTopLeftRadius: 0,
-                  borderBottomLeftRadius: 0,
+                  height: "80px",
+                  borderTopRightRadius: 0,
+                  borderBottomRightRadius: 0,
                   "&:hover": {
                     backgroundColor: COLORS.quiz.main,
                     borderColor: "transparent",
                   },
+                  paddingY: 2
                 }}
                 onClick={() => {
                   dialogManager.openDialog("settings");
                 }}
               >
-                <SettingsIcon fontSize="large" />
+                <Avatar />
               </Button>
             </Box>
           </Tooltip>

@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
 
-export const VERSION = "1.6.5";
+export const VERSION = "1.7.0";
 
 interface CHAR_VERSION {
   version: string;
