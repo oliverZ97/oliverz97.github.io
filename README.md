@@ -11,17 +11,20 @@ Have fun playing :3
 
 ## Current Version
 
-1.6.5
+1.7.0
+
+## Version 1.7.0
+
+- Users are now able to create local profiles to save their data
+- Users are now able to choose from a selection of Profile Pictures and Colors to customize their profile
+- Exisiting scores, highscores and streaks are migrated to the first created new Profile
+- You can export your profile as a JSON file
+- You can import your profile from an existing JSON file if the format is correct
+- Statsistics are now collected when you play and these are saved to your profile
+- Added a Profile Button with users avatar to the main page
+- Added a Placeholder for the future Statistics dialog
 
 ## Upcoming Features
 
-- Local User Profiles
-
-  - save statistics to current user profile
-  - save highscores to current user profile
-  - save streaks to current user profile
-  - choose between a selection of profile pictures
-  - export a profile
-  - import a profile
-
 - View your player statistics
+- Display Patchnotes when a new version releases

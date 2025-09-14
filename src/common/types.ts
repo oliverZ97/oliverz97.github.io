@@ -58,6 +58,10 @@ export interface UserProfile {
   id: string;
   username: string;
   createdAt: string;
+  avatar?: {
+    avatarUrl: string;
+    backgroundColor: string;
+  };
   charquizSolved?: SolveData;
   animeQuizSolved?: SolveData;
   blurQuizSolved?: SolveData;

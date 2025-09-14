@@ -27,5 +27,11 @@ export const COLORS = {
   },
   calendar: {
     entryColors: ["#ff686b", "#99c2ab", "#f5d273"]
+  },
+  profile: {
+    backgroundColors:
+      ["#ffadad", "#ffd6a5", "#fdffb6", "#caffbf", "#9bf6ff", "#a0c4ff", "#bdb2ff", "#ffc6ff", "#ee6055", "#60d394", "#aaf683", "#ffd97d", "#ff9b85", "#70d6ff", "#ff70a6", "#ff9770", "#ffd670", "#e9ff70", "#7161ef", "#55d6c2"]
   }
 };
+
+

@@ -299,7 +299,7 @@ export function saveHasBeenSolvedToday(
  * };
  * setUserProfile(userProfile);
  */
-function setUserProfile(userProfile: UserProfile) {
+export function setUserProfile(userProfile: UserProfile) {
   localStorage.setItem(
     `userProfile_${userProfile.username}`,
     JSON.stringify(userProfile)
