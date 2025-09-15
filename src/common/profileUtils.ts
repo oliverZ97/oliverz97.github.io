@@ -191,7 +191,7 @@ export function saveFieldToTotalStatistics(
       if (!userLog.statistics[field]) {
         userLog.statistics[field] = 0;
       }
-      userLog.statistics[field] += value;
+      userLog.statistics[field] = userLog.statistics[field]! + value;
     }
     setUserLog(userLog);
   }
