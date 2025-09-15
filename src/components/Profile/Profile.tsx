@@ -43,6 +43,7 @@ export default function Profile() {
   const [newUsername, setNewUsername] = useState("");
 
   function handleImport(data: UserLogs) {
+    console.log("Imported data:", data);
     // Handle the imported user logs data
     createUserProfile(data.user);
     setUserLog(data);
@@ -52,9 +53,14 @@ export default function Profile() {
   }
 
   return (
-    <Box >
-      <Box display={"flex"} flexDirection={"row"} alignItems={"flex-start"} width={"750px"}>
-        <Box marginRight={4} >
+    <Box>
+      <Box
+        display={"flex"}
+        flexDirection={"row"}
+        alignItems={"flex-start"}
+        width={"750px"}
+      >
+        <Box marginRight={4}>
           <Typography variant="h5" gutterBottom>
             Profile
           </Typography>
@@ -97,7 +103,6 @@ export default function Profile() {
                 Guest
               </MenuItem>
             </Select>
-
           </Box>
           <Button
             sx={{ marginBottom: 2 }}
@@ -107,7 +112,13 @@ export default function Profile() {
             Export Data
           </Button>
         </Box>
-        <Box display={"flex"} flexDirection={"column"} alignItems={"flex-start"} minHeight={"100%"} marginBottom={2} >
+        <Box
+          display={"flex"}
+          flexDirection={"column"}
+          alignItems={"flex-start"}
+          minHeight={"100%"}
+          marginBottom={2}
+        >
           <AvatarEdit ref={avatarEditRef} />
         </Box>
       </Box>

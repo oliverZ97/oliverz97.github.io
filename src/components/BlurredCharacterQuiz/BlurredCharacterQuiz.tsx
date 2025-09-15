@@ -16,20 +16,13 @@ import { DayStreak } from "components/Streak";
 import { StreakRef } from "components/Streak";
 import {
   gaveUpOnTodaysQuiz,
-  getDailyUTCDate,
   getRandomCharacter,
   hasBeenSolvedToday,
   isIncludedInDifficulty,
   QUIZ_KEY,
-  setDailyScore,
 } from "common/utils";
 import CharacterList from "./CharacterList";
-import {
-  getHighscoresFromProfile,
-  saveFieldToTotalStatistics,
-  saveHasBeenSolvedToday,
-  saveHighscoreToProfile,
-} from "common/profileUtils";
+import { getHighscoresFromProfile } from "common/profileUtils";
 
 interface HintRef {
   resetHint: () => void;

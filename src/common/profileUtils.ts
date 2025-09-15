@@ -50,15 +50,20 @@ export const defaultUser: UserProfile = {
  * @returns void
  */
 export function createUserProfile(user: UserProfile | string) {
+  let userProfile: UserProfile;
   let username = "";
+
   if (typeof user !== "string") {
-    const userProfile = loadUserProfile(user.username);
-    if (userProfile) return; //User already exists
+    const existingUserProfile = loadUserProfile(user.username);
+    console.log(existingUserProfile);
     localStorage.setItem(`userProfile_${user.username}`, JSON.stringify(user));
     username = user.username;
+    userProfile = user;
   } else {
+    const existingProfiles = loadExistingProfiles();
+    if (existingProfiles.includes(user)) return; //User already exists
     const uuid = uuidv4();
-    const userProfile: UserProfile = {
+    userProfile = {
       id: uuid,
       username: user,
       createdAt: new Date().toISOString(),
@@ -69,13 +74,135 @@ export function createUserProfile(user: UserProfile | string) {
       JSON.stringify(userProfile)
     );
   }
+
+  // Ensure a stats entry exists for the new user profile
+  const userLog = getUserLog(userProfile.id);
+  if (!userLog) {
+    createEmptyUserLog(userProfile);
+  }
+
   const existingProfilesStr = localStorage.getItem("existingProfiles");
-  let existingProfiles: string[] = existingProfilesStr
-    ? JSON.parse(existingProfilesStr)
-    : [];
-  existingProfiles.push(username);
+  let existingProfiles: string[] = [];
+  if (existingProfilesStr) {
+    existingProfiles = safeJsonParse<string[]>(existingProfilesStr, []);
+    if (Array.isArray(existingProfiles)) {
+      existingProfiles.forEach((profile) => {
+        loadUserProfile(profile);
+      });
+    }
+  }
+
+  if (!existingProfiles.includes(username)) {
+    existingProfiles.push(username);
+  }
   localStorage.setItem("existingProfiles", JSON.stringify(existingProfiles));
   setCurrentUserProfile(username);
+  migrateExistingStreaksToProfile(username);
+  migrateExistingScoresToProfile(username);
+}
+
+function getUserLog(id: string) {
+  const userLogStr = localStorage.getItem(`stats_${id}`);
+  if (userLogStr) {
+    return safeJsonParse<UserLogs>(userLogStr);
+  }
+  return null;
+}
+
+function createEmptyUserLog(user: UserProfile) {
+  const userLog: UserLogs = {
+    user: user,
+    statistics: {},
+    scores: {},
+    streaks: {},
+    highscores: {},
+  };
+  localStorage.setItem(`stats_${user.id}`, JSON.stringify(userLog));
+  return userLog;
+}
+
+function migrateExistingStreaksToProfile(username: string) {
+  const userProfile = loadUserProfile(username);
+  if (!userProfile) return;
+
+  let userLog = getUserLog(userProfile.id);
+  if (!userLog) {
+    userLog = createEmptyUserLog(userProfile);
+  }
+
+  const existingStreakKeys = Object.keys(localStorage).filter((key) =>
+    key.endsWith("Streak")
+  );
+
+  if (existingStreakKeys.length > 0) {
+    existingStreakKeys.forEach((streakKey) => {
+      const streakStr = localStorage.getItem(streakKey);
+      if (streakStr) {
+        const streakObj = safeJsonParse<Streak>(streakStr);
+        if (streakObj && streakObj.streak !== undefined && streakObj.date) {
+          if (!userLog.streaks) {
+            userLog.streaks = {};
+          }
+          userLog.streaks[streakKey] = streakObj;
+          localStorage.removeItem(streakKey);
+        }
+      }
+    });
+  }
+
+  setUserLog(userLog); // Always save the user log
+}
+
+/**
+ * Migrates existing scores from legacy localStorage format to the user profile.
+ * Similar to how streaks are migrated, this finds any old-format score entries
+ * and moves them to the user's profile.
+ *
+ * @param username - The username whose profile should receive the migrated scores
+ */
+function migrateExistingScoresToProfile(username: string) {
+  const userProfile = loadUserProfile(username);
+  if (!userProfile) return;
+
+  let userLog = getUserLog(userProfile.id);
+  if (!userLog) {
+    userLog = createEmptyUserLog(userProfile);
+  }
+
+  // Look for old score entries that match a pattern like "quizName_score"
+  const existingScoreKeys = Object.keys(localStorage).filter(
+    (key) => key.endsWith("scores") || key.endsWith("dailyScores")
+  );
+
+  if (existingScoreKeys.length > 0) {
+    existingScoreKeys.forEach((scoreKey) => {
+      const scoreStr = localStorage.getItem(scoreKey);
+      if (scoreStr) {
+        const scoreObj = safeJsonParse<Score | Score[]>(scoreStr);
+
+        if (scoreObj) {
+          // Ensure highscores object exists
+          if (!userLog.highscores) {
+            userLog.highscores = {};
+          }
+
+          // Handle both single score objects and arrays of scores
+          if (Array.isArray(scoreObj)) {
+            userLog.highscores[scoreKey] = scoreObj;
+          } else {
+            // For single score objects, create an array
+            userLog.highscores[scoreKey] = [scoreObj];
+          }
+
+          // Remove the old entry
+          localStorage.removeItem(scoreKey);
+        }
+      }
+    });
+  }
+
+  // Always save the user log after migration
+  setUserLog(userLog);
 }
 
 /**
@@ -84,10 +211,15 @@ export function createUserProfile(user: UserProfile | string) {
  * @param username - The username whose profile should be loaded
  * @returns The user profile object if found, or null if no profile exists
  */
-export function loadUserProfile(username: string) {
+export function loadUserProfile(username: string): UserProfile | null {
   const userProfileStr = localStorage.getItem(`userProfile_${username}`);
   if (userProfileStr) {
-    return JSON.parse(userProfileStr);
+    const profile = safeJsonParse<any>(userProfileStr, null);
+    if (isValidUserProfile(profile)) {
+      return profile;
+    }
+    console.error(`Invalid user profile format for username: ${username}`);
+    return null;
   }
   return null;
 }
@@ -106,17 +238,12 @@ export function loadUserProfile(username: string) {
 export function getCurrentUserLog(): UserLogs | null {
   const currentProfile = getCurrentUserProfile();
   if (!currentProfile) return null;
+
   const userLogStr = localStorage.getItem(`stats_${currentProfile.id}`);
   if (userLogStr) {
-    return JSON.parse(userLogStr);
+    return safeJsonParse<UserLogs>(userLogStr);
   }
-  return {
-    user: currentProfile,
-    statistics: {},
-    scores: {},
-    streaks: {},
-    highscores: {},
-  };
+  return createEmptyUserLog(currentProfile);
 }
 
 /**
@@ -161,9 +288,13 @@ export function getCurrentUserProfile(): UserProfile | null {
  * @returns {Array} An array of profiles retrieved from localStorage, or an empty array if none exist.
  * The profiles are parsed from JSON format stored under the key "existingProfiles".
  */
-export function loadExistingProfiles() {
+export function loadExistingProfiles(): string[] {
   const existingProfilesStr = localStorage.getItem("existingProfiles");
-  return existingProfilesStr ? JSON.parse(existingProfilesStr) : [];
+  if (existingProfilesStr) {
+    const profiles = safeJsonParse<string[]>(existingProfilesStr, []);
+    return Array.isArray(profiles) ? profiles : [];
+  }
+  return [];
 }
 
 /**
@@ -245,7 +376,11 @@ export function saveHighscoreToProfile(quizKey: string, score: Score) {
       userLog.highscores = {};
     }
 
-    userLog.highscores[`${quizKey}_highscore`] = [score];
+    const existingScores = userLog.highscores[`${quizKey}_highscore`] || [];
+    const validScores = Array.isArray(existingScores) ? existingScores : [];
+    validScores.push(score);
+    userLog.highscores[`${quizKey}_highscore`] = validScores;
+
     userLog.highscores[`${quizKey}_highscore`].sort((a: Score, b: Score) =>
       a.points < b.points ? 1 : -1
     );
@@ -303,5 +438,24 @@ export function setUserProfile(userProfile: UserProfile) {
   localStorage.setItem(
     `userProfile_${userProfile.username}`,
     JSON.stringify(userProfile)
+  );
+}
+
+function safeJsonParse<T>(jsonString: string, defaultValue?: T): T {
+  try {
+    return JSON.parse(jsonString) as T;
+  } catch (e) {
+    console.error("Error parsing JSON:", e);
+    return defaultValue as T;
+  }
+}
+
+function isValidUserProfile(obj: any): obj is UserProfile {
+  return (
+    obj &&
+    typeof obj === "object" &&
+    typeof obj.id === "string" &&
+    typeof obj.username === "string" &&
+    typeof obj.createdAt === "string"
   );
 }
