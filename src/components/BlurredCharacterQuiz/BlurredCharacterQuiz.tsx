@@ -240,7 +240,11 @@ export default function BasicCharacterQuiz({
       removeOptionFromArray(value);
       setSearchHistory([value, ...searchHistory]);
 
-      if (res.all.length + 1 === Object.keys(targetChar).length) {
+      // Check if the answer is correct
+      const isCorrectAnswer =
+        res.all.length + 1 === Object.keys(targetChar).length;
+
+      if (isCorrectAnswer) {
         // Always allow setting blur to 0 for a correct answer
         setBlurWithFreeze(0);
         setBlurFactor(0); // Explicitly set blur to 0
@@ -266,16 +270,19 @@ export default function BasicCharacterQuiz({
         if (streakRef.current) {
           streakRef.current.setStreak();
         }
+
+        return; // Exit early for correct answers to avoid blur changes
       }
 
-      // Calculate new points before changing blur
+      // For incorrect answers, continue with points calculation and blur adjustment
       const oldPoints = points;
+      const newPoints = Math.max(0, points - BASEPOINTS);
 
-      //calculate point reduce
-      calculateSelectionPoints();
+      // Update points
+      setPoints(newPoints);
 
       // Check if we just hit zero points
-      if (oldPoints > 0 && points <= 0) {
+      if (oldPoints > 0 && newPoints <= 0) {
         // If we just hit zero points, freeze the blur at current value
         setFreezeBlur(true);
         setFrozenBlurValue(blurFactor);
