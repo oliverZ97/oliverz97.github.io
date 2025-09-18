@@ -164,82 +164,86 @@ export const AnimeQuiz = ({
   }
 
   return (
-    <Box position={"relative"}>
-      <Box
-        sx={{
-          borderRadius: 2,
-          background:
-            "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
-          marginBottom: 4,
-          border: `1px solid ${COLORS.quiz.light}`,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          paddingY: 2,
-        }}
-      >
+    <Box sx={{ position: "relative", paddingTop: !endlessMode ? 0 : 2 }}>
+      {!endlessMode && (
         <Box
           sx={{
+            borderRadius: 2,
+            background:
+              "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
+            marginBottom: 4,
+            border: `1px solid ${COLORS.quiz.light}`,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            paddingY: 2,
           }}
         >
-          <Box sx={{ display: "flex", height: "70px", alignItems: "center" }}>
-            {scores.map((item, index) => (
-              <Box
-                key={index}
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  paddingX: 2,
-                  color: "white",
-                }}
-              >
-                {index === 0 && <Typography fontSize={"24px"}>🏆</Typography>}
-                {index === 1 && <Typography fontSize={"24px"}>🥈</Typography>}
-                {index === 2 && <Typography fontSize={"24px"}>🥉</Typography>}
-                <Typography fontSize={"12px"}>
-                  {"Points: " + item.points}
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Box sx={{ display: "flex", height: "70px", alignItems: "center" }}>
+              {scores.map((item, index) => (
+                <Box
+                  key={index}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    paddingX: 2,
+                    color: "white",
+                  }}
+                >
+                  {index === 0 && <Typography fontSize={"24px"}>🏆</Typography>}
+                  {index === 1 && <Typography fontSize={"24px"}>🥈</Typography>}
+                  {index === 2 && <Typography fontSize={"24px"}>🥉</Typography>}
+                  <Typography fontSize={"12px"}>
+                    {"Points: " + item.points}
+                  </Typography>
+                  <Typography fontSize={"12px"}>
+                    {"Date: " + item.date}
+                  </Typography>
+                </Box>
+              ))}
+              {scores.length === 0 && (
+                <Typography
+                  sx={{ color: COLORS.quiz.primary_text }}
+                  textAlign={"center"}
+                >
+                  <Typography component={"span"}>
+                    No Scores available.
+                  </Typography>
+                  <br />
+                  <Typography component={"span"}>
+                    You should definitely change that (*≧ω≦*)
+                  </Typography>
                 </Typography>
-                <Typography fontSize={"12px"}>
-                  {"Date: " + item.date}
-                </Typography>
-              </Box>
-            ))}
-            {scores.length === 0 && (
-              <Typography
-                sx={{ color: COLORS.quiz.primary_text }}
-                textAlign={"center"}
-              >
-                <Typography component={"span"}>No Scores available.</Typography>
-                <br />
-                <Typography component={"span"}>
-                  You should definitely change that (*≧ω≦*)
-                </Typography>
-              </Typography>
-            )}
+              )}
+            </Box>
+          </Box>
+
+          <Box
+            sx={{
+              width: "100%",
+              paddingX: 2,
+              marginTop: 2,
+              borderRadius: 2,
+              display: "flex",
+              gap: 2,
+              justifyContent: "space-between",
+              [theme.breakpoints.down("md")]: {
+                flexWrap: "wrap",
+              },
+            }}
+          >
+            <DayStreak ref={streakRef} streakKey={STREAK_KEY}></DayStreak>
           </Box>
         </Box>
-
-        <Box
-          sx={{
-            width: "100%",
-            paddingX: 2,
-            marginTop: 2,
-            borderRadius: 2,
-            display: "flex",
-            gap: 2,
-            justifyContent: "space-between",
-            [theme.breakpoints.down("md")]: {
-              flexWrap: "wrap",
-            },
-          }}
-        >
-          <DayStreak ref={streakRef} streakKey={STREAK_KEY}></DayStreak>
-        </Box>
-      </Box>
+      )}
       <SearchBar
         points={points}
         searchHistory={searchHistory}

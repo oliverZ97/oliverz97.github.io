@@ -198,7 +198,7 @@ export default function BasicCharacterQuiz({
   }
 
   return (
-    <Box position={"relative"}>
+    <Box sx={{ position: "relative" }}>
       <Box
         sx={{
           borderRadius: 2,
@@ -219,42 +219,46 @@ export default function BasicCharacterQuiz({
             alignItems: "center",
           }}
         >
-          <Box sx={{ display: "flex", height: "70px", alignItems: "center" }}>
-            {scores.map((item, index) => (
-              <Box
-                key={index}
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  paddingX: 2,
-                  color: "white",
-                }}
-              >
-                {index === 0 && <Typography fontSize={"24px"}>🏆</Typography>}
-                {index === 1 && <Typography fontSize={"24px"}>🥈</Typography>}
-                {index === 2 && <Typography fontSize={"24px"}>🥉</Typography>}
-                <Typography fontSize={"12px"}>
-                  {"Points: " + item.points}
+          {!endlessMode && (
+            <Box sx={{ display: "flex", height: "70px", alignItems: "center" }}>
+              {scores.map((item, index) => (
+                <Box
+                  key={index}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    paddingX: 2,
+                    color: "white",
+                  }}
+                >
+                  {index === 0 && <Typography fontSize={"24px"}>🏆</Typography>}
+                  {index === 1 && <Typography fontSize={"24px"}>🥈</Typography>}
+                  {index === 2 && <Typography fontSize={"24px"}>🥉</Typography>}
+                  <Typography fontSize={"12px"}>
+                    {"Points: " + item.points}
+                  </Typography>
+                  <Typography fontSize={"12px"}>
+                    {"Date: " + item.date}
+                  </Typography>
+                </Box>
+              ))}
+              {scores.length === 0 && (
+                <Typography
+                  sx={{ color: COLORS.quiz.primary_text }}
+                  textAlign={"center"}
+                >
+                  <Typography component={"span"}>
+                    No Scores available.
+                  </Typography>
+                  <br />
+                  <Typography component={"span"}>
+                    You should definitely change that (*≧ω≦*)
+                  </Typography>
                 </Typography>
-                <Typography fontSize={"12px"}>
-                  {"Date: " + item.date}
-                </Typography>
-              </Box>
-            ))}
-            {scores.length === 0 && (
-              <Typography
-                sx={{ color: COLORS.quiz.primary_text }}
-                textAlign={"center"}
-              >
-                <Typography component={"span"}>No Scores available.</Typography>
-                <br />
-                <Typography component={"span"}>
-                  You should definitely change that (*≧ω≦*)
-                </Typography>
-              </Typography>
-            )}
-          </Box>
+              )}
+            </Box>
+          )}
         </Box>
 
         <Box
@@ -302,7 +306,9 @@ export default function BasicCharacterQuiz({
             cardTitle="Anime"
           ></RevealCard>
         </Box>
-        <DayStreak ref={streakRef} streakKey={STREAK_KEY}></DayStreak>
+        {!endlessMode && (
+          <DayStreak ref={streakRef} streakKey={STREAK_KEY}></DayStreak>
+        )}
       </Box>
 
       <SearchBar

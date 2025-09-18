@@ -34,7 +34,6 @@ import BlurredCharacterQuiz from "components/BlurredCharacterQuiz/BlurredCharact
 import { dialogManager } from "components/Dialogs/DialogPortal";
 import { NavigationTabs } from "components/NavigationTabs";
 import Calendar from "components/Calendar";
-import SettingsIcon from "@mui/icons-material/Settings";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { Avatar } from "components/Profile/Avatar";
@@ -320,7 +319,7 @@ const Home = () => {
                     backgroundColor: COLORS.quiz.main,
                     borderColor: "transparent",
                   },
-                  paddingY: 2
+                  paddingY: 2,
                 }}
                 onClick={() => {
                   dialogManager.openDialog("settings");
@@ -409,18 +408,18 @@ const Home = () => {
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={8}>
+              <BlurredCharacterQuiz charData={charData}></BlurredCharacterQuiz>
+            </CustomTabPanel>
+
+            <CustomTabPanel value={value} index={9}>
               <MultipleChoiceQuiz
                 animeData={animeData}
                 charData={charData}
               ></MultipleChoiceQuiz>
             </CustomTabPanel>
 
-            <CustomTabPanel value={value} index={9}>
-              <KissMarryKill charData={charData}></KissMarryKill>
-            </CustomTabPanel>
-
             <CustomTabPanel value={value} index={10}>
-              <BlurredCharacterQuiz charData={charData}></BlurredCharacterQuiz>
+              <KissMarryKill charData={charData}></KissMarryKill>
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={11}>
