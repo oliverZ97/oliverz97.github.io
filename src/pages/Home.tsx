@@ -526,7 +526,7 @@ const Home = () => {
             sx={{
               display: "flex",
               justifyContent: "center",
-              maxWidth: "33.33%",
+              maxWidth: "25%",
               boxShadow: 1,
             }}
             flexGrow={1}
@@ -550,12 +550,51 @@ const Home = () => {
                       borderColor: "transparent",
                     },
                     width: "100%",
+                    boxShadow: 1,
                   }}
                   onClick={() => {
                     dialogManager.openDialog("howToPlay");
                   }}
                 >
                   <HelpOutlineIcon fontSize="large" />
+                </Button>
+              </Box>
+            </Tooltip>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              maxWidth: "25%",
+              boxShadow: 1,
+            }}
+            flexGrow={1}
+          >
+            <Tooltip title={"Profile"} arrow placement="right">
+              <Box
+                sx={{
+                  width: "100%",
+                }}
+              >
+                <Button
+                  variant="outlined"
+                  sx={{
+                    backgroundColor: COLORS.quiz.secondary,
+                    color: "white",
+                    borderColor: "transparent",
+                    height: "60px",
+                    "&:hover": {
+                      backgroundColor: COLORS.quiz.main,
+                      borderColor: "transparent",
+                    },
+                    width: "100%",
+                    boxShadow: 1,
+                  }}
+                  onClick={() => {
+                    dialogManager.openDialog("settings");
+                  }}
+                >
+                  <Avatar size={40} />
                 </Button>
               </Box>
             </Tooltip>

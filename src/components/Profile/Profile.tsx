@@ -7,6 +7,7 @@ import {
   SelectChangeEvent,
   TextField,
   Typography,
+  useTheme,
 } from "@mui/material";
 import {
   createUserProfile,
@@ -33,6 +34,8 @@ export default function Profile() {
   );
   const { profileChanged } = useProfile();
 
+  const theme = useTheme();
+
   useEffect(() => {
     if (avatarEditRef.current) {
       // @ts-ignore
@@ -53,14 +56,34 @@ export default function Profile() {
   }
 
   return (
-    <Box>
+    <Box
+      sx={{
+        [theme.breakpoints.down("md")]: {
+          width: "100%",
+        },
+      }}
+    >
       <Box
-        display={"flex"}
-        flexDirection={"row"}
-        alignItems={"flex-start"}
-        width={"750px"}
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "flex-start",
+          width: "750px",
+          [theme.breakpoints.down("md")]: {
+            width: "100%",
+            flexDirection: "column",
+          },
+        }}
       >
-        <Box marginRight={4}>
+        <Box
+          sx={{
+            marginRight: 4,
+
+            [theme.breakpoints.down("md")]: {
+              width: "100%",
+            },
+          }}
+        >
           <Typography variant="h5" gutterBottom>
             Profile
           </Typography>
@@ -76,6 +99,9 @@ export default function Profile() {
             <Select
               sx={{
                 width: 300,
+                [theme.breakpoints.down("md")]: {
+                  width: "100%",
+                },
                 "& .MuiOutlinedInput-notchedOutline": { borderColor: "white" },
                 "&:hover .MuiOutlinedInput-notchedOutline": {
                   borderColor: "white",
@@ -105,7 +131,15 @@ export default function Profile() {
             </Select>
           </Box>
           <Button
-            sx={{ marginBottom: 2 }}
+            sx={{
+              marginBottom: 2,
+              [theme.breakpoints.up("md")]: {
+                display: "block",
+              },
+              [theme.breakpoints.down("md")]: {
+                display: "none",
+              },
+            }}
             variant="outlined"
             onClick={downloadStats}
           >
@@ -121,6 +155,21 @@ export default function Profile() {
         >
           <AvatarEdit ref={avatarEditRef} />
         </Box>
+        <Button
+          sx={{
+            marginBottom: 2,
+            [theme.breakpoints.up("md")]: {
+              display: "none",
+            },
+            [theme.breakpoints.down("md")]: {
+              display: "block",
+            },
+          }}
+          variant="outlined"
+          onClick={downloadStats}
+        >
+          Export Data
+        </Button>
       </Box>
       <Divider sx={{ borderColor: "white" }}></Divider>
       <Typography sx={{ marginTop: 4, textAlign: "center", fontSize: 20 }}>
@@ -142,6 +191,11 @@ export default function Profile() {
             gap: 2,
             marginTop: 1,
             marginBottom: 2,
+            [theme.breakpoints.down("md")]: {
+              flexDirection: "column",
+              alignItems: "stretch",
+              width: "100%",
+            },
           }}
         >
           <TextField
@@ -155,6 +209,9 @@ export default function Profile() {
             }}
             sx={{
               width: 300,
+              [theme.breakpoints.down("md")]: {
+                width: "100%",
+              },
 
               "& .MuiOutlinedInput-root": {
                 "& fieldset": { borderColor: "white" },
