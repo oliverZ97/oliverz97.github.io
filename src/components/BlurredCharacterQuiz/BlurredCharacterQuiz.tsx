@@ -23,6 +23,7 @@ import {
 } from "common/utils";
 import CharacterList from "./CharacterList";
 import { getHighscoresFromProfile } from "common/profileUtils";
+import { useProfile } from "components/Profile/ProfileContext";
 
 interface HintRef {
   resetHint: () => void;
@@ -66,6 +67,8 @@ export default function BasicCharacterQuiz({
   const studioHintRef = useRef<HintRef | null>(null);
   const streakRef = useRef<StreakRef | null>(null);
 
+  const { refreshKey } = useProfile();
+
   const STREAK_KEY = endlessMode ? "blurStreak" : "dailyBlurStreak";
 
   useEffect(() => {
@@ -99,7 +102,7 @@ export default function BasicCharacterQuiz({
     //get scores
     const scores = getHighscoresFromProfile(QUIZ_KEY.BLUR);
     updateScores(scores);
-  }, []);
+  }, [refreshKey]);
 
   useEffect(() => {
     if (points <= 0 && !showGiveUp) {

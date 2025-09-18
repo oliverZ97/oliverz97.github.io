@@ -21,7 +21,7 @@ import { useEffect, useRef, useState } from "react";
 import Fileupload from "../Fileupload";
 import { UserLogs, UserProfile } from "common/types";
 import { AvatarEdit } from "./AvatarEdit";
-import { useAvatar } from "./AvatarContext";
+import { useProfile } from "./ProfileContext";
 
 export default function Profile() {
   const avatarEditRef = useRef(null);
@@ -31,7 +31,7 @@ export default function Profile() {
   const [currentUser, setCurrentUser] = useState<UserProfile | null>(
     getCurrentUserProfile() ?? null
   );
-  const { profileChanged } = useAvatar();
+  const { profileChanged } = useProfile();
 
   useEffect(() => {
     if (avatarEditRef.current) {

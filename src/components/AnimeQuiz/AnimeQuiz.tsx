@@ -16,6 +16,7 @@ import { SearchBar } from "./SearchBar";
 import { LemonButton } from "components/LemonButton";
 import { calculateSelectionPoints, removeOptionFromArray } from "./utils";
 import { getHighscoresFromProfile } from "common/profileUtils";
+import { useProfile } from "components/Profile/ProfileContext";
 
 const ANIME_SOLVED_KEY = (QUIZ_KEY.ANIME + "Solved") as SolvedKeys;
 
@@ -44,6 +45,8 @@ export const AnimeQuiz = ({
 
   const theme = useTheme();
 
+  const { refreshKey } = useProfile();
+
   const STREAK_KEY = endlessMode ? "animeStreak" : "dailyAnimeStreak";
 
   useEffect(() => {
@@ -70,7 +73,7 @@ export const AnimeQuiz = ({
     //get scores
     const scores = getHighscoresFromProfile(QUIZ_KEY.ANIME);
     updateScores(scores);
-  }, []);
+  }, [refreshKey]);
 
   useEffect(() => {
     if (points <= 0) {

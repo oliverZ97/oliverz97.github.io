@@ -5,14 +5,14 @@ import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 import { COLORS } from "styling/constants";
 import { getCurrentUserProfile, setUserProfile } from "common/profileUtils";
 import SaveIcon from "@mui/icons-material/Save";
-import { useAvatar } from "./AvatarContext";
+import { useProfile } from "./ProfileContext";
 
 const size = 60;
 
 export const AvatarEdit = forwardRef((props, ref) => {
   const [showEdit, setShowEdit] = useState(false);
   const avatarRef = useRef(null);
-  const { refreshAvatar } = useAvatar();
+  const { refreshAvatar } = useProfile();
   const isValidProfile =
     localStorage.getItem("currentUserProfile") !== null &&
     localStorage.getItem("currentUserProfile") !== "Guest";

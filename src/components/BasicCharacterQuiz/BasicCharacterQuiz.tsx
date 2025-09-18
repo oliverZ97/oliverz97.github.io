@@ -20,6 +20,7 @@ import { LemonButton } from "components/LemonButton";
 import Debug from "components/Debug";
 import { calculateSelectionPoints, removeOptionFromArray } from "./utils";
 import { getHighscoresFromProfile } from "common/profileUtils";
+import { useProfile } from "components/Profile/ProfileContext";
 
 interface HintRef {
   resetHint: () => void;
@@ -59,6 +60,8 @@ export default function BasicCharacterQuiz({
   const theme = useTheme();
   const isDevMode = localStorage.getItem("mode") === "dev";
 
+  const { refreshKey } = useProfile();
+
   const STREAK_KEY = endlessMode ? "charStreak" : "dailyCharStreak";
 
   useEffect(() => {
@@ -85,7 +88,7 @@ export default function BasicCharacterQuiz({
     //get scores
     const scores = getHighscoresFromProfile(QUIZ_KEY.CHAR);
     updateScores(scores);
-  }, []);
+  }, [refreshKey]);
 
   useEffect(() => {
     if (points <= 0) {

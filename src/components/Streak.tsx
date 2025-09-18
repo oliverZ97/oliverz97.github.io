@@ -6,6 +6,7 @@ import {
 import { isMoreThanADay, sameDate } from "common/quizUtils";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { COLORS } from "styling/constants";
+import { useProfile } from "./Profile/ProfileContext";
 
 interface StreakProps {
   streakKey: string;
@@ -30,13 +31,14 @@ export const DayStreak = forwardRef(
     });
 
     const theme = useTheme();
+    const { refreshKey } = useProfile();
 
     useEffect(() => {
       if (streakKey) {
         const streak = getStreak();
         setCurrentStreak(streak);
       }
-    }, [streakKey]);
+    }, [streakKey, refreshKey]);
 
     useImperativeHandle(ref, () => ({
       setStreak() {

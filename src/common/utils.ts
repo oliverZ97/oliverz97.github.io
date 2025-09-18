@@ -383,6 +383,7 @@ export enum QUIZ_KEY {
   ANIME = "animequiz",
   IMAGE = "imagequiz",
   BLUR = "blurquiz",
+  CHOICE = "choicequiz",
 }
 
 // Constants for recent character tracking
