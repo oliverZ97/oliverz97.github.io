@@ -7,6 +7,7 @@ import {
   SelectChangeEvent,
   TextField,
   Typography,
+  useTheme,
 } from "@mui/material";
 import {
   createUserProfile,
@@ -21,7 +22,7 @@ import { useEffect, useRef, useState } from "react";
 import Fileupload from "../Fileupload";
 import { UserLogs, UserProfile } from "common/types";
 import { AvatarEdit } from "./AvatarEdit";
-import { useAvatar } from "./AvatarContext";
+import { useProfile } from "./ProfileContext";
 
 export default function Profile() {
   const avatarEditRef = useRef(null);
@@ -31,7 +32,9 @@ export default function Profile() {
   const [currentUser, setCurrentUser] = useState<UserProfile | null>(
     getCurrentUserProfile() ?? null
   );
-  const { profileChanged } = useAvatar();
+  const { profileChanged } = useProfile();
+
+  const theme = useTheme();
 
   useEffect(() => {
     if (avatarEditRef.current) {
@@ -43,6 +46,7 @@ export default function Profile() {
   const [newUsername, setNewUsername] = useState("");
 
   function handleImport(data: UserLogs) {
+    console.log("Imported data:", data);
     // Handle the imported user logs data
     createUserProfile(data.user);
     setUserLog(data);
@@ -52,9 +56,34 @@ export default function Profile() {
   }
 
   return (
-    <Box >
-      <Box display={"flex"} flexDirection={"row"} alignItems={"flex-start"} width={"750px"}>
-        <Box marginRight={4} >
+    <Box
+      sx={{
+        [theme.breakpoints.down("md")]: {
+          width: "100%",
+        },
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "flex-start",
+          width: "750px",
+          [theme.breakpoints.down("md")]: {
+            width: "100%",
+            flexDirection: "column",
+          },
+        }}
+      >
+        <Box
+          sx={{
+            marginRight: 4,
+
+            [theme.breakpoints.down("md")]: {
+              width: "100%",
+            },
+          }}
+        >
           <Typography variant="h5" gutterBottom>
             Profile
           </Typography>
@@ -70,6 +99,9 @@ export default function Profile() {
             <Select
               sx={{
                 width: 300,
+                [theme.breakpoints.down("md")]: {
+                  width: "100%",
+                },
                 "& .MuiOutlinedInput-notchedOutline": { borderColor: "white" },
                 "&:hover .MuiOutlinedInput-notchedOutline": {
                   borderColor: "white",
@@ -97,19 +129,47 @@ export default function Profile() {
                 Guest
               </MenuItem>
             </Select>
-
           </Box>
           <Button
-            sx={{ marginBottom: 2 }}
+            sx={{
+              marginBottom: 2,
+              [theme.breakpoints.up("md")]: {
+                display: "block",
+              },
+              [theme.breakpoints.down("md")]: {
+                display: "none",
+              },
+            }}
             variant="outlined"
             onClick={downloadStats}
           >
             Export Data
           </Button>
         </Box>
-        <Box display={"flex"} flexDirection={"column"} alignItems={"flex-start"} minHeight={"100%"} marginBottom={2} >
+        <Box
+          display={"flex"}
+          flexDirection={"column"}
+          alignItems={"flex-start"}
+          minHeight={"100%"}
+          marginBottom={2}
+        >
           <AvatarEdit ref={avatarEditRef} />
         </Box>
+        <Button
+          sx={{
+            marginBottom: 2,
+            [theme.breakpoints.up("md")]: {
+              display: "none",
+            },
+            [theme.breakpoints.down("md")]: {
+              display: "block",
+            },
+          }}
+          variant="outlined"
+          onClick={downloadStats}
+        >
+          Export Data
+        </Button>
       </Box>
       <Divider sx={{ borderColor: "white" }}></Divider>
       <Typography sx={{ marginTop: 4, textAlign: "center", fontSize: 20 }}>
@@ -131,6 +191,11 @@ export default function Profile() {
             gap: 2,
             marginTop: 1,
             marginBottom: 2,
+            [theme.breakpoints.down("md")]: {
+              flexDirection: "column",
+              alignItems: "stretch",
+              width: "100%",
+            },
           }}
         >
           <TextField
@@ -144,6 +209,9 @@ export default function Profile() {
             }}
             sx={{
               width: 300,
+              [theme.breakpoints.down("md")]: {
+                width: "100%",
+              },
 
               "& .MuiOutlinedInput-root": {
                 "& fieldset": { borderColor: "white" },

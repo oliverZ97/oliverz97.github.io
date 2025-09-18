@@ -16,20 +16,14 @@ import { DayStreak } from "components/Streak";
 import { StreakRef } from "components/Streak";
 import {
   gaveUpOnTodaysQuiz,
-  getDailyUTCDate,
   getRandomCharacter,
   hasBeenSolvedToday,
   isIncludedInDifficulty,
   QUIZ_KEY,
-  setDailyScore,
 } from "common/utils";
 import CharacterList from "./CharacterList";
-import {
-  getHighscoresFromProfile,
-  saveFieldToTotalStatistics,
-  saveHasBeenSolvedToday,
-  saveHighscoreToProfile,
-} from "common/profileUtils";
+import { getHighscoresFromProfile } from "common/profileUtils";
+import { useProfile } from "components/Profile/ProfileContext";
 
 interface HintRef {
   resetHint: () => void;
@@ -73,6 +67,8 @@ export default function BasicCharacterQuiz({
   const studioHintRef = useRef<HintRef | null>(null);
   const streakRef = useRef<StreakRef | null>(null);
 
+  const { refreshKey } = useProfile();
+
   const STREAK_KEY = endlessMode ? "blurStreak" : "dailyBlurStreak";
 
   useEffect(() => {
@@ -106,7 +102,7 @@ export default function BasicCharacterQuiz({
     //get scores
     const scores = getHighscoresFromProfile(QUIZ_KEY.BLUR);
     updateScores(scores);
-  }, []);
+  }, [refreshKey]);
 
   useEffect(() => {
     if (points <= 0 && !showGiveUp) {
@@ -228,12 +224,6 @@ export default function BasicCharacterQuiz({
     setLocalCharData(tempArray);
   }
 
-  function calculateSelectionPoints() {
-    const baseValue = BASEPOINTS;
-    let roundPoints = baseValue;
-    setPoints(points - roundPoints < 0 ? 0 : points - roundPoints);
-  }
-
   function handleSearchChange(
     event: SyntheticEvent<Element, Event> | null,
     value: Character | null,
@@ -247,7 +237,11 @@ export default function BasicCharacterQuiz({
       removeOptionFromArray(value);
       setSearchHistory([value, ...searchHistory]);
 
-      if (res.all.length + 1 === Object.keys(targetChar).length) {
+      // Check if the answer is correct
+      const isCorrectAnswer =
+        res.all.length + 1 === Object.keys(targetChar).length;
+
+      if (isCorrectAnswer) {
         // Always allow setting blur to 0 for a correct answer
         setBlurWithFreeze(0);
         setBlurFactor(0); // Explicitly set blur to 0
@@ -273,16 +267,19 @@ export default function BasicCharacterQuiz({
         if (streakRef.current) {
           streakRef.current.setStreak();
         }
+
+        return; // Exit early for correct answers to avoid blur changes
       }
 
-      // Calculate new points before changing blur
+      // For incorrect answers, continue with points calculation and blur adjustment
       const oldPoints = points;
+      const newPoints = Math.max(0, points - BASEPOINTS);
 
-      //calculate point reduce
-      calculateSelectionPoints();
+      // Update points
+      setPoints(newPoints);
 
       // Check if we just hit zero points
-      if (oldPoints > 0 && points <= 0) {
+      if (oldPoints > 0 && newPoints <= 0) {
         // If we just hit zero points, freeze the blur at current value
         setFreezeBlur(true);
         setFrozenBlurValue(blurFactor);
@@ -294,7 +291,72 @@ export default function BasicCharacterQuiz({
   }
 
   return (
-    <Box position={"relative"}>
+    <Box sx={{ position: "relative", paddingTop: !endlessMode ? 0 : 2 }}>
+      {!endlessMode && (
+        <Box
+          sx={{
+            borderRadius: 2,
+            background:
+              "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
+            marginBottom: 4,
+            border: `1px solid ${COLORS.quiz.light}`,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            paddingY: 2,
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Box sx={{ display: "flex", height: "70px", alignItems: "center" }}>
+              {scores.map((item, index) => (
+                <Box
+                  key={index}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    paddingX: 2,
+                    color: "white",
+                  }}
+                >
+                  {index === 0 && <Typography fontSize={"24px"}>🏆</Typography>}
+                  {index === 1 && <Typography fontSize={"24px"}>🥈</Typography>}
+                  {index === 2 && <Typography fontSize={"24px"}>🥉</Typography>}
+                  <Typography fontSize={"12px"}>
+                    {"Points: " + item.points}
+                  </Typography>
+                  <Typography fontSize={"12px"}>
+                    {"Date: " + item.date}
+                  </Typography>
+                </Box>
+              ))}
+              {scores.length === 0 && (
+                <Typography
+                  sx={{ color: COLORS.quiz.primary_text }}
+                  textAlign={"center"}
+                >
+                  <Typography component={"span"}>
+                    No Scores available.
+                  </Typography>
+                  <br />
+                  <Typography component={"span"}>
+                    You should definitely change that (*≧ω≦*)
+                  </Typography>
+                </Typography>
+              )}
+            </Box>
+          </Box>
+
+          <DayStreak ref={streakRef} streakKey={STREAK_KEY}></DayStreak>
+        </Box>
+      )}
+
       <Box
         sx={{
           borderRadius: 2,
@@ -302,78 +364,17 @@ export default function BasicCharacterQuiz({
             "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
           marginBottom: 4,
           border: `1px solid ${COLORS.quiz.light}`,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
           paddingY: 2,
         }}
       >
         <Box
           sx={{
             display: "flex",
-            flexDirection: "column",
+            justifyContent: "center",
             alignItems: "center",
-          }}
-        >
-          <Box sx={{ display: "flex", height: "70px", alignItems: "center" }}>
-            {scores.map((item, index) => (
-              <Box
-                key={index}
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  paddingX: 2,
-                  color: "white",
-                }}
-              >
-                {index === 0 && <Typography fontSize={"24px"}>🏆</Typography>}
-                {index === 1 && <Typography fontSize={"24px"}>🥈</Typography>}
-                {index === 2 && <Typography fontSize={"24px"}>🥉</Typography>}
-                <Typography fontSize={"12px"}>
-                  {"Points: " + item.points}
-                </Typography>
-                <Typography fontSize={"12px"}>
-                  {"Date: " + item.date}
-                </Typography>
-              </Box>
-            ))}
-            {scores.length === 0 && (
-              <Typography
-                sx={{ color: COLORS.quiz.primary_text }}
-                textAlign={"center"}
-              >
-                <Typography component={"span"}>No Scores available.</Typography>
-                <br />
-                <Typography component={"span"}>
-                  You should definitely change that (*≧ω≦*)
-                </Typography>
-              </Typography>
-            )}
-          </Box>
-        </Box>
-
-        <DayStreak ref={streakRef} streakKey={STREAK_KEY}></DayStreak>
-      </Box>
-
-      <Box
-        sx={{
-          borderRadius: 2,
-          background:
-            "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
-          marginBottom: 4,
-          border: `1px solid ${COLORS.quiz.light}`,
-          paddingY: 2,
-        }}
-      >
-        <Box
-          display={"flex"}
-          justifyContent={"center"}
-          alignItems={"center"}
-          gap={4}
-          width={"100%"}
-          position={"relative"}
-          sx={{
+            gap: 4,
+            width: "100%",
+            position: "relative",
             [theme.breakpoints.down("md")]: {
               flexDirection: "column",
             },

@@ -34,7 +34,6 @@ import BlurredCharacterQuiz from "components/BlurredCharacterQuiz/BlurredCharact
 import { dialogManager } from "components/Dialogs/DialogPortal";
 import { NavigationTabs } from "components/NavigationTabs";
 import Calendar from "components/Calendar";
-import SettingsIcon from "@mui/icons-material/Settings";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { Avatar } from "components/Profile/Avatar";
@@ -320,7 +319,7 @@ const Home = () => {
                     backgroundColor: COLORS.quiz.main,
                     borderColor: "transparent",
                   },
-                  paddingY: 2
+                  paddingY: 2,
                 }}
                 onClick={() => {
                   dialogManager.openDialog("settings");
@@ -409,18 +408,18 @@ const Home = () => {
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={8}>
+              <BlurredCharacterQuiz charData={charData}></BlurredCharacterQuiz>
+            </CustomTabPanel>
+
+            <CustomTabPanel value={value} index={9}>
               <MultipleChoiceQuiz
                 animeData={animeData}
                 charData={charData}
               ></MultipleChoiceQuiz>
             </CustomTabPanel>
 
-            <CustomTabPanel value={value} index={9}>
-              <KissMarryKill charData={charData}></KissMarryKill>
-            </CustomTabPanel>
-
             <CustomTabPanel value={value} index={10}>
-              <BlurredCharacterQuiz charData={charData}></BlurredCharacterQuiz>
+              <KissMarryKill charData={charData}></KissMarryKill>
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={11}>
@@ -527,7 +526,7 @@ const Home = () => {
             sx={{
               display: "flex",
               justifyContent: "center",
-              maxWidth: "33.33%",
+              maxWidth: "25%",
               boxShadow: 1,
             }}
             flexGrow={1}
@@ -551,12 +550,51 @@ const Home = () => {
                       borderColor: "transparent",
                     },
                     width: "100%",
+                    boxShadow: 1,
                   }}
                   onClick={() => {
                     dialogManager.openDialog("howToPlay");
                   }}
                 >
                   <HelpOutlineIcon fontSize="large" />
+                </Button>
+              </Box>
+            </Tooltip>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              maxWidth: "25%",
+              boxShadow: 1,
+            }}
+            flexGrow={1}
+          >
+            <Tooltip title={"Profile"} arrow placement="right">
+              <Box
+                sx={{
+                  width: "100%",
+                }}
+              >
+                <Button
+                  variant="outlined"
+                  sx={{
+                    backgroundColor: COLORS.quiz.secondary,
+                    color: "white",
+                    borderColor: "transparent",
+                    height: "60px",
+                    "&:hover": {
+                      backgroundColor: COLORS.quiz.main,
+                      borderColor: "transparent",
+                    },
+                    width: "100%",
+                    boxShadow: 1,
+                  }}
+                  onClick={() => {
+                    dialogManager.openDialog("settings");
+                  }}
+                >
+                  <Avatar size={40} />
                 </Button>
               </Box>
             </Tooltip>

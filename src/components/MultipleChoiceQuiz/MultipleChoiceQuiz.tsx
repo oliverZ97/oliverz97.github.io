@@ -13,11 +13,12 @@ import { COLORS } from "styling/constants";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 import { Score } from "pages/Home";
-import { getRandomCharacter } from "common/utils";
+import { getRandomCharacter, QUIZ_KEY } from "common/utils";
 import {
   getHighscoresFromProfile,
   saveHighscoreToProfile,
 } from "common/profileUtils";
+import { useProfile } from "components/Profile/ProfileContext";
 
 interface ImageCharacterQuizProps {
   charData: Character[];
@@ -59,6 +60,8 @@ export default function MultipleChoiceQuiz({
   const streakRef = useRef<StreakRef | null>(null);
   const theme = useTheme();
 
+  const { refreshKey } = useProfile();
+
   useEffect(() => {
     if (!target) {
       resetTargets();
@@ -71,6 +74,19 @@ export default function MultipleChoiceQuiz({
   function skipQuestion() {
     resetTargets();
     setLevel(level + 1);
+  }
+
+  useEffect(() => {
+    //get scores
+    const scores = getHighscoresFromProfile(MULTIPLE_CHOICE_SCORE_KEY);
+    updateScores(scores);
+  }, [refreshKey]);
+
+  function updateScores(scores: Score[]) {
+    if (scores) {
+      const topThree = scores.slice(0, 3);
+      setScores(topThree);
+    }
   }
 
   function setHighscore() {

@@ -1,18 +1,11 @@
-import {
-  calculateSelectionPoints,
-  removeOptionFromArray,
-} from "components/BasicCharacterQuiz/utils";
 import JSConfetti from "js-confetti";
 import {
-  getCurrentUserLog,
-  getCurrentUserProfile,
   saveFieldToTotalStatistics,
   saveHasBeenSolvedToday,
   saveHighscoreToProfile,
 } from "./profileUtils";
-import { Anime, Character, Score, SolvedKeys, StatisticFields } from "./types";
+import { Anime, Character, SolvedKeys, StatisticFields } from "./types";
 import { getDailyUTCDate, QUIZ_KEY, setDailyScore } from "./utils";
-import { SyntheticEvent } from "react";
 
 export function isMoreThanADay(date1: Date, date2: Date) {
   // Calculate the time difference in milliseconds

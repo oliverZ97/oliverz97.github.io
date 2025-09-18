@@ -307,12 +307,14 @@ export default function ImageCharacterQuiz({
           width: "100%",
         }}
       >
-        <DayStreak
-          ref={streakRef}
-          streakKey={STREAK_KEY}
-          colorRotate="250deg"
-          sx={{ top: "-5px" }}
-        ></DayStreak>
+        {!endlessMode && (
+          <DayStreak
+            ref={streakRef}
+            streakKey={STREAK_KEY}
+            colorRotate="250deg"
+            sx={{ top: "-5px" }}
+          ></DayStreak>
+        )}
 
         <Box>
           <Box
