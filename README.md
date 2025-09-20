@@ -3,15 +3,29 @@
 What started as a attempt to make my own small anime quiz already grewed bigger than I thought, but I just was to fun to stop.
 We already have a selection of over 500 Anime characters and over 80 animes which are being part of this quiz.
 
-A selection of different gamemodes in a daily and an endless version for competing yourself as multiple fun modes like Kiss, Marry & Kill is already playable.
+A selection of different gamemodes in a daily and an endless version for competing yourself as multiple fun modes like Kiss, Marry & Kill are already playable.
 
 I hope to add a lot of new fun gamemodes and a better user experience to the existing ones.
 
 Have fun playing :3
 
+## Upcoming Features
+
+- View your player statistics
+- Display Patchnotes when a new version releases
+
 ## Current Version
 
-1.7.0
+1.7.1
+
+## Version 1.7.1
+
+- Multiple Bug fixes related to profile related data like Streaks and Scores
+- Bugfixes for the Import of Profiles
+- Removed Streaks and Highscores for Endless Game Modes
+- Refresh Scores and Highscores when User Profile changes
+- Add Profile in Mobile Menu and add Responsiveness for Profile Dialog
+- Rearrange Gamemodes in the Menu Drawer
 
 ## Version 1.7.0
 
@@ -23,8 +37,3 @@ Have fun playing :3
 - Statsistics are now collected when you play and these are saved to your profile
 - Added a Profile Button with users avatar to the main page
 - Added a Placeholder for the future Statistics dialog
-
-## Upcoming Features
-
-- View your player statistics
-- Display Patchnotes when a new version releases

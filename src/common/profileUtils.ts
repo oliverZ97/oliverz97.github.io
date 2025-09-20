@@ -137,7 +137,7 @@ function migrateExistingStreaksToProfile(username: string) {
   if (existingStreakKeys.length > 0) {
     existingStreakKeys.forEach((streakKey) => {
       const streakStr = localStorage.getItem(streakKey);
-      if (streakStr) {
+      if (userLog && streakStr) {
         const streakObj = safeJsonParse<Streak>(streakStr);
         if (streakObj && streakObj.streak !== undefined && streakObj.date) {
           if (!userLog.streaks) {
@@ -180,7 +180,7 @@ function migrateExistingScoresToProfile(username: string) {
       if (scoreStr) {
         const scoreObj = safeJsonParse<Score | Score[]>(scoreStr);
 
-        if (scoreObj) {
+        if (userLog && scoreObj) {
           // Ensure highscores object exists
           if (!userLog.highscores) {
             userLog.highscores = {};
