@@ -37,6 +37,10 @@ import Calendar from "components/Calendar";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { Avatar } from "components/Profile/Avatar";
+import { useAuth } from "components/Auth/AuthContext";
+import { logout } from "common/auth";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 export interface Score {
   points: number;
@@ -50,6 +54,8 @@ const Home = () => {
     getDailyScore(getDailyUTCDate().toISOString())
   );
   const theme = useTheme();
+
+  const { isAuthenticated, user } = useAuth();
 
   function getCalendarData() {
     const scoreLogs = getScoreLogs();
@@ -595,6 +601,58 @@ const Home = () => {
                   }}
                 >
                   <Avatar size={40} />
+                </Button>
+              </Box>
+            </Tooltip>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              maxWidth: "25%",
+              boxShadow: 1,
+            }}
+            flexGrow={1}
+          >
+            <Tooltip
+              title={isAuthenticated ? "Logout" : "Login/Register"}
+              arrow
+              placement="right"
+            >
+              <Box
+                sx={{
+                  width: "100%",
+                }}
+              >
+                <Button
+                  variant="outlined"
+                  sx={{
+                    backgroundColor: COLORS.quiz.secondary,
+                    color: "white",
+                    borderColor: "transparent",
+                    height: "60px",
+                    "&:hover": {
+                      backgroundColor: COLORS.quiz.main,
+                      borderColor: "transparent",
+                    },
+                    width: "100%",
+                    boxShadow: 1,
+                  }}
+                  onClick={() => {
+                    if (isAuthenticated) {
+                      logout().then(() => {
+                        // Handle logout success if needed
+                      });
+                    } else {
+                      dialogManager.openDialog("auth");
+                    }
+                  }}
+                >
+                  {isAuthenticated ? (
+                    <ExitToAppIcon fontSize="large" />
+                  ) : (
+                    <AccountCircleIcon fontSize="large" />
+                  )}
                 </Button>
               </Box>
             </Tooltip>

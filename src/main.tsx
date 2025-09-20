@@ -11,6 +11,7 @@ import { ThemeProvider } from "@mui/material";
 import { theme } from "styling/theme";
 import { HowToPlayDialogPortal } from "components/Dialogs/DialogPortal";
 import { ProfileProvider } from "components/Profile/ProfileContext";
+import { AuthProvider } from "components/Auth/AuthContext";
 
 // Create dialog root element before React initializes
 if (!document.getElementById("dialog-root")) {
@@ -22,12 +23,14 @@ if (!document.getElementById("dialog-root")) {
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <ProfileProvider>
-        <>
-          <HowToPlayDialogPortal />
-          <RouterProvider router={Router} />
-        </>
-      </ProfileProvider>
+      <AuthProvider>
+        <ProfileProvider>
+          <>
+            <HowToPlayDialogPortal />
+            <RouterProvider router={Router} />
+          </>
+        </ProfileProvider>
+      </AuthProvider>
     </ThemeProvider>
   </React.StrictMode>
 );

@@ -17,6 +17,7 @@
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.8",
     "@reduxjs/toolkit": "^1.9.2",
+    "@supabase/supabase-js": "^2.57.4",
     "@types/luxon": "^3.4.2",
     "i18next": "^22.4.9",
     "js-confetti": "^0.12.0",

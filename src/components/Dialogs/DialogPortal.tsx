@@ -14,7 +14,8 @@ export type DialogType =
   | "howToPlay"
   | "scoreCalendar"
   | "settings"
-  | "statistics";
+  | "statistics"
+  | "auth"; // Add this new type
 
 // Define calendar data type
 export interface CalendarData {
@@ -38,6 +39,7 @@ class DialogManager {
       scoreCalendar: false,
       settings: false,
       statistics: false,
+      auth: false, // Initialize auth dialog state
     };
     this.calendarDataState = undefined;
   }
@@ -86,6 +88,8 @@ class DialogManager {
 
     if (type === "scoreCalendar" && calendarData) {
       this.calendarDataState = calendarData;
+    } else if (type === "auth") {
+      this.dialogStates.auth = true; // Handle auth dialog
     }
 
     this.notifyListeners();
@@ -98,6 +102,8 @@ class DialogManager {
     // Special handling for howToPlay/manual
     if (type === "howToPlay") {
       localStorage.setItem("showManual", "false");
+    } else if (type === "auth") {
+      this.dialogStates.auth = false; // Handle auth dialog
     }
 
     this.notifyListeners();
