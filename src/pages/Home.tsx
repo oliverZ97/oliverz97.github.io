@@ -630,7 +630,7 @@ const Home = () => {
                     backgroundColor: COLORS.quiz.secondary,
                     color: "white",
                     borderColor: "transparent",
-                    height: "60px",
+                    height: "300px",
                     "&:hover": {
                       backgroundColor: COLORS.quiz.main,
                       borderColor: "transparent",

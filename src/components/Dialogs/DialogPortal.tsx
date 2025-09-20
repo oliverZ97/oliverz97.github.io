@@ -3,11 +3,13 @@ import ReactDOM from "react-dom";
 import { Button } from "@mui/material";
 import { COLORS } from "styling/constants";
 import Calendar from "../Calendar";
-import Settings from "../Profile/Profile";
 import DialogWrapper from "./DialogWrapper";
 import HowToPlay from "components/HowToPlay";
 import Statistics from "components/Statistics";
 import { theme } from "styling/theme";
+import { AuthForm } from "components/Auth/AuthForm";
+import Profile from "components/Profile/Profile";
+import ProfileWrapper from "components/Profile/ProfileWrapper";
 
 // Define dialog types
 export type DialogType =
@@ -233,19 +235,22 @@ export const HowToPlayDialogPortal: React.FC = () => {
         <Calendar
           title="Score Calendar"
           data={calendarData}
-          cellStyling={{ height: "65px", width: "80px" }}
-        />
+          cellStyling={{ height: "65px", width: "80px" }} />
       ),
       style: commonDialogStyle,
     },
     settings: {
-      content: <Settings />,
+      content: <ProfileWrapper />,
       style: commonDialogStyle,
     },
     statistics: {
       content: <Statistics />,
       style: commonDialogStyle,
     },
+    auth: {
+      content: <AuthForm />,
+      style: commonDialogStyle,
+    }
   };
 
   // If portal element isn't ready, don't render anything

@@ -20,28 +20,28 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onSwitch 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
       setLoading(true);
       setError('');
-      
+
       if (!email || !password || !confirmPassword || !username) {
         setError('Please fill in all fields');
         return;
       }
-      
+
       if (password !== confirmPassword) {
         setError('Passwords do not match');
         return;
       }
-      
+
       if (password.length < 6) {
         setError('Password must be at least 6 characters');
         return;
       }
-      
+
       const success = await register(email, password, username);
-      
+
       if (success) {
         profileChanged(username);
         if (onSuccess) onSuccess();
@@ -61,14 +61,15 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onSwitch 
       <Typography variant="h5" sx={{ mb: 2, color: 'white' }}>
         Register
       </Typography>
-      
+
       {error && (
         <Alert severity="error" sx={{ mb: 2 }}>
           {error}
         </Alert>
       )}
-      
+
       <TextField
+        required
         label="Username"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
@@ -84,8 +85,9 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onSwitch 
           input: { color: 'white' },
         }}
       />
-      
+
       <TextField
+        required
         label="Email"
         type="email"
         value={email}
@@ -102,8 +104,9 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onSwitch 
           input: { color: 'white' },
         }}
       />
-      
+
       <TextField
+        required
         label="Password"
         type="password"
         value={password}
@@ -120,8 +123,9 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onSwitch 
           input: { color: 'white' },
         }}
       />
-      
+
       <TextField
+        required
         label="Confirm Password"
         type="password"
         value={confirmPassword}
@@ -138,7 +142,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onSwitch 
           input: { color: 'white' },
         }}
       />
-      
+
       <Button
         type="submit"
         variant="contained"
@@ -155,11 +159,11 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onSwitch 
       >
         {loading ? 'Registering...' : 'Register'}
       </Button>
-      
+
       <Typography sx={{ color: 'white', textAlign: 'center' }}>
         Already have an account?{' '}
-        <Button 
-          onClick={onSwitch} 
+        <Button
+          onClick={onSwitch}
           sx={{ color: COLORS.quiz.light }}
         >
           Login

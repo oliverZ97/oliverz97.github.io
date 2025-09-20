@@ -5,6 +5,16 @@ import { getCurrentUserProfile, setCurrentUserProfile } from '../../common/profi
 import { createUserProfile } from '../../common/profileUtils';
 import { UserProfile } from '../../common/types';
 
+/**
+ * Type for the Authentication context.
+ * 
+ * @interface AuthContextType
+ * @property {Session | null} session - The current user session or null if not authenticated
+ * @property {User | null} user - The authenticated user object or null if not authenticated
+ * @property {boolean} loading - Indicates whether authentication data is being loaded
+ * @property {string | null} error - Authentication error message or null if no error
+ * @property {boolean} isAuthenticated - Boolean flag indicating if the user is authenticated
+ */
 type AuthContextType = {
   session: Session | null;
   user: User | null;

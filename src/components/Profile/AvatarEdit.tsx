@@ -88,11 +88,11 @@ export const AvatarEdit = forwardRef((props, ref) => {
       height={"100%"}
       display={"flex"}
       maxWidth={400}
-      flexDirection={"row"}
-      alignItems={"flex-start"}
+      flexDirection={"column"}
+      alignItems={"center"}
     >
       <Box
-        sx={{ display: "flex", alignItems: "center", gap: 1, marginRight: 2 }}
+        sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 1, marginRight: 2 }}
       >
         <Avatar ref={avatarRef} size={120} />
         {!showEdit && isValidProfile && (

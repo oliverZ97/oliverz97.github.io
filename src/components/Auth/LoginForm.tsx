@@ -18,18 +18,18 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitch }) => 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
       setLoading(true);
       setError('');
-      
+
       if (!email || !password) {
         setError('Please fill in all fields');
         return;
       }
-      
+
       const success = await login(email, password);
-      
+
       if (success) {
         profileChanged(email);
         if (onSuccess) onSuccess();
@@ -49,13 +49,13 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitch }) => 
       <Typography variant="h5" sx={{ mb: 2, color: 'white' }}>
         Login
       </Typography>
-      
+
       {error && (
         <Alert severity="error" sx={{ mb: 2 }}>
           {error}
         </Alert>
       )}
-      
+
       <TextField
         label="Email"
         type="email"
@@ -73,7 +73,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitch }) => 
           input: { color: 'white' },
         }}
       />
-      
+
       <TextField
         label="Password"
         type="password"
@@ -91,7 +91,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitch }) => 
           input: { color: 'white' },
         }}
       />
-      
+
       <Button
         type="submit"
         variant="contained"
@@ -108,11 +108,11 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitch }) => 
       >
         {loading ? 'Logging in...' : 'Login'}
       </Button>
-      
+
       <Typography sx={{ color: 'white', textAlign: 'center' }}>
         Don't have an account?{' '}
-        <Button 
-          onClick={onSwitch} 
+        <Button
+          onClick={onSwitch}
           sx={{ color: COLORS.quiz.light }}
         >
           Register
