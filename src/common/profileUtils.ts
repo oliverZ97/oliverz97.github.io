@@ -55,7 +55,6 @@ export function createUserProfile(user: UserProfile | string) {
 
   if (typeof user !== "string") {
     const existingUserProfile = loadUserProfile(user.username);
-    console.log(existingUserProfile);
     localStorage.setItem(`userProfile_${user.username}`, JSON.stringify(user));
     username = user.username;
     userProfile = user;
@@ -253,7 +252,43 @@ export function getCurrentUserLog(): UserLogs | null {
  * @remarks The user log is stored as a JSON string in localStorage with the key format `stats_${userId}`
  */
 export function setUserLog(userLog: UserLogs) {
-  localStorage.setItem(`stats_${userLog.user.id}`, JSON.stringify(userLog));
+  // Handle migration for older profiles where user is just the ID string
+  let userId: string;
+
+  if (typeof userLog.user === "string") {
+    // Legacy format: user field contains just the ID string
+    userId = userLog.user;
+
+    // Migrate to new format by finding the matching user profile
+    const existingProfiles = loadExistingProfiles();
+    for (const username of existingProfiles) {
+      const profile = loadUserProfile(username);
+      if (profile && profile.id === userId) {
+        // Found the matching profile, update the user field
+        userLog.user = { username: profile.username, id: profile.id, createdAt: profile.createdAt };
+        break;
+      }
+    }
+
+    // If no matching profile found, create a placeholder one
+    if (typeof userLog.user === "string") {
+      userLog.user = {
+        id: userId,
+        username: `User_${userId}`,
+        createdAt: new Date().toISOString(),
+      };
+    }
+  } else if (!userLog.user || !userLog.user.id) {
+    // Invalid user object
+    console.error("Missing user ID in userLog", userLog);
+    return;
+  } else {
+    // Current format: user field contains UserProfile object
+    userId = userLog.user.id;
+  }
+
+  // Save with the correct ID
+  localStorage.setItem(`stats_${userId}`, JSON.stringify(userLog));
 }
 
 /**

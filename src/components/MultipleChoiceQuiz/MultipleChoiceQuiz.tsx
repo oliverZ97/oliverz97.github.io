@@ -56,6 +56,7 @@ export default function MultipleChoiceQuiz({
   const [skipJoker, setSkipJoker] = useState<"idle" | "active" | "used">(
     "idle"
   );
+  const [disableButtons, setDisableButtons] = useState(false);
 
   const streakRef = useRef<StreakRef | null>(null);
   const theme = useTheme();
@@ -74,6 +75,7 @@ export default function MultipleChoiceQuiz({
   function skipQuestion() {
     resetTargets();
     setLevel(level + 1);
+    setDisableButtons(false);
   }
 
   useEffect(() => {
@@ -153,24 +155,35 @@ export default function MultipleChoiceQuiz({
 
   function getTargetAnswers() {
     if (target) {
+      // Create a fresh empty array
       let answers: ImageTarget[] = [];
+
       const correctAnswer: ImageTarget = {
         anime: target.Anime,
         character: target.Name,
         isTarget: true,
         isJokerAnswer: true,
       };
+
+      // Add correct answer
       answers.push(correctAnswer);
       let jokerAnswerSet = false;
-      while (answers.length <= 3) {
+
+      // Add exactly 3 more incorrect answers
+      while (answers.length < 4) {
         let char = getRandomCharacter(charData);
-        if (char.Name !== correctAnswer.character) {
+
+        // Check if this character is not the correct one and not already in answers
+        const isDuplicate = answers.some(a => a.character === char.Name);
+
+        if (!isDuplicate && char.Name !== correctAnswer.character) {
           answers.push({
             anime: char.Anime,
             character: char.Name,
             isTarget: false,
             isJokerAnswer: !jokerAnswerSet ? true : false,
           });
+
           jokerAnswerSet = true;
           if (fiftyJoker !== "idle") {
             jokerAnswerSet = false;
@@ -178,8 +191,21 @@ export default function MultipleChoiceQuiz({
         }
       }
 
+      // Shuffle the array
       answers = shuffleArray(answers);
-      setAnswers(answers);
+
+      // Ensure we only have exactly 4 answers and that the correct answer is included
+      const finalAnswers = answers.slice(0, 4);
+      // Check if the correct answer is in the final set
+      if (!finalAnswers.some(a => a.isTarget)) {
+        // If not, replace a random answer with the correct one
+        const correctAnswer = answers.find(a => a.isTarget);
+        if (correctAnswer) {
+          const randomIndex = Math.floor(Math.random() * 4);
+          finalAnswers[randomIndex] = correctAnswer;
+        }
+      }
+      setAnswers(finalAnswers);
     }
   }
 
@@ -192,6 +218,7 @@ export default function MultipleChoiceQuiz({
   }
 
   function checkCorrectAnswers(answer: ImageTarget) {
+    setDisableButtons(true);
     if (answer.isTarget) {
       calculatePoints();
     } else {
@@ -492,9 +519,12 @@ export default function MultipleChoiceQuiz({
                         "&:active": {
                           backgroundColor: returnAnswerColor(answer),
                         },
+                        "&.Mui-disabled": {
+                          color: "white",
+                        },
                       }}
                       disabled={
-                        fiftyJoker === "active" && !answer.isJokerAnswer
+                        (fiftyJoker === "active" && !answer.isJokerAnswer) || disableButtons
                       }
                       onClick={() => checkCorrectAnswers(answer)}
                     >
