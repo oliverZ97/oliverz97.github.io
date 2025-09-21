@@ -253,7 +253,7 @@ export function getCurrentUserLog(): UserLogs | null {
  * @remarks The user log is stored as a JSON string in localStorage with the key format `stats_${userId}`
  */
 export function setUserLog(userLog: UserLogs) {
-  localStorage.setItem(`stats_${userLog.user.id}`, JSON.stringify(userLog));
+  localStorage.setItem(`stats_${userLog.user}`, JSON.stringify(userLog));
 }
 
 /**
@@ -343,6 +343,7 @@ export function saveFieldToTotalStatistics(
  */
 export function saveStreakToProfile(quizKey: string, streak: Streak) {
   const userLog = getCurrentUserLog();
+  console.log(userLog);
   if (userLog) {
     //Add field to statistics log group
     if (!userLog.streaks) {
