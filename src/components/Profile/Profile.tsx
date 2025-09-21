@@ -46,7 +46,6 @@ export default function Profile() {
   const [newUsername, setNewUsername] = useState("");
 
   function handleImport(data: UserLogs) {
-    console.log("Imported data:", data);
     // Handle the imported user logs data
     createUserProfile(data.user);
     setUserLog(data);

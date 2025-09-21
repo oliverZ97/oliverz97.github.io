@@ -55,7 +55,6 @@ export function createUserProfile(user: UserProfile | string) {
 
   if (typeof user !== "string") {
     const existingUserProfile = loadUserProfile(user.username);
-    console.log(existingUserProfile);
     localStorage.setItem(`userProfile_${user.username}`, JSON.stringify(user));
     username = user.username;
     userProfile = user;
@@ -379,7 +378,6 @@ export function saveFieldToTotalStatistics(
  */
 export function saveStreakToProfile(quizKey: string, streak: Streak) {
   const userLog = getCurrentUserLog();
-  console.log(userLog);
   if (userLog) {
     //Add field to statistics log group
     if (!userLog.streaks) {

@@ -10,7 +10,6 @@ export function calculateSelectionPoints(
   points: number,
   setPoints: (points: number) => void
 ) {
-  console.log(correctFieldCount, searchHistory.length, difficulty, points);
   const baseValue = Math.max(searchHistory.length, 1) * BASEPOINTS;
   let difficultyFactor = 2;
   if (difficulty === "B") {
@@ -21,7 +20,6 @@ export function calculateSelectionPoints(
   }
   let roundPoints =
     baseValue - correctFieldCount * REDUCEFACTOR * difficultyFactor;
-  console.log(points - roundPoints < 0 ? 0 : points - roundPoints);
   setPoints(points - roundPoints < 0 ? 0 : points - roundPoints);
 }
 
