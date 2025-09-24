@@ -117,7 +117,7 @@ export const CHAR_VERSIONS: CHAR_VERSION[] = [
   {
     version: "v1.21",
     date: "2025-09-24T00:00:00.00Z",
-    length: 528,
+    length: 529,
   },
 ];
 
