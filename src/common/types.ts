@@ -49,9 +49,22 @@ export enum StatisticFields {
   totalLosses = "totalLosses",
   totalScore = "totalScore",
   totalCharactersGuessed = "totalCharactersGuessed",
+  totalCharacterGuesses = "totalCharacterGuesses",
   totalBlurredCharactersGuessed = "totalBlurredCharactersGuessed",
+  totalBlurredCharacterGuesses = "totalBlurredCharacterGuesses",
   totalCharacterImagesGuessed = "totalCharacterImagesGuessed",
   totalAnimesGuessed = "totalAnimesGuessed",
+  totalAnimeGuesses = "totalAnimeGuesses",
+  longestStreak = "longestStreak",
+  kissMarryKillGamesPlayed = "kissMarryKillGamesPlayed",
+  kissMarryKillMaleGamesPlayed = "kissMarryKillMaleGamesPlayed",
+  kissMarryKillFemaleGamesPlayed = "kissMarryKillFemaleGamesPlayed",
+  imageQuizMaxPoints = "imageQuizMaxPoints",
+  charQuizMaxPoints = "charQuizMaxPoints",
+  animeQuizMaxPoints = "animeQuizMaxPoints",
+  blurQuizMaxPoints = "blurQuizMaxPoints",
+  totalMaxPoints = "totalMaxPoints",
+  totalOver35kPointsGames = "totalOver35kPointsGames",
 }
 
 export interface UserProfile {

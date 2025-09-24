@@ -157,7 +157,7 @@ export default function ImageCharacterQuiz({
 
       const dayOfYear = Math.floor(
         (today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) /
-          (1000 * 60 * 60 * 24)
+        (1000 * 60 * 60 * 24)
       );
       const yearSignature = `${today.getFullYear()}`;
 
@@ -252,6 +252,9 @@ export default function ImageCharacterQuiz({
         }
       }
       const finalScore = calculatePoints(correctAnime, correctCharacter);
+      if (finalScore === 10000) {
+        saveFieldToTotalStatistics([StatisticFields.imageQuizMaxPoints], 1);
+      }
 
       setScore(finalScore);
       setElements(selectionCopy);

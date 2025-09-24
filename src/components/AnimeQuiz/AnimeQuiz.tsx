@@ -1,6 +1,6 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { compareObjects, solveQuizHelper } from "common/quizUtils";
-import { Anime, SolvedKeys } from "common/types";
+import { Anime, SolvedKeys, StatisticFields } from "common/types";
 import {
   gaveUpOnTodaysQuiz,
   getRandomAnime,
@@ -15,7 +15,7 @@ import AnimeList from "./AnimeList";
 import { SearchBar } from "./SearchBar";
 import { LemonButton } from "components/LemonButton";
 import { calculateSelectionPoints, removeOptionFromArray } from "./utils";
-import { getHighscoresFromProfile } from "common/profileUtils";
+import { getHighscoresFromProfile, saveFieldToTotalStatistics } from "common/profileUtils";
 import { useProfile } from "components/Profile/ProfileContext";
 
 const ANIME_SOLVED_KEY = (QUIZ_KEY.ANIME + "Solved") as SolvedKeys;
@@ -133,6 +133,8 @@ export const AnimeQuiz = ({
       setSearchHistory([value, ...searchHistory]);
 
       if (res.all.length + 1 === Object.keys(targetAnime).length) {
+        saveFieldToTotalStatistics([StatisticFields.totalAnimeGuesses], searchHistory.length + 1);
+
         solveQuizHelper(
           reason,
           setGaveUp,

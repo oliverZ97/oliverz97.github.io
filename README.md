@@ -13,10 +13,77 @@ Have fun playing :3
 
 - View your player statistics
 - Display Patchnotes when a new version releases
+- Achievements
 
 ## Current Version
 
-1.7.1
+1.7.3
+
+## Verison 1.7.3
+
+- Add and save multiple Statistics
+    - General:
+        - longest continuing streak
+        - reached max daily points
+        - reached more than 35k points daily
+    - Daily Character Quiz: 
+        - Max. points reaches
+        - Total number of guesses
+    - Image Quiz:
+        - Max. points reached
+    - Anime Quiz:
+        - Max. points reached
+        - Total number of guesses
+    - Blurred Char Quiz:
+        - Max. points reached
+        - Total numberof guesses
+    - Kiss Marry Kill:
+        - Number of complete rounds played
+        - Number of completed rounds male only
+        - Number of completed rounds female only
+
+- Released Character Version v1.21
+    - Anime: 
+        - Akebi's Sailor Uniform
+        - There’s No Freaking Way I’ll Be Your Lover! Unless…
+        - Hell's Paradise
+        - Dr. Stone
+        - Kaoru & Rin
+    - Character: 
+        - Ajisai Sena
+        - Chrome
+        - Gabimaru
+        - Gen Asagiri
+        - Kaho Koyanagi
+        - Kao Akebi
+        - Kaoruko Waguri
+        - Kohaku
+        - Komichi Akebi
+        - Mai Ouzuka
+        - Minami Hokutozai
+        - Nikki Hanada
+        - Nurugai
+        - Renako Amaori
+        - Rintaro Tsumugi
+        - Ruri
+        - Ryuusui Nanami
+        - Sagiri Yamada Asaemon
+        - Satsuki Koto
+        - Senkuu Ishigami
+        - Shion Yamada Asaemon
+        - Shohei Usami
+        - Subaru Hoshina
+        - Taiju Ooki
+        - Tenza Yamada Asaemon
+        - Tsukasa Shishiou
+        - Yuzuriha
+        - Yuzuriha Ogawa
+
+## Version 1.7.2
+
+- Bugfix for error in saving statistic related data
+- Bugfix for fifth answer in Multiple Choice Quiz
+- Bugfix for Multiclick Bug in Multiple Choice Quiz
 
 ## Version 1.7.1
 

@@ -137,6 +137,10 @@ export function solveQuizHelper(
           1
         );
         saveFieldToTotalStatistics([StatisticFields.totalScore], points);
+        if (points === 10000) {
+          const key = quizKey === QUIZ_KEY.CHAR ? StatisticFields.charQuizMaxPoints : quizKey === QUIZ_KEY.ANIME ? StatisticFields.animeQuizMaxPoints : StatisticFields.blurQuizMaxPoints;
+          saveFieldToTotalStatistics([StatisticFields[key]], 1);
+        }
       }
       if (points > 0 && !endlessMode) {
         //Set Highscore

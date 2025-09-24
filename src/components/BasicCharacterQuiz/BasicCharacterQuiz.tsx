@@ -4,7 +4,7 @@ import { COLORS } from "styling/constants";
 import CharacterList from "./CharacterList";
 import { SearchBar } from "./SearchBar";
 import { SyntheticEvent, useEffect, useRef, useState } from "react";
-import { Character, Difficulty, SolvedKeys } from "common/types";
+import { Character, Difficulty, SolvedKeys, StatisticFields } from "common/types";
 import { compareObjects, getImgSrc, solveQuizHelper } from "common/quizUtils";
 import { Score } from "pages/Home";
 import { DayStreak } from "components/Streak";
@@ -19,7 +19,7 @@ import {
 import { LemonButton } from "components/LemonButton";
 import Debug from "components/Debug";
 import { calculateSelectionPoints, removeOptionFromArray } from "./utils";
-import { getHighscoresFromProfile } from "common/profileUtils";
+import { getHighscoresFromProfile, saveFieldToTotalStatistics } from "common/profileUtils";
 import { useProfile } from "components/Profile/ProfileContext";
 
 interface HintRef {
@@ -161,6 +161,7 @@ export default function BasicCharacterQuiz({
       setSearchHistory([value, ...searchHistory]);
 
       if (res.all.length + 1 === Object.keys(targetChar).length) {
+        saveFieldToTotalStatistics([StatisticFields.totalCharacterGuesses], searchHistory.length + 1);
         solveQuizHelper(
           reason,
           setGaveUp,
