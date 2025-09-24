@@ -13,10 +13,17 @@ Have fun playing :3
 
 - View your player statistics
 - Display Patchnotes when a new version releases
+- Achievements
 
 ## Current Version
 
-1.7.1
+1.7.2
+
+## Version 1.7.2
+
+- Bugfix for error in saving statistic related data
+- Bugfix for fifth answer in Multiple Choice Quiz
+- Bugfix for Multiclick Bug in Multiple Choice Quiz
 
 ## Version 1.7.1
 
