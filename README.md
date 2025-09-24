@@ -42,6 +42,43 @@ Have fun playing :3
         - Number of completed rounds male only
         - Number of completed rounds female only
 
+- Released Character Version v1.21
+    - Anime: 
+        - Akebi's Sailor Uniform
+        - There’s No Freaking Way I’ll Be Your Lover! Unless…
+        - Hell's Paradise
+        - Dr. Stone
+        - Kaoru & Rin
+    - Character: 
+        - Ajisai Sena
+        - Chrome
+        - Gabimaru
+        - Gen Asagiri
+        - Kaho Koyanagi
+        - Kao Akebi
+        - Kaoruko Waguri
+        - Kohaku
+        - Komichi Akebi
+        - Mai Ouzuka
+        - Minami Hokutozai
+        - Nikki Hanada
+        - Nurugai
+        - Renako Amaori
+        - Rintaro Tsumugi
+        - Ruri
+        - Ryuusui Nanami
+        - Sagiri Yamada Asaemon
+        - Satsuki Koto
+        - Senkuu Ishigami
+        - Shion Yamada Asaemon
+        - Shohei Usami
+        - Subaru Hoshina
+        - Taiju Ooki
+        - Tenza Yamada Asaemon
+        - Tsukasa Shishiou
+        - Yuzuriha
+        - Yuzuriha Ogawa
+
 ## Version 1.7.2
 
 - Bugfix for error in saving statistic related data
