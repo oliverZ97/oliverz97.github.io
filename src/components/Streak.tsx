@@ -1,12 +1,15 @@
 import { Box, SxProps, Theme, Typography, useTheme } from "@mui/material";
 import {
   getCurrentUserProfile,
+  getStatisticField,
+  saveFieldToTotalStatistics,
   saveStreakToProfile,
 } from "common/profileUtils";
 import { isMoreThanADay, sameDate } from "common/quizUtils";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { COLORS } from "styling/constants";
 import { useProfile } from "./Profile/ProfileContext";
+import { StatisticFields } from "common/types";
 
 interface StreakProps {
   streakKey: string;
@@ -61,6 +64,11 @@ export const DayStreak = forwardRef(
             date: today.getTime().toString(),
             streak: streakObj.streak + 1,
           };
+
+          const longestStreak = getStatisticField(StatisticFields.longestStreak);
+          if (longestStreak && newStreak.streak > longestStreak || !longestStreak) {
+            saveFieldToTotalStatistics([StatisticFields.longestStreak], newStreak.streak);
+          }
 
           saveStreakToProfile(streakKey, newStreak);
           setCurrentStreak(newStreak);

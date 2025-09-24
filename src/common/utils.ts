@@ -1,8 +1,8 @@
-import { Anime, Character, Difficulty, SolvedKeys } from "common/types";
+import { Anime, Character, Difficulty, SolvedKeys, StatisticFields } from "common/types";
 import { getNLatestVersion } from "./version";
 import { DateTime } from "luxon";
 import { CalendarEntry } from "components/Calendar";
-import { getCurrentUserLog, getCurrentUserProfile } from "./profileUtils";
+import { getCurrentUserLog, getCurrentUserProfile, saveFieldToTotalStatistics } from "./profileUtils";
 
 export function getRandomNumberFromUTCDate(
   max: number,
@@ -16,8 +16,8 @@ export function getRandomNumberFromUTCDate(
   const utcDate = date
     ? cleanUTCDate(date)
     : isPrevious
-    ? getYesterdayUTCDate()
-    : getDailyUTCDate();
+      ? getYesterdayUTCDate()
+      : getDailyUTCDate();
   const dailyTimestamp = utcDate.getTime();
   const yearMonth = utcDate.getUTCFullYear() * 100 + utcDate.getUTCMonth();
 
@@ -698,19 +698,12 @@ export function gaveUpOnTodaysQuiz(key: QUIZ_KEY) {
 }
 
 export function getDailyScore(date: string): number {
-  const currentProfile = getCurrentUserProfile();
-  if (!currentProfile) {
-    return 0; // Do not track score if disabled in settings
+  const userLog = getCurrentUserLog();
+  let dailyScore = 0;
+  if (userLog) {
+    dailyScore = userLog?.scores?.[date]?.totalScore;
   }
-  const dailyScore = localStorage.getItem(
-    `userProfile_${currentProfile.username}`
-  );
-  if (dailyScore) {
-    const scoreLog = JSON.parse(dailyScore);
-    return scoreLog[date]?.totalScore || 0;
-  } else {
-    return 0;
-  }
+  return dailyScore;
 }
 
 export function setDailyScore(
@@ -764,6 +757,7 @@ export function setDailyScore(
         "stats_" + currentProfile.id,
         JSON.stringify(profileStatistics)
       );
+      //TODO: Check here later for total days of played games for achievement
     }
   } else {
     const profileStatistics = {
@@ -775,6 +769,14 @@ export function setDailyScore(
       "stats_" + currentProfile.id,
       JSON.stringify(profileStatistics)
     );
+  }
+
+  const newDailyTotal = getDailyScore(date);
+  if (newDailyTotal > 35000) {
+    saveFieldToTotalStatistics([StatisticFields.totalOver35kPointsGames], 1);
+  }
+  if (newDailyTotal >= 40000) {
+    saveFieldToTotalStatistics([StatisticFields.totalMaxPoints], 1);
   }
 }
 

@@ -54,7 +54,6 @@ export function createUserProfile(user: UserProfile | string) {
   let username = "";
 
   if (typeof user !== "string") {
-    const existingUserProfile = loadUserProfile(user.username);
     localStorage.setItem(`userProfile_${user.username}`, JSON.stringify(user));
     username = user.username;
     userProfile = user;
@@ -493,4 +492,14 @@ function isValidUserProfile(obj: any): obj is UserProfile {
     typeof obj.username === "string" &&
     typeof obj.createdAt === "string"
   );
+}
+
+export function getStatisticField(
+  field: StatisticFields
+): number | undefined {
+  const userLog = getCurrentUserLog();
+  if (userLog && userLog.statistics) {
+    return userLog.statistics[field];
+  }
+  return undefined;
 }

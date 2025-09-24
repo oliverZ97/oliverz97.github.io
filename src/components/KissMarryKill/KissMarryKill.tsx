@@ -9,12 +9,13 @@ import {
   Typography,
 } from "@mui/material";
 import { getImgSrc } from "common/quizUtils";
-import { Character } from "common/types";
+import { Character, StatisticFields } from "common/types";
 import { getRandomCharacterArray } from "common/utils";
 import { useEffect, useRef, useState } from "react";
 import { COLORS } from "styling/constants";
 import { ButtonContainer, State } from "./ButtonContainer";
 import RefreshIcon from "@mui/icons-material/Refresh";
+import { saveFieldToTotalStatistics } from "common/profileUtils";
 
 interface StateRef {
   resetState: () => void;
@@ -37,6 +38,7 @@ export const KissMarryKill = ({ charData }: KissMarryKillProps) => {
   });
   const [genderFilter, setGenderFilter] = useState("all");
   const refs = useRef<StateRef[]>([]);
+  const allSelectionsTrue = Object.values(selectionStates).every(Boolean);
 
   function updateSelectionState(state: State) {
     const newStates = { ...selectionStates };
@@ -51,6 +53,16 @@ export const KissMarryKill = ({ charData }: KissMarryKillProps) => {
   }, [genderFilter]);
 
   function resetTargets() {
+    if (allSelectionsTrue) {
+      saveFieldToTotalStatistics([StatisticFields.kissMarryKillGamesPlayed], 1);
+      if (genderFilter === "male") {
+        saveFieldToTotalStatistics([StatisticFields.kissMarryKillMaleGamesPlayed], 1);
+      } else if (genderFilter === "female") {
+        saveFieldToTotalStatistics([StatisticFields.kissMarryKillFemaleGamesPlayed], 1);
+      }
+    }
+
+
     if (refs.current.length > 0) {
       refs.current.forEach((el) => {
         if (el !== null) {

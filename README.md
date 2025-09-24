@@ -17,7 +17,30 @@ Have fun playing :3
 
 ## Current Version
 
-1.7.2
+1.7.3
+
+## Verison 1.7.3
+
+- Add and save multiple Statistics
+    - General:
+        - longest continuing streak
+        - reached max daily points
+        - reached more than 35k points daily
+    - Daily Character Quiz: 
+        - Max. points reaches
+        - Total number of guesses
+    - Image Quiz:
+        - Max. points reached
+    - Anime Quiz:
+        - Max. points reached
+        - Total number of guesses
+    - Blurred Char Quiz:
+        - Max. points reached
+        - Total numberof guesses
+    - Kiss Marry Kill:
+        - Number of complete rounds played
+        - Number of completed rounds male only
+        - Number of completed rounds female only
 
 ## Version 1.7.2
 
