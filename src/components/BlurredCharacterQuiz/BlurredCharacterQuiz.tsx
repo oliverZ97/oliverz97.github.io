@@ -9,7 +9,6 @@ import {
   SolvedKeys,
   StatisticFields,
 } from "common/types";
-import JSConfetti from "js-confetti";
 import { compareObjects, getImgSrc, solveQuizHelper } from "common/quizUtils";
 import { Score } from "pages/Home";
 import { DayStreak } from "components/Streak";
@@ -451,7 +450,7 @@ export default function BasicCharacterQuiz({
                   bottom: 0,
                   width: "300px",
                   height: "420px",
-                  backgroundImage: `url(${getImgSrc(targetChar.Name)})`,
+                  backgroundImage: `url(${getImgSrc(targetChar.id)})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                   filter: `blur(${freezeBlur ? frozenBlurValue : blurFactor
@@ -465,7 +464,7 @@ export default function BasicCharacterQuiz({
               {/* Redundant image element as additional backup */}
               <Box
                 component="img"
-                src={getImgSrc(targetChar.Name)}
+                src={getImgSrc(targetChar.id)}
                 sx={{
                   position: "absolute",
                   top: 0,
@@ -485,7 +484,7 @@ export default function BasicCharacterQuiz({
               <Box
                 component="img"
                 key={`clean-image-${imageKey}`} // Force re-render with unique key
-                src={getImgSrc(targetChar.Name)}
+                src={getImgSrc(targetChar.id)}
                 sx={{
                   position: "absolute",
                   top: 0,

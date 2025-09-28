@@ -39,22 +39,9 @@ export function SearchBar({
 
   function getYesterdaysAnime(animeData: Anime[]) {
     if (animeData.length > 0) {
-      const currentVersionDate = getCurrentVersion().date;
-      const yesterday = getYesterdayUTCDate();
-      if (
-        DateTime.fromJSDate(yesterday) < DateTime.fromISO(currentVersionDate)
-      ) {
-        const anime = getRandomAnime(animeData, {
-          endlessMode: false,
-          isPrevious: true,
-          usePreviousVersion: true,
-        });
-        return anime.Name;
-      }
       const anime = getRandomAnime(animeData, {
         endlessMode: false,
         isPrevious: true,
-        usePreviousVersion: false,
       });
       return anime.Name;
     } else {

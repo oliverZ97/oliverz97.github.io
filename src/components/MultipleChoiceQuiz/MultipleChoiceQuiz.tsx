@@ -468,7 +468,7 @@ export default function MultipleChoiceQuiz({
                     sx={{
                       objectFit: "cover",
                     }}
-                    src={getImgSrc(target.Name)}
+                    src={getImgSrc(target.id)}
                   ></Box>
                 )}
                 {!target && (

@@ -1,6 +1,7 @@
 import { Streak } from "components/Streak";
 
 export interface Character {
+  id: number;
   Name: string;
   Sex: string;
   Origin: string;
@@ -33,6 +34,7 @@ export interface Anime {
   Tags?: string;
   ValidFields?: string[];
   Version: string;
+  id: number;
 }
 
 export type Difficulty = "A" | "B" | "C";

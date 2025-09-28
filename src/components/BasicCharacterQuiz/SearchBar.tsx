@@ -72,27 +72,14 @@ export function SearchBar({
 
   function getYesterdaysChar(charData: Character[]) {
     if (charData.length > 0) {
-      const currentVersionDate = getCurrentVersion().date;
-      const yesterday = getYesterdayUTCDate();
-      if (
-        DateTime.fromJSDate(yesterday) < DateTime.fromISO(currentVersionDate)
-      ) {
-        const char = getRandomCharacter(charData, {
-          endlessMode: false,
-          isPrevious: true,
-          usePreviousVersion: true,
-          quizMode: mode
-        });
-        return char.Name;
-      }
       const char = getRandomCharacter(charData, {
         endlessMode: false,
         isPrevious: true,
         quizMode: mode
       });
-      return char.Name;
+      return char;
     } else {
-      return "-";
+      return null;
     }
   }
 
@@ -140,7 +127,7 @@ export function SearchBar({
           </Typography>
 
           <Tooltip
-            title={getYesterdaysChar(originalCharData)}
+            title={getYesterdaysChar(originalCharData)?.Name}
             placement="bottom"
             slotProps={{
               popper: {
@@ -158,7 +145,7 @@ export function SearchBar({
             <Box
               sx={{ maxWidth: "60px", height: "50px", objectFit: "cover" }}
               component={"img"}
-              src={getImgSrc(getYesterdaysChar(originalCharData))}
+              src={getImgSrc(getYesterdaysChar(originalCharData)?.id ?? 0)}
             ></Box>
           </Tooltip>
         </Box>

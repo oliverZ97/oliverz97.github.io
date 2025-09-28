@@ -38,8 +38,8 @@ export function checkAgeGroup(value: string) {
   if ("100+" === value) return 6;
 }
 
-export function getImgSrc(name: string) {
-  const filename = name.toLowerCase().replaceAll(" ", "_");
+export function getImgSrc(id: number) {
+  const filename = id.toString();
   const basepath = !import.meta.env.PROD
     ? "/src/assets/characters/"
     : "assets/characters/";

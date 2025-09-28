@@ -1,5 +1,5 @@
 import { Anime, Character, Difficulty, SolvedKeys, StatisticFields } from "common/types";
-import { getNLatestVersion } from "./version";
+import { getCurrentVersion } from "./version";
 import { DateTime } from "luxon";
 import { CalendarEntry } from "components/Calendar";
 import { getCurrentUserLog, getCurrentUserProfile, saveFieldToTotalStatistics } from "./profileUtils";
@@ -184,7 +184,7 @@ export function getRandomCharacterArray(
   let counter = 0;
   let chars: Character[] = [];
   while (counter < Math.max(0, count)) {
-    const char = getRandomCharacter(charData, {
+    const char = getRandomCharacter(Object.values(charData), {
       endlessMode: undefined,
       isPrevious: undefined,
       gender,
@@ -227,11 +227,8 @@ export function compareVersions(version1: string, version2: string): number {
 interface GetRandomCharacterParams {
   endlessMode?: boolean;
   isPrevious?: boolean;
-  usePreviousVersion?: boolean;
   gender?: string;
   quizMode?: "blurred" | "normal";
-  numberOfEntries?: number;
-  avoidRecentDuplicates?: boolean;
   date?: Date;
 }
 export function getRandomCharacter(
@@ -239,21 +236,15 @@ export function getRandomCharacter(
   {
     endlessMode = true,
     isPrevious = false,
-    usePreviousVersion = false,
     gender = "all",
     quizMode = "normal",
-    avoidRecentDuplicates = true,
     date = undefined,
   }: GetRandomCharacterParams = {}
 ) {
-  if (usePreviousVersion) {
-    const preLatestVersion = getNLatestVersion(2);
-    charData = charData.filter((char) => {
-      const res = compareVersions(char.Version, preLatestVersion.version);
-      return res < 0;
-    });
-  }
-  let charArray = Object.values(charData);
+  let chars = charData.sort((a, b) => a.id < b.id ? -1 : 1);
+  const currentVersion = getCurrentVersion();
+  chars = chars.filter((char) => compareVersions(char.Version, currentVersion.version) <= 0);
+  let charArray = Object.values(chars);
   if (gender !== "all") {
     charArray = charArray.filter((char) => char.Sex.toLowerCase() === gender);
   }
@@ -262,46 +253,15 @@ export function getRandomCharacter(
   if (endlessMode) {
     index = Math.floor(Math.random() * charArray.length);
   } else {
-    // IMPORTANT: For non-endless mode (daily character), we need to ensure deterministic
-    // selection first, then handle deduplication as a separate process
-
     // First, get the deterministic index based on date
     // This ensures the daily character is always the same for a given date
-    if (isPrevious) {
-      index =
-        getRandomNumberFromUTCDate(charArray.length, true, quizMode, date) %
-        charArray.length;
-    } else {
-      index =
-        getRandomNumberFromUTCDate(charArray.length, false, quizMode, date) %
-        charArray.length;
-    }
+    index =
+      getRandomNumberFromUTCDate(charArray.length, isPrevious, quizMode, date) %
+      charArray.length;
 
-    // Apply deduplication ONLY when developing or debugging
-    // In normal operation, we want deterministic daily characters
-    if (avoidRecentDuplicates && window.location.hostname === "localhost") {
-      // Get recently used characters (these are now hashed)
-      const recentChars = getRecentlyUsedCharacters();
-
-      // Check if today's character is a recent duplicate by hashing it first
-      const potentialTarget = charArray[index];
-      const hashedName = hashCharacterName(potentialTarget.Name);
-
-      if (recentChars.includes(hashedName)) {
-        // For testing/debugging only: track that we detected a duplicate
-        //console.debug('Detected duplicate daily character:', potentialTarget.Name);
-      }
-    }
   }
 
   const target = charArray[index];
-
-  // Store the selected character in history - but don't let this affect today's selection
-  // Only store if we're not in endless mode and the feature is enabled
-  if (!endlessMode && avoidRecentDuplicates && !date) {
-    // Add after selection to avoid affecting today's character
-    setTimeout(() => addToRecentCharacters(target.Name), 0);
-  }
 
   return target as Character;
 }
@@ -309,8 +269,6 @@ export function getRandomCharacter(
 interface GetRandomAnimeParams {
   endlessMode?: boolean;
   isPrevious?: boolean;
-  usePreviousVersion?: boolean;
-  avoidRecentDuplicates?: boolean;
   date?: Date;
 }
 export function getRandomAnime(
@@ -318,63 +276,30 @@ export function getRandomAnime(
   {
     endlessMode = true,
     isPrevious = false,
-    usePreviousVersion = false,
-    avoidRecentDuplicates = true,
     date = undefined,
   }: GetRandomAnimeParams
 ) {
-  if (usePreviousVersion) {
-    const preLatestVersion = getNLatestVersion(1);
-    animeData = animeData.filter((anime) => {
-      const res = compareVersions(anime.Version, preLatestVersion.version);
-      return res < 0;
-    });
-  }
+
   let animeArray = Object.values(animeData);
+  const currentVersion = getCurrentVersion();
+  animeArray = animeArray.sort((a, b) => a.id < b.id ? -1 : 1);
+  animeArray = animeArray.filter((anime) => compareVersions(anime.Version, currentVersion.version) <= 0);
 
   let index;
   if (endlessMode) {
     index = Math.floor(Math.random() * animeArray.length);
   } else {
     // For daily deterministic selection, get the index first
-    if (isPrevious) {
-      index = getRandomNumberFromUTCDate(
-        animeArray.length,
-        true,
-        "normal",
-        date
-      );
-    } else {
-      index = getRandomNumberFromUTCDate(
-        animeArray.length,
-        false,
-        "normal",
-        date
-      );
-    }
+    index = getRandomNumberFromUTCDate(
+      animeArray.length,
+      isPrevious,
+      "normal",
+      date
+    );
 
-    // Apply deduplication ONLY when developing or debugging
-    if (avoidRecentDuplicates && window.location.hostname === "localhost") {
-      const recentAnimes = getRecentlyUsedAnimes();
-      const potentialTarget = animeArray[index];
-
-      // Hash the anime name before checking if it's in the recent list
-      const hashedName = hashAnimeName(potentialTarget.Name);
-
-      if (recentAnimes.includes(hashedName)) {
-        // For testing/debugging only
-        //console.debug('Detected duplicate daily anime:', potentialTarget.Name);
-      }
-    }
   }
 
   const target = animeArray[index];
-
-  // Store the selected anime in history - but don't let this affect today's selection
-  if (!endlessMode && avoidRecentDuplicates && !date) {
-    // Add after selection to avoid affecting today's anime
-    setTimeout(() => addToRecentAnimes(target.Name), 0);
-  }
 
   return target as Anime;
 }
@@ -384,173 +309,6 @@ export enum QUIZ_KEY {
   IMAGE = "imagequiz",
   BLUR = "blurquiz",
   CHOICE = "choicequiz",
-}
-
-// Constants for recent character tracking
-const RECENT_CHARS_KEY = "recentCharacters";
-const MAX_RECENT_CHARS = 30; // Avoid repeating characters from the last 30 days
-const HASH_SALT = "anime-quiz-character-salt"; // Salt for hashing
-
-/**
- * Creates a simple hash of a string using built-in JavaScript
- * This is not cryptographically secure but obscures the original text
- */
-function hashCharacterName(name: string): string {
-  const text = name + HASH_SALT;
-  let hash = 0;
-
-  // Simple but effective string hashing algorithm
-  for (let i = 0; i < text.length; i++) {
-    const char = text.charCodeAt(i);
-    hash = (hash << 5) - hash + char;
-    hash = hash & hash; // Convert to 32bit integer
-  }
-
-  // Add some complexity by mixing in more operations
-  hash = Math.abs(hash);
-  const hashStr = hash.toString(16) + (text.length * 7).toString(16);
-
-  // Add more entropy with a second pass
-  let secondHash = 0;
-  for (let i = 0; i < hashStr.length; i++) {
-    secondHash = (secondHash << 7) - secondHash + hashStr.charCodeAt(i);
-    secondHash = secondHash & secondHash;
-  }
-
-  return Math.abs(secondHash).toString(36) + hashStr;
-}
-
-/**
- * Get the list of recently used character names from local storage.
- * This helps prevent duplicate characters from appearing in daily quizzes.
- * The names are stored as hashes for privacy.
- */
-export function getRecentlyUsedCharacters(): string[] {
-  const stored = localStorage.getItem(RECENT_CHARS_KEY);
-  if (!stored) return [];
-
-  try {
-    const data = JSON.parse(stored);
-    if (Array.isArray(data.hashedCharacters)) {
-      return data.hashedCharacters;
-    }
-
-    // Backward compatibility for old format
-    if (Array.isArray(data.characters)) {
-      // Migrate old data to hashed format
-      const hashedCharacters = data.characters.map(hashCharacterName);
-
-      // Update storage with hashed version
-      localStorage.setItem(
-        RECENT_CHARS_KEY,
-        JSON.stringify({
-          hashedCharacters,
-          lastUpdated: new Date().toISOString(),
-        })
-      );
-
-      return hashedCharacters;
-    }
-
-    return [];
-  } catch (e) {
-    // If there's an error parsing, reset the storage
-    localStorage.removeItem(RECENT_CHARS_KEY);
-    return [];
-  }
-}
-
-/**
- * Add a character name to the list of recently used characters.
- * Maintains a limited history to avoid too many restrictions.
- * Character names are hashed before storage.
- */
-export function addToRecentCharacters(characterName: string): void {
-  const recentChars = getRecentlyUsedCharacters();
-  const hashedName = hashCharacterName(characterName);
-
-  // Don't add duplicates
-  if (recentChars.includes(hashedName)) return;
-
-  // Add to the front (most recent)
-  recentChars.unshift(hashedName);
-
-  // Trim to maximum length
-  while (recentChars.length > MAX_RECENT_CHARS) {
-    recentChars.pop();
-  }
-
-  // Save back to localStorage
-  localStorage.setItem(
-    RECENT_CHARS_KEY,
-    JSON.stringify({
-      hashedCharacters: recentChars,
-      lastUpdated: new Date().toISOString(),
-    })
-  );
-}
-
-/**
- * Check for duplicate character selections across a range of future dates.
- * This is useful for content creators to plan ahead and identify potential duplicates
- * without affecting the daily character selection.
- *
- * @param charData The character data array
- * @param days Number of days to look ahead
- * @returns An object with information about duplicate selections
- */
-export function analyzeFutureDuplicates(
-  charData: Character[],
-  days: number = 90
-): Record<string, any> {
-  const startDate = new Date();
-  const characters: Record<string, any> = {};
-  const duplicates: Record<string, any[]> = {};
-  let duplicateCount = 0;
-
-  // Look ahead for the specified number of days
-  for (let i = 0; i < days; i++) {
-    const futureDate = new Date(startDate);
-    futureDate.setDate(startDate.getDate() + i);
-
-    // Get the character for this date using our deterministic selection
-    const character = getRandomCharacter(charData, {
-      endlessMode: false,
-      gender: "all",
-      quizMode: "normal",
-      avoidRecentDuplicates: false,
-      date: futureDate,
-    });
-
-    const dateString = futureDate.toISOString().split("T")[0];
-
-    // Check if this character has appeared before
-    if (characters[character.Name]) {
-      duplicateCount++;
-
-      // Record this duplicate
-      if (!duplicates[character.Name]) {
-        duplicates[character.Name] = [
-          { date: characters[character.Name].date, character },
-        ];
-      }
-
-      duplicates[character.Name].push({ date: dateString, character });
-    }
-
-    // Store this character
-    characters[character.Name] = {
-      date: dateString,
-      index: i,
-    };
-  }
-
-  return {
-    totalDays: days,
-    uniqueCharacters: Object.keys(characters).length,
-    duplicateCount,
-    duplicates,
-  };
 }
 
 export function hasBeenSolvedToday(key: QUIZ_KEY) {
@@ -778,129 +536,6 @@ export function setDailyScore(
   if (newDailyTotal >= 40000) {
     saveFieldToTotalStatistics([StatisticFields.totalMaxPoints], 1);
   }
-}
-
-export function debugGetRandomCharacter(
-  charData: Character[],
-  {
-    endlessMode = true,
-    isPrevious = false,
-    usePreviousVersion = false,
-    gender = "all",
-    quizMode = "normal",
-    numberOfEntries = 1,
-  }: GetRandomCharacterParams = {}
-) {
-  let charArray = Object.values(charData);
-  if (gender !== "all") {
-    charArray = charArray.filter((char) => char.Sex.toLowerCase() === gender);
-  }
-  const targets: Record<string, Character> = {};
-  const stats: Record<string, number> = {};
-  const selectedIndices: Record<number, boolean> = {};
-  const selectedNames: Record<string, boolean> = {};
-  const dailyEntries: Record<string, Character> = {};
-
-  // Track duplicates for debugging
-  let duplicateCount = 0;
-  let uniqueCount = 0;
-
-  // Test deterministic selection for today
-  // Run it 5 times to verify it returns the same character each time
-  for (let i = 0; i < 5; i++) {
-    const todayChar = getRandomCharacter(charData, {
-      endlessMode: false,
-      isPrevious: false,
-      gender,
-      quizMode,
-      avoidRecentDuplicates: false,
-    });
-    dailyEntries[`Run ${i + 1}`] = todayChar;
-  }
-  console.log(
-    "Deterministic daily character test (should be identical):",
-    dailyEntries
-  );
-
-  // Test distribution across many days
-  for (let i = 0; i < numberOfEntries; i++) {
-    let index;
-    let date;
-    if (!isPrevious) {
-      date = DateTime.now()
-        .plus({ days: i + 1 })
-        .toJSDate();
-    } else {
-      date = DateTime.now()
-        .minus({ days: i + 1 })
-        .toJSDate();
-    }
-    if (usePreviousVersion) {
-      const preLatestVersion = getNLatestVersion(1);
-      charData = charData.filter((char) => {
-        const res = compareVersions(char.Version, preLatestVersion.version);
-        return res < 0;
-      });
-    }
-
-    if (endlessMode) {
-      index = Math.floor(Math.random() * charArray.length);
-    } else {
-      // Use our improved random distribution
-      index =
-        getRandomNumberFromUTCDate(
-          charArray.length,
-          isPrevious,
-          quizMode,
-          date
-        ) % charArray.length;
-    }
-
-    const target = charArray[index];
-    targets[date.toISOString()] = {
-      ...target,
-    };
-
-    // Track statistics for analysis
-    stats[index] = (stats[index] || 0) + 1;
-
-    // Track unique vs duplicate selections
-    if (selectedIndices[index]) {
-      duplicateCount++;
-    } else {
-      selectedIndices[index] = true;
-      uniqueCount++;
-    }
-
-    if (selectedNames[target.Name]) {
-      // This is a duplicate character name
-    } else {
-      selectedNames[target.Name] = true;
-    }
-  }
-
-  console.log("Distribution Statistics:", stats);
-  console.log(
-    `Unique characters: ${uniqueCount}, Duplicates: ${duplicateCount}`
-  );
-  console.log(`Unique names: ${Object.keys(selectedNames).length}`);
-
-  // Calculate distribution quality metrics
-  const indices = Object.keys(stats).map(Number);
-  const values = Object.values(stats);
-  const mean = values.reduce((sum, val) => sum + val, 0) / values.length;
-  const variance =
-    values.reduce((sum, val) => sum + Math.pow(val - mean, 2), 0) /
-    values.length;
-
-  console.log(
-    `Distribution metrics - Mean: ${mean.toFixed(
-      2
-    )}, Variance: ${variance.toFixed(2)}`
-  );
-  console.log(`Lower variance indicates more even distribution`);
-
-  return targets;
 }
 
 export function getScoreLogs(): Record<string, { [key: string]: number }> {

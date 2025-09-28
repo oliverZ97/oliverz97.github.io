@@ -63,7 +63,7 @@ export function CharacterAutocomplete({
             <Box
               sx={{ width: "40px", objectFit: "cover", height: "60px" }}
               component={"img"}
-              src={getImgSrc(option.Name)}
+              src={getImgSrc(option.id)}
             ></Box>
           )}
           <Typography sx={{ marginLeft: 2 }} variant="body2">

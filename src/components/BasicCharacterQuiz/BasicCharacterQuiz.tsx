@@ -17,7 +17,6 @@ import {
   QUIZ_KEY,
 } from "common/utils";
 import { LemonButton } from "components/LemonButton";
-import Debug from "components/Debug";
 import { calculateSelectionPoints, removeOptionFromArray } from "./utils";
 import { getHighscoresFromProfile, saveFieldToTotalStatistics } from "common/profileUtils";
 import { useProfile } from "components/Profile/ProfileContext";
@@ -371,7 +370,7 @@ export default function BasicCharacterQuiz({
               sx={{
                 objectFit: "cover",
               }}
-              src={getImgSrc(targetChar?.Name)}
+              src={getImgSrc(targetChar?.id)}
             ></Box>
           </Box>
           {!endlessMode && (
@@ -388,7 +387,6 @@ export default function BasicCharacterQuiz({
           targetChar={targetChar}
         ></CharacterList>
       )}
-      {isDevMode && charData && <Debug charData={charData} animeData={[]} />}
     </Box>
   );
 }

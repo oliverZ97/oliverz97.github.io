@@ -236,7 +236,7 @@ export default function CharacterList({
                 <Box
                   sx={{ maxWidth: "60px", height: "75px", objectFit: "cover" }}
                   component={"img"}
-                  src={getImgSrc(item.Name)}
+                  src={getImgSrc(item.id)}
                 ></Box>
               </Tooltip>
             </Box>
