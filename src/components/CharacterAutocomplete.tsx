@@ -38,6 +38,7 @@ export function CharacterAutocomplete({
           ? charData.filter((char) => isIncludedInDifficulty(char, difficulty))
           : charData
       }
+      getOptionLabel={(option) => `${option.Name} (${option.id})`}
       sx={{
         width: width ?? 300,
         backgroundColor: "white",
@@ -81,8 +82,8 @@ export function CharacterAutocomplete({
         // Only filter if there is at least one character in the input
         return inputValue !== ""
           ? options.filter((option) =>
-              option.Name.toLowerCase().includes(inputValue.toLowerCase())
-            )
+            option.Name.toLowerCase().includes(inputValue.toLowerCase())
+          )
           : [];
       }}
     />
