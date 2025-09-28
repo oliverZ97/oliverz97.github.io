@@ -173,7 +173,7 @@ export const KissMarryKill = ({ charData }: KissMarryKillProps) => {
                     sx={{
                       objectFit: "cover",
                     }}
-                    src={getImgSrc(char.Name)}
+                    src={getImgSrc(char.id)}
                   />
                   <Box sx={{ width: 200 }}>
                     <Typography

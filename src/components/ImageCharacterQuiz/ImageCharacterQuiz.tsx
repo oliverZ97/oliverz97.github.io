@@ -347,7 +347,7 @@ export default function ImageCharacterQuiz({
                     sx={{
                       objectFit: "cover",
                     }}
-                    src={getImgSrc(char.Name)}
+                    src={getImgSrc(char.id)}
                   ></Box>
                   {!isSolving && (
                     <CharacterAutocomplete

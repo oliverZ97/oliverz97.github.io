@@ -371,7 +371,7 @@ export default function BasicCharacterQuiz({
               sx={{
                 objectFit: "cover",
               }}
-              src={getImgSrc(targetChar?.Name)}
+              src={getImgSrc(targetChar?.id)}
             ></Box>
           </Box>
           {!endlessMode && (

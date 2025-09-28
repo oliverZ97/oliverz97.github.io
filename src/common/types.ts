@@ -1,6 +1,7 @@
 import { Streak } from "components/Streak";
 
 export interface Character {
+  id: number;
   Name: string;
   Sex: string;
   Origin: string;

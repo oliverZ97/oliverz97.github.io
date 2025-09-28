@@ -83,16 +83,16 @@ export function SearchBar({
           usePreviousVersion: true,
           quizMode: mode
         });
-        return char.Name;
+        return char.id;
       }
       const char = getRandomCharacter(charData, {
         endlessMode: false,
         isPrevious: true,
         quizMode: mode
       });
-      return char.Name;
+      return char.id;
     } else {
-      return "-";
+      return 0;
     }
   }
 
