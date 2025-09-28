@@ -72,19 +72,6 @@ export function SearchBar({
 
   function getYesterdaysChar(charData: Character[]) {
     if (charData.length > 0) {
-      const currentVersionDate = getCurrentVersion().date;
-      const yesterday = getYesterdayUTCDate();
-      if (
-        DateTime.fromJSDate(yesterday) < DateTime.fromISO(currentVersionDate)
-      ) {
-        const char = getRandomCharacter(charData, {
-          endlessMode: false,
-          isPrevious: true,
-          usePreviousVersion: true,
-          quizMode: mode
-        });
-        return char.id;
-      }
       const char = getRandomCharacter(charData, {
         endlessMode: false,
         isPrevious: true,

@@ -34,6 +34,7 @@ export interface Anime {
   Tags?: string;
   ValidFields?: string[];
   Version: string;
+  id: number;
 }
 
 export type Difficulty = "A" | "B" | "C";

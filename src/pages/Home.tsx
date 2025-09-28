@@ -84,7 +84,8 @@ const Home = () => {
           !animeMap.has(item.Anime) ||
           item.Version < animeMap.get(item.Anime).Version
         ) {
-          animeMap.set(item.Anime, animeEntry);
+            const id = animeMap.size + 1;
+            animeMap.set(item.Anime, { ...animeEntry, id });
         }
       });
 
