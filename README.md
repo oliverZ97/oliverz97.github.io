@@ -17,9 +17,41 @@ Have fun playing :3
 
 ## Current Version
 
-1.7.3
+1.7.4
 
-## Verison 1.7.3
+## Version 1.7.4
+
+- Refactor Image filenames from character name to character id
+- Add field id for Character and Anime
+- Refactor random character and random anime selection logic
+- Refactor Version release logic
+- Released Character Version v1.22
+    - Anime: 
+        - Beyond the Boundary
+        - Buddy Daddies
+        - The Dangers in My Heart
+        - You are Ms. Servant
+    - Character: 
+        - Ai Shindou
+        - Akihito Kanbara
+        - Anna Yamada
+        - Ayaka Shindou
+        - Grace
+        - Hiroomi Nase
+        - Hitoyoshi Yokoya
+        - Izumi Nase
+        - Kazuki Kurusu
+        - Kyoutarou Ichikawa
+        - Mem-Cho
+        - Miri Unasaka
+        - Mirai Kuriyama
+        - Mitsuki Nase
+        - Rei Suwa
+        - Riko Yokoya
+        - Shizuku Ninomiya
+        - Yuki
+
+## Version 1.7.3
 
 - Add and save multiple Statistics
     - General:
