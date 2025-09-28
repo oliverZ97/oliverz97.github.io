@@ -184,7 +184,7 @@ export function getRandomCharacterArray(
   let counter = 0;
   let chars: Character[] = [];
   while (counter < Math.max(0, count)) {
-    const char = getRandomCharacter(charData, {
+    const char = getRandomCharacter(Object.values(charData), {
       endlessMode: undefined,
       isPrevious: undefined,
       gender,

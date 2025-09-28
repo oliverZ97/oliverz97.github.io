@@ -47,10 +47,8 @@ export const KissMarryKill = ({ charData }: KissMarryKillProps) => {
   }
 
   useEffect(() => {
-    if (!targets || genderFilter) {
-      resetTargets();
-    }
-  }, [genderFilter]);
+    resetTargets();
+  }, []);
 
   function resetTargets() {
     if (allSelectionsTrue) {
@@ -71,7 +69,7 @@ export const KissMarryKill = ({ charData }: KissMarryKillProps) => {
       });
     }
     const targetCharacters = getRandomCharacterArray(
-      { ...charData },
+      [...charData],
       3,
       genderFilter
     );

@@ -77,9 +77,9 @@ export function SearchBar({
         isPrevious: true,
         quizMode: mode
       });
-      return char.id;
+      return char;
     } else {
-      return 0;
+      return null;
     }
   }
 
@@ -127,7 +127,7 @@ export function SearchBar({
           </Typography>
 
           <Tooltip
-            title={getYesterdaysChar(originalCharData)}
+            title={getYesterdaysChar(originalCharData)?.Name}
             placement="bottom"
             slotProps={{
               popper: {
@@ -145,7 +145,7 @@ export function SearchBar({
             <Box
               sx={{ maxWidth: "60px", height: "50px", objectFit: "cover" }}
               component={"img"}
-              src={getImgSrc(getYesterdaysChar(originalCharData))}
+              src={getImgSrc(getYesterdaysChar(originalCharData)?.id ?? 0)}
             ></Box>
           </Tooltip>
         </Box>
