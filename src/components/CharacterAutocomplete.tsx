@@ -55,9 +55,13 @@ export function CharacterAutocomplete({
           },
         },
       }}
-      renderInput={(params) => (
-        <TextField {...params} label="Guess Today's Character" />
-      )}
+      renderInput={(params) => {
+        // If showPreviewImage is false and a value is selected, show only the name in the input
+        if (!showPreviewImage && value) {
+          params.inputProps.value = value.Name;
+        }
+        return <TextField {...params} label="Guess Today's Character" />;
+      }}
       renderOption={(props, option) => (
         <Box component="li" sx={{ "& > *": { m: 0.5 } }} {...props}>
           {showPreviewImage && (

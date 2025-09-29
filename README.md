@@ -17,7 +17,16 @@ Have fun playing :3
 
 ## Current Version
 
-1.7.4
+1.7.6
+
+## Version 1.7.6
+
+- Add missing picuter for Izumi Nase
+- Fix logic error where character id was display in CharatcerAutocomplete
+
+## Version 1.7.5
+
+- Bugfix: Character was displayewd multiple times in the autocomplete due to multiple characters with the same name exist leading to a bug. Added character id as secondary key
 
 ## Version 1.7.4
 
