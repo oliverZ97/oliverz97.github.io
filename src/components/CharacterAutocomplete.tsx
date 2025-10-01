@@ -38,6 +38,7 @@ export function CharacterAutocomplete({
           ? charData.filter((char) => isIncludedInDifficulty(char, difficulty))
           : charData
       }
+      getOptionLabel={(option) => `${option.Name} (${option.id})`}
       sx={{
         width: width ?? 300,
         backgroundColor: "white",
@@ -54,9 +55,13 @@ export function CharacterAutocomplete({
           },
         },
       }}
-      renderInput={(params) => (
-        <TextField {...params} label="Guess Today's Character" />
-      )}
+      renderInput={(params) => {
+        // If showPreviewImage is false and a value is selected, show only the name in the input
+        if (!showPreviewImage && value) {
+          params.inputProps.value = value.Name;
+        }
+        return <TextField {...params} label="Guess Today's Character" />;
+      }}
       renderOption={(props, option) => (
         <Box component="li" sx={{ "& > *": { m: 0.5 } }} {...props}>
           {showPreviewImage && (
@@ -81,8 +86,8 @@ export function CharacterAutocomplete({
         // Only filter if there is at least one character in the input
         return inputValue !== ""
           ? options.filter((option) =>
-              option.Name.toLowerCase().includes(inputValue.toLowerCase())
-            )
+            option.Name.toLowerCase().includes(inputValue.toLowerCase())
+          )
           : [];
       }}
     />
