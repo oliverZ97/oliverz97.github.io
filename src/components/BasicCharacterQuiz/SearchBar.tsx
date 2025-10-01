@@ -9,10 +9,8 @@ import {
 } from "@mui/material";
 import { getImgSrc } from "common/quizUtils";
 import { Character, Difficulty } from "common/types";
-import { getRandomCharacter, getYesterdayUTCDate } from "common/utils";
-import { getCurrentVersion } from "common/version";
+import { getRandomCharacter } from "common/utils";
 import { CharacterAutocomplete } from "components/CharacterAutocomplete";
-import { DateTime } from "luxon";
 import { COLORS } from "styling/constants";
 
 interface SearchBarProps {
@@ -192,7 +190,7 @@ export function SearchBar({
         >
           <CharacterAutocomplete
             difficulty={difficulty}
-            charData={charData}
+            charData={charData.sort((a, b) => a.Name.localeCompare(b.Name))}
             disabled={isCorrect}
             value={selectedOption}
             handleSearchChange={handleSearchChange}
