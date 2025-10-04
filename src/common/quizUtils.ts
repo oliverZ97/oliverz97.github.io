@@ -129,10 +129,11 @@ export function solveQuizHelper(
         };
         saveHasBeenSolvedToday(solvedKey, solveData);
         setDailyScore(utcDate.toISOString(), points, quizKey);
+        const key = quizKey === QUIZ_KEY.CHAR ? StatisticFields.totalCharactersGuessed : quizKey === QUIZ_KEY.ANIME ? StatisticFields.totalAnimesGuessed : StatisticFields.totalBlurredCharactersGuessed
         saveFieldToTotalStatistics(
           [
             StatisticFields.totalGamesPlayed,
-            StatisticFields.totalCharactersGuessed,
+            StatisticFields[key],
           ],
           1
         );

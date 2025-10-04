@@ -16,7 +16,11 @@ Have fun playing :3
 
 ## Current Version
 
-1.7.7
+1.7.8
+
+## Version 1.7.8
+
+- Bugfix: Anime and BlurredChar Guessed Count not saved correctly in stats
 
 ## Version 1.7.7
 
