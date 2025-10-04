@@ -11,17 +11,21 @@ Have fun playing :3
 
 ## Upcoming Features
 
-- View your player statistics
 - Display Patchnotes when a new version releases
 - Achievements
 
 ## Current Version
 
-1.7.6
+1.7.7
+
+## Version 1.7.7
+
+- Bugfix: CharacterAutocomplete is not ordered by Alphabet
+- Display User Statistics in StatsDialog
 
 ## Version 1.7.6
 
-- Add missing picuter for Izumi Nase
+- Add missing picture for Izumi Nase
 - Fix logic error where character id was display in CharatcerAutocomplete
 
 ## Version 1.7.5
