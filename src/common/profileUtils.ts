@@ -503,3 +503,10 @@ export function getStatisticField(
   }
   return undefined;
 }
+
+export function getUserStatistics(): {
+  [K in StatisticFields]?: number;
+} {
+  const logs = getCurrentUserLog();
+  return logs ? logs.statistics || {} : {}
+}

@@ -352,7 +352,7 @@ export default function ImageCharacterQuiz({
                   {!isSolving && (
                     <CharacterAutocomplete
                       width={200}
-                      charData={charData}
+                      charData={charData.sort((a, b) => a.Name.localeCompare(b.Name))}
                       disabled={false}
                       value={elements[index].character}
                       handleSearchChange={handleCharacterChange}
