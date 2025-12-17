@@ -1,5 +1,5 @@
 import { Anime, Character, Difficulty, SolvedKeys, StatisticFields } from "common/types";
-import { getCurrentVersion } from "./version";
+import { getCurrentVersion, getPreLatestVersion } from "./version";
 import { DateTime } from "luxon";
 import { CalendarEntry } from "components/Calendar";
 import { getCurrentUserLog, getCurrentUserProfile, saveFieldToTotalStatistics } from "./profileUtils";
@@ -242,7 +242,11 @@ export function getRandomCharacter(
   }: GetRandomCharacterParams = {}
 ) {
   let chars = charData.sort((a, b) => a.id < b.id ? -1 : 1);
-  const currentVersion = getCurrentVersion();
+  let currentVersion = getCurrentVersion();
+  if (isPrevious && currentVersion.date.split("T")[0] === getYesterdayUTCDate().toISOString().split("T")[0]) {
+    currentVersion = getPreLatestVersion();
+  }
+
   chars = chars.filter((char) => compareVersions(char.Version, currentVersion.version) <= 0);
   let charArray = Object.values(chars);
   if (gender !== "all") {
@@ -281,8 +285,11 @@ export function getRandomAnime(
 ) {
 
   let animeArray = Object.values(animeData);
-  const currentVersion = getCurrentVersion();
   animeArray = animeArray.sort((a, b) => a.id < b.id ? -1 : 1);
+  let currentVersion = getCurrentVersion();
+  if (isPrevious && currentVersion.date.split("T")[0] === getYesterdayUTCDate().toISOString().split("T")[0]) {
+    currentVersion = getPreLatestVersion();
+  }
   animeArray = animeArray.filter((anime) => compareVersions(anime.Version, currentVersion.version) <= 0);
 
   let index;
@@ -327,110 +334,6 @@ export function hasBeenSolvedToday(key: QUIZ_KEY) {
   } else {
     return false;
   }
-}
-
-// Constants for recent anime tracking
-const RECENT_ANIMES_KEY = "recentAnimes";
-const MAX_RECENT_ANIMES = 20; // Avoid repeating anime from the last 20 days
-const ANIME_HASH_SALT = "anime-quiz-anime-salt"; // Salt for hashing anime names
-
-/**
- * Creates a simple hash of an anime name using built-in JavaScript
- * This is not cryptographically secure but obscures the original text
- */
-function hashAnimeName(name: string): string {
-  const text = name + ANIME_HASH_SALT;
-  let hash = 0;
-
-  // Simple but effective string hashing algorithm
-  for (let i = 0; i < text.length; i++) {
-    const char = text.charCodeAt(i);
-    hash = (hash << 5) - hash + char;
-    hash = hash & hash; // Convert to 32bit integer
-  }
-
-  // Add some complexity by mixing in more operations
-  hash = Math.abs(hash);
-  const hashStr = hash.toString(16) + (text.length * 7).toString(16);
-
-  // Add more entropy with a second pass
-  let secondHash = 0;
-  for (let i = 0; i < hashStr.length; i++) {
-    secondHash = (secondHash << 7) - secondHash + hashStr.charCodeAt(i);
-    secondHash = secondHash & secondHash;
-  }
-
-  return Math.abs(secondHash).toString(36) + hashStr;
-}
-
-/**
- * Get the list of recently used anime names from local storage.
- * This helps prevent duplicate anime from appearing in daily quizzes.
- * The names are stored as hashes for privacy.
- */
-export function getRecentlyUsedAnimes(): string[] {
-  const stored = localStorage.getItem(RECENT_ANIMES_KEY);
-  if (!stored) return [];
-
-  try {
-    const data = JSON.parse(stored);
-    if (Array.isArray(data.hashedAnimes)) {
-      return data.hashedAnimes;
-    }
-
-    // Backward compatibility for old format
-    if (Array.isArray(data.animes)) {
-      // Migrate old data to hashed format
-      const hashedAnimes = data.animes.map(hashAnimeName);
-
-      // Update storage with hashed version
-      localStorage.setItem(
-        RECENT_ANIMES_KEY,
-        JSON.stringify({
-          hashedAnimes,
-          lastUpdated: new Date().toISOString(),
-        })
-      );
-
-      return hashedAnimes;
-    }
-
-    return [];
-  } catch (e) {
-    // If there's an error parsing, reset the storage
-    localStorage.removeItem(RECENT_ANIMES_KEY);
-    return [];
-  }
-}
-
-/**
- * Add an anime name to the list of recently used animes.
- * Maintains a limited history to avoid too many restrictions.
- * Anime names are hashed before storage.
- */
-export function addToRecentAnimes(animeName: string): void {
-  const recentAnimes = getRecentlyUsedAnimes();
-  const hashedName = hashAnimeName(animeName);
-
-  // Don't add duplicates
-  if (recentAnimes.includes(hashedName)) return;
-
-  // Add to the front (most recent)
-  recentAnimes.unshift(hashedName);
-
-  // Trim to maximum length
-  while (recentAnimes.length > MAX_RECENT_ANIMES) {
-    recentAnimes.pop();
-  }
-
-  // Save back to localStorage
-  localStorage.setItem(
-    RECENT_ANIMES_KEY,
-    JSON.stringify({
-      hashedAnimes: recentAnimes,
-      lastUpdated: new Date().toISOString(),
-    })
-  );
 }
 
 export function gaveUpOnTodaysQuiz(key: QUIZ_KEY) {

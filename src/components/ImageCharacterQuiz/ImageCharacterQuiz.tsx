@@ -215,7 +215,7 @@ export default function ImageCharacterQuiz({
 
   function checkCorrectAnswers() {
     if (targets) {
-      if (hasBeenSolvedToday(QUIZ_KEY.IMAGE)) {
+      if (hasBeenSolvedToday(QUIZ_KEY.IMAGE) && !endlessMode) {
         const dailyAnswers = localStorage.getItem(ANSWER_KEY);
         const dailyScore = localStorage.getItem(SCORE_KEY);
         if (dailyAnswers && dailyScore) {
