@@ -69,6 +69,7 @@ const Home = () => {
       // First pass: populate the map with anime entries
       charData.forEach((item: Character) => {
         const animeEntry = {
+          id: item.Anime_Id,
           Name: item.Anime,
           First_Release_Year: item.First_Release_Year,
           Studio: item.Studio,
@@ -84,8 +85,8 @@ const Home = () => {
           !animeMap.has(item.Anime) ||
           item.Version < animeMap.get(item.Anime).Version
         ) {
-            const id = animeMap.size + 1;
-            animeMap.set(item.Anime, { ...animeEntry, id });
+          const id = animeMap.size + 1;
+          animeMap.set(item.Anime, { ...animeEntry, id });
         }
       });
 

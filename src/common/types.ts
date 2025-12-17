@@ -12,6 +12,7 @@ export interface Character {
   Eye_Color: string;
   Genre: string;
   Anime: string;
+  Anime_Id: number;
   Editorial_Staff_Hint: string;
   First_Release_Year: number;
   Difficulty: Difficulty;

@@ -47,6 +47,15 @@ export function getImgSrc(id: number) {
   return basepath + filename + ".webp";
 }
 
+export function getAnimeImgSrc(id: number) {
+  const filename = id.toString();
+  const basepath = !import.meta.env.PROD
+    ? "/src/assets/posters/"
+    : "assets/posters/";
+
+  return basepath + filename + ".webp";
+}
+
 export function compareObjects<T extends Record<string, any>>(
   obj1: T,
   obj2: T
