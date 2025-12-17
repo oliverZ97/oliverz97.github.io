@@ -88,7 +88,6 @@ export function compareObjects<T extends Record<string, any>>(
       sameFieldsObj.all.push(key);
     }
   }
-
   return sameFieldsObj;
 }
 
@@ -129,17 +128,24 @@ export function solveQuizHelper(
         };
         saveHasBeenSolvedToday(solvedKey, solveData);
         setDailyScore(utcDate.toISOString(), points, quizKey);
-        const key = quizKey === QUIZ_KEY.CHAR ? StatisticFields.totalCharactersGuessed : quizKey === QUIZ_KEY.ANIME ? StatisticFields.totalAnimesGuessed : StatisticFields.totalBlurredCharactersGuessed
+        const key =
+          quizKey === QUIZ_KEY.CHAR
+            ? StatisticFields.totalCharactersGuessed
+            : quizKey === QUIZ_KEY.ANIME
+            ? StatisticFields.totalAnimesGuessed
+            : StatisticFields.totalBlurredCharactersGuessed;
         saveFieldToTotalStatistics(
-          [
-            StatisticFields.totalGamesPlayed,
-            StatisticFields[key],
-          ],
+          [StatisticFields.totalGamesPlayed, StatisticFields[key]],
           1
         );
         saveFieldToTotalStatistics([StatisticFields.totalScore], points);
         if (points === 10000) {
-          const key = quizKey === QUIZ_KEY.CHAR ? StatisticFields.charQuizMaxPoints : quizKey === QUIZ_KEY.ANIME ? StatisticFields.animeQuizMaxPoints : StatisticFields.blurQuizMaxPoints;
+          const key =
+            quizKey === QUIZ_KEY.CHAR
+              ? StatisticFields.charQuizMaxPoints
+              : quizKey === QUIZ_KEY.ANIME
+              ? StatisticFields.animeQuizMaxPoints
+              : StatisticFields.blurQuizMaxPoints;
           saveFieldToTotalStatistics([StatisticFields[key]], 1);
         }
       }

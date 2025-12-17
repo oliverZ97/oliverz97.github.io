@@ -6,11 +6,16 @@ import {
   ToggleButtonGroup,
   useTheme,
   Tooltip,
+  Switch,
+  FormControlLabel,
 } from "@mui/material";
+import { getProfileSetting, updateProfileSettings } from "common/profileUtils";
 import { getImgSrc } from "common/quizUtils";
 import { Character, Difficulty } from "common/types";
 import { getRandomCharacter } from "common/utils";
 import { CharacterAutocomplete } from "components/CharacterAutocomplete";
+import { CustomSwitch } from "components/CustomSwitch";
+import { useState } from "react";
 import { COLORS } from "styling/constants";
 
 interface SearchBarProps {
@@ -54,6 +59,10 @@ export function SearchBar({
   showPreviewImage = true,
   mode = "normal",
 }: SearchBarProps) {
+  const [autoRevealHintSetting, setAutoRevealHintSetting] = useState<boolean>(
+    getProfileSetting("autoRevealBasicQuizHints") as boolean
+  );
+
   const theme = useTheme();
 
   const handleDifficulty = (
@@ -73,7 +82,7 @@ export function SearchBar({
       const char = getRandomCharacter(charData, {
         endlessMode: false,
         isPrevious: true,
-        quizMode: mode
+        quizMode: mode,
       });
       return char;
     } else {
@@ -100,54 +109,80 @@ export function SearchBar({
         },
       }}
     >
-      {!endlessMode && originalCharData && (
-        <Box
-          display={"flex"}
-          alignItems={"center"}
-          gap={2}
-          sx={{
-            background:
-              "linear-gradient(90deg,rgba(0, 53, 84, 1) 0%, rgba(0, 100, 148, 1) 100%)",
-            width: "100%",
-            borderTopLeftRadius: "8px",
-            borderTopRightRadius: "8px",
-            paddingX: 2,
-            paddingY: 1,
-          }}
-        >
-          <Typography
-            fontSize="16px"
-            textAlign={"center"}
-            fontWeight={"bold"}
-            color={"white"}
-          >
-            {"Yesterdays character:"}
-          </Typography>
-
-          <Tooltip
-            title={getYesterdaysChar(originalCharData)?.Name}
-            placement="bottom"
-            slotProps={{
-              popper: {
-                modifiers: [
-                  {
-                    name: "offset",
-                    options: {
-                      offset: [0, -24],
-                    },
-                  },
-                ],
-              },
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          width: "100%",
+          background:
+            "linear-gradient(90deg,rgba(0, 53, 84, 1) 0%, rgba(0, 100, 148, 1) 100%)",
+          borderTopLeftRadius: "8px",
+          borderTopRightRadius: "8px",
+          paddingX: 2,
+          paddingY: 1,
+          justifyContent: "space-between",
+        }}
+      >
+        {!endlessMode && originalCharData && (
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 2,
             }}
           >
-            <Box
-              sx={{ maxWidth: "60px", height: "50px", objectFit: "cover" }}
-              component={"img"}
-              src={getImgSrc(getYesterdaysChar(originalCharData)?.id ?? 0)}
-            ></Box>
-          </Tooltip>
-        </Box>
-      )}
+            <Typography
+              fontSize="16px"
+              textAlign={"center"}
+              fontWeight={"bold"}
+              color={"white"}
+            >
+              {"Yesterdays character:"}
+            </Typography>
+
+            <Tooltip
+              title={getYesterdaysChar(originalCharData)?.Name}
+              placement="bottom"
+              slotProps={{
+                popper: {
+                  modifiers: [
+                    {
+                      name: "offset",
+                      options: {
+                        offset: [0, -24],
+                      },
+                    },
+                  ],
+                },
+              }}
+            >
+              <Box
+                sx={{ maxWidth: "60px", height: "50px", objectFit: "cover" }}
+                component={"img"}
+                src={getImgSrc(getYesterdaysChar(originalCharData)?.id ?? 0)}
+              ></Box>
+            </Tooltip>
+          </Box>
+        )}
+        <FormControlLabel
+          control={
+            <CustomSwitch
+              onChange={(event, checked) => {
+                setAutoRevealHintSetting(checked);
+                updateProfileSettings("autoRevealBasicQuizHints", checked);
+              }}
+              checked={autoRevealHintSetting}
+              inputProps={{ "aria-label": "Switch demo" }}
+            />
+          }
+          sx={{
+            color: "white",
+            "& .MuiFormControlLabel-label": { fontSize: "14px" },
+          }}
+          label="Reveal Hints automatically"
+        />
+      </Box>
+
       <Box
         sx={{
           width: "100%",
@@ -164,11 +199,15 @@ export function SearchBar({
           },
         }}
       >
-        <Box sx={{
-          position: "absolute", left: 16, [theme.breakpoints.down("md")]: {
-            position: "initial"
-          },
-        }}>
+        <Box
+          sx={{
+            position: "absolute",
+            left: 16,
+            [theme.breakpoints.down("md")]: {
+              position: "initial",
+            },
+          }}
+        >
           <Typography sx={{ color: "white" }}>{"Points: " + points}</Typography>
           <Typography sx={{ color: "white" }}>
             {"Tries: " + searchHistory.length}
@@ -196,15 +235,21 @@ export function SearchBar({
             handleSearchChange={handleSearchChange}
             showPreviewImage={showPreviewImage}
           ></CharacterAutocomplete>
-
         </Box>
-        <Box sx={{ position: "absolute", right: 16, display: "flex", gap: 1, [theme.breakpoints.down("md")]: { flexDirection: "column", position: "initial" } }}>
+        <Box
+          sx={{
+            position: "absolute",
+            right: 16,
+            display: "flex",
+            gap: 1,
+            [theme.breakpoints.down("md")]: {
+              flexDirection: "column",
+              position: "initial",
+            },
+          }}
+        >
           {showGiveUp && !gaveUp && (
-            <Button
-              onClick={handleGiveUp}
-              color="error"
-              variant="contained"
-            >
+            <Button onClick={handleGiveUp} color="error" variant="contained">
               Give Up!
             </Button>
           )}

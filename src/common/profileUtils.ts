@@ -264,7 +264,11 @@ export function setUserLog(userLog: UserLogs) {
       const profile = loadUserProfile(username);
       if (profile && profile.id === userId) {
         // Found the matching profile, update the user field
-        userLog.user = { username: profile.username, id: profile.id, createdAt: profile.createdAt };
+        userLog.user = {
+          username: profile.username,
+          id: profile.id,
+          createdAt: profile.createdAt,
+        };
         break;
       }
     }
@@ -494,9 +498,7 @@ function isValidUserProfile(obj: any): obj is UserProfile {
   );
 }
 
-export function getStatisticField(
-  field: StatisticFields
-): number | undefined {
+export function getStatisticField(field: StatisticFields): number | undefined {
   const userLog = getCurrentUserLog();
   if (userLog && userLog.statistics) {
     return userLog.statistics[field];
@@ -508,5 +510,31 @@ export function getUserStatistics(): {
   [K in StatisticFields]?: number;
 } {
   const logs = getCurrentUserLog();
-  return logs ? logs.statistics || {} : {}
+  return logs ? logs.statistics || {} : {};
+}
+
+export function updateProfileSettings(
+  key: string,
+  value: string | boolean | number
+) {
+  const userProfile = getCurrentUserProfile();
+  if (userProfile?.settings) {
+    userProfile.settings[key] = value;
+    setUserProfile(userProfile);
+  } else if (userProfile) {
+    userProfile.settings = {
+      [key]: value,
+    };
+    setUserProfile(userProfile);
+  }
+}
+
+export function getProfileSetting(
+  key: string
+): string | boolean | number | undefined {
+  const userProfile = getCurrentUserProfile();
+  if (userProfile?.settings) {
+    return userProfile.settings[key];
+  }
+  return undefined;
 }

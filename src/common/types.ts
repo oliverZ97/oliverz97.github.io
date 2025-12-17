@@ -81,6 +81,7 @@ export interface UserProfile {
   animeQuizSolved?: SolveData;
   blurQuizSolved?: SolveData;
   imageQuizSolved?: SolveData;
+  settings?: Record<string, string | boolean | number>;
 }
 
 export interface SolveData {
