@@ -38,6 +38,7 @@ interface SearchBarProps {
   endlessMode?: boolean;
   originalCharData: Character[];
   showPreviewImage?: boolean;
+  showAnimeHintOption?: boolean;
   mode?: "blurred" | "normal";
 }
 
@@ -57,6 +58,7 @@ export function SearchBar({
   endlessMode = true,
   originalCharData,
   showPreviewImage = true,
+  showAnimeHintOption = true,
   mode = "normal",
 }: SearchBarProps) {
   const [autoRevealHintSetting, setAutoRevealHintSetting] = useState<boolean>(
@@ -164,7 +166,7 @@ export function SearchBar({
             </Tooltip>
           </Box>
         )}
-        <FormControlLabel
+        {showAnimeHintOption && <FormControlLabel
           control={
             <CustomSwitch
               onChange={(event, checked) => {
@@ -180,7 +182,7 @@ export function SearchBar({
             "& .MuiFormControlLabel-label": { fontSize: "14px" },
           }}
           label="Reveal Hints automatically"
-        />
+        />}
       </Box>
 
       <Box

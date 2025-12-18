@@ -42,6 +42,7 @@ export function SearchBar({
 }: SearchBarProps) {
   const [blurFactor, setBlurFactor] = useState(5);
   const [clueCount, setClueCount] = useState(0);
+  const showClueCount = (searchHistory.length % 5 !== 0 || searchHistory.length === 0);
 
   const theme = useTheme();
 
@@ -63,9 +64,30 @@ export function SearchBar({
     }
   }
 
+  function handleInit() {
+    setClueCount(0);
+    setBlurFactor(5);
+    init();
+  }
+
+  function showClueButton() {
+    let show = false;
+    if (searchHistory.length % 5 === 0 && searchHistory.length !== 0) {
+      show = true;
+    }
+    if (clueCount === 0 && searchHistory.length >= 5 || clueCount === 1 && searchHistory.length >= 10) {
+      show = true;
+    }
+    if (clueCount > 2) {
+      show = false;
+    }
+    return show;
+  }
+
   return (
-    <Box>
-      {clueCount > 0 && (
+    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%" }}>
+
+      {!isCorrect && clueCount > 0 && (
         <Box
           sx={{
             display: "flex",
@@ -77,7 +99,7 @@ export function SearchBar({
               "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
             borderRadius: 2,
             border: `1px solid ${COLORS.quiz.light}`,
-            width: "100%",
+            width: "500px",
             [theme.breakpoints.down("md")]: {
               flexDirection: "column",
               padding: 2,
@@ -103,7 +125,7 @@ export function SearchBar({
               )}
 
               {clueCount > 0 && (
-                <Box>
+                <Box textAlign={"center"}>
                   <Typography sx={{ color: "white" }}>
                     Character from this anime:
                   </Typography>
@@ -128,7 +150,7 @@ export function SearchBar({
         sx={{
           display: "flex",
           flexDirection: "column",
-          gap: 4,
+          gap: 2,
           alignItems: "center",
           justifyContent: "space-between",
           background:
@@ -136,6 +158,7 @@ export function SearchBar({
           borderRadius: 2,
           border: `1px solid ${COLORS.quiz.light}`,
           width: "100%",
+          paddingY: endlessMode ? 2 : 0,
           [theme.breakpoints.down("md")]: {
             flexDirection: "column",
             padding: 2,
@@ -175,8 +198,8 @@ export function SearchBar({
             alignItems: "center",
             justifyContent: "space-between",
             borderRadius: 2,
-            marginBottom: 2,
             paddingX: 2,
+            paddingBottom: endlessMode ? 0 : 2,
             [theme.breakpoints.down("md")]: {
               flexDirection: "column",
               padding: 2,
@@ -197,7 +220,7 @@ export function SearchBar({
               alignItems: "center",
               gap: 1,
               position: "relative",
-              marginTop: endlessMode ? 2 : 0,
+              marginTop: 0,
             }}
           >
             <AnimeAutocomplete
@@ -206,8 +229,11 @@ export function SearchBar({
               value={selectedOption}
               handleSearchChange={handleSearchChange}
             ></AnimeAutocomplete>
-            {searchHistory.length > 4 && clueCount < 2 && (
+            {!showClueButton() && searchHistory.length <= 10 && <Typography sx={{ color: "white", fontStyle: "italic" }}>{`Next clue in ${searchHistory.length > 5 ? 10 - searchHistory.length : 5 - searchHistory.length} Tries`}</Typography>}
+
+            {showClueButton() && (
               <Button
+                sx={{ backgroundColor: COLORS.quiz.light_red, "&:hover": { backgroundColor: COLORS.quiz.light_red_hover } }}
                 onClick={() => setClueCount(clueCount + 1)}
                 endIcon={<FastForwardIcon />}
                 variant="contained"
@@ -218,8 +244,7 @@ export function SearchBar({
             {showGiveUp && !gaveUp && (
               <Button
                 onClick={handleGiveUp}
-                sx={{ height: "40px", position: "absolute", right: -100 }}
-                color="error"
+                sx={{ position: "absolute", right: -100, backgroundColor: COLORS.quiz.failed, "&:hover": { backgroundColor: COLORS.quiz.failed_light } }}
                 variant="contained"
               >
                 Give Up!
@@ -229,16 +254,16 @@ export function SearchBar({
           <Box sx={{ display: "flex", gap: 1 }}>
             {endlessMode && (
               <Button
-                onClick={init}
+                onClick={handleInit}
                 sx={{
                   backgroundColor: COLORS.quiz.main,
-                  border: `2px solid ${COLORS.quiz.light}`,
                   color: "white",
                   "&:hover": {
                     backgroundColor: COLORS.quiz.secondary,
+
                   },
                 }}
-                variant="outlined"
+                variant="contained"
               >
                 RESET QUIZ
               </Button>
