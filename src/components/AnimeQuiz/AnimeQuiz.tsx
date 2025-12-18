@@ -4,7 +4,7 @@ import {
   getAnimeImgSrc,
   solveQuizHelper,
 } from "common/quizUtils";
-import { Anime, SolvedKeys, StatisticFields } from "common/types";
+import { Anime, Character, SolvedKeys, StatisticFields } from "common/types";
 import {
   gaveUpOnTodaysQuiz,
   getRandomAnime,
@@ -29,12 +29,14 @@ const ANIME_SOLVED_KEY = (QUIZ_KEY.ANIME + "Solved") as SolvedKeys;
 
 interface AnimeQuizProps {
   animeData: Anime[];
+  charData: Character[];
   endlessMode?: boolean;
   changeQuizMode?: (event: React.SyntheticEvent, id: number) => void;
 }
 
 export const AnimeQuiz = ({
   animeData,
+  charData,
   endlessMode = true,
   changeQuizMode,
 }: AnimeQuizProps) => {
@@ -269,6 +271,8 @@ export const AnimeQuiz = ({
         gaveUp={gaveUp}
         endlessMode={endlessMode}
         originalAnimeData={animeData}
+        targetAnime={targetAnime}
+        charData={charData}
       />
 
       {targetAnime && isCorrect && (

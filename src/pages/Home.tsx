@@ -380,6 +380,7 @@ const Home = () => {
                 changeQuizMode={(event: React.SyntheticEvent, id: number) =>
                   handleChange(event, id)
                 }
+                charData={charData}
               ></AnimeQuiz>
             </CustomTabPanel>
 
@@ -406,7 +407,11 @@ const Home = () => {
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={7}>
-              <AnimeQuiz animeData={animeData} endlessMode={true}></AnimeQuiz>
+              <AnimeQuiz
+                animeData={animeData}
+                endlessMode={true}
+                charData={charData}
+              ></AnimeQuiz>
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={8}>

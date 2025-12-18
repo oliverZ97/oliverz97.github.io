@@ -5,7 +5,12 @@ import {
   saveHighscoreToProfile,
 } from "./profileUtils";
 import { Anime, Character, SolvedKeys, StatisticFields } from "./types";
-import { getDailyUTCDate, QUIZ_KEY, setDailyScore } from "./utils";
+import {
+  getDailyUTCDate,
+  getRandomNumberFromUTCDate,
+  QUIZ_KEY,
+  setDailyScore,
+} from "./utils";
 
 export function isMoreThanADay(date1: Date, date2: Date) {
   // Calculate the time difference in milliseconds
@@ -173,4 +178,18 @@ export function solveQuizHelper(
       }
     }
   }
+}
+
+export function getCharacterFromAnime(
+  animeId: number,
+  charData: Character[],
+  animeData: Anime[]
+): Character {
+  const anime = animeData.find((a) => a.id === animeId);
+  if (!anime) {
+    throw new Error("Anime not found");
+  }
+  const animeCharacters = charData.filter((c) => c.Anime_Id === animeId);
+  const index = getRandomNumberFromUTCDate(animeCharacters.length);
+  return animeCharacters[index];
 }
