@@ -4,7 +4,12 @@ import { COLORS } from "styling/constants";
 import CharacterList from "./CharacterList";
 import { SearchBar } from "./SearchBar";
 import { SyntheticEvent, useEffect, useRef, useState } from "react";
-import { Character, Difficulty, SolvedKeys, StatisticFields } from "common/types";
+import {
+  Character,
+  Difficulty,
+  SolvedKeys,
+  StatisticFields,
+} from "common/types";
 import { compareObjects, getImgSrc, solveQuizHelper } from "common/quizUtils";
 import { Score } from "pages/Home";
 import { DayStreak } from "components/Streak";
@@ -18,8 +23,13 @@ import {
 } from "common/utils";
 import { LemonButton } from "components/LemonButton";
 import { calculateSelectionPoints, removeOptionFromArray } from "./utils";
-import { getHighscoresFromProfile, saveFieldToTotalStatistics } from "common/profileUtils";
+import {
+  getHighscoresFromProfile,
+  getProfileSetting,
+  saveFieldToTotalStatistics,
+} from "common/profileUtils";
 import { useProfile } from "components/Profile/ProfileContext";
+import { get } from "react-hook-form";
 
 interface HintRef {
   resetHint: () => void;
@@ -49,6 +59,8 @@ export default function BasicCharacterQuiz({
   const [difficulty, setDifficulty] = useState<Difficulty>("C");
   const [showGiveUp, setShowGiveUp] = useState(false);
   const [gaveUp, setGaveUp] = useState(false);
+
+  const [revealAnimeHint, setRevealAnimeHint] = useState(false);
 
   const genreHintRef = useRef<HintRef | null>(null);
   const animeHintRef = useRef<HintRef | null>(null);
@@ -153,14 +165,25 @@ export default function BasicCharacterQuiz({
   ) {
     if (value && targetChar) {
       const res = compareObjects(value, targetChar);
+      console.log("Compare Result: ", res);
       value.ValidFields = res.all;
+
+      if (
+        value.ValidFields.includes("Anime") &&
+        getProfileSetting("autoRevealBasicQuizHints")
+      ) {
+        setRevealAnimeHint(true);
+      }
 
       setSelectedOption(value);
       removeOptionFromArray(value, localCharData, setLocalCharData);
       setSearchHistory([value, ...searchHistory]);
 
       if (res.all.length + 1 === Object.keys(targetChar).length) {
-        saveFieldToTotalStatistics([StatisticFields.totalCharacterGuesses], searchHistory.length + 1);
+        saveFieldToTotalStatistics(
+          [StatisticFields.totalCharacterGuesses],
+          searchHistory.length + 1
+        );
         solveQuizHelper(
           reason,
           setGaveUp,
@@ -299,11 +322,12 @@ export default function BasicCharacterQuiz({
             cardTitle="Studio"
           ></RevealCard>
           <RevealCard
-            costs={1000}
-            onReveal={() => reducePointsForHint(1000)}
+            costs={revealAnimeHint ? 0 : 1000}
+            onReveal={() => reducePointsForHint(revealAnimeHint ? 0 : 1000)}
             ref={animeHintRef}
             cardText={targetChar?.Anime ?? ""}
             cardTitle="Anime"
+            revealFromOutside={revealAnimeHint}
           ></RevealCard>
         </Box>
         {!endlessMode && (

@@ -1,0 +1,414 @@
+[
+  {
+    "id": 1,
+    "Name": "Attack on Titan"
+  },
+  {
+    "id": 2,
+    "Name": "Bleach"
+  },
+  {
+    "id": 3,
+    "Name": "Bungo Stray Dogs"
+  },
+  {
+    "id": 4,
+    "Name": "Chainsaw Man"
+  },
+  {
+    "id": 5,
+    "Name": "Demon Slayer: Kimetsu no Yaiba"
+  },
+  {
+    "id": 6,
+    "Name": "Frieren: Beyond Journey’s End"
+  },
+  {
+    "id": 7,
+    "Name": "Haikyu!!"
+  },
+  {
+    "id": 8,
+    "Name": "Horimiya"
+  },
+  {
+    "id": 9,
+    "Name": "Jujutsu Kaisen"
+  },
+  {
+    "id": 10,
+    "Name": "Laid-Back Camp"
+  },
+  {
+    "id": 11,
+    "Name": "Lycoris Recoil"
+  },
+  {
+    "id": 12,
+    "Name": "Makeine: Too Many Losing Heroines!"
+  },
+  {
+    "id": 13,
+    "Name": "Miss Kobayashi’s Dragon Maid"
+  },
+  {
+    "id": 14,
+    "Name": "My Dress-Up Darling"
+  },
+  {
+    "id": 15,
+    "Name": "My Hero Academia"
+  },
+  {
+    "id": 16,
+    "Name": "Oshi no Ko"
+  },
+  {
+    "id": 17,
+    "Name": "Rascal Does Not Dream of Bunny Girl Senpai"
+  },
+  {
+    "id": 18,
+    "Name": "Re:Zero - Starting Life in Another World"
+  },
+  {
+    "id": 19,
+    "Name": "Sword Art Online"
+  },
+  {
+    "id": 20,
+    "Name": "The Seven Deadly Sins"
+  },
+  {
+    "id": 21,
+    "Name": "Don’t Toy with Me, Miss Nagatoro"
+  },
+  {
+    "id": 22,
+    "Name": "K-On!"
+  },
+  {
+    "id": 23,
+    "Name": "Bloom into You"
+  },
+  {
+    "id": 24,
+    "Name": "Blue Box"
+  },
+  {
+    "id": 25,
+    "Name": "My Senpai Is Annoying"
+  },
+  {
+    "id": 26,
+    "Name": "Citrus"
+  },
+  {
+    "id": 27,
+    "Name": "Bocchi the Rock!"
+  },
+  {
+    "id": 28,
+    "Name": "Jellyfish Can’t Swim in the Night"
+  },
+  {
+    "id": 29,
+    "Name": "Girls Band Cry"
+  },
+  {
+    "id": 30,
+    "Name": "A Sign of Affection"
+  },
+  {
+    "id": 31,
+    "Name": "Neon Genesis Evangelion"
+  },
+  {
+    "id": 32,
+    "Name": "The Apothecary Diaries"
+  },
+  {
+    "id": 33,
+    "Name": "Wind Breaker"
+  },
+  {
+    "id": 34,
+    "Name": "86: Eighty Six"
+  },
+  {
+    "id": 35,
+    "Name": "Kimi ni Todoke: From Me to You"
+  },
+  {
+    "id": 36,
+    "Name": "Dan Da Dan"
+  },
+  {
+    "id": 37,
+    "Name": "Delicious in Dungeon"
+  },
+  {
+    "id": 38,
+    "Name": "Sound! Euphonium"
+  },
+  {
+    "id": 39,
+    "Name": "Violet Evergarden"
+  },
+  {
+    "id": 40,
+    "Name": "Detective Conan"
+  },
+  {
+    "id": 41,
+    "Name": "Kokoro Connect"
+  },
+  {
+    "id": 42,
+    "Name": "Rent-a-Girlfriend"
+  },
+  {
+    "id": 43,
+    "Name": "Is It Wrong to Try to Pick Up Girls in a Dungeon?"
+  },
+  {
+    "id": 44,
+    "Name": "Love, Chunibyo & Other Delusions!"
+  },
+  {
+    "id": 45,
+    "Name": "Magi: The Labyrinth of Magic"
+  },
+  {
+    "id": 46,
+    "Name": "Mayonaka Punch"
+  },
+  {
+    "id": 47,
+    "Name": "Mysterious Disappearances"
+  },
+  {
+    "id": 48,
+    "Name": "One Piece"
+  },
+  {
+    "id": 49,
+    "Name": "Spice and Wolf: Merchant meets the Wise Wolf"
+  },
+  {
+    "id": 50,
+    "Name": "Whisper Me a Love Song"
+  },
+  {
+    "id": 51,
+    "Name": "Honey Lemon Soda"
+  },
+  {
+    "id": 52,
+    "Name": "The Future Diary"
+  },
+  {
+    "id": 53,
+    "Name": "The Ancient Magus’ Bride"
+  },
+  {
+    "id": 54,
+    "Name": "Kaguya-sama: Love Is War"
+  },
+  {
+    "id": 55,
+    "Name": "Kill La Kill"
+  },
+  {
+    "id": 56,
+    "Name": "Black Butler"
+  },
+  {
+    "id": 57,
+    "Name": "D.Gray-man"
+  },
+  {
+    "id": 58,
+    "Name": "Interviews with Monster Girls"
+  },
+  {
+    "id": 59,
+    "Name": "My Hero Academia: Vigilantes"
+  },
+  {
+    "id": 60,
+    "Name": "Food for the Soul"
+  },
+  {
+    "id": 61,
+    "Name": "Mono"
+  },
+  {
+    "id": 62,
+    "Name": "Witch Watch"
+  },
+  {
+    "id": 63,
+    "Name": "Kowloon Generic Romance"
+  },
+  {
+    "id": 64,
+    "Name": "Your Name."
+  },
+  {
+    "id": 65,
+    "Name": "Weathering with You"
+  },
+  {
+    "id": 66,
+    "Name": "Suzume"
+  },
+  {
+    "id": 67,
+    "Name": "Ruri Rocks"
+  },
+  {
+    "id": 68,
+    "Name": "Princess Mononoke"
+  },
+  {
+    "id": 69,
+    "Name": "Gurren Lagann"
+  },
+  {
+    "id": 70,
+    "Name": "Spy × Family"
+  },
+  {
+    "id": 71,
+    "Name": "Konosuba: God’s Blessing on This Wonderful World!"
+  },
+  {
+    "id": 72,
+    "Name": "Toradora!"
+  },
+  {
+    "id": 73,
+    "Name": "Fire Force"
+  },
+  {
+    "id": 74,
+    "Name": "Ranma 1/2"
+  },
+  {
+    "id": 75,
+    "Name": "Gate"
+  },
+  {
+    "id": 76,
+    "Name": "Nausicaä of the Valley of the Wind"
+  },
+  {
+    "id": 77,
+    "Name": "Call of the Night"
+  },
+  {
+    "id": 78,
+    "Name": "See You Tomorrow at the Food Court"
+  },
+  {
+    "id": 79,
+    "Name": "Secrets of the Silent Witch"
+  },
+  {
+    "id": 80,
+    "Name": "Alya Sometimes Hides Her Feelings in Russian"
+  },
+  {
+    "id": 81,
+    "Name": "High School of the Dead"
+  },
+  {
+    "id": 82,
+    "Name": "The Shiunji Family Children"
+  },
+  {
+    "id": 83,
+    "Name": "Erased"
+  },
+  {
+    "id": 84,
+    "Name": "Dealing with Mikadono Sisters Is a Breeze"
+  },
+  {
+    "id": 85,
+    "Name": "Akebi’s Sailor Uniform"
+  },
+  {
+    "id": 86,
+    "Name": "There’s No Freaking Way I’ll Be Your Lover! Unless…"
+  },
+  {
+    "id": 87,
+    "Name": "Hell’s Paradise"
+  },
+  {
+    "id": 88,
+    "Name": "Dr. Stone"
+  },
+  {
+    "id": 89,
+    "Name": "Kaoru & Rin"
+  },
+  {
+    "id": 90,
+    "Name": "Beyond the Boundary"
+  },
+  {
+    "id": 91,
+    "Name": "The Dangers in My Heart"
+  },
+  {
+    "id": 92,
+    "Name": "Buddy Daddies"
+  },
+  {
+    "id": 93,
+    "Name": "You Are Ms. Servant."
+  },
+  {
+    "id": 94,
+    "Name": "Naruto"
+  },
+  {
+    "id": 95,
+    "Name": "Reincarnated as a Sword"
+  },
+  {
+    "id": 96,
+    "Name": "May I Ask for One Final Thing?"
+  },
+  {
+    "id": 97,
+    "Name": "A Silent Voice"
+  },
+  {
+    "id": 98,
+    "Name": "Gachiakuta"
+  },
+  {
+    "id": 99,
+    "Name": "Black Lagoon"
+  },
+  {
+    "id": 100,
+    "Name": "Akame ga Kill!"
+  },
+  {
+    "id": 101,
+    "Name": "This Monster Wants to Eat Me"
+  },
+  {
+    "id": 102,
+    "Name": "Fate/Zero"
+  },
+  {
+    "id": 103,
+    "Name": "A Mangaka’s Weirdly Wonderful Workplace"
+  }
+]

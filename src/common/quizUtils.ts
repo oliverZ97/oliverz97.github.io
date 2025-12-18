@@ -5,7 +5,12 @@ import {
   saveHighscoreToProfile,
 } from "./profileUtils";
 import { Anime, Character, SolvedKeys, StatisticFields } from "./types";
-import { getDailyUTCDate, QUIZ_KEY, setDailyScore } from "./utils";
+import {
+  getDailyUTCDate,
+  getRandomNumberFromUTCDate,
+  QUIZ_KEY,
+  setDailyScore,
+} from "./utils";
 
 export function isMoreThanADay(date1: Date, date2: Date) {
   // Calculate the time difference in milliseconds
@@ -43,6 +48,15 @@ export function getImgSrc(id: number) {
   const basepath = !import.meta.env.PROD
     ? "/src/assets/characters/"
     : "assets/characters/";
+
+  return basepath + filename + ".webp";
+}
+
+export function getAnimeImgSrc(id: number) {
+  const filename = id.toString();
+  const basepath = !import.meta.env.PROD
+    ? "/src/assets/posters/"
+    : "assets/posters/";
 
   return basepath + filename + ".webp";
 }
@@ -88,7 +102,6 @@ export function compareObjects<T extends Record<string, any>>(
       sameFieldsObj.all.push(key);
     }
   }
-
   return sameFieldsObj;
 }
 
@@ -129,17 +142,24 @@ export function solveQuizHelper(
         };
         saveHasBeenSolvedToday(solvedKey, solveData);
         setDailyScore(utcDate.toISOString(), points, quizKey);
-        const key = quizKey === QUIZ_KEY.CHAR ? StatisticFields.totalCharactersGuessed : quizKey === QUIZ_KEY.ANIME ? StatisticFields.totalAnimesGuessed : StatisticFields.totalBlurredCharactersGuessed
+        const key =
+          quizKey === QUIZ_KEY.CHAR
+            ? StatisticFields.totalCharactersGuessed
+            : quizKey === QUIZ_KEY.ANIME
+            ? StatisticFields.totalAnimesGuessed
+            : StatisticFields.totalBlurredCharactersGuessed;
         saveFieldToTotalStatistics(
-          [
-            StatisticFields.totalGamesPlayed,
-            StatisticFields[key],
-          ],
+          [StatisticFields.totalGamesPlayed, StatisticFields[key]],
           1
         );
         saveFieldToTotalStatistics([StatisticFields.totalScore], points);
         if (points === 10000) {
-          const key = quizKey === QUIZ_KEY.CHAR ? StatisticFields.charQuizMaxPoints : quizKey === QUIZ_KEY.ANIME ? StatisticFields.animeQuizMaxPoints : StatisticFields.blurQuizMaxPoints;
+          const key =
+            quizKey === QUIZ_KEY.CHAR
+              ? StatisticFields.charQuizMaxPoints
+              : quizKey === QUIZ_KEY.ANIME
+              ? StatisticFields.animeQuizMaxPoints
+              : StatisticFields.blurQuizMaxPoints;
           saveFieldToTotalStatistics([StatisticFields[key]], 1);
         }
       }
@@ -158,4 +178,18 @@ export function solveQuizHelper(
       }
     }
   }
+}
+
+export function getCharacterFromAnime(
+  animeId: number,
+  charData: Character[],
+  animeData: Anime[]
+): Character {
+  const anime = animeData.find((a) => a.id === animeId);
+  if (!anime) {
+    throw new Error("Anime not found");
+  }
+  const animeCharacters = charData.filter((c) => c.Anime_Id === animeId);
+  const index = getRandomNumberFromUTCDate(animeCharacters.length);
+  return animeCharacters[index];
 }

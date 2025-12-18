@@ -16,11 +16,20 @@ interface RevealCardProps {
   costs?: number;
   onReveal?: () => void;
   sx?: SxProps<Theme>;
+  revealFromOutside?: boolean;
 }
 
 export const RevealCard = forwardRef(
   (
-    { cardText, cardTitle, costs, onReveal, disabled, sx }: RevealCardProps,
+    {
+      cardText,
+      cardTitle,
+      costs,
+      onReveal,
+      disabled,
+      sx,
+      revealFromOutside,
+    }: RevealCardProps,
     ref
   ) => {
     const [revealHint, setRevealHint] = useState(false);
@@ -30,10 +39,13 @@ export const RevealCard = forwardRef(
     };
 
     useEffect(() => {
+      if (revealFromOutside) {
+        setRevealHint(true);
+      }
       if (revealHint && onReveal) {
         onReveal();
       }
-    }, [revealHint]);
+    }, [revealHint, revealFromOutside, onReveal]);
 
     useImperativeHandle(ref, () => ({
       resetHint: resetHint,

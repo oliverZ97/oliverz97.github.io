@@ -540,6 +540,7 @@ export default function BasicCharacterQuiz({
         endlessMode={endlessMode}
         originalCharData={charData}
         showPreviewImage={false}
+        showAnimeHintOption={false}
         mode="blurred"
       ></SearchBar>
       {(endlessMode || (!endlessMode && !isCorrect)) && (

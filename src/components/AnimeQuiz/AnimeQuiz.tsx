@@ -1,6 +1,10 @@
 import { Box, Typography, useTheme } from "@mui/material";
-import { compareObjects, solveQuizHelper } from "common/quizUtils";
-import { Anime, SolvedKeys, StatisticFields } from "common/types";
+import {
+  compareObjects,
+  getAnimeImgSrc,
+  solveQuizHelper,
+} from "common/quizUtils";
+import { Anime, Character, SolvedKeys, StatisticFields } from "common/types";
 import {
   gaveUpOnTodaysQuiz,
   getRandomAnime,
@@ -15,19 +19,24 @@ import AnimeList from "./AnimeList";
 import { SearchBar } from "./SearchBar";
 import { LemonButton } from "components/LemonButton";
 import { calculateSelectionPoints, removeOptionFromArray } from "./utils";
-import { getHighscoresFromProfile, saveFieldToTotalStatistics } from "common/profileUtils";
+import {
+  getHighscoresFromProfile,
+  saveFieldToTotalStatistics,
+} from "common/profileUtils";
 import { useProfile } from "components/Profile/ProfileContext";
 
 const ANIME_SOLVED_KEY = (QUIZ_KEY.ANIME + "Solved") as SolvedKeys;
 
 interface AnimeQuizProps {
   animeData: Anime[];
+  charData: Character[];
   endlessMode?: boolean;
   changeQuizMode?: (event: React.SyntheticEvent, id: number) => void;
 }
 
 export const AnimeQuiz = ({
   animeData,
+  charData,
   endlessMode = true,
   changeQuizMode,
 }: AnimeQuizProps) => {
@@ -133,7 +142,10 @@ export const AnimeQuiz = ({
       setSearchHistory([value, ...searchHistory]);
 
       if (res.all.length + 1 === Object.keys(targetAnime).length) {
-        saveFieldToTotalStatistics([StatisticFields.totalAnimeGuesses], searchHistory.length + 1);
+        saveFieldToTotalStatistics(
+          [StatisticFields.totalAnimeGuesses],
+          searchHistory.length + 1
+        );
 
         solveQuizHelper(
           reason,
@@ -259,6 +271,8 @@ export const AnimeQuiz = ({
         gaveUp={gaveUp}
         endlessMode={endlessMode}
         originalAnimeData={animeData}
+        targetAnime={targetAnime}
+        charData={charData}
       />
 
       {targetAnime && isCorrect && (
@@ -289,17 +303,31 @@ export const AnimeQuiz = ({
                 : `2px solid ${COLORS.quiz.success_light}`,
             }}
           >
-            <Typography fontWeight={"bold"} fontSize={"20px"} marginBottom={1}>
-              Congratulations!
-            </Typography>
-            <Typography marginBottom={3}>The Anime was:</Typography>
             <Typography
-              fontWeight={"bold"}
-              fontSize={"24px"}
-              textAlign={"center"}
+              sx={{ fontWeight: "bold", fontSize: "20px", marginBottom: 1 }}
+            >
+              {showGiveUp ? "Better luck next time!" : "Congratulations!"}
+            </Typography>
+            <Typography sx={{ marginBottom: 3 }}>The Anime was:</Typography>
+            <Typography
+              sx={{
+                marginBottom: 2,
+                fontWeight: "bold",
+                fontSize: "24px",
+                textAlign: "center",
+              }}
             >
               {targetAnime?.Name}
             </Typography>
+            <Box
+              width={"200px"}
+              component={"img"}
+              height={"276px"}
+              sx={{
+                objectFit: "cover",
+              }}
+              src={getAnimeImgSrc(targetAnime?.id)}
+            ></Box>
           </Box>
           {!endlessMode && (
             <LemonButton

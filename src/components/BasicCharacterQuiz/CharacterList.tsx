@@ -28,35 +28,73 @@ export default function CharacterList({
   }
 
   function getCardBorderColor(key: string, item: Character) {
-    return item.ValidFields?.includes(key) ? `2px solid ${COLORS.quiz.success_light}` : `2px solid ${COLORS.quiz.light}`
+    return item.ValidFields?.includes(key)
+      ? `2px solid ${COLORS.quiz.success_light}`
+      : `2px solid ${COLORS.quiz.light}`;
   }
 
   function getCardBackgroundColor(key: string, item: Character) {
-    return item.ValidFields?.includes(key) ? COLORS.quiz.success : COLORS.quiz.main;
+    return item.ValidFields?.includes(key)
+      ? COLORS.quiz.success
+      : COLORS.quiz.main;
   }
 
-
-  function findPartialGenreMatch(item: Character, targetChar: Character | null) {
+  function findPartialOriginMatch(
+    item: Character,
+    targetChar: Character | null
+  ) {
     if (!targetChar) return false;
 
     // If both genres are the same, return false
-    if (JSON.stringify(item.Genre) === JSON.stringify(targetChar.Genre)) return false
+    if (JSON.stringify(item.Origin) === JSON.stringify(targetChar.Origin))
+      return false;
 
-    // Special case for "Slice of Life" - check before splitting
-    if (item.Genre === "Slice of Life" && targetChar.Genre === "Slice of Life") {
+    if (
+      item.Origin.includes(targetChar.Origin) ||
+      targetChar.Origin.includes(item.Origin)
+    ) {
       return true;
     }
 
-    const targetGenres = targetChar.Genre.split(" ").map((genre) => genre.trim());
+    return false;
+  }
+
+  function findPartialGenreMatch(
+    item: Character,
+    targetChar: Character | null
+  ) {
+    if (!targetChar) return false;
+
+    // If both genres are the same, return false
+    if (JSON.stringify(item.Genre) === JSON.stringify(targetChar.Genre))
+      return false;
+
+    // Special case for "Slice of Life" - check before splitting
+    if (
+      item.Genre === "Slice of Life" &&
+      targetChar.Genre === "Slice of Life"
+    ) {
+      return true;
+    }
+
+    const targetGenres = targetChar.Genre.split(" ").map((genre) =>
+      genre.trim()
+    );
     const itemGenres = item.Genre.split(" ").map((genre) => genre.trim());
 
     // Check for partial matches between item and target genres
-    const res = itemGenres.some(itemGenre => {
+    const res = itemGenres.some((itemGenre) => {
       // Handle Romance/Romantic matching
-      if (itemGenre === "Romance" && targetGenres.some(g => g === "Romantic" || g === "Romance")) {
+      if (
+        itemGenre === "Romance" &&
+        targetGenres.some((g) => g === "Romantic" || g === "Romance")
+      ) {
         return true;
       }
-      if (itemGenre === "Romantic" && targetGenres.some(g => g === "Romance" || g === "Romantic")) {
+      if (
+        itemGenre === "Romantic" &&
+        targetGenres.some((g) => g === "Romance" || g === "Romantic")
+      ) {
         return true;
       }
 
@@ -80,125 +118,131 @@ export default function CharacterList({
           overflowY: "auto",
           borderTopLeftRadius: "8px",
           borderTopRightRadius: "8px",
-          border: searchHistory.length > 0 ? `1px solid ${COLORS.quiz.light}` : "none",
+          border:
+            searchHistory.length > 0
+              ? `1px solid ${COLORS.quiz.light}`
+              : "none",
           borderBottom: 0,
-          background: "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
+          background:
+            "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
           [theme.breakpoints.down("md")]: {
             overflowX: "scroll",
           },
         }}
       >
-        {searchHistory.length > 0 && <Box
-          sx={{
-            display: "grid",
-            gridTemplateColumns: "60px repeat(8, 1fr)",
-            gap: 2,
-            paddingX: 2,
-          }}
-        >
-          {" "}
-          {/* 4 equal columns */}
-          {/* Header Row */}
+        {searchHistory.length > 0 && (
           <Box
             sx={{
-              gridColumn: "1 / 2",
-              textAlign: "center",
-              marginY: 2,
-              fontWeight: "bold",
-              color: COLORS.quiz.primary_text,
+              display: "grid",
+              gridTemplateColumns: "60px repeat(8, 1fr)",
+              gap: 2,
+              paddingX: 2,
             }}
           >
-            Image
+            {" "}
+            {/* 4 equal columns */}
+            {/* Header Row */}
+            <Box
+              sx={{
+                gridColumn: "1 / 2",
+                textAlign: "center",
+                marginY: 2,
+                fontWeight: "bold",
+                color: COLORS.quiz.primary_text,
+              }}
+            >
+              Image
+            </Box>
+            <Box
+              sx={{
+                gridColumn: "2 / 3",
+                textAlign: "center",
+                marginY: 2,
+                fontWeight: "bold",
+                color: COLORS.quiz.primary_text,
+              }}
+            >
+              Sex
+            </Box>
+            <Box
+              sx={{
+                gridColumn: "3 / 4",
+                textAlign: "center",
+                marginY: 2,
+                fontWeight: "bold",
+                color: COLORS.quiz.primary_text,
+              }}
+            >
+              Age Group
+            </Box>
+            <Box
+              sx={{
+                gridColumn: "4 / 5",
+                textAlign: "center",
+                marginY: 2,
+                fontWeight: "bold",
+                color: COLORS.quiz.primary_text,
+              }}
+            >
+              Hair Color
+            </Box>
+            <Box
+              sx={{
+                gridColumn: "5 / 6",
+                textAlign: "center",
+                marginY: 2,
+                fontWeight: "bold",
+                color: COLORS.quiz.primary_text,
+              }}
+            >
+              Eye Color
+            </Box>
+            <Box
+              sx={{
+                gridColumn: "6 / 7",
+                textAlign: "center",
+                marginY: 2,
+                fontWeight: "bold",
+                color: COLORS.quiz.primary_text,
+              }}
+            >
+              Height
+            </Box>
+            <Box
+              sx={{
+                gridColumn: "7 / 8",
+                textAlign: "center",
+                marginY: 2,
+                fontWeight: "bold",
+                color: COLORS.quiz.primary_text,
+              }}
+            >
+              Origin
+            </Box>
+            <Box
+              sx={{
+                gridColumn: "8 / 9",
+                textAlign: "center",
+                marginY: 2,
+                fontWeight: "bold",
+                color: COLORS.quiz.primary_text,
+              }}
+            >
+              Anime Release
+            </Box>
+            <Box
+              sx={{
+                gridColumn: "9 / 10",
+                textAlign: "center",
+                marginY: 2,
+                fontWeight: "bold",
+                color: COLORS.quiz.primary_text,
+              }}
+            >
+              Anime Genre
+            </Box>
           </Box>
-          <Box
-            sx={{
-              gridColumn: "2 / 3",
-              textAlign: "center",
-              marginY: 2,
-              fontWeight: "bold",
-              color: COLORS.quiz.primary_text,
-            }}
-          >
-            Sex
-          </Box>
-          <Box
-            sx={{
-              gridColumn: "3 / 4",
-              textAlign: "center",
-              marginY: 2,
-              fontWeight: "bold",
-              color: COLORS.quiz.primary_text,
-            }}
-          >
-            Age Group
-          </Box>
-          <Box
-            sx={{
-              gridColumn: "4 / 5",
-              textAlign: "center",
-              marginY: 2,
-              fontWeight: "bold",
-              color: COLORS.quiz.primary_text,
-            }}
-          >
-            Hair Color
-          </Box>
-          <Box
-            sx={{
-              gridColumn: "5 / 6",
-              textAlign: "center",
-              marginY: 2,
-              fontWeight: "bold",
-              color: COLORS.quiz.primary_text,
-            }}
-          >
-            Eye Color
-          </Box>
-          <Box
-            sx={{
-              gridColumn: "6 / 7",
-              textAlign: "center",
-              marginY: 2,
-              fontWeight: "bold",
-              color: COLORS.quiz.primary_text,
-            }}
-          >
-            Height
-          </Box>
-          <Box
-            sx={{
-              gridColumn: "7 / 8",
-              textAlign: "center",
-              marginY: 2,
-              fontWeight: "bold",
-              color: COLORS.quiz.primary_text,
-            }}
-          >
-            Origin
-          </Box>
-          <Box
-            sx={{
-              gridColumn: "8 / 9",
-              textAlign: "center",
-              marginY: 2,
-              fontWeight: "bold",
-              color: COLORS.quiz.primary_text,
-            }}
-          >
-            Anime Release
-          </Box>
-          <Box
-            sx={{
-              gridColumn: "9 / 10",
-              textAlign: "center",
-              marginY: 2,
-              fontWeight: "bold",
-              color: COLORS.quiz.primary_text,
-            }}
-          >
-            Anime Genre
-          </Box>
-        </Box>}
+        )}
         {/* Data Rows */}
         {searchHistory.map((item) => (
           <Box
@@ -218,21 +262,24 @@ export default function CharacterList({
                 justifyContent: "center",
                 alignItems: "center",
                 minHeight: 50,
-
               }}
             >
-              <Tooltip title={item.Name} placement="bottom" slotProps={{
-                popper: {
-                  modifiers: [
-                    {
-                      name: 'offset',
-                      options: {
-                        offset: [0, -24],
+              <Tooltip
+                title={item.Name}
+                placement="bottom"
+                slotProps={{
+                  popper: {
+                    modifiers: [
+                      {
+                        name: "offset",
+                        options: {
+                          offset: [0, -24],
+                        },
                       },
-                    },
-                  ],
-                },
-              }}>
+                    ],
+                  },
+                }}
+              >
                 <Box
                   sx={{ maxWidth: "60px", height: "75px", objectFit: "cover" }}
                   component={"img"}
@@ -247,7 +294,6 @@ export default function CharacterList({
                 justifyContent: "center",
                 alignItems: "center",
                 minHeight: 50,
-
               }}
             >
               <Box
@@ -261,7 +307,6 @@ export default function CharacterList({
                   height: "100%",
                   borderRadius: "4px",
                   border: getCardBorderColor("Sex", item),
-
                 }}
               >
                 <Typography>{item.Sex}</Typography>
@@ -287,7 +332,6 @@ export default function CharacterList({
                   height: "100%",
                   borderRadius: "4px",
                   border: getCardBorderColor("Age_Group", item),
-
                 }}
               >
                 <Typography>{item.Age_Group}</Typography>
@@ -317,7 +361,6 @@ export default function CharacterList({
                   height: "100%",
                   borderRadius: "4px",
                   border: getCardBorderColor("Hair_Color", item),
-
                 }}
               >
                 <Typography>{item.Hair_Color}</Typography>
@@ -343,7 +386,6 @@ export default function CharacterList({
                   height: "100%",
                   borderRadius: "4px",
                   border: getCardBorderColor("Eye_Color", item),
-
                 }}
               >
                 <Typography>{item.Eye_Color}</Typography>
@@ -369,7 +411,6 @@ export default function CharacterList({
                   height: "100%",
                   borderRadius: "4px",
                   border: getCardBorderColor("Height", item),
-
                 }}
               >
                 <Typography>{item.Height ?? "?"}</Typography>
@@ -392,11 +433,14 @@ export default function CharacterList({
                   display: "flex",
                   alignItems: "center",
                   padding: "10px",
-                  backgroundColor: getCardBackgroundColor("Origin", item),
+                  backgroundColor: findPartialOriginMatch(item, targetChar)
+                    ? COLORS.quiz.warning
+                    : getCardBackgroundColor("Origin", item),
                   height: "100%",
                   borderRadius: "4px",
-                  border: getCardBorderColor("Origin", item),
-
+                  border: findPartialOriginMatch(item, targetChar)
+                    ? `2px solid ${COLORS.quiz.warning_light}`
+                    : getCardBorderColor("Origin", item),
                 }}
               >
                 <Typography>{item.Origin}</Typography>
@@ -418,11 +462,13 @@ export default function CharacterList({
                   display: "flex",
                   alignItems: "center",
                   padding: "10px",
-                  backgroundColor: getCardBackgroundColor("First_Release_Year", item),
+                  backgroundColor: getCardBackgroundColor(
+                    "First_Release_Year",
+                    item
+                  ),
                   height: "100%",
                   borderRadius: "4px",
                   border: getCardBorderColor("First_Release_Year", item),
-
                 }}
               >
                 <Typography>{item.First_Release_Year}</Typography>
@@ -448,11 +494,14 @@ export default function CharacterList({
                   display: "flex",
                   alignItems: "center",
                   padding: "10px",
-                  backgroundColor: findPartialGenreMatch(item, targetChar) ? COLORS.quiz.warning : getCardBackgroundColor("Genre", item),
+                  backgroundColor: findPartialGenreMatch(item, targetChar)
+                    ? COLORS.quiz.warning
+                    : getCardBackgroundColor("Genre", item),
                   height: "100%",
                   borderRadius: "4px",
-                  border: findPartialGenreMatch(item, targetChar) ? `2px solid ${COLORS.quiz.warning_light}` : getCardBorderColor("Genre", item),
-
+                  border: findPartialGenreMatch(item, targetChar)
+                    ? `2px solid ${COLORS.quiz.warning_light}`
+                    : getCardBorderColor("Genre", item),
                 }}
               >
                 <Typography>{item.Genre}</Typography>
@@ -461,7 +510,7 @@ export default function CharacterList({
           </Box>
         ))}
       </Box>
-      { }
+      {}
     </Box>
   );
 }
