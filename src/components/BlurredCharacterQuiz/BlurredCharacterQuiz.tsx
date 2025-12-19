@@ -29,6 +29,7 @@ import { useProfile } from "components/Profile/ProfileContext";
 
 interface HintRef {
   resetHint: () => void;
+  revealHint: () => void;
 }
 
 const BASEPOINTS = 1000;
@@ -214,6 +215,17 @@ export default function BasicCharacterQuiz({
         setFrozenBlurValue(0);
         setImageRevealed(true); // Add this line
         setImageKey(Date.now()); // Force image reload
+      }
+      if (hasSolvedToday || gaveUpToday) {
+        if (animeHintRef.current) {
+          animeHintRef.current.revealHint();
+        }
+        if (releaseHintRef.current) {
+          releaseHintRef.current.revealHint();
+        }
+        if (studioHintRef.current) {
+          studioHintRef.current.revealHint();
+        }
       }
     }
     setTargetCharacter(target as Character);
@@ -408,7 +420,7 @@ export default function BasicCharacterQuiz({
               ref={studioHintRef}
               cardText={targetChar?.Studio ?? ""}
               cardTitle="Studio"
-              disabled={searchHistory.length <= 3}
+              disabled={isCorrect || gaveUp ? false : searchHistory.length <= 3}
               sx={{
                 width: "250px",
               }}
@@ -418,7 +430,7 @@ export default function BasicCharacterQuiz({
               ref={releaseHintRef}
               cardText={targetChar?.First_Release_Year.toString() ?? ""}
               cardTitle="First Release Year"
-              disabled={searchHistory.length <= 6}
+              disabled={isCorrect || gaveUp ? false : searchHistory.length <= 6}
               sx={{
                 width: "250px",
               }}
@@ -428,7 +440,7 @@ export default function BasicCharacterQuiz({
               ref={animeHintRef}
               cardText={targetChar?.Anime.toString() ?? ""}
               cardTitle="Anime"
-              disabled={searchHistory.length <= 8}
+              disabled={isCorrect || gaveUp ? false : searchHistory.length <= 8}
               sx={{
                 width: "250px",
               }}
@@ -516,6 +528,30 @@ export default function BasicCharacterQuiz({
                   }, 200);
                 }}
               />
+            </Box>
+          )}
+          {(isCorrect || gaveUp) && (
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                position: "absolute",
+                left: "calc(50% + 180px)", // Position from center: half of parent width - desired margin - card width
+                zIndex: 1,
+                [theme.breakpoints.down("md")]: {
+                  position: "initial",
+                },
+              }}
+            >
+              <Typography sx={{ color: "white", fontSize: 20 }}>
+                Todays Character was:
+              </Typography>
+              <Typography
+                sx={{ fontSize: 24, fontWeight: "bold", color: "white" }}
+              >
+                {targetChar?.Name}
+              </Typography>
             </Box>
           )}
         </Box>

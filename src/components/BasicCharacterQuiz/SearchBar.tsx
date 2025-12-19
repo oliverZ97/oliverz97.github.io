@@ -113,81 +113,83 @@ export function SearchBar({
         },
       }}
     >
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          width: "100%",
-          background:
-            "linear-gradient(90deg,rgba(0, 53, 84, 1) 0%, rgba(0, 100, 148, 1) 100%)",
-          borderTopLeftRadius: "8px",
-          borderTopRightRadius: "8px",
-          paddingX: 2,
-          paddingY: 1,
-          justifyContent: "space-between",
-        }}
-      >
-        {!endlessMode && originalCharData && (
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: 2,
-            }}
-          >
-            <Typography
-              fontSize="16px"
-              textAlign={"center"}
-              fontWeight={"bold"}
-              color={"white"}
-            >
-              {"Yesterdays character:"}
-            </Typography>
-
-            <Tooltip
-              title={getYesterdaysChar(originalCharData)?.Name}
-              placement="bottom"
-              slotProps={{
-                popper: {
-                  modifiers: [
-                    {
-                      name: "offset",
-                      options: {
-                        offset: [0, -24],
-                      },
-                    },
-                  ],
-                },
+      {(showAnimeHintOption || !endlessMode) && (
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            width: "100%",
+            background:
+              "linear-gradient(90deg,rgba(0, 53, 84, 1) 0%, rgba(0, 100, 148, 1) 100%)",
+            borderTopLeftRadius: "8px",
+            borderTopRightRadius: "8px",
+            paddingX: 2,
+            paddingY: 1,
+            justifyContent: "space-between",
+          }}
+        >
+          {!endlessMode && originalCharData && (
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 2,
               }}
             >
-              <Box
-                sx={{ maxWidth: "60px", height: "50px", objectFit: "cover" }}
-                component={"img"}
-                src={getImgSrc(getYesterdaysChar(originalCharData)?.id ?? 0)}
-              ></Box>
-            </Tooltip>
-          </Box>
-        )}
-        {showAnimeHintOption && (
-          <FormControlLabel
-            control={
-              <CustomSwitch
-                onChange={(event, checked) => {
-                  setAutoRevealHintSetting(checked);
-                  updateProfileSettings("autoRevealBasicQuizHints", checked);
+              <Typography
+                fontSize="16px"
+                textAlign={"center"}
+                fontWeight={"bold"}
+                color={"white"}
+              >
+                {"Yesterdays character:"}
+              </Typography>
+
+              <Tooltip
+                title={getYesterdaysChar(originalCharData)?.Name}
+                placement="bottom"
+                slotProps={{
+                  popper: {
+                    modifiers: [
+                      {
+                        name: "offset",
+                        options: {
+                          offset: [0, -24],
+                        },
+                      },
+                    ],
+                  },
                 }}
-                checked={autoRevealHintSetting}
-                inputProps={{ "aria-label": "Switch demo" }}
-              />
-            }
-            sx={{
-              color: "white",
-              "& .MuiFormControlLabel-label": { fontSize: "14px" },
-            }}
-            label="Reveal Hints automatically"
-          />
-        )}
-      </Box>
+              >
+                <Box
+                  sx={{ maxWidth: "60px", height: "50px", objectFit: "cover" }}
+                  component={"img"}
+                  src={getImgSrc(getYesterdaysChar(originalCharData)?.id ?? 0)}
+                ></Box>
+              </Tooltip>
+            </Box>
+          )}
+          {showAnimeHintOption && (
+            <FormControlLabel
+              control={
+                <CustomSwitch
+                  onChange={(event, checked) => {
+                    setAutoRevealHintSetting(checked);
+                    updateProfileSettings("autoRevealBasicQuizHints", checked);
+                  }}
+                  checked={autoRevealHintSetting}
+                  inputProps={{ "aria-label": "Switch demo" }}
+                />
+              }
+              sx={{
+                color: "white",
+                "& .MuiFormControlLabel-label": { fontSize: "14px" },
+              }}
+              label="Reveal Hints automatically"
+            />
+          )}
+        </Box>
+      )}
 
       <Box
         sx={{
