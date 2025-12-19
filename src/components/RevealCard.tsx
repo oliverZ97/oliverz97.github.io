@@ -38,6 +38,10 @@ export const RevealCard = forwardRef(
       setRevealHint(false);
     };
 
+    const revealHintFn = () => {
+      setRevealHint(true);
+    };
+
     useEffect(() => {
       if (revealFromOutside) {
         setRevealHint(true);
@@ -49,6 +53,7 @@ export const RevealCard = forwardRef(
 
     useImperativeHandle(ref, () => ({
       resetHint: resetHint,
+      revealHint: revealHintFn,
     }));
 
     function listTagList(tagList: string) {

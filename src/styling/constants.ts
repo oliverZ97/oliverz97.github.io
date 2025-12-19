@@ -23,7 +23,8 @@ export const COLORS = {
     hearts: "#d6477b",
     disabled: "#ccc8c9",
     disabled_border: "#8a8788",
-    light_red: "#d16b81"
+    light_red: "#d16b81",
+    light_red_hover: "#f06785"
   },
   calendar: {
     entryColors: ["#ff686b", "#99c2ab", "#f5d273"]

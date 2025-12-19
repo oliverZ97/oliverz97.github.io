@@ -10,9 +10,9 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import { getProfileSetting, updateProfileSettings } from "common/profileUtils";
-import { getImgSrc } from "common/quizUtils";
+import { getImgSrc, getTodaysCharacterPointsAndTries } from "common/quizUtils";
 import { Character, Difficulty } from "common/types";
-import { getRandomCharacter } from "common/utils";
+import { getRandomCharacter, QUIZ_KEY } from "common/utils";
 import { CharacterAutocomplete } from "components/CharacterAutocomplete";
 import { CustomSwitch } from "components/CustomSwitch";
 import { useState } from "react";
@@ -38,7 +38,9 @@ interface SearchBarProps {
   endlessMode?: boolean;
   originalCharData: Character[];
   showPreviewImage?: boolean;
+  showAnimeHintOption?: boolean;
   mode?: "blurred" | "normal";
+  quizKey?: QUIZ_KEY;
 }
 
 export function SearchBar({
@@ -57,7 +59,9 @@ export function SearchBar({
   endlessMode = true,
   originalCharData,
   showPreviewImage = true,
+  showAnimeHintOption = true,
   mode = "normal",
+  quizKey,
 }: SearchBarProps) {
   const [autoRevealHintSetting, setAutoRevealHintSetting] = useState<boolean>(
     getProfileSetting("autoRevealBasicQuizHints") as boolean
@@ -109,79 +113,83 @@ export function SearchBar({
         },
       }}
     >
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          width: "100%",
-          background:
-            "linear-gradient(90deg,rgba(0, 53, 84, 1) 0%, rgba(0, 100, 148, 1) 100%)",
-          borderTopLeftRadius: "8px",
-          borderTopRightRadius: "8px",
-          paddingX: 2,
-          paddingY: 1,
-          justifyContent: "space-between",
-        }}
-      >
-        {!endlessMode && originalCharData && (
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: 2,
-            }}
-          >
-            <Typography
-              fontSize="16px"
-              textAlign={"center"}
-              fontWeight={"bold"}
-              color={"white"}
-            >
-              {"Yesterdays character:"}
-            </Typography>
-
-            <Tooltip
-              title={getYesterdaysChar(originalCharData)?.Name}
-              placement="bottom"
-              slotProps={{
-                popper: {
-                  modifiers: [
-                    {
-                      name: "offset",
-                      options: {
-                        offset: [0, -24],
-                      },
-                    },
-                  ],
-                },
-              }}
-            >
-              <Box
-                sx={{ maxWidth: "60px", height: "50px", objectFit: "cover" }}
-                component={"img"}
-                src={getImgSrc(getYesterdaysChar(originalCharData)?.id ?? 0)}
-              ></Box>
-            </Tooltip>
-          </Box>
-        )}
-        <FormControlLabel
-          control={
-            <CustomSwitch
-              onChange={(event, checked) => {
-                setAutoRevealHintSetting(checked);
-                updateProfileSettings("autoRevealBasicQuizHints", checked);
-              }}
-              checked={autoRevealHintSetting}
-              inputProps={{ "aria-label": "Switch demo" }}
-            />
-          }
+      {(showAnimeHintOption || !endlessMode) && (
+        <Box
           sx={{
-            color: "white",
-            "& .MuiFormControlLabel-label": { fontSize: "14px" },
+            display: "flex",
+            alignItems: "center",
+            width: "100%",
+            background:
+              "linear-gradient(90deg,rgba(0, 53, 84, 1) 0%, rgba(0, 100, 148, 1) 100%)",
+            borderTopLeftRadius: "8px",
+            borderTopRightRadius: "8px",
+            paddingX: 2,
+            paddingY: 1,
+            justifyContent: "space-between",
           }}
-          label="Reveal Hints automatically"
-        />
-      </Box>
+        >
+          {!endlessMode && originalCharData && (
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 2,
+              }}
+            >
+              <Typography
+                fontSize="16px"
+                textAlign={"center"}
+                fontWeight={"bold"}
+                color={"white"}
+              >
+                {"Yesterdays character:"}
+              </Typography>
+
+              <Tooltip
+                title={getYesterdaysChar(originalCharData)?.Name}
+                placement="bottom"
+                slotProps={{
+                  popper: {
+                    modifiers: [
+                      {
+                        name: "offset",
+                        options: {
+                          offset: [0, -24],
+                        },
+                      },
+                    ],
+                  },
+                }}
+              >
+                <Box
+                  sx={{ maxWidth: "60px", height: "50px", objectFit: "cover" }}
+                  component={"img"}
+                  src={getImgSrc(getYesterdaysChar(originalCharData)?.id ?? 0)}
+                ></Box>
+              </Tooltip>
+            </Box>
+          )}
+          {showAnimeHintOption && (
+            <FormControlLabel
+              control={
+                <CustomSwitch
+                  onChange={(event, checked) => {
+                    setAutoRevealHintSetting(checked);
+                    updateProfileSettings("autoRevealBasicQuizHints", checked);
+                  }}
+                  checked={autoRevealHintSetting}
+                  inputProps={{ "aria-label": "Switch demo" }}
+                />
+              }
+              sx={{
+                color: "white",
+                "& .MuiFormControlLabel-label": { fontSize: "14px" },
+              }}
+              label="Reveal Hints automatically"
+            />
+          )}
+        </Box>
+      )}
 
       <Box
         sx={{
@@ -208,9 +216,23 @@ export function SearchBar({
             },
           }}
         >
-          <Typography sx={{ color: "white" }}>{"Points: " + points}</Typography>
           <Typography sx={{ color: "white" }}>
-            {"Tries: " + searchHistory.length}
+            {"Points: " +
+              (isCorrect
+                ? getTodaysCharacterPointsAndTries(quizKey ?? QUIZ_KEY.CHAR)
+                    .points
+                : gaveUp
+                ? 0
+                : points)}
+          </Typography>
+          <Typography sx={{ color: "white" }}>
+            {"Tries: " +
+              (isCorrect
+                ? getTodaysCharacterPointsAndTries(quizKey ?? QUIZ_KEY.CHAR)
+                    .tries
+                : gaveUp
+                ? 0
+                : searchHistory.length)}
           </Typography>
         </Box>
         <Box

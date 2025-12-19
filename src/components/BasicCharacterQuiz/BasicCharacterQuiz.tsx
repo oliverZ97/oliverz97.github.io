@@ -29,10 +29,10 @@ import {
   saveFieldToTotalStatistics,
 } from "common/profileUtils";
 import { useProfile } from "components/Profile/ProfileContext";
-import { get } from "react-hook-form";
 
 interface HintRef {
   resetHint: () => void;
+  revealHint: () => void;
 }
 
 const CHAR_SOLVED_KEY = (QUIZ_KEY.CHAR + "Solved") as SolvedKeys;
@@ -69,7 +69,6 @@ export default function BasicCharacterQuiz({
   const streakRef = useRef<StreakRef | null>(null);
 
   const theme = useTheme();
-  const isDevMode = localStorage.getItem("mode") === "dev";
 
   const { refreshKey } = useProfile();
 
@@ -154,6 +153,20 @@ export default function BasicCharacterQuiz({
       if (gaveUpToday) {
         setGaveUp(true);
       }
+      if (hasSolvedToday || gaveUpToday) {
+        if (animeHintRef.current) {
+          animeHintRef.current.revealHint();
+        }
+        if (tagsHintRef.current) {
+          tagsHintRef.current.revealHint();
+        }
+        if (genreHintRef.current) {
+          genreHintRef.current.revealHint();
+        }
+        if (studioHintRef.current) {
+          studioHintRef.current.revealHint();
+        }
+      }
     }
     setTargetCharacter(target as Character);
   }
@@ -193,7 +206,8 @@ export default function BasicCharacterQuiz({
           QUIZ_KEY.CHAR,
           points,
           targetChar,
-          res
+          res,
+          searchHistory.length + 1
         );
 
         //get scores
@@ -300,14 +314,18 @@ export default function BasicCharacterQuiz({
         >
           <RevealCard
             costs={500}
-            onReveal={() => reducePointsForHint(500)}
+            onReveal={
+              isCorrect || gaveUp ? undefined : () => reducePointsForHint(500)
+            }
             ref={tagsHintRef}
             cardText={targetChar?.Tags ?? ""}
             cardTitle="Tags"
           ></RevealCard>
           <RevealCard
             costs={500}
-            onReveal={() => reducePointsForHint(500)}
+            onReveal={
+              isCorrect || gaveUp ? undefined : () => reducePointsForHint(500)
+            }
             ref={genreHintRef}
             cardText={
               [targetChar?.Subgenre1, targetChar?.Subgenre2].join(";") ?? ""
@@ -316,14 +334,20 @@ export default function BasicCharacterQuiz({
           ></RevealCard>
           <RevealCard
             costs={500}
-            onReveal={() => reducePointsForHint(500)}
+            onReveal={
+              isCorrect || gaveUp ? undefined : () => reducePointsForHint(500)
+            }
             ref={studioHintRef}
             cardText={targetChar?.Studio ?? ""}
             cardTitle="Studio"
           ></RevealCard>
           <RevealCard
             costs={revealAnimeHint ? 0 : 1000}
-            onReveal={() => reducePointsForHint(revealAnimeHint ? 0 : 1000)}
+            onReveal={
+              isCorrect || gaveUp
+                ? undefined
+                : () => reducePointsForHint(revealAnimeHint ? 0 : 1000)
+            }
             ref={animeHintRef}
             cardText={targetChar?.Anime ?? ""}
             cardTitle="Anime"
@@ -350,6 +374,7 @@ export default function BasicCharacterQuiz({
         gaveUp={gaveUp}
         endlessMode={endlessMode}
         originalCharData={charData}
+        quizKey={QUIZ_KEY.CHAR}
       ></SearchBar>
 
       {targetChar && isCorrect && (
