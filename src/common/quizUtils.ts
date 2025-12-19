@@ -1,5 +1,6 @@
 import JSConfetti from "js-confetti";
 import {
+  getCurrentUserLog,
   saveFieldToTotalStatistics,
   saveHasBeenSolvedToday,
   saveHighscoreToProfile,
@@ -117,7 +118,8 @@ export function solveQuizHelper(
   correctFields: {
     all: string[];
     short: string[];
-  }
+  },
+  tries?: number
 ) {
   if (target) {
     if (correctFields.all.length + 1 === Object.keys(target).length) {
@@ -141,7 +143,12 @@ export function solveQuizHelper(
           gaveUp: reason === "giveUp",
         };
         saveHasBeenSolvedToday(solvedKey, solveData);
-        setDailyScore(utcDate.toISOString(), points, quizKey);
+        setDailyScore(
+          utcDate.toISOString(),
+          points,
+          quizKey,
+          tries ?? undefined
+        );
         const key =
           quizKey === QUIZ_KEY.CHAR
             ? StatisticFields.totalCharactersGuessed
@@ -192,4 +199,13 @@ export function getCharacterFromAnime(
   const animeCharacters = charData.filter((c) => c.Anime_Id === animeId);
   const index = getRandomNumberFromUTCDate(animeCharacters.length);
   return animeCharacters[index];
+}
+
+export function getTodaysCharacterPointsAndTries(QUIZ_KEY: QUIZ_KEY) {
+  const utcDate = getDailyUTCDate();
+  const currentUserStats = getCurrentUserLog();
+  return {
+    points: currentUserStats?.scores[utcDate.toISOString()][QUIZ_KEY],
+    tries: currentUserStats?.scores[utcDate.toISOString()][QUIZ_KEY + "_tries"],
+  };
 }

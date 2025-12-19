@@ -1,7 +1,11 @@
 import { Box, Typography, Button, useTheme, Tooltip } from "@mui/material";
-import { getAnimeImgSrc, getCharacterFromAnime } from "common/quizUtils";
+import {
+  getAnimeImgSrc,
+  getCharacterFromAnime,
+  getTodaysCharacterPointsAndTries,
+} from "common/quizUtils";
 import { Anime, Character } from "common/types";
-import { getRandomAnime } from "common/utils";
+import { getRandomAnime, QUIZ_KEY } from "common/utils";
 import { AnimeAutocomplete } from "components/AnimeAutocomplete";
 import { useEffect, useState } from "react";
 import { COLORS } from "styling/constants";
@@ -42,7 +46,8 @@ export function SearchBar({
 }: SearchBarProps) {
   const [blurFactor, setBlurFactor] = useState(5);
   const [clueCount, setClueCount] = useState(0);
-  const showClueCount = (searchHistory.length % 5 !== 0 || searchHistory.length === 0);
+  const showClueCount =
+    searchHistory.length % 5 !== 0 || searchHistory.length === 0;
 
   const theme = useTheme();
 
@@ -75,7 +80,10 @@ export function SearchBar({
     if (searchHistory.length % 5 === 0 && searchHistory.length !== 0) {
       show = true;
     }
-    if (clueCount === 0 && searchHistory.length >= 5 || clueCount === 1 && searchHistory.length >= 10) {
+    if (
+      (clueCount === 0 && searchHistory.length >= 5) ||
+      (clueCount === 1 && searchHistory.length >= 10)
+    ) {
       show = true;
     }
     if (clueCount > 2) {
@@ -85,8 +93,14 @@ export function SearchBar({
   }
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%" }}>
-
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        width: "100%",
+      }}
+    >
       {!isCorrect && clueCount > 0 && (
         <Box
           sx={{
@@ -208,10 +222,20 @@ export function SearchBar({
         >
           <Box>
             <Typography sx={{ color: "white" }}>
-              {"Points: " + points}
+              {"Points: " +
+                (isCorrect
+                  ? getTodaysCharacterPointsAndTries(QUIZ_KEY.ANIME).points
+                  : gaveUp
+                  ? 0
+                  : points)}
             </Typography>
             <Typography sx={{ color: "white" }}>
-              {"Tries: " + searchHistory.length}
+              {"Tries: " +
+                (isCorrect
+                  ? getTodaysCharacterPointsAndTries(QUIZ_KEY.ANIME).tries
+                  : gaveUp
+                  ? 0
+                  : searchHistory.length)}
             </Typography>
           </Box>
           <Box
@@ -229,11 +253,22 @@ export function SearchBar({
               value={selectedOption}
               handleSearchChange={handleSearchChange}
             ></AnimeAutocomplete>
-            {!showClueButton() && searchHistory.length <= 10 && <Typography sx={{ color: "white", fontStyle: "italic" }}>{`Next clue in ${searchHistory.length > 5 ? 10 - searchHistory.length : 5 - searchHistory.length} Tries`}</Typography>}
+            {!showClueButton() && searchHistory.length <= 10 && (
+              <Typography
+                sx={{ color: "white", fontStyle: "italic" }}
+              >{`Next clue in ${
+                searchHistory.length > 5
+                  ? 10 - searchHistory.length
+                  : 5 - searchHistory.length
+              } Tries`}</Typography>
+            )}
 
             {showClueButton() && (
               <Button
-                sx={{ backgroundColor: COLORS.quiz.light_red, "&:hover": { backgroundColor: COLORS.quiz.light_red_hover } }}
+                sx={{
+                  backgroundColor: COLORS.quiz.light_red,
+                  "&:hover": { backgroundColor: COLORS.quiz.light_red_hover },
+                }}
                 onClick={() => setClueCount(clueCount + 1)}
                 endIcon={<FastForwardIcon />}
                 variant="contained"
@@ -244,7 +279,12 @@ export function SearchBar({
             {showGiveUp && !gaveUp && (
               <Button
                 onClick={handleGiveUp}
-                sx={{ position: "absolute", right: -100, backgroundColor: COLORS.quiz.failed, "&:hover": { backgroundColor: COLORS.quiz.failed_light } }}
+                sx={{
+                  position: "absolute",
+                  right: -100,
+                  backgroundColor: COLORS.quiz.failed,
+                  "&:hover": { backgroundColor: COLORS.quiz.failed_light },
+                }}
                 variant="contained"
               >
                 Give Up!
@@ -260,7 +300,6 @@ export function SearchBar({
                   color: "white",
                   "&:hover": {
                     backgroundColor: COLORS.quiz.secondary,
-
                   },
                 }}
                 variant="contained"

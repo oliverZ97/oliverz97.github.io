@@ -10,9 +10,9 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import { getProfileSetting, updateProfileSettings } from "common/profileUtils";
-import { getImgSrc } from "common/quizUtils";
+import { getImgSrc, getTodaysCharacterPointsAndTries } from "common/quizUtils";
 import { Character, Difficulty } from "common/types";
-import { getRandomCharacter } from "common/utils";
+import { getRandomCharacter, QUIZ_KEY } from "common/utils";
 import { CharacterAutocomplete } from "components/CharacterAutocomplete";
 import { CustomSwitch } from "components/CustomSwitch";
 import { useState } from "react";
@@ -40,6 +40,7 @@ interface SearchBarProps {
   showPreviewImage?: boolean;
   showAnimeHintOption?: boolean;
   mode?: "blurred" | "normal";
+  quizKey?: QUIZ_KEY;
 }
 
 export function SearchBar({
@@ -60,6 +61,7 @@ export function SearchBar({
   showPreviewImage = true,
   showAnimeHintOption = true,
   mode = "normal",
+  quizKey,
 }: SearchBarProps) {
   const [autoRevealHintSetting, setAutoRevealHintSetting] = useState<boolean>(
     getProfileSetting("autoRevealBasicQuizHints") as boolean
@@ -166,23 +168,25 @@ export function SearchBar({
             </Tooltip>
           </Box>
         )}
-        {showAnimeHintOption && <FormControlLabel
-          control={
-            <CustomSwitch
-              onChange={(event, checked) => {
-                setAutoRevealHintSetting(checked);
-                updateProfileSettings("autoRevealBasicQuizHints", checked);
-              }}
-              checked={autoRevealHintSetting}
-              inputProps={{ "aria-label": "Switch demo" }}
-            />
-          }
-          sx={{
-            color: "white",
-            "& .MuiFormControlLabel-label": { fontSize: "14px" },
-          }}
-          label="Reveal Hints automatically"
-        />}
+        {showAnimeHintOption && (
+          <FormControlLabel
+            control={
+              <CustomSwitch
+                onChange={(event, checked) => {
+                  setAutoRevealHintSetting(checked);
+                  updateProfileSettings("autoRevealBasicQuizHints", checked);
+                }}
+                checked={autoRevealHintSetting}
+                inputProps={{ "aria-label": "Switch demo" }}
+              />
+            }
+            sx={{
+              color: "white",
+              "& .MuiFormControlLabel-label": { fontSize: "14px" },
+            }}
+            label="Reveal Hints automatically"
+          />
+        )}
       </Box>
 
       <Box
@@ -210,9 +214,23 @@ export function SearchBar({
             },
           }}
         >
-          <Typography sx={{ color: "white" }}>{"Points: " + points}</Typography>
           <Typography sx={{ color: "white" }}>
-            {"Tries: " + searchHistory.length}
+            {"Points: " +
+              (isCorrect
+                ? getTodaysCharacterPointsAndTries(quizKey ?? QUIZ_KEY.CHAR)
+                    .points
+                : gaveUp
+                ? 0
+                : points)}
+          </Typography>
+          <Typography sx={{ color: "white" }}>
+            {"Tries: " +
+              (isCorrect
+                ? getTodaysCharacterPointsAndTries(quizKey ?? QUIZ_KEY.CHAR)
+                    .tries
+                : gaveUp
+                ? 0
+                : searchHistory.length)}
           </Typography>
         </Box>
         <Box

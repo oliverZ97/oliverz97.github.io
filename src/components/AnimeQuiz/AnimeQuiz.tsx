@@ -156,7 +156,8 @@ export const AnimeQuiz = ({
           QUIZ_KEY.ANIME,
           points,
           targetAnime,
-          res
+          res,
+          searchHistory.length + 1
         );
 
         //get scores

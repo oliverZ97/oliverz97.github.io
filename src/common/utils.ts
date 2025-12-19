@@ -1,8 +1,18 @@
-import { Anime, Character, Difficulty, SolvedKeys, StatisticFields } from "common/types";
+import {
+  Anime,
+  Character,
+  Difficulty,
+  SolvedKeys,
+  StatisticFields,
+} from "common/types";
 import { getCurrentVersion, getPreLatestVersion } from "./version";
 import { DateTime } from "luxon";
 import { CalendarEntry } from "components/Calendar";
-import { getCurrentUserLog, getCurrentUserProfile, saveFieldToTotalStatistics } from "./profileUtils";
+import {
+  getCurrentUserLog,
+  getCurrentUserProfile,
+  saveFieldToTotalStatistics,
+} from "./profileUtils";
 
 export function getRandomNumberFromUTCDate(
   max: number,
@@ -16,8 +26,8 @@ export function getRandomNumberFromUTCDate(
   const utcDate = date
     ? cleanUTCDate(date)
     : isPrevious
-      ? getYesterdayUTCDate()
-      : getDailyUTCDate();
+    ? getYesterdayUTCDate()
+    : getDailyUTCDate();
   const dailyTimestamp = utcDate.getTime();
   const yearMonth = utcDate.getUTCFullYear() * 100 + utcDate.getUTCMonth();
 
@@ -241,13 +251,19 @@ export function getRandomCharacter(
     date = undefined,
   }: GetRandomCharacterParams = {}
 ) {
-  let chars = charData.sort((a, b) => a.id < b.id ? -1 : 1);
+  let chars = charData.sort((a, b) => (a.id < b.id ? -1 : 1));
   let currentVersion = getCurrentVersion();
-  if (isPrevious && currentVersion.date.split("T")[0] === getYesterdayUTCDate().toISOString().split("T")[0]) {
+  if (
+    isPrevious &&
+    currentVersion.date.split("T")[0] ===
+      getYesterdayUTCDate().toISOString().split("T")[0]
+  ) {
     currentVersion = getPreLatestVersion();
   }
 
-  chars = chars.filter((char) => compareVersions(char.Version, currentVersion.version) <= 0);
+  chars = chars.filter(
+    (char) => compareVersions(char.Version, currentVersion.version) <= 0
+  );
   let charArray = Object.values(chars);
   if (gender !== "all") {
     charArray = charArray.filter((char) => char.Sex.toLowerCase() === gender);
@@ -262,7 +278,6 @@ export function getRandomCharacter(
     index =
       getRandomNumberFromUTCDate(charArray.length, isPrevious, quizMode, date) %
       charArray.length;
-
   }
 
   const target = charArray[index];
@@ -283,14 +298,19 @@ export function getRandomAnime(
     date = undefined,
   }: GetRandomAnimeParams
 ) {
-
   let animeArray = Object.values(animeData);
-  animeArray = animeArray.sort((a, b) => a.id < b.id ? -1 : 1);
+  animeArray = animeArray.sort((a, b) => (a.id < b.id ? -1 : 1));
   let currentVersion = getCurrentVersion();
-  if (isPrevious && currentVersion.date.split("T")[0] === getYesterdayUTCDate().toISOString().split("T")[0]) {
+  if (
+    isPrevious &&
+    currentVersion.date.split("T")[0] ===
+      getYesterdayUTCDate().toISOString().split("T")[0]
+  ) {
     currentVersion = getPreLatestVersion();
   }
-  animeArray = animeArray.filter((anime) => compareVersions(anime.Version, currentVersion.version) <= 0);
+  animeArray = animeArray.filter(
+    (anime) => compareVersions(anime.Version, currentVersion.version) <= 0
+  );
 
   let index;
   if (endlessMode) {
@@ -303,7 +323,6 @@ export function getRandomAnime(
       "normal",
       date
     );
-
   }
 
   const target = animeArray[index];
@@ -370,7 +389,8 @@ export function getDailyScore(date: string): number {
 export function setDailyScore(
   date: string,
   score: number,
-  key: QUIZ_KEY
+  key: QUIZ_KEY,
+  tries?: number
 ): void {
   const currentProfile = getCurrentUserProfile();
   if (!currentProfile) {
@@ -382,9 +402,16 @@ export function setDailyScore(
     const scoreLog = JSON.parse(scores);
     if (scoreLog[date]) {
       scoreLog[date][key] = score;
+      if (tries !== undefined) {
+        scoreLog[date][key + "_tries"] = tries;
+      }
       scoreLog[date].totalScore = (scoreLog[date].totalScore || 0) + score;
     } else {
-      scoreLog[date] = { [key]: score };
+      if (tries !== undefined) {
+        scoreLog[date] = { [key]: score, [key + "_tries"]: tries };
+      } else {
+        scoreLog[date] = { [key]: score };
+      }
       scoreLog[date].totalScore = score;
     }
 
@@ -408,10 +435,16 @@ export function setDailyScore(
 
       if (profileStatistics.scores[date]) {
         profileStatistics.scores[date][key] = score;
+        if (tries !== undefined) {
+          profileStatistics.scores[date][key + "_tries"] = tries;
+        }
         profileStatistics.scores[date].totalScore =
           (profileStatistics.scores[date].totalScore || 0) + score;
       } else {
         profileStatistics.scores[date] = { [key]: score };
+        if (tries !== undefined) {
+          profileStatistics.scores[date][key + "_tries"] = tries;
+        }
         profileStatistics.scores[date].totalScore = score;
       }
       localStorage.setItem(
@@ -422,7 +455,9 @@ export function setDailyScore(
     }
   } else {
     const profileStatistics = {
-      scores: { [date]: { [key]: score, totalScore: score } },
+      scores: {
+        [date]: { [key]: score, totalScore: score, [key + "_tries"]: tries },
+      },
       user: currentProfile.id,
     };
 

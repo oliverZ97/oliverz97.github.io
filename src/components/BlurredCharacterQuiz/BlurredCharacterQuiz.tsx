@@ -21,7 +21,10 @@ import {
   QUIZ_KEY,
 } from "common/utils";
 import CharacterList from "./CharacterList";
-import { getHighscoresFromProfile, saveFieldToTotalStatistics } from "common/profileUtils";
+import {
+  getHighscoresFromProfile,
+  saveFieldToTotalStatistics,
+} from "common/profileUtils";
 import { useProfile } from "components/Profile/ProfileContext";
 
 interface HintRef {
@@ -248,7 +251,10 @@ export default function BasicCharacterQuiz({
         setImageRevealed(true); // Explicitly mark image as revealed
         setImageKey(Date.now()); // Force image reload
 
-        saveFieldToTotalStatistics([StatisticFields.totalBlurredCharacterGuesses], searchHistory.length + 1);
+        saveFieldToTotalStatistics(
+          [StatisticFields.totalBlurredCharacterGuesses],
+          searchHistory.length + 1
+        );
 
         solveQuizHelper(
           reason,
@@ -259,7 +265,8 @@ export default function BasicCharacterQuiz({
           QUIZ_KEY.BLUR,
           points,
           targetChar,
-          res
+          res,
+          searchHistory.length + 1
         );
 
         //get scores
@@ -397,7 +404,7 @@ export default function BasicCharacterQuiz({
             }}
           >
             <RevealCard
-              onReveal={() => { }}
+              onReveal={() => {}}
               ref={studioHintRef}
               cardText={targetChar?.Studio ?? ""}
               cardTitle="Studio"
@@ -407,7 +414,7 @@ export default function BasicCharacterQuiz({
               }}
             ></RevealCard>
             <RevealCard
-              onReveal={() => { }}
+              onReveal={() => {}}
               ref={releaseHintRef}
               cardText={targetChar?.First_Release_Year.toString() ?? ""}
               cardTitle="First Release Year"
@@ -417,7 +424,7 @@ export default function BasicCharacterQuiz({
               }}
             ></RevealCard>
             <RevealCard
-              onReveal={() => { }}
+              onReveal={() => {}}
               ref={animeHintRef}
               cardText={targetChar?.Anime.toString() ?? ""}
               cardTitle="Anime"
@@ -453,8 +460,9 @@ export default function BasicCharacterQuiz({
                   backgroundImage: `url(${getImgSrc(targetChar.id)})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
-                  filter: `blur(${freezeBlur ? frozenBlurValue : blurFactor
-                    }px)`,
+                  filter: `blur(${
+                    freezeBlur ? frozenBlurValue : blurFactor
+                  }px)`,
                   transform: "scale(1.05)",
                   zIndex: 1,
                   willChange: "filter, opacity",
@@ -472,8 +480,9 @@ export default function BasicCharacterQuiz({
                   width: "300px",
                   height: "420px",
                   objectFit: "cover",
-                  filter: `blur(${freezeBlur ? frozenBlurValue : blurFactor
-                    }px)`,
+                  filter: `blur(${
+                    freezeBlur ? frozenBlurValue : blurFactor
+                  }px)`,
                   opacity: blurFactor > 0 ? 0.5 : 0, // Low opacity backup when blurred
                   zIndex: 1,
                 }}
@@ -542,6 +551,7 @@ export default function BasicCharacterQuiz({
         showPreviewImage={false}
         showAnimeHintOption={false}
         mode="blurred"
+        quizKey={QUIZ_KEY.BLUR}
       ></SearchBar>
       {(endlessMode || (!endlessMode && !isCorrect)) && (
         <CharacterList
