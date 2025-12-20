@@ -110,7 +110,7 @@ export function SearchBar({
             alignItems: "center",
             justifyContent: "space-between",
             background:
-              "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
+              COLORS.gradient,
             borderRadius: 2,
             border: `1px solid ${COLORS.quiz.light}`,
             width: "500px",
@@ -168,7 +168,7 @@ export function SearchBar({
           alignItems: "center",
           justifyContent: "space-between",
           background:
-            "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
+            COLORS.gradient,
           borderRadius: 2,
           border: `1px solid ${COLORS.quiz.light}`,
           width: "100%",
@@ -185,8 +185,7 @@ export function SearchBar({
             alignItems={"center"}
             gap={2}
             sx={{
-              background:
-                "linear-gradient(90deg,rgba(0, 53, 84, 1) 0%, rgba(0, 100, 148, 1) 100%)",
+              background: COLORS.gradientBar,
               width: "100%",
               borderTopLeftRadius: "8px",
               borderTopRightRadius: "8px",
@@ -226,16 +225,16 @@ export function SearchBar({
                 (isCorrect
                   ? getTodaysCharacterPointsAndTries(QUIZ_KEY.ANIME).points
                   : gaveUp
-                  ? 0
-                  : points)}
+                    ? 0
+                    : points)}
             </Typography>
             <Typography sx={{ color: "white" }}>
               {"Tries: " +
                 (isCorrect
                   ? getTodaysCharacterPointsAndTries(QUIZ_KEY.ANIME).tries
                   : gaveUp
-                  ? 0
-                  : searchHistory.length)}
+                    ? 0
+                    : searchHistory.length)}
             </Typography>
           </Box>
           <Box
@@ -256,11 +255,10 @@ export function SearchBar({
             {!showClueButton() && searchHistory.length <= 10 && (
               <Typography
                 sx={{ color: "white", fontStyle: "italic" }}
-              >{`Next clue in ${
-                searchHistory.length > 5
-                  ? 10 - searchHistory.length
-                  : 5 - searchHistory.length
-              } Tries`}</Typography>
+              >{`Next clue in ${searchHistory.length > 5
+                ? 10 - searchHistory.length
+                : 5 - searchHistory.length
+                } Tries`}</Typography>
             )}
 
             {showClueButton() && (

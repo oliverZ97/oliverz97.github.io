@@ -105,7 +105,7 @@ export default function AnimeList({
           borderTopRightRadius: "8px",
           border: searchHistory.length > 0 ? `1px solid ${COLORS.quiz.light}` : "none",
           borderBottom: 0,
-          background: "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
+          background: COLORS.gradient,
           [theme.breakpoints.down("md")]: {
             overflowX: "scroll",
           },

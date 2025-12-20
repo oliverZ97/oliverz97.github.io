@@ -240,7 +240,7 @@ export default function BasicCharacterQuiz({
         sx={{
           borderRadius: 2,
           background:
-            "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
+            COLORS.gradient,
           marginBottom: 4,
           border: `1px solid ${COLORS.quiz.light}`,
           display: "flex",
