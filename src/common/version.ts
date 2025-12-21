@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
 
-export const VERSION = "1.7.13";
+export const VERSION = "1.7.14";
 
 interface CHAR_VERSION {
   version: string;
@@ -143,7 +143,9 @@ export const CHAR_VERSIONS: CHAR_VERSION[] = [
 
 export function getCurrentVersion(): CHAR_VERSION {
   const today = DateTime.now();
-  const latestVersionDate = DateTime.fromISO(CHAR_VERSIONS[CHAR_VERSIONS.length - 1].date);
+  const latestVersionDate = DateTime.fromISO(
+    CHAR_VERSIONS[CHAR_VERSIONS.length - 1].date
+  );
 
   // Compare only the date part (ignoring time)
   if (today.toISODate() === latestVersionDate.toISODate()) {
