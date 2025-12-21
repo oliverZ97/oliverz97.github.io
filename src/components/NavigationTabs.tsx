@@ -132,6 +132,16 @@ export function NavigationTabs({ value, handleChange }: TabPanelProps) {
         label="Kiss, Marry, Kill"
         {...a11yProps(10)}
       />
+      <Tab
+        sx={{
+          color: COLORS.quiz.light,
+          "&.Mui-selected": {
+            color: "white",
+          },
+        }}
+        label="Higher or Lower"
+        {...a11yProps(11)}
+      />
 
       <Tab
         sx={{
@@ -141,7 +151,7 @@ export function NavigationTabs({ value, handleChange }: TabPanelProps) {
           },
         }}
         label="Character Birthdays"
-        {...a11yProps(11)}
+        {...a11yProps(12)}
       />
     </Tabs>
   );

@@ -37,6 +37,7 @@ import Calendar from "components/Calendar";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { Avatar } from "components/Profile/Avatar";
+import { HigherLower } from "components/HigherLower";
 
 export interface Score {
   points: number;
@@ -430,6 +431,10 @@ const Home = () => {
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={11}>
+              <HigherLower charData={charData} animeData={animeData}></HigherLower>
+            </CustomTabPanel>
+
+            <CustomTabPanel value={value} index={12}>
               <Calendar
                 title="Birthdays"
                 data={getCharacterBirthdaysAsCalendarData(charData)}
