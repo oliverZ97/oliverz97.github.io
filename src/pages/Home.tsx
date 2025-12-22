@@ -86,8 +86,7 @@ const Home = () => {
           !animeMap.has(item.Anime) ||
           item.Version < animeMap.get(item.Anime).Version
         ) {
-          const id = animeMap.size + 1;
-          animeMap.set(item.Anime, { ...animeEntry, id });
+          animeMap.set(item.Anime, { ...animeEntry });
         }
       });
 
@@ -431,7 +430,10 @@ const Home = () => {
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={11}>
-              <HigherLower charData={charData} animeData={animeData}></HigherLower>
+              <HigherLower
+                charData={charData}
+                animeData={animeData}
+              ></HigherLower>
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={12}>
