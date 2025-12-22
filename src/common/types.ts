@@ -68,6 +68,10 @@ export enum StatisticFields {
   blurQuizMaxPoints = "blurQuizMaxPoints",
   totalMaxPoints = "totalMaxPoints",
   totalOver35kPointsGames = "totalOver35kPointsGames",
+  higherlowerHeightGamesPlayed = "higherlowerHeightGamesPlayed",
+  higherlowerAnimeGamesPlayed = "higherlowerAnimeGamesPlayed",
+  higherlowerHeightPointsTotal = "higherlowerHeightPointsTotal",
+  higherlowerAnimePointsTotal = "higherlowerAnimePointsTotal",
 }
 
 export interface UserProfile {
