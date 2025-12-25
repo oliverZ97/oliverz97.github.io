@@ -300,7 +300,7 @@ export default function ImageCharacterQuiz({
         sx={{
           position: "relative",
           background:
-            "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
+            COLORS.gradient,
           padding: 4,
           borderRadius: 2,
           border: `1px solid ${COLORS.quiz.light}`,

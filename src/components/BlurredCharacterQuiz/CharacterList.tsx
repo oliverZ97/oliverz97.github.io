@@ -46,7 +46,7 @@ export default function CharacterList({
               : "none",
           borderBottom: 0,
           background:
-            "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
+            COLORS.gradient,
           [theme.breakpoints.down("md")]: {
             overflowX: "scroll",
           },
@@ -160,7 +160,7 @@ export default function CharacterList({
           </Box>
         ))}
       </Box>
-      {}
+      { }
     </Box>
   );
 }
