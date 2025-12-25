@@ -383,7 +383,10 @@ export function getDailyScore(date: string): number {
   const userLog = getCurrentUserLog();
   let dailyScore = 0;
   if (userLog) {
-    dailyScore = userLog?.scores?.[date]?.totalScore;
+    const totalScore = userLog?.scores?.[date]?.totalScore;
+    if (totalScore !== undefined) {
+      dailyScore = totalScore;
+    }
   }
   return dailyScore;
 }
