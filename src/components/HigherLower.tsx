@@ -33,6 +33,7 @@ export const HigherLower = ({ charData, animeData }: HigherLowerProps) => {
     >(null);
     const [points, setPoints] = useState<number>(0);
     const [isAnimating, setIsAnimating] = useState<boolean>(false);
+    const [showGameOver, setShowGameOver] = useState<boolean>(false);
 
     const { refreshKey } = useProfile();
 
@@ -47,13 +48,20 @@ export const HigherLower = ({ charData, animeData }: HigherLowerProps) => {
     }, [refreshKey, mode]);
 
     function updateScores(score: Score) {
-        if (score) {
+        const highscores = getHighscoresFromProfile(
+            mode === "height"
+                ? QUIZ_KEY.HIGHERLOWER_HEIGHT
+                : QUIZ_KEY.HIGHERLOWER_ANIME
+        );
+        if (score && (highscores.length === 0 || score.points > highscores[0].points)) {
+            saveHighscoreToProfile(QUIZ_KEY.HIGHERLOWER_HEIGHT, score);
             setScore(score);
         }
     }
 
     function init() {
         setPoints(0);
+        setShowGameOver(false);
         if (mode === "height") {
             const filteredChars = charData.filter((char) => char.Height !== null);
             const randomChar =
@@ -110,8 +118,8 @@ export const HigherLower = ({ charData, animeData }: HigherLowerProps) => {
 
         const randomAnime = animeData[Math.floor(Math.random() * animeData.length)];
         if (
-            randomAnime.id === activeElement?.id ||
-            randomAnime.id === newElement?.id
+            randomAnime.id === newElement?.id ||
+            randomAnime.id === secondNextElement?.id
         ) {
             //avoid duplicates
             handleAnimeChange();
@@ -151,6 +159,7 @@ export const HigherLower = ({ charData, animeData }: HigherLowerProps) => {
                     setIsAnimating(false);
                 }, 500);
             } else {
+                setShowGameOver(true);
                 const scoreObj = {
                     points: points ?? 0,
                     date: new Date().toLocaleString("de-DE", {
@@ -159,7 +168,6 @@ export const HigherLower = ({ charData, animeData }: HigherLowerProps) => {
                         day: "2-digit",
                     }),
                 };
-                saveHighscoreToProfile(QUIZ_KEY.HIGHERLOWER_HEIGHT, scoreObj);
                 saveFieldToTotalStatistics(
                     [StatisticFields.higherlowerHeightGamesPlayed],
                     (getStatisticField(StatisticFields.higherlowerHeightGamesPlayed) ?? 0) + 1
@@ -169,8 +177,8 @@ export const HigherLower = ({ charData, animeData }: HigherLowerProps) => {
                     (getStatisticField(StatisticFields.higherlowerHeightPointsTotal) ?? 0) +
                     (points ?? 0)
                 );
+
                 updateScores(scoreObj);
-                init();
                 return;
             }
         }
@@ -488,8 +496,14 @@ export const HigherLower = ({ charData, animeData }: HigherLowerProps) => {
                         </Box>
                     </Box>
 
+                    {showGameOver && <Box sx={{ position: "absolute", width: "600px", height: "400px", backgroundColor: "rgba(0, 0, 0, 0.9)", zIndex: 20, display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", }}>
+                        <Typography sx={{ color: "white", fontSize: "32px", fontWeight: "bold" }}>Game Over</Typography>
+                        <Typography sx={{ color: "white", fontSize: "24px", marginTop: 2 }}>Your final score: {points}</Typography>
+                        <Button variant="contained" sx={{ marginTop: 3 }} onClick={() => init()}>Restart</Button>
+                    </Box>}
+
                     {/* Left text - positioned absolutely */}
-                    {activeElement && mode === "height" && (
+                    {activeElement && !showGameOver && mode === "height" && (
                         <Box
                             sx={{
                                 position: "absolute",
@@ -519,7 +533,7 @@ export const HigherLower = ({ charData, animeData }: HigherLowerProps) => {
                         </Box>
                     )}
 
-                    {activeElement && mode === "animeReleaseYear" && (
+                    {activeElement && !showGameOver && mode === "animeReleaseYear" && (
                         <Box
                             sx={{
                                 position: "absolute",
@@ -550,7 +564,7 @@ export const HigherLower = ({ charData, animeData }: HigherLowerProps) => {
                     )}
 
                     {/* Right buttons - positioned absolutely */}
-                    {newElement && mode === "height" && (
+                    {newElement && !showGameOver && mode === "height" && (
                         <Box
                             sx={{
                                 position: "absolute",
@@ -600,7 +614,7 @@ export const HigherLower = ({ charData, animeData }: HigherLowerProps) => {
                         </Box>
                     )}
 
-                    {newElement && mode === "animeReleaseYear" && (
+                    {newElement && !showGameOver && mode === "animeReleaseYear" && (
                         <Box
                             sx={{
                                 position: "absolute",
