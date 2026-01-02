@@ -24,17 +24,42 @@ export const COLORS = {
     disabled: "#ccc8c9",
     disabled_border: "#8a8788",
     light_red: "#d16b81",
-    light_red_hover: "#f06785"
+    light_red_hover: "#f06785",
   },
   calendar: {
-    entryColors: ["#ff686b", "#99c2ab", "#f5d273"]
+    entryColors: ["#ff686b", "#99c2ab", "#f5d273"],
   },
   profile: {
-    backgroundColors:
-      ["#ffadad", "#ffd6a5", "#fdffb6", "#caffbf", "#9bf6ff", "#a0c4ff", "#bdb2ff", "#ffc6ff", "#ee6055", "#60d394", "#aaf683", "#ffd97d", "#ff9b85", "#70d6ff", "#ff70a6", "#ff9770", "#ffd670", "#e9ff70", "#7161ef", "#55d6c2"]
+    backgroundColors: [
+      "#ffadad",
+      "#ffd6a5",
+      "#fdffb6",
+      "#caffbf",
+      "#9bf6ff",
+      "#a0c4ff",
+      "#bdb2ff",
+      "#ffc6ff",
+      "#ee6055",
+      "#60d394",
+      "#aaf683",
+      "#ffd97d",
+      "#ff9b85",
+      "#70d6ff",
+      "#ff70a6",
+      "#ff9770",
+      "#ffd670",
+      "#e9ff70",
+      "#7161ef",
+      "#55d6c2",
+    ],
   },
-  gradient: "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
-  gradientBar: "linear-gradient(90deg,rgba(0, 53, 84, 1) 0%, rgba(0, 100, 148, 1) 100%)"
+  gradient:
+    "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
+  gradientBar:
+    "linear-gradient(90deg,rgba(0, 53, 84, 1) 0%, rgba(0, 100, 148, 1) 100%)",
+  cards: {
+    border: "#343538",
+    rare: "#e2ebf0",
+    bgRare: "linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%)",
+  },
 };
-
-

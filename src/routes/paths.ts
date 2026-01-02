@@ -4,5 +4,6 @@ interface Paths {
 
 export default {
   HOME: "/",
+  TCG: "/tcg",
   NOT_FOUND: "*",
 } as Paths;

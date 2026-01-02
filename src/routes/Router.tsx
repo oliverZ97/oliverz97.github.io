@@ -4,6 +4,7 @@ import paths from "routes/paths";
 import { Box, Typography, Link, Avatar, CssBaseline } from "@mui/material";
 
 const Home = lazy(() => import("pages/Home"));
+const TCG = lazy(() => import("pages/TCG"));
 const PageNotFound = lazy(() => import("pages/PageNotFound"));
 
 interface Routes {
@@ -30,14 +31,15 @@ const getRouteElement = (
 ): React.ReactNode => (
   <Suspense>
     <CssBaseline></CssBaseline>
-        <Box sx={{height: "100vh"}}>
-          <Component />
-        </Box>
+    <Box sx={{ height: "100vh" }}>
+      <Component />
+    </Box>
   </Suspense>
 );
 
 const routes: Routes[] = [
   { path: paths.HOME, element: getRouteElement(Home, paths.HOME) },
+  { path: paths.TCG, element: getRouteElement(TCG, paths.TCG) },
   {
     path: paths.NOT_FOUND,
     element: getRouteElement(PageNotFound, paths.NOT_FOUND),
