@@ -60,6 +60,8 @@ export const COLORS = {
   cards: {
     border: "#343538",
     rare: "#e2ebf0",
+    shimmer: "linear-gradient(-60deg,rgba(163, 163, 163, 0) 0%, rgba(250, 250, 250,0.5) 50%, rgba(163, 163, 163, 0) 100%)",
     bgRare: "linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%)",
+    ultraRare: "linear-gradient(30deg, rgba(239,151,189,0.3) 0%, rgba(204,239,243,0.5) 16.666%, rgba(227,241,202,0.3) 33.333%, rgba(237,187,187,0.5) 50%, rgba(239,151,189,0.3) 66.666%, rgba(204,239,243,0.5) 83.333%, rgba(227,241,202,0.3) 100%)"
   },
 };
