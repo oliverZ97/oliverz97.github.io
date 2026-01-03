@@ -1,4 +1,4 @@
-import { darken } from "@mui/material";
+import { alpha, darken, lighten } from "@mui/material";
 import { Character } from "common/types";
 import { COLORS } from "styling/constants";
 
@@ -28,10 +28,11 @@ export function getBackgroundColor(character: Character): string[] {
   }
 
   if (colors.length === 1) {
-    colors.push(darken(colors[0], 0.3));
+    colors.push(lighten(colors[0], 0.3));
   }
   if (colors.length === 0) {
-    colors.push(COLORS.cards.bg.default);
+    colors.push(COLORS.cards.bg.default, darken(COLORS.cards.bg.default, 0.3));
+
   }
   return colors;
 }

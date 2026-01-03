@@ -21,6 +21,7 @@ export const Star = ({ left, top, bottom, right, zIndex }: StarProps) => {
         width: "30px",
         height: "30px",
         aspectRatio: 1,
+        border: "2px solid rgba(232, 202, 79, 1)",
         background:
           "linear-gradient(333deg,rgba(242, 216, 111, 1) 12%, rgba(244, 223, 139, 1) 41%, rgba(247, 234, 181, 1) 57%, rgba(242, 216, 111, 1) 83%, rgba(242, 216, 111, 1) 91%)",
         clipPath:

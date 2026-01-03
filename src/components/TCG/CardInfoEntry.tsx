@@ -1,6 +1,7 @@
 import { Box, Typography, darken } from "@mui/material";
 import { getBackgroundColor } from "./utils";
 import { Character } from "common/types";
+import { COLORS } from "styling/constants";
 
 interface CardInfoEntryProps {
   character: Character;
@@ -14,20 +15,30 @@ export const CardInfoEntry = ({
   width,
 }: CardInfoEntryProps) => {
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", position: "absolute", top: 0, left: -45 }}>
       <Box
         sx={{
-          backgroundColor: darken(getBackgroundColor(character)[0], 0.3),
-          padding: 0.5,
-          height: "28px",
-          width: width ? `${width}px` : "auto",
+          borderTopRightRadius: "14px",
+          borderBottomRightRadius: "14px",
+          display: "flex",
+          alignItems: "center",
+          transform: "rotate(90deg)",
+          height: "30px",
+          width: "30px",
+          wordWrap: "none",
+          whiteSpace: "nowrap",
         }}
       >
-        <Typography sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: 12 }}>
+        <Typography sx={{
+          fontFamily: '"Exo 2", sans-serif',
+          fontSize: 18,
+          color: darken(getBackgroundColor(character)[0], 0.3),
+          textShadow: `2px 3px 2px ${COLORS.cards.shadow}`,
+        }}>
           {text}
         </Typography>
       </Box>
-      <Box
+      {/* <Box
         sx={{
           width: 0,
           height: 0,
@@ -37,7 +48,7 @@ export const CardInfoEntry = ({
           )}`,
           borderRight: `28px solid transparent`,
         }}
-      />
-    </Box>
+      /> */}
+    </Box >
   );
 };

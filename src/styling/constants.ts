@@ -60,6 +60,7 @@ export const COLORS = {
   cards: {
     border: "#ede9df",
     rare: "#e2ebf0",
+    shadow: "rgba(0, 0, 0, 0.4)",
     bg: {
       action: "#a0c4ff",
       comedy: "#ffd6a5",

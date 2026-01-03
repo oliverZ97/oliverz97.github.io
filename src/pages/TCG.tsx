@@ -1,7 +1,6 @@
 import { Box } from "@mui/material";
 import { Character } from "common/types";
 import { CardStack } from "components/TCG/CardStack";
-import { TCGCard } from "components/TCG/TCGCard";
 import characterData from "data/character_data.json";
 import { useEffect, useState } from "react";
 
@@ -21,6 +20,7 @@ const TCG = () => {
       {charData.length > 0 && (
         <Box>
           <CardStack amount={5} charData={charData} />
+
           {/* <TCGCard character={charData[0]} />
         <TCGCard character={charData[4]} /> */}
         </Box>

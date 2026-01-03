@@ -6,8 +6,9 @@ import { COLORS } from "styling/constants";
 import { Star } from "./Star";
 import { getBackgroundColor } from "./utils";
 import { CardInfoEntry } from "./CardInfoEntry";
+import { SharpHolographicFilter } from "./SharpHolographicFilter";
 
-type Rarity = "Rare" | "SuperRare" | "UltraRare";
+export type Rarity = "Rare" | "SuperRare" | "UltraRare" | "SecretRare";
 type CardType =
   | "Drama"
   | "Action"
@@ -38,7 +39,7 @@ export const TCGCard = ({
   const inspectAnimation = inStack && !slideOut;
   const showShimmer = rarity !== "Rare" && effectsOn;
   const showUltraRare = rarity === "UltraRare" && effectsOn;
-  console.log(character);
+  const showHolographic = rarity === "SecretRare" && effectsOn;
 
   function handleClick() {
     if (slideOnClick && !slideOut) {
@@ -57,15 +58,14 @@ export const TCGCard = ({
         borderWidth: 4,
         borderStyle: "solid",
         boxShadow: 2,
-        backgroundImage: `linear-gradient(230deg,${
-          getBackgroundColor(character)[0]
-        } 29%, ${getBackgroundColor(character)[1]} 100%)`,
+        backgroundImage: `linear-gradient(230deg,${getBackgroundColor(character)[0]
+          } 29%, ${getBackgroundColor(character)[1]} 100%)`,
         position: "relative",
         animation: slideOut
           ? "slideOut 1s forwards"
           : inspectAnimation
-          ? "inspect 5s infinite ease-in-out alternate"
-          : undefined,
+            ? "inspect 5s infinite ease-in-out alternate"
+            : undefined,
         pointerEvents: slideOut ? "none" : "auto",
         "@keyframes inspect": {
           from: {
@@ -103,26 +103,38 @@ export const TCGCard = ({
             boxShadow: 1,
             padding: 0.8,
             borderRadius: 1,
-            backgroundColor: darken(getBackgroundColor(character)[0], 0.1),
+            background: `linear-gradient(180deg,${darken(getBackgroundColor(character)[0], 0.2)} 0%, ${getBackgroundColor(character)[0]} 50%, ${darken(getBackgroundColor(character)[0], 0.2)} 100%)`,
             width: "90%",
           }}
         >
-          <Typography sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: 18 }}>
+          <Typography sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: 18, fontWeight: "bold" }}>
             {character?.Name}
           </Typography>
         </Box>
-        <Box
-          width={"200px"}
-          component={"img"}
-          height={"276px"}
-          sx={{
-            objectFit: "cover",
-            border: "1px solid black",
-            borderColor: COLORS.cards.border,
-            borderRadius: 1,
-          }}
-          src={getImgSrc(character.id)}
-        ></Box>
+        <Box sx={{ position: "relative" }}>
+          <CardInfoEntry
+            character={character}
+            text={character?.Anime}
+          />
+          <Box
+            width={"200px"}
+            component={"img"}
+            height={"276px"}
+            sx={{
+              objectFit: "cover",
+              border: "1px solid black",
+              borderColor: COLORS.cards.border,
+              borderRadius: 1,
+            }}
+            src={getImgSrc(character.id)}
+          ></Box>
+          <Box sx={{
+            position: "absolute", left: -10, bottom: -5, background: "linear-gradient(180deg,rgba(224, 224, 224, 1) 34%, rgba(224, 224, 224, 1) 0%, rgba(250, 250, 250, 1) 49%, rgba(199, 199, 199, 1) 71%)", width: "220px", borderRadius: 15, display: "flex", justifyContent: "center", alignItems: "center", paddingX: 1, paddingY: 0.1, boxShadow: 1, gap: 1,
+          }}>
+            <Typography sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: 10 }}>{`DOB: ${character?.Birthday ?? "???"}`}</Typography>
+            <Typography sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: 10 }}>{`HT: ${character?.Height ?? "???"}`}</Typography>
+          </Box>
+        </Box>
         <Box sx={{ position: "absolute", right: 55, bottom: 30 }}>
           <Box sx={{ position: "relative" }}>
             {rarity === "UltraRare" && <Star zIndex={10} left="0px" />}
@@ -132,33 +144,7 @@ export const TCGCard = ({
             <Star zIndex={30} left="25px" />
           </Box>
         </Box>
-        <Box
-          sx={{
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            gap: 0.5,
-            marginY: 0.5,
-          }}
-        >
-          <CardInfoEntry
-            character={character}
-            text={`Anime: ${character?.Anime}`}
-            width={200}
-          />
-          <CardInfoEntry
-            character={character}
-            text={
-              character?.Birthday ? `Birthday: ${character.Birthday}` : "???"
-            }
-            width={172}
-          />
-          <CardInfoEntry
-            character={character}
-            text={`Height: ${character?.Height} cm`}
-            width={146}
-          />
-        </Box>
+
       </Box>
       {showUltraRare && (
         <Box
@@ -206,6 +192,14 @@ export const TCGCard = ({
           }}
         ></Box>
       )}
+      {/* Holographic filter overlay */}
+      <SharpHolographicFilter
+        width="330px"
+        height="450px"
+        intensity={1}
+        enabled={showHolographic}
+        animating={inspectAnimation}
+      />
     </Box>
   );
 };
