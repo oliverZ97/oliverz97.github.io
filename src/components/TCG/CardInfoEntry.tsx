@@ -6,16 +6,11 @@ import { COLORS } from "styling/constants";
 interface CardInfoEntryProps {
   character: Character;
   text: string;
-  width?: number;
 }
 
-export const CardInfoEntry = ({
-  character,
-  text,
-  width,
-}: CardInfoEntryProps) => {
+export const CardInfoEntry = ({ character, text }: CardInfoEntryProps) => {
   return (
-    <Box sx={{ display: "flex", position: "absolute", top: 0, left: -45 }}>
+    <Box sx={{ display: "flex", position: "absolute", top: 10, left: -45 }}>
       <Box
         sx={{
           borderTopRightRadius: "14px",
@@ -29,12 +24,14 @@ export const CardInfoEntry = ({
           whiteSpace: "nowrap",
         }}
       >
-        <Typography sx={{
-          fontFamily: '"Exo 2", sans-serif',
-          fontSize: 18,
-          color: darken(getBackgroundColor(character)[0], 0.3),
-          textShadow: `2px 3px 2px ${COLORS.cards.shadow}`,
-        }}>
+        <Typography
+          sx={{
+            fontFamily: '"Exo 2", sans-serif',
+            fontSize: 18,
+            color: darken(getBackgroundColor(character)[0], 0.3),
+            // textShadow: `2px 3px 2px ${COLORS.cards.shadow}`,
+          }}
+        >
           {text}
         </Typography>
       </Box>
@@ -49,6 +46,6 @@ export const CardInfoEntry = ({
           borderRight: `28px solid transparent`,
         }}
       /> */}
-    </Box >
+    </Box>
   );
 };

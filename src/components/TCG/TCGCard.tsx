@@ -7,6 +7,8 @@ import { Star } from "./Star";
 import { getBackgroundColor } from "./utils";
 import { CardInfoEntry } from "./CardInfoEntry";
 import { SharpHolographicFilter } from "./SharpHolographicFilter";
+import { RadiantHolographicFilter } from "./RadiantHolographicFilter";
+import { GlitterFilter } from "./GlitterFilter";
 
 export type Rarity = "Rare" | "SuperRare" | "UltraRare" | "SecretRare";
 type CardType =
@@ -36,10 +38,14 @@ export const TCGCard = ({
   const [slideOut, setSlideOut] = useState(false);
 
   const effectsOn = visible;
-  const inspectAnimation = inStack && !slideOut;
-  const showShimmer = rarity !== "Rare" && effectsOn;
+  const inspectAnimation = true && inStack && !slideOut;
+  const showShimmer = rarity === "SuperRare" && effectsOn;
   const showUltraRare = rarity === "UltraRare" && effectsOn;
   const showHolographic = rarity === "SecretRare" && effectsOn;
+  const showRadiantHolo =
+    rarity === "UltraRare" && effectsOn && inspectAnimation;
+  const showGlitter =
+    (rarity === "UltraRare" || rarity === "SecretRare") && effectsOn;
 
   function handleClick() {
     if (slideOnClick && !slideOut) {
@@ -54,18 +60,22 @@ export const TCGCard = ({
         width: "330px",
         height: "450px",
         borderRadius: "8px",
-        borderColor: COLORS.cards.border,
+        borderColor:
+          rarity === "SecretRare"
+            ? COLORS.cards.secretRareBorder
+            : COLORS.cards.border,
         borderWidth: 4,
         borderStyle: "solid",
         boxShadow: 2,
-        backgroundImage: `linear-gradient(230deg,${getBackgroundColor(character)[0]
-          } 29%, ${getBackgroundColor(character)[1]} 100%)`,
+        backgroundImage: `linear-gradient(230deg,${
+          getBackgroundColor(character)[0]
+        } 29%, ${getBackgroundColor(character)[1]} 100%)`,
         position: "relative",
         animation: slideOut
           ? "slideOut 1s forwards"
           : inspectAnimation
-            ? "inspect 5s infinite ease-in-out alternate"
-            : undefined,
+          ? "inspect 5s infinite ease-in-out alternate"
+          : undefined,
         pointerEvents: slideOut ? "none" : "auto",
         "@keyframes inspect": {
           from: {
@@ -103,19 +113,28 @@ export const TCGCard = ({
             boxShadow: 1,
             padding: 0.8,
             borderRadius: 1,
-            background: `linear-gradient(180deg,${darken(getBackgroundColor(character)[0], 0.2)} 0%, ${getBackgroundColor(character)[0]} 50%, ${darken(getBackgroundColor(character)[0], 0.2)} 100%)`,
+            background: `linear-gradient(180deg,${darken(
+              getBackgroundColor(character)[0],
+              0.2
+            )} 0%, ${getBackgroundColor(character)[0]} 50%, ${darken(
+              getBackgroundColor(character)[0],
+              0.2
+            )} 100%)`,
             width: "90%",
           }}
         >
-          <Typography sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: 18, fontWeight: "bold" }}>
+          <Typography
+            sx={{
+              fontFamily: '"Exo 2", sans-serif',
+              fontSize: 18,
+              fontWeight: "bold",
+            }}
+          >
             {character?.Name}
           </Typography>
         </Box>
         <Box sx={{ position: "relative" }}>
-          <CardInfoEntry
-            character={character}
-            text={character?.Anime}
-          />
+          <CardInfoEntry character={character} text={character?.Anime} />
           <Box
             width={"200px"}
             component={"img"}
@@ -128,11 +147,30 @@ export const TCGCard = ({
             }}
             src={getImgSrc(character.id)}
           ></Box>
-          <Box sx={{
-            position: "absolute", left: -10, bottom: -5, background: "linear-gradient(180deg,rgba(224, 224, 224, 1) 34%, rgba(224, 224, 224, 1) 0%, rgba(250, 250, 250, 1) 49%, rgba(199, 199, 199, 1) 71%)", width: "220px", borderRadius: 15, display: "flex", justifyContent: "center", alignItems: "center", paddingX: 1, paddingY: 0.1, boxShadow: 1, gap: 1,
-          }}>
-            <Typography sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: 10 }}>{`DOB: ${character?.Birthday ?? "???"}`}</Typography>
-            <Typography sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: 10 }}>{`HT: ${character?.Height ?? "???"}`}</Typography>
+          <Box
+            sx={{
+              position: "absolute",
+              left: -10,
+              bottom: -5,
+              background:
+                "linear-gradient(180deg,rgba(224, 224, 224, 1) 34%, rgba(224, 224, 224, 1) 0%, rgba(250, 250, 250, 1) 49%, rgba(199, 199, 199, 1) 71%)",
+              width: "220px",
+              borderRadius: 15,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              paddingX: 1,
+              paddingY: 0.1,
+              boxShadow: 1,
+              gap: 1,
+            }}
+          >
+            <Typography
+              sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: 10 }}
+            >{`DOB: ${character?.Birthday ?? "???"}`}</Typography>
+            <Typography
+              sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: 10 }}
+            >{`HT: ${character?.Height ?? "???"}`}</Typography>
           </Box>
         </Box>
         <Box sx={{ position: "absolute", right: 55, bottom: 30 }}>
@@ -144,7 +182,6 @@ export const TCGCard = ({
             <Star zIndex={30} left="25px" />
           </Box>
         </Box>
-
       </Box>
       {showUltraRare && (
         <Box
@@ -198,6 +235,20 @@ export const TCGCard = ({
         height="450px"
         intensity={1}
         enabled={showHolographic}
+        animating={inspectAnimation}
+      />
+      <RadiantHolographicFilter
+        width="330px"
+        height="450px"
+        intensity={0.7}
+        enabled={showRadiantHolo}
+        animating={inspectAnimation}
+      />
+      <GlitterFilter
+        width="330px"
+        height="450px"
+        intensity={0.7}
+        enabled={showGlitter}
         animating={inspectAnimation}
       />
     </Box>
