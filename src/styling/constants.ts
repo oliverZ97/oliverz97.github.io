@@ -62,12 +62,13 @@ export const COLORS = {
     rare: "#e2ebf0",
     bg: {
       action: "#a0c4ff",
-      comedy: "#fdffb6",
+      comedy: "#ffd6a5",
       romance: "#ffc6ff",
       drama: "#ffadad",
       fantasy: "#caffbf",
       shounen: "#bdb2ff",
       supernatural: "#d1a2fa",
+      default: "#60d394",
     },
     shimmer:
       "linear-gradient(-60deg,rgba(163, 163, 163, 0) 0%, rgba(250, 250, 250,0.5) 50%, rgba(163, 163, 163, 0) 100%)",

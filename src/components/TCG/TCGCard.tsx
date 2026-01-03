@@ -1,9 +1,11 @@
-import { Box, darken, lighten, Typography } from "@mui/material";
+import { Box, darken, Typography } from "@mui/material";
 import { getImgSrc } from "common/quizUtils";
 import { Character } from "common/types";
 import { useState } from "react";
 import { COLORS } from "styling/constants";
 import { Star } from "./Star";
+import { getBackgroundColor } from "./utils";
+import { CardInfoEntry } from "./CardInfoEntry";
 
 type Rarity = "Rare" | "SuperRare" | "UltraRare";
 type CardType =
@@ -44,37 +46,6 @@ export const TCGCard = ({
     }
   }
 
-  function getBackgroundColor() {
-    const charGenres = character.Genre.split(" ");
-    const colors: string[] = [];
-    if (charGenres.includes("Action")) {
-      colors.push(COLORS.cards.bg.action);
-    }
-    if (charGenres.includes("Comedy")) {
-      colors.push(COLORS.cards.bg.comedy);
-    }
-    if (charGenres.includes("Romance") || charGenres.includes("Romantic")) {
-      colors.push(COLORS.cards.bg.romance);
-    }
-    if (charGenres.includes("Drama")) {
-      colors.push(COLORS.cards.bg.drama);
-    }
-    if (charGenres.includes("Fantasy") || charGenres.includes("Adventure")) {
-      colors.push(COLORS.cards.bg.fantasy);
-    }
-    if (charGenres.includes("Fighting-Shounen")) {
-      colors.push(COLORS.cards.bg.drama);
-    }
-    if (charGenres.includes("Supernatural") || charGenres.includes("Horror")) {
-      colors.push(COLORS.cards.bg.drama);
-    }
-
-    if (colors.length === 1) {
-      colors.push(lighten(colors[0], 0.3));
-    }
-    return colors;
-  }
-
   return (
     <Box
       onClick={handleClick}
@@ -87,8 +58,8 @@ export const TCGCard = ({
         borderStyle: "solid",
         boxShadow: 2,
         backgroundImage: `linear-gradient(230deg,${
-          getBackgroundColor()[0]
-        } 39%, ${getBackgroundColor()[1]} 100%)`,
+          getBackgroundColor(character)[0]
+        } 29%, ${getBackgroundColor(character)[1]} 100%)`,
         position: "relative",
         animation: slideOut
           ? "slideOut 1s forwards"
@@ -127,16 +98,18 @@ export const TCGCard = ({
       >
         <Box
           sx={{
-            marginBottom: 2,
+            marginBottom: 1,
             textAlign: "center",
             boxShadow: 1,
-            padding: 1,
+            padding: 0.8,
             borderRadius: 1,
-            backgroundColor: COLORS.cards.rare,
+            backgroundColor: darken(getBackgroundColor(character)[0], 0.1),
             width: "90%",
           }}
         >
-          <Typography>{character?.Name}</Typography>
+          <Typography sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: 18 }}>
+            {character?.Name}
+          </Typography>
         </Box>
         <Box
           width={"200px"}
@@ -158,6 +131,33 @@ export const TCGCard = ({
             )}
             <Star zIndex={30} left="25px" />
           </Box>
+        </Box>
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            gap: 0.5,
+            marginY: 0.5,
+          }}
+        >
+          <CardInfoEntry
+            character={character}
+            text={`Anime: ${character?.Anime}`}
+            width={200}
+          />
+          <CardInfoEntry
+            character={character}
+            text={
+              character?.Birthday ? `Birthday: ${character.Birthday}` : "???"
+            }
+            width={172}
+          />
+          <CardInfoEntry
+            character={character}
+            text={`Height: ${character?.Height} cm`}
+            width={146}
+          />
         </Box>
       </Box>
       {showUltraRare && (
