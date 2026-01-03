@@ -1,4 +1,4 @@
-import { Box, Card } from "@mui/material";
+import { Box } from "@mui/material";
 import { Character } from "common/types";
 import { CardStack } from "components/TCG/CardStack";
 import { TCGCard } from "components/TCG/TCGCard";
@@ -18,15 +18,15 @@ const TCG = () => {
 
   return (
     <Box sx={{ padding: 4 }}>
-      {charData.length > 0 && <Box>
-        <CardStack amount={5} charData={charData} />
-        {/* <TCGCard character={charData[0]} />
+      {charData.length > 0 && (
+        <Box>
+          <CardStack amount={5} charData={charData} />
+          {/* <TCGCard character={charData[0]} />
         <TCGCard character={charData[4]} /> */}
-      </Box>}
-    </Box >
+        </Box>
+      )}
+    </Box>
   );
 };
 
 export default TCG;
-
-
