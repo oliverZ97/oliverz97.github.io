@@ -38,6 +38,7 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { Avatar } from "components/Profile/Avatar";
 import { HigherLower } from "components/HigherLower";
+import { Snowfall } from "components/Snowfall";
 
 export interface Score {
   points: number;
@@ -141,6 +142,9 @@ const Home = () => {
           position: "relative",
         }}
       >
+        <Box sx={{ position: "absolute", top: 0, width: "100%", zIndex: 500 }}>
+          <Snowfall />
+        </Box>
         <Box
           position={"relative"}
           sx={{
