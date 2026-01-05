@@ -31,6 +31,7 @@ export const defaultUser: UserProfile = {
   id: "guest",
   username: "Guest",
   createdAt: new Date().toISOString(),
+  credits: { total: 0, used: 0, available: 0 },
 };
 
 /**
@@ -65,6 +66,7 @@ export function createUserProfile(user: UserProfile | string) {
       id: uuid,
       username: user,
       createdAt: new Date().toISOString(),
+      credits: { total: 0, used: 0, available: 0 },
     };
     username = user;
     localStorage.setItem(
@@ -268,6 +270,7 @@ export function setUserLog(userLog: UserLogs) {
           username: profile.username,
           id: profile.id,
           createdAt: profile.createdAt,
+          credits: profile.credits,
         };
         break;
       }
@@ -279,6 +282,7 @@ export function setUserLog(userLog: UserLogs) {
         id: userId,
         username: `User_${userId}`,
         createdAt: new Date().toISOString(),
+        credits: { total: 0, used: 0, available: 0 },
       };
     }
   } else if (!userLog.user || !userLog.user.id) {
@@ -537,4 +541,37 @@ export function getProfileSetting(
     return userProfile.settings[key];
   }
   return undefined;
+}
+
+export function applyCreditsToProfile(amount: number) {
+  const profile = getCurrentUserProfile();
+  if (profile) {
+    if (profile.credits) {
+      profile.credits.total += amount;
+      profile.credits.available += amount;
+    } else {
+      profile.credits = {
+        total: amount,
+        used: 0,
+        available: amount,
+      };
+    }
+    setUserProfile(profile);
+  }
+}
+
+export function getUserAvailableCredits(): number {
+  const profile = getCurrentUserProfile();
+  if (profile && profile.credits) {
+    return profile.credits.available;
+  }
+  return 0;
+}
+
+export function getUserCollection() {
+  const profile = getCurrentUserProfile();
+  if (profile && profile.collection) {
+    return profile.collection;
+  }
+  return null;
 }

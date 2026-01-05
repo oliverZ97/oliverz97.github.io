@@ -2,44 +2,77 @@ import { Box, darken, Typography } from "@mui/material";
 import { getImgSrc } from "common/quizUtils";
 import { useEffect, useState } from "react";
 import { COLORS } from "styling/constants";
+import { TCG_CARD_BASE } from "./constants";
 import { Star } from "./Star";
 import { getBackgroundColor, getCardArt } from "./utils";
 import { CardInfoEntry } from "./CardInfoEntry";
 import { SharpHolographicFilter } from "./SharpHolographicFilter";
 import { RadiantHolographicFilter } from "./RadiantHolographicFilter";
 import { GlitterFilter } from "./GlitterFilter";
-import { Card } from "./CardStack";
+import { Card } from "common/types";
 
 export type Rarity = "Common" | "SuperRare" | "UltraRare" | "SecretRare";
+export type Art = "default" | "full";
 
 interface TCGCardProps {
   card: Card;
-  rarity: Rarity;
   visible?: boolean;
   slideOnClick?: boolean;
-  inStack?: boolean;
+  move?: boolean;
+  size?: "small" | "large";
 }
 
 export const TCGCard = ({
   card,
-  rarity,
   visible,
   slideOnClick = false,
-  inStack = false,
+  move: inStack = false,
+  size = "large",
 }: TCGCardProps) => {
   const [slideOut, setSlideOut] = useState(false);
   const [fullArtPath, setFullArtPath] = useState("");
 
   const effectsOn = visible;
   const inspectAnimation = inStack && !slideOut;
-  const showShimmer = rarity === "SuperRare" && effectsOn;
-  const showUltraRare = rarity === "UltraRare" && effectsOn;
-  const showHolographic = rarity === "SecretRare" && effectsOn;
+  const showShimmer = card.rarity === "SuperRare" && effectsOn;
+  const showUltraRare = card.rarity === "UltraRare" && effectsOn;
+  const showHolographic = card.rarity === "SecretRare" && effectsOn;
   const showRadiantHolo =
-    rarity === "UltraRare" && effectsOn && inspectAnimation;
+    card.rarity === "UltraRare" && effectsOn && inspectAnimation;
   const showGlitter =
-    (rarity === "UltraRare" || rarity === "SecretRare") && effectsOn;
+    (card.rarity === "UltraRare" || card.rarity === "SecretRare") && effectsOn;
   const useFullArt = card.art === "full" && fullArtPath !== "";
+
+  const backgroundColors = getBackgroundColor(card.character);
+
+  // Base size is "large", small is 2/3 of large
+  const scaleFactor = size === "small" ? 2 / 3 : 1;
+
+  const width = `${TCG_CARD_BASE.WIDTH * scaleFactor}px`;
+  const height = `${TCG_CARD_BASE.HEIGHT * scaleFactor}px`;
+  const borderRadius = `${TCG_CARD_BASE.BORDER_RADIUS * scaleFactor}px`;
+  const borderWidth = TCG_CARD_BASE.BORDER_WIDTH * scaleFactor;
+  const marginY = (TCG_CARD_BASE.MARGIN_Y * scaleFactor) / 8;
+  const marginBottom = (TCG_CARD_BASE.MARGIN_BOTTOM * scaleFactor) / 8;
+  const padding = (TCG_CARD_BASE.PADDING * scaleFactor) / 8;
+  const fontSize = TCG_CARD_BASE.FONT_SIZE * scaleFactor;
+  const imageWidth = `${TCG_CARD_BASE.IMAGE_WIDTH * scaleFactor}px`;
+  const imageHeight = `${TCG_CARD_BASE.IMAGE_HEIGHT * scaleFactor}px`;
+  const infoLeft = TCG_CARD_BASE.INFO_LEFT * scaleFactor;
+  const infoBottom = TCG_CARD_BASE.INFO_BOTTOM * scaleFactor;
+  const fullArtInfoLeft = TCG_CARD_BASE.INFO_FULL_ART_LEFT * scaleFactor;
+  const fullArtInfoBottom = TCG_CARD_BASE.INFO_FULL_ART_BOTTOM * scaleFactor;
+  const infoWidth = `${TCG_CARD_BASE.INFO_WIDTH * scaleFactor}px`;
+  const infoBorderRadius = TCG_CARD_BASE.INFO_BORDER_RADIUS * scaleFactor;
+  const infoPaddingX = (TCG_CARD_BASE.INFO_PADDING_X * scaleFactor) / 8;
+  const infoPaddingY = (TCG_CARD_BASE.INFO_PADDING_Y * scaleFactor) / 8;
+  const infoFontSize = TCG_CARD_BASE.INFO_FONT_SIZE * scaleFactor;
+  const starLeft = TCG_CARD_BASE.STAR_LEFT * scaleFactor;
+  const starBottom = size === "small" ? -5.5 : -4.5; // Different values for small and large
+  const idLeft = TCG_CARD_BASE.ID_LEFT * scaleFactor;
+  const idBottom = TCG_CARD_BASE.ID_BOTTOM * scaleFactor;
+  const idFontSize = TCG_CARD_BASE.ID_FONT_SIZE * scaleFactor;
+  const slideOutDistance = TCG_CARD_BASE.SLIDE_OUT_DISTANCE * scaleFactor;
 
   function handleClick() {
     if (slideOnClick && !slideOut) {
@@ -48,28 +81,27 @@ export const TCGCard = ({
   }
 
   useEffect(() => {
-    getCardArt(card.id, "jpg").then((path) => {
+    getCardArt(card.characterId, "jpg").then((path) => {
       setFullArtPath(path);
     });
-  }, [card.id]);
-
+  }, [card.characterId]);
 
   return (
     <Box
       onClick={handleClick}
       sx={{
-        width: "330px",
-        height: "450px",
-        borderRadius: "8px",
+        width: width,
+        height: height,
+        borderRadius: borderRadius,
         borderColor:
-          rarity === "SecretRare"
+          card.rarity === "SecretRare"
             ? COLORS.cards.secretRareBorder
             : COLORS.cards.border,
-        borderWidth: 4,
+        borderWidth: borderWidth,
         borderStyle: "solid",
         boxShadow: 2,
-        backgroundImage: useFullArt ? `url(${fullArtPath})` : `linear-gradient(230deg,${getBackgroundColor(card)[0]
-          } 29%, ${getBackgroundColor(card)[1]} 100%)`,
+        backgroundImage: useFullArt ? `url(${fullArtPath})` : `linear-gradient(230deg,${backgroundColors[0]
+          } 29%, ${backgroundColors[1]} 100%)`,
         backgroundSize: "cover",
         position: "relative",
         animation: slideOut
@@ -91,7 +123,7 @@ export const TCGCard = ({
             transform: "translateX(0px)",
           },
           to: {
-            transform: "translateX(-500px)",
+            transform: `translateX(${slideOutDistance}px)`,
             zIndex: -1,
           },
         },
@@ -104,21 +136,21 @@ export const TCGCard = ({
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          marginY: 2,
+          marginY: marginY,
         }}
       >
         <Box
           sx={{
-            marginBottom: 1,
+            marginBottom: marginBottom,
             textAlign: "center",
             boxShadow: 1,
-            padding: 0.8,
+            padding: padding,
             borderRadius: 1,
             background: `linear-gradient(180deg,${darken(
-              getBackgroundColor(card)[0],
+              backgroundColors[0],
               0.2
-            )} 0%, ${getBackgroundColor(card)[0]} 50%, ${darken(
-              getBackgroundColor(card)[0],
+            )} 0%, ${backgroundColors[0]} 50%, ${darken(
+              backgroundColors[0],
               0.2
             )} 100%)`,
             width: "90%",
@@ -127,61 +159,61 @@ export const TCGCard = ({
           <Typography
             sx={{
               fontFamily: '"Exo 2", sans-serif',
-              fontSize: 18,
+              fontSize: fontSize,
               fontWeight: "bold",
             }}
           >
-            {card?.Name}
+            {card?.character.Name}
           </Typography>
         </Box>
         <Box sx={{ position: "relative" }}>
-          <CardInfoEntry card={card} text={card?.Anime} isFullArt={useFullArt} />
+          <CardInfoEntry card={card} text={card?.character.Anime} isFullArt={useFullArt} size={scaleFactor} />
           {card.art === "default" && <Box
-            width={"200px"}
+            width={imageWidth}
             component={"img"}
-            height={"276px"}
+            height={imageHeight}
             sx={{
               objectFit: "cover",
               border: "1px solid black",
               borderColor: COLORS.cards.border,
               borderRadius: 1,
             }}
-            src={getImgSrc(card.id)}
+            src={getImgSrc(card.characterId)}
           ></Box>}
           <Box
             sx={{
               position: "absolute",
-              left: useFullArt ? -110 : -10,
-              bottom: useFullArt ? -340 : -5,
+              left: useFullArt ? fullArtInfoLeft : infoLeft,
+              bottom: useFullArt ? fullArtInfoBottom : infoBottom,
               background:
                 "linear-gradient(180deg,rgba(224, 224, 224, 1) 34%, rgba(224, 224, 224, 1) 0%, rgba(250, 250, 250, 1) 49%, rgba(199, 199, 199, 1) 71%)",
-              width: "220px",
-              borderRadius: 15,
+              width: infoWidth,
+              borderRadius: infoBorderRadius,
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              paddingX: 1,
-              paddingY: 0.1,
+              paddingX: infoPaddingX,
+              paddingY: infoPaddingY,
               boxShadow: 1,
               gap: 1,
             }}
           >
             <Typography
-              sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: 10 }}
-            >{`DOB: ${card?.Birthday ?? "???"}`}</Typography>
+              sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: infoFontSize }}
+            >{`DOB: ${card?.character.Birthday ?? "???"}`}</Typography>
             <Typography
-              sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: 10 }}
-            >{`HT: ${card?.Height ?? "???"}`}</Typography>
+              sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: infoFontSize }}
+            >{`HT: ${card?.character.Height ?? "???"}`}</Typography>
           </Box>
         </Box>
-        <Box sx={{ position: "absolute", left: 17, bottom: -4 }}>
-          {rarity !== "Common" && <Star zIndex={30} />}
-          {useFullArt && rarity === "Common" && <Star zIndex={30} art="full" />}
-          {(rarity === "SecretRare" || rarity === "UltraRare") && <Star art={useFullArt ? "full" : "default"} zIndex={30} />}
-          {rarity === "SecretRare" && <Star zIndex={30} art={useFullArt ? "full" : "default"} />}
+        <Box sx={{ position: "absolute", left: starLeft, bottom: starBottom }}>
+          {card.rarity !== "Common" && <Star zIndex={30} size={scaleFactor} />}
+          {useFullArt && card.rarity === "Common" && <Star zIndex={30} art="full" size={scaleFactor} />}
+          {(card.rarity === "SecretRare" || card.rarity === "UltraRare") && <Star art={useFullArt ? "full" : "default"} zIndex={30} size={scaleFactor} />}
+          {card.rarity === "SecretRare" && <Star zIndex={30} art={useFullArt ? "full" : "default"} size={scaleFactor} />}
         </Box>
-        <Box sx={{ position: "absolute", left: 2, bottom: 0 }}>
-          <Typography sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: 8 }}>{card.id}</Typography>
+        <Box sx={{ position: "absolute", left: idLeft, bottom: idBottom }}>
+          <Typography sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: idFontSize }}>{card.characterId}</Typography>
         </Box>
       </Box>
       {
@@ -191,8 +223,8 @@ export const TCGCard = ({
               position: "absolute",
               left: -4,
               top: -4,
-              height: "450px",
-              width: "330px",
+              height: height,
+              width: width,
               background: COLORS.cards.ultraRare,
               backgroundSize: "300% 100%",
               backgroundPosition: "0% 0%",
@@ -216,8 +248,8 @@ export const TCGCard = ({
               position: "absolute",
               left: -4,
               top: -4,
-              height: "450px",
-              width: "330px",
+              height: height,
+              width: width,
               background: COLORS.cards.shimmer,
               backgroundSize: "300%",
               backgroundPositionX: "100%",
@@ -236,22 +268,22 @@ export const TCGCard = ({
       }
       {/* Holographic filter overlay */}
       <SharpHolographicFilter
-        width="330px"
-        height="450px"
+        width={width}
+        height={height}
         intensity={1}
         enabled={showHolographic}
         animating={inspectAnimation}
       />
       <RadiantHolographicFilter
-        width="330px"
-        height="450px"
+        width={width}
+        height={height}
         intensity={0.7}
         enabled={showRadiantHolo}
         animating={inspectAnimation}
       />
       <GlitterFilter
-        width="330px"
-        height="450px"
+        width={width}
+        height={height}
         intensity={0.7}
         enabled={showGlitter}
         animating={inspectAnimation}

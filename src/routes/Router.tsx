@@ -5,6 +5,7 @@ import { Box, Typography, Link, Avatar, CssBaseline } from "@mui/material";
 
 const Home = lazy(() => import("pages/Home"));
 const TCG = lazy(() => import("pages/TCG"));
+const Collection = lazy(() => import("pages/Collection"));
 const PageNotFound = lazy(() => import("pages/PageNotFound"));
 
 interface Routes {
@@ -40,6 +41,7 @@ const getRouteElement = (
 const routes: Routes[] = [
   { path: paths.HOME, element: getRouteElement(Home, paths.HOME) },
   { path: paths.TCG, element: getRouteElement(TCG, paths.TCG) },
+  { path: paths.COLLECTION, element: getRouteElement(Collection, paths.COLLECTION) },
   {
     path: paths.NOT_FOUND,
     element: getRouteElement(PageNotFound, paths.NOT_FOUND),

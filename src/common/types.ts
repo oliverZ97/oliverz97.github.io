@@ -1,4 +1,5 @@
 import { Streak } from "components/Streak";
+import { Art, Rarity } from "components/TCG/TCGCard";
 
 export interface Character {
   id: number;
@@ -74,6 +75,21 @@ export enum StatisticFields {
   higherlowerAnimePointsTotal = "higherlowerAnimePointsTotal",
 }
 
+export interface Card {
+  cardId: string; //combination of characterId + rarity + art
+  characterId: number; //id of the character
+  character: Character;
+  rarity: Rarity;
+  art: Art;
+  obtainedAt: string;
+}
+
+export interface Collection {
+  cards: Card[];
+  lastUpdated: string;
+  totalCards: number;
+}
+
 export interface UserProfile {
   id: string;
   username: string;
@@ -87,6 +103,12 @@ export interface UserProfile {
   blurQuizSolved?: SolveData;
   imageQuizSolved?: SolveData;
   settings?: Record<string, string | boolean | number>;
+  credits: {
+    total: number;
+    used: number;
+    available: number;
+  }
+  collection?: Collection;
 }
 
 export interface SolveData {

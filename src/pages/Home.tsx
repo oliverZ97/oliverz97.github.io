@@ -39,6 +39,8 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { Avatar } from "components/Profile/Avatar";
 import { HigherLower } from "components/HigherLower";
 import { Snowfall } from "components/Snowfall";
+import { getUserAvailableCredits } from "common/profileUtils";
+import { set } from "react-hook-form";
 
 export interface Score {
   points: number;
@@ -50,6 +52,9 @@ const Home = () => {
   const [animeData, setAnimeData] = useState<Anime[]>([]);
   const [getTotalScore, setGetTotalScore] = useState(
     getDailyScore(getDailyUTCDate().toISOString())
+  );
+  const [userAvailableCredits, setUserAvailableCredits] = useState(
+    getUserAvailableCredits()
   );
   const theme = useTheme();
 
@@ -168,6 +173,7 @@ const Home = () => {
             icon={<MenuIcon fontSize="large" />}
             onOpenFn={() => {
               setGetTotalScore(getDailyScore(getDailyUTCDate().toISOString()));
+              setUserAvailableCredits(getUserAvailableCredits());
             }}
           >
             <Box
@@ -187,23 +193,29 @@ const Home = () => {
                 justifyContent={"space-between"}
                 alignItems={"center"}
               >
-                <Box padding={2} sx={{ color: "white" }}>
-                  <Typography>Today's score:</Typography>
-                  <Typography>
-                    <Typography
-                      component={"span"}
-                      sx={{
-                        fontWeight: "bold",
-                        color: COLORS.quiz.light_red,
-                        marginRight: 1,
-                      }}
-                    >
-                      {getTotalScore}
+                <Box sx={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+                  <Box padding={2} sx={{ color: "white" }}>
+                    <Typography>Today's score:</Typography>
+                    <Typography>
+                      <Typography
+                        component={"span"}
+                        sx={{
+                          fontWeight: "bold",
+                          color: COLORS.quiz.light_red,
+                          marginRight: 1,
+                        }}
+                      >
+                        {getTotalScore}
+                      </Typography>
+                      <Typography component={"span"} fontSize={12}>
+                        /40000
+                      </Typography>
                     </Typography>
-                    <Typography component={"span"} fontSize={12}>
-                      /40000
-                    </Typography>
-                  </Typography>
+                  </Box>
+                  <Box padding={2} sx={{ color: "white", display: "flex", gap: 0.5, alignItems: "flex-end", justifyContent: "flex-end" }}>
+                    <Typography>🪙</Typography>
+                    <Typography>{userAvailableCredits}</Typography>
+                  </Box>
                 </Box>
               </Box>
             </Box>
@@ -505,6 +517,7 @@ const Home = () => {
                 setGetTotalScore(
                   getDailyScore(getDailyUTCDate().toISOString())
                 );
+                setUserAvailableCredits(getUserAvailableCredits());
               }}
             >
               <Box
@@ -519,23 +532,29 @@ const Home = () => {
                     sx={{ backgroundColor: "white", marginX: 1 }}
                   ></Divider>
                 </Box>
-                <Box padding={2} sx={{ color: "white" }}>
-                  <Typography>Today's score:</Typography>
-                  <Typography>
-                    <Typography
-                      component={"span"}
-                      sx={{
-                        fontWeight: "bold",
-                        color: COLORS.quiz.light_red,
-                        marginRight: 1,
-                      }}
-                    >
-                      {getTotalScore}
+                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                  <Box padding={2} sx={{ color: "white" }}>
+                    <Typography>Today's score:</Typography>
+                    <Typography>
+                      <Typography
+                        component={"span"}
+                        sx={{
+                          fontWeight: "bold",
+                          color: COLORS.quiz.light_red,
+                          marginRight: 1,
+                        }}
+                      >
+                        {getTotalScore}
+                      </Typography>
+                      <Typography component={"span"} fontSize={12}>
+                        /40000
+                      </Typography>
                     </Typography>
-                    <Typography component={"span"} fontSize={12}>
-                      /40000
-                    </Typography>
-                  </Typography>
+                  </Box>
+                  <Box padding={2} sx={{ color: "white" }}>
+                    <Typography>Credits</Typography>
+                    <Typography>{userAvailableCredits}</Typography>
+                  </Box>
                 </Box>
               </Box>
             </DrawerBasic>

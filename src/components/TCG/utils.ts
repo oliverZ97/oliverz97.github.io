@@ -1,5 +1,7 @@
 import { alpha, darken, lighten } from "@mui/material";
-import { Character } from "common/types";
+import { setUserProfile } from "common/profileUtils";
+import { getCurrentUserProfile } from "common/profileUtils";
+import { Card, Character } from "common/types";
 import { COLORS } from "styling/constants";
 
 export function getBackgroundColor(character: Character): string[] {
@@ -53,4 +55,40 @@ export async function getCardArt(id: number, fileType: "webp" | "png" | "jpg" = 
     img.onerror = () => resolve("");
     img.src = path;
   });
+}
+
+/*
+XXX - characterId
+R - Rarity (C, SR, UR, SSR)
+A - Art type (Full or Normal)
+XXX/R/AAA
+**/
+export function generateCardId(
+  characterId: number,
+  rarity: string,
+  art: string
+): string {
+  const artCode = art === "full" ? "F" : "N";
+  let rarityCode = "";
+  switch (rarity) {
+    case "Common": rarityCode = "C"; break;
+    case "SuperRare": rarityCode = "SR"; break;
+    case "UltraRare": rarityCode = "UR"; break;
+    case "SecretRare": rarityCode = "SSR"; break;
+  }
+  return `${characterId}/${rarityCode}/${artCode}`;
+}
+
+export function applyCreditsToProfile(card: Card) {
+  const profile = getCurrentUserProfile();
+  if (profile) {
+    if (profile.collection) {
+      profile.collection.cards.push(card);
+      profile.collection.totalCards += 1;
+      profile.collection.lastUpdated = new Date().toISOString();
+    } else {
+      profile.collection = { cards: [card], totalCards: 1, lastUpdated: new Date().toISOString() };
+    }
+    setUserProfile(profile);
+  }
 }

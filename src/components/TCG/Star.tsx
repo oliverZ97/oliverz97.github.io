@@ -1,15 +1,19 @@
-import { Box } from "@mui/material";
+import { TCG_CARD_BASE } from "./constants";
 
 interface StarProps {
   zIndex?: number;
   art?: "default" | "full";
+  size?: number; // Scale factor (1 for large, 2/3 for small)
 }
 
-export const Star = ({ zIndex, art = "default" }: StarProps) => {
+export const Star = ({ zIndex, art = "default", size = 1 }: StarProps) => {
+  const starSize = TCG_CARD_BASE.STAR_SIZE * size;
+  const strokeWidth = TCG_CARD_BASE.STAR_STROKE_WIDTH * size;
+
   return (
     <svg
-      width="10"
-      height="10"
+      width={starSize}
+      height={starSize}
       viewBox="0 0 25 25"
       style={{ zIndex }}
     >
@@ -36,7 +40,7 @@ export const Star = ({ zIndex, art = "default" }: StarProps) => {
         points="12.5,2 15.5,9.5 23.5,9.5 17,14.5 19.5,22.5 12.5,17 5.5,22.5 8,14.5 1.5,9.5 9.5,9.5"
         fill="url(#starGradient)"
         stroke="black"
-        strokeWidth="1.5"
+        strokeWidth={strokeWidth}
       />
     </svg>
   );
