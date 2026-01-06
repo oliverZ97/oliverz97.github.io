@@ -3,6 +3,9 @@ import { Rarity, TCGCard } from "./TCGCard";
 import { Character, Card } from "common/types";
 import { useEffect, useState } from "react";
 import { applyCreditsToProfile, generateCardId, getCardArt } from "./utils";
+import { CardInfoEntry } from "./CardInfoEntry";
+import { COLORS } from "styling/constants";
+import { BoosterPackage } from "./BoosterPackage";
 
 interface CardStackProps {
   charData: Character[];
@@ -12,6 +15,7 @@ interface CardStackProps {
 export const CardStack = ({ amount, charData }: CardStackProps) => {
   const [cards, setCards] = useState<Card[]>([]);
   const [topCardIndex, setTopCardIndex] = useState<number>(0);
+  const [packOpen, setPackOpen] = useState<boolean>(false);
   const secretRarePossibilty = 0.1; // 10% chance for Secret Rare
   const additionalSuperRare = 0.05; // 5% chance for Secret Rare or Super Rare
   const ultraRarePossibility = 0.5; // Always have Ultra Rare at the end
@@ -36,15 +40,25 @@ export const CardStack = ({ amount, charData }: CardStackProps) => {
       if (path === "") {
         isFullArt = false;
       }
-      let rarity = getCardRarity(i, isGodPack, hasSecretRare, hasAdditionalSuperRare, hasUltraRare);
+      let rarity = getCardRarity(
+        i,
+        isGodPack,
+        hasSecretRare,
+        hasAdditionalSuperRare,
+        hasUltraRare
+      );
       let card: Card = {
         character: charData[randomIndex],
         characterId: charData[randomIndex].id,
-        cardId: generateCardId(charData[randomIndex].id, rarity, isFullArt ? "full" : "default"),
+        cardId: generateCardId(
+          charData[randomIndex].id,
+          rarity,
+          isFullArt ? "full" : "default"
+        ),
         obtainedAt: new Date().toISOString(),
         rarity: rarity,
         art: isFullArt ? "full" : "default",
-      }
+      };
       booster.push(card);
     }
     setCards(booster);
@@ -61,9 +75,14 @@ export const CardStack = ({ amount, charData }: CardStackProps) => {
         }
       }, 1000);
     }
-
   }
-  function getCardRarity(i: number, isGodPack: boolean, hasSecretRare: boolean, hasAdditionalSuperRare: boolean, hasUltraRare: boolean): Rarity {
+  function getCardRarity(
+    i: number,
+    isGodPack: boolean,
+    hasSecretRare: boolean,
+    hasAdditionalSuperRare: boolean,
+    hasUltraRare: boolean
+  ): Rarity {
     let rarity: Rarity = "Common";
 
     if (isGodPack) {
@@ -84,7 +103,7 @@ export const CardStack = ({ amount, charData }: CardStackProps) => {
       }
     } else if (i === amount - 2) {
       if (hasSecretRare) {
-        rarity = "SecretRare"
+        rarity = "SecretRare";
       } else {
         rarity = "SuperRare";
       }
@@ -97,6 +116,8 @@ export const CardStack = ({ amount, charData }: CardStackProps) => {
   }
   return (
     <Box sx={{ position: "relative" }}>
+      <BoosterPackage zIndex={10} onOpenPack={() => setPackOpen(true)} />
+
       {cards.map((card, index) => {
         let zIndex;
         if (index < topCardIndex) {
@@ -111,23 +132,25 @@ export const CardStack = ({ amount, charData }: CardStackProps) => {
         }
 
         return (
-          <Box
-            sx={{
-              position: "absolute",
-              top: 0 + index * 4,
-              left: 0,
-              zIndex: zIndex,
-              pointerEvents: index === topCardIndex ? "auto" : "none",
-            }}
-            key={index}
-            onClick={() => handleCardClick(index)}
-          >
-            <TCGCard
-              slideOnClick
-              card={card}
-              visible={index === topCardIndex || index === topCardIndex + 1}
-              move={index >= topCardIndex}
-            />
+          <Box sx={{ position: "relative" }}>
+            <Box
+              sx={{
+                position: "absolute",
+                top: 0 + index * 4,
+                left: 0,
+                zIndex: zIndex,
+                pointerEvents: index === topCardIndex ? "auto" : "none",
+              }}
+              key={index}
+              onClick={() => handleCardClick(index)}
+            >
+              <TCGCard
+                slideOnClick
+                card={card}
+                visible={index === topCardIndex || index === topCardIndex + 1}
+                move={packOpen && index >= topCardIndex}
+              />
+            </Box>
           </Box>
         );
       })}

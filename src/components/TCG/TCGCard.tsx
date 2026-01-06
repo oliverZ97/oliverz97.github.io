@@ -100,15 +100,16 @@ export const TCGCard = ({
         borderWidth: borderWidth,
         borderStyle: "solid",
         boxShadow: 2,
-        backgroundImage: useFullArt ? `url(${fullArtPath})` : `linear-gradient(230deg,${backgroundColors[0]
-          } 29%, ${backgroundColors[1]} 100%)`,
+        backgroundImage: useFullArt
+          ? `url(${fullArtPath})`
+          : `linear-gradient(230deg,${backgroundColors[0]} 29%, ${backgroundColors[1]} 100%)`,
         backgroundSize: "cover",
         position: "relative",
         animation: slideOut
           ? "slideOut 1s forwards"
           : inspectAnimation
-            ? "inspect 5s infinite ease-in-out alternate"
-            : undefined,
+          ? "inspect 5s infinite ease-in-out alternate"
+          : undefined,
         pointerEvents: slideOut ? "none" : "auto",
         "@keyframes inspect": {
           from: {
@@ -167,19 +168,26 @@ export const TCGCard = ({
           </Typography>
         </Box>
         <Box sx={{ position: "relative" }}>
-          <CardInfoEntry card={card} text={card?.character.Anime} isFullArt={useFullArt} size={scaleFactor} />
-          {card.art === "default" && <Box
-            width={imageWidth}
-            component={"img"}
-            height={imageHeight}
-            sx={{
-              objectFit: "cover",
-              border: "1px solid black",
-              borderColor: COLORS.cards.border,
-              borderRadius: 1,
-            }}
-            src={getImgSrc(card.characterId)}
-          ></Box>}
+          <CardInfoEntry
+            card={card}
+            text={card?.character.Anime}
+            isFullArt={useFullArt}
+            size={scaleFactor}
+          />
+          {card.art === "default" && (
+            <Box
+              width={imageWidth}
+              component={"img"}
+              height={imageHeight}
+              sx={{
+                objectFit: "cover",
+                border: "1px solid black",
+                borderColor: COLORS.cards.border,
+                borderRadius: 1,
+              }}
+              src={getImgSrc(card.characterId)}
+            ></Box>
+          )}
           <Box
             sx={{
               position: "absolute",
@@ -208,64 +216,78 @@ export const TCGCard = ({
         </Box>
         <Box sx={{ position: "absolute", left: starLeft, bottom: starBottom }}>
           {card.rarity !== "Common" && <Star zIndex={30} size={scaleFactor} />}
-          {useFullArt && card.rarity === "Common" && <Star zIndex={30} art="full" size={scaleFactor} />}
-          {(card.rarity === "SecretRare" || card.rarity === "UltraRare") && <Star art={useFullArt ? "full" : "default"} zIndex={30} size={scaleFactor} />}
-          {card.rarity === "SecretRare" && <Star zIndex={30} art={useFullArt ? "full" : "default"} size={scaleFactor} />}
+          {useFullArt && card.rarity === "Common" && (
+            <Star zIndex={30} art="full" size={scaleFactor} />
+          )}
+          {(card.rarity === "SecretRare" || card.rarity === "UltraRare") && (
+            <Star
+              art={useFullArt ? "full" : "default"}
+              zIndex={30}
+              size={scaleFactor}
+            />
+          )}
+          {card.rarity === "SecretRare" && (
+            <Star
+              zIndex={30}
+              art={useFullArt ? "full" : "default"}
+              size={scaleFactor}
+            />
+          )}
         </Box>
         <Box sx={{ position: "absolute", left: idLeft, bottom: idBottom }}>
-          <Typography sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: idFontSize }}>{card.characterId}</Typography>
+          <Typography
+            sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: idFontSize }}
+          >
+            {card.characterId}
+          </Typography>
         </Box>
       </Box>
-      {
-        showUltraRare && (
-          <Box
-            sx={{
-              position: "absolute",
-              left: -4,
-              top: -4,
-              height: height,
-              width: width,
-              background: COLORS.cards.ultraRare,
-              backgroundSize: "300% 100%",
-              backgroundPosition: "0% 0%",
-              animation: "shimmer 3s infinite linear alternate",
-              "@keyframes shimmer": {
-                from: {
-                  backgroundPosition: "0% 0%",
-                },
-                to: {
-                  backgroundPosition: "100% 0%",
-                },
+      {showUltraRare && (
+        <Box
+          sx={{
+            position: "absolute",
+            left: -4,
+            top: -4,
+            height: height,
+            width: width,
+            background: COLORS.cards.ultraRare,
+            backgroundSize: "300% 100%",
+            backgroundPosition: "0% 0%",
+            animation: "shimmer 3s infinite linear alternate",
+            "@keyframes shimmer": {
+              from: {
+                backgroundPosition: "0% 0%",
               },
-            }}
-          ></Box>
-        )
-      }
-      {
-        showShimmer && (
-          <Box
-            sx={{
-              position: "absolute",
-              left: -4,
-              top: -4,
-              height: height,
-              width: width,
-              background: COLORS.cards.shimmer,
-              backgroundSize: "300%",
-              backgroundPositionX: "100%",
-              animation: "shimmer 2.5s infinite linear alternate",
-              "@keyframes shimmer": {
-                from: {
-                  backgroundPosition: "0% 0%",
-                },
-                to: {
-                  backgroundPosition: "100% 0%",
-                },
+              to: {
+                backgroundPosition: "100% 0%",
               },
-            }}
-          ></Box>
-        )
-      }
+            },
+          }}
+        ></Box>
+      )}
+      {showShimmer && (
+        <Box
+          sx={{
+            position: "absolute",
+            left: -4,
+            top: -4,
+            height: height,
+            width: width,
+            background: COLORS.cards.shimmer,
+            backgroundSize: "300%",
+            backgroundPositionX: "100%",
+            animation: "shimmer 2.5s infinite linear alternate",
+            "@keyframes shimmer": {
+              from: {
+                backgroundPosition: "0% 0%",
+              },
+              to: {
+                backgroundPosition: "100% 0%",
+              },
+            },
+          }}
+        ></Box>
+      )}
       {/* Holographic filter overlay */}
       <SharpHolographicFilter
         width={width}
@@ -288,6 +310,6 @@ export const TCGCard = ({
         enabled={showGlitter}
         animating={inspectAnimation}
       />
-    </Box >
+    </Box>
   );
 };
