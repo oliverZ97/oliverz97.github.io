@@ -1,22 +1,27 @@
 import { Box } from "@mui/material";
 import { COLORS } from "styling/constants";
 import boosterArt from "assets/tcg/109_full_art.jpg";
-import { TransitionEventHandler, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface BoosterPackageProps {
   zIndex: number;
   onOpenPack: () => void;
+  openable?: boolean;
 }
 
 const pressurePattern =
   "linear-gradient(90deg,rgba(227, 227, 227, 0.3) 0%, rgba(247, 247, 247, 1) 4%, rgba(227, 227, 227, 0.3) 8%, rgba(247, 247, 247, 1) 12%, rgba(227, 227, 227, 0.3) 16%, rgba(247, 247, 247, 1) 20%, rgba(227, 227, 227, 0.3) 24%, rgba(247, 247, 247, 1) 28%, rgba(227, 227, 227, 0.3) 32%, rgba(247, 247, 247, 1) 36%, rgba(227, 227, 227, 0.3) 40%, rgba(247, 247, 247, 1) 44%, rgba(227, 227, 227, 0.3) 48%, rgba(247, 247, 247, 1) 52%, rgba(227, 227, 227, 0.3) 56%, rgba(247, 247, 247, 1) 60%, rgba(227, 227, 227, 0.3) 64%, rgba(247, 247, 247, 1) 68%, rgba(227, 227, 227, 0.3) 72%, rgba(247, 247, 247, 1) 76%, rgba(227, 227, 227, 0.3) 80%, rgba(247, 247, 247, 1) 84%, rgba(227, 227, 227, 0.3) 88%, rgba(247, 247, 247, 1) 92%, rgba(227, 227, 227, 0.3) 96%)";
 
-export const BoosterPackage = ({ zIndex, onOpenPack }: BoosterPackageProps) => {
+export const BoosterPackage = ({
+  zIndex,
+  onOpenPack,
+  openable = true,
+}: BoosterPackageProps) => {
   // States: 'closed' -> 'ripping' -> 'hidden'
   const [packState, setPackState] = useState("closed");
 
   const handleOpen = () => {
-    if (packState === "closed") {
+    if (packState === "closed" && openable) {
       setPackState("ripping");
     }
   };
@@ -63,7 +68,7 @@ export const BoosterPackage = ({ zIndex, onOpenPack }: BoosterPackageProps) => {
           width: "100%",
           height: "40px",
           background: pressurePattern,
-          opacity: 0.6,
+          opacity: 0.8,
         }}
       />
       <Box
@@ -73,7 +78,7 @@ export const BoosterPackage = ({ zIndex, onOpenPack }: BoosterPackageProps) => {
           height: "40px",
           bottom: 0,
           background: pressurePattern,
-          opacity: 0.6,
+          opacity: 0.8,
         }}
       />
       <Box
@@ -83,7 +88,7 @@ export const BoosterPackage = ({ zIndex, onOpenPack }: BoosterPackageProps) => {
             "linear-gradient(225deg, #ff4dff 0%, #e18ff4 25%, #b9d1e7 50%, #91ffdb 75%, #6affcd 100%)",
           width: "100%",
           height: "100%",
-          opacity: 0.5,
+          opacity: 0.3,
         }}
       />
       <Box
@@ -94,6 +99,26 @@ export const BoosterPackage = ({ zIndex, onOpenPack }: BoosterPackageProps) => {
           width: "100%",
           height: "100%",
           opacity: 0.8,
+        }}
+      />
+      <Box
+        sx={{
+          position: "absolute",
+          width: "100%",
+          height: "90px",
+          bottom: 40,
+          background:
+            "linear-gradient(0deg,rgba(0, 0, 0, 0.3) 0%, rgba(255, 255, 255, 0) 100%)",
+        }}
+      />
+      <Box
+        sx={{
+          position: "absolute",
+          width: "100%",
+          height: "90px",
+          top: 40,
+          background:
+            "linear-gradient(185deg,rgba(255, 255, 255, 1) 0%, rgba(242, 242, 242, 0) 50%)",
         }}
       />
     </>
@@ -108,6 +133,7 @@ export const BoosterPackage = ({ zIndex, onOpenPack }: BoosterPackageProps) => {
         top: -4,
         pointerEvents: packState === "hidden" ? "none" : "auto",
         display: packState === "hidden" ? "none" : "block",
+        boxShadow: 4,
       }}
     >
       <Box
@@ -115,7 +141,7 @@ export const BoosterPackage = ({ zIndex, onOpenPack }: BoosterPackageProps) => {
         // This event fires when the pieces finish moving
         onTransitionEnd={handleTransitionEnd}
         sx={{
-          cursor: "pointer",
+          cursor: openable ? "pointer" : "auto",
           position: "relative",
           width: "350px",
           height: "540px",
@@ -126,7 +152,8 @@ export const BoosterPackage = ({ zIndex, onOpenPack }: BoosterPackageProps) => {
           opacity: packState === "hidden" ? 0 : 1,
           transition: "opacity 0.8s ease-out, transform 0.2s ease",
           "&:active": {
-            transform: packState === "closed" ? "scale(0.96)" : "none",
+            transform:
+              packState === "closed" && openable ? "scale(1.04)" : "none",
           },
         }}
       >

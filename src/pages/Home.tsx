@@ -193,7 +193,13 @@ const Home = () => {
                 justifyContent={"space-between"}
                 alignItems={"center"}
               >
-                <Box sx={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "100%",
+                  }}
+                >
                   <Box padding={2} sx={{ color: "white" }}>
                     <Typography>Today's score:</Typography>
                     <Typography>
@@ -212,7 +218,16 @@ const Home = () => {
                       </Typography>
                     </Typography>
                   </Box>
-                  <Box padding={2} sx={{ color: "white", display: "flex", gap: 0.5, alignItems: "flex-end", justifyContent: "flex-end" }}>
+                  <Box
+                    padding={2}
+                    sx={{
+                      color: "white",
+                      display: "flex",
+                      gap: 0.5,
+                      alignItems: "flex-end",
+                      justifyContent: "flex-end",
+                    }}
+                  >
                     <Typography>🪙</Typography>
                     <Typography>{userAvailableCredits}</Typography>
                   </Box>
@@ -551,8 +566,17 @@ const Home = () => {
                       </Typography>
                     </Typography>
                   </Box>
-                  <Box padding={2} sx={{ color: "white" }}>
-                    <Typography>Credits</Typography>
+                  <Box
+                    padding={2}
+                    sx={{
+                      color: "white",
+                      display: "flex",
+                      gap: 0.5,
+                      alignItems: "flex-end",
+                      justifyContent: "flex-end",
+                    }}
+                  >
+                    <Typography>🪙</Typography>
                     <Typography>{userAvailableCredits}</Typography>
                   </Box>
                 </Box>

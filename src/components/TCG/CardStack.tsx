@@ -2,17 +2,16 @@ import { Box } from "@mui/material";
 import { Rarity, TCGCard } from "./TCGCard";
 import { Character, Card } from "common/types";
 import { useEffect, useState } from "react";
-import { applyCreditsToProfile, generateCardId, getCardArt } from "./utils";
-import { CardInfoEntry } from "./CardInfoEntry";
-import { COLORS } from "styling/constants";
+import { applyCardToCollection, generateCardId, getCardArt } from "./utils";
 import { BoosterPackage } from "./BoosterPackage";
 
 interface CardStackProps {
   charData: Character[];
   amount: number;
+  openable?: boolean;
 }
 
-export const CardStack = ({ amount, charData }: CardStackProps) => {
+export const CardStack = ({ amount, charData, openable }: CardStackProps) => {
   const [cards, setCards] = useState<Card[]>([]);
   const [topCardIndex, setTopCardIndex] = useState<number>(0);
   const [packOpen, setPackOpen] = useState<boolean>(false);
@@ -67,7 +66,7 @@ export const CardStack = ({ amount, charData }: CardStackProps) => {
   function handleCardClick(index: number) {
     if (index === topCardIndex) {
       // Add to collection
-      applyCreditsToProfile(cards[topCardIndex]);
+      applyCardToCollection(cards[topCardIndex]);
       // Wait for slide animation to complete before revealing next card
       setTimeout(() => {
         if (topCardIndex < cards.length - 1) {
@@ -115,8 +114,20 @@ export const CardStack = ({ amount, charData }: CardStackProps) => {
     return rarity;
   }
   return (
-    <Box sx={{ position: "relative" }}>
-      <BoosterPackage zIndex={10} onOpenPack={() => setPackOpen(true)} />
+    <Box
+      sx={{
+        position: "relative",
+        width: "330px", // Explicit width matching card size
+        height: "550px",
+        pointerEvents: !openable ? "none" : "auto",
+        zIndex: 300,
+      }}
+    >
+      <BoosterPackage
+        zIndex={10}
+        onOpenPack={() => setPackOpen}
+        openable={openable}
+      />
 
       {cards.map((card, index) => {
         let zIndex;
@@ -132,25 +143,23 @@ export const CardStack = ({ amount, charData }: CardStackProps) => {
         }
 
         return (
-          <Box sx={{ position: "relative" }}>
-            <Box
-              sx={{
-                position: "absolute",
-                top: 0 + index * 4,
-                left: 0,
-                zIndex: zIndex,
-                pointerEvents: index === topCardIndex ? "auto" : "none",
-              }}
-              key={index}
-              onClick={() => handleCardClick(index)}
-            >
-              <TCGCard
-                slideOnClick
-                card={card}
-                visible={index === topCardIndex || index === topCardIndex + 1}
-                move={packOpen && index >= topCardIndex}
-              />
-            </Box>
+          <Box
+            sx={{
+              position: "absolute",
+              top: 0 + index * 4,
+              left: 0,
+              zIndex: zIndex,
+              pointerEvents: index === topCardIndex ? "auto" : "none",
+            }}
+            key={index}
+            onClick={() => handleCardClick(index)}
+          >
+            <TCGCard
+              slideOnClick
+              card={card}
+              visible={index === topCardIndex || index === topCardIndex + 1}
+              move={packOpen && index >= topCardIndex}
+            />
           </Box>
         );
       })}

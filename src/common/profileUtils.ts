@@ -560,6 +560,17 @@ export function applyCreditsToProfile(amount: number) {
   }
 }
 
+export function substractCreditsFromProfile(amount: number) {
+  const profile = getCurrentUserProfile();
+  if (profile) {
+    if (profile.credits) {
+      profile.credits.available -= amount;
+      profile.credits.used += amount;
+    }
+    setUserProfile(profile);
+  }
+}
+
 export function getUserAvailableCredits(): number {
   const profile = getCurrentUserProfile();
   if (profile && profile.credits) {

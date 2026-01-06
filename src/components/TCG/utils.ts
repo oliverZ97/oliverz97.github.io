@@ -34,17 +34,16 @@ export function getBackgroundColor(character: Character): string[] {
   }
   if (colors.length === 0) {
     colors.push(COLORS.cards.bg.default, lighten(COLORS.cards.bg.default, 0.3));
-
   }
   return colors;
 }
 
-
-export async function getCardArt(id: number, fileType: "webp" | "png" | "jpg" = "webp"): Promise<string> {
+export async function getCardArt(
+  id: number,
+  fileType: "webp" | "png" | "jpg" = "webp"
+): Promise<string> {
   const filename = id.toString() + "_full_art";
-  const basepath = !import.meta.env.PROD
-    ? "/src/assets/tcg/"
-    : "assets/tcg/";
+  const basepath = !import.meta.env.PROD ? "/src/assets/tcg/" : "assets/tcg/";
 
   const path = basepath + filename + "." + fileType;
 
@@ -71,15 +70,23 @@ export function generateCardId(
   const artCode = art === "full" ? "F" : "N";
   let rarityCode = "";
   switch (rarity) {
-    case "Common": rarityCode = "C"; break;
-    case "SuperRare": rarityCode = "SR"; break;
-    case "UltraRare": rarityCode = "UR"; break;
-    case "SecretRare": rarityCode = "SSR"; break;
+    case "Common":
+      rarityCode = "C";
+      break;
+    case "SuperRare":
+      rarityCode = "SR";
+      break;
+    case "UltraRare":
+      rarityCode = "UR";
+      break;
+    case "SecretRare":
+      rarityCode = "SSR";
+      break;
   }
   return `${characterId}/${rarityCode}/${artCode}`;
 }
 
-export function applyCreditsToProfile(card: Card) {
+export function applyCardToCollection(card: Card) {
   const profile = getCurrentUserProfile();
   if (profile) {
     if (profile.collection) {
@@ -87,7 +94,11 @@ export function applyCreditsToProfile(card: Card) {
       profile.collection.totalCards += 1;
       profile.collection.lastUpdated = new Date().toISOString();
     } else {
-      profile.collection = { cards: [card], totalCards: 1, lastUpdated: new Date().toISOString() };
+      profile.collection = {
+        cards: [card],
+        totalCards: 1,
+        lastUpdated: new Date().toISOString(),
+      };
     }
     setUserProfile(profile);
   }
