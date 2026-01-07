@@ -8,10 +8,20 @@ import { BoosterPackage } from "./BoosterPackage";
 interface CardStackProps {
   charData: Character[];
   amount: number;
+  packname: string;
   openable?: boolean;
+  purchased?: boolean;
+  onPackEmpty?: () => void;
 }
 
-export const CardStack = ({ amount, charData, openable }: CardStackProps) => {
+export const CardStack = ({
+  amount,
+  charData,
+  openable,
+  purchased,
+  packname,
+  onPackEmpty,
+}: CardStackProps) => {
   const [cards, setCards] = useState<Card[]>([]);
   const [topCardIndex, setTopCardIndex] = useState<number>(0);
   const [packOpen, setPackOpen] = useState<boolean>(false);
@@ -19,6 +29,7 @@ export const CardStack = ({ amount, charData, openable }: CardStackProps) => {
   const additionalSuperRare = 0.05; // 5% chance for Secret Rare or Super Rare
   const ultraRarePossibility = 0.5; // Always have Ultra Rare at the end
   const godPackPossibility = 0.02; // 2% chance for all Ultra Rares
+  const wiggleAnimation = purchased && !packOpen;
 
   useEffect(() => {
     if (cards.length === 0) {
@@ -34,8 +45,9 @@ export const CardStack = ({ amount, charData, openable }: CardStackProps) => {
     const booster: Card[] = [];
     for (let i = 0; i < amount; i++) {
       const randomIndex = Math.floor(Math.random() * charData.length);
+      //const randomIndex = 202;
       let isFullArt = Math.random() < 0.25;
-      let path = await getCardArt(charData[randomIndex].id, "jpg");
+      let path = await getCardArt(charData[randomIndex].id);
       if (path === "") {
         isFullArt = false;
       }
@@ -57,6 +69,7 @@ export const CardStack = ({ amount, charData, openable }: CardStackProps) => {
         obtainedAt: new Date().toISOString(),
         rarity: rarity,
         art: isFullArt ? "full" : "default",
+        packname: packname,
       };
       booster.push(card);
     }
@@ -71,6 +84,10 @@ export const CardStack = ({ amount, charData, openable }: CardStackProps) => {
       setTimeout(() => {
         if (topCardIndex < cards.length - 1) {
           setTopCardIndex(topCardIndex + 1);
+        } else {
+          if (onPackEmpty) {
+            onPackEmpty();
+          }
         }
       }, 1000);
     }
@@ -121,12 +138,40 @@ export const CardStack = ({ amount, charData, openable }: CardStackProps) => {
         height: "550px",
         pointerEvents: !openable ? "none" : "auto",
         zIndex: 300,
+        animation: wiggleAnimation ? "wiggle infinite 2s linear" : "none",
+        "@keyframes wiggle": {
+          "0%": {
+            transform: " rotateZ(0deg)",
+          },
+          "65%": {
+            transform: " rotateZ(0deg)",
+          },
+          "70%": {
+            transform: " rotateZ(2deg)",
+          },
+          "80%": {
+            transform: " rotateZ(-2deg)",
+          },
+          "85%": {
+            transform: " rotateZ(5deg)",
+          },
+          "90%": {
+            transform: " rotateZ(-5deg)",
+          },
+          "95%": {
+            transform: " rotateZ(2deg)",
+          },
+          "100%": {
+            transform: " rotateZ(0deg)",
+          },
+        },
       }}
     >
       <BoosterPackage
         zIndex={10}
         onOpenPack={() => setPackOpen}
         openable={openable}
+        showPointer={purchased}
       />
 
       {cards.map((card, index) => {

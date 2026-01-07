@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Divider,
+  Link,
   Tooltip,
   Typography,
   useTheme,
@@ -218,19 +219,22 @@ const Home = () => {
                       </Typography>
                     </Typography>
                   </Box>
-                  <Box
-                    padding={2}
+
+                  <Link
+                    href="/tcg"
                     sx={{
                       color: "white",
                       display: "flex",
                       gap: 0.5,
                       alignItems: "flex-end",
                       justifyContent: "flex-end",
+                      cursor: "pointer",
+                      padding: 2,
                     }}
                   >
                     <Typography>🪙</Typography>
                     <Typography>{userAvailableCredits}</Typography>
-                  </Box>
+                  </Link>
                 </Box>
               </Box>
             </Box>
@@ -568,12 +572,15 @@ const Home = () => {
                   </Box>
                   <Box
                     padding={2}
+                    component={"link"}
+                    href="/tcg"
                     sx={{
                       color: "white",
                       display: "flex",
                       gap: 0.5,
                       alignItems: "flex-end",
                       justifyContent: "flex-end",
+                      cursor: "pointer",
                     }}
                   >
                     <Typography>🪙</Typography>

@@ -82,6 +82,7 @@ export interface Card {
   rarity: Rarity;
   art: Art;
   obtainedAt: string;
+  packname: string;
 }
 
 export interface Collection {
@@ -107,7 +108,7 @@ export interface UserProfile {
     total: number;
     used: number;
     available: number;
-  }
+  };
   collection?: Collection;
 }
 

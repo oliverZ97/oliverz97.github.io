@@ -1,12 +1,13 @@
 import { Box } from "@mui/material";
 import { COLORS } from "styling/constants";
-import boosterArt from "assets/tcg/109_full_art.jpg";
+import boosterArt from "assets/tcg/109_full_art.webp";
 import { useEffect, useState } from "react";
 
 interface BoosterPackageProps {
   zIndex: number;
   onOpenPack: () => void;
   openable?: boolean;
+  showPointer?: boolean;
 }
 
 const pressurePattern =
@@ -16,6 +17,7 @@ export const BoosterPackage = ({
   zIndex,
   onOpenPack,
   openable = true,
+  showPointer,
 }: BoosterPackageProps) => {
   // States: 'closed' -> 'ripping' -> 'hidden'
   const [packState, setPackState] = useState("closed");
@@ -141,7 +143,7 @@ export const BoosterPackage = ({
         // This event fires when the pieces finish moving
         onTransitionEnd={handleTransitionEnd}
         sx={{
-          cursor: openable ? "pointer" : "auto",
+          cursor: openable || showPointer ? "pointer" : "auto",
           position: "relative",
           width: "350px",
           height: "540px",

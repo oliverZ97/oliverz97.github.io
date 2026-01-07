@@ -81,7 +81,7 @@ export const TCGCard = ({
   }
 
   useEffect(() => {
-    getCardArt(card.characterId, "jpg").then((path) => {
+    getCardArt(card.characterId).then((path) => {
       setFullArtPath(path);
     });
   }, [card.characterId]);
@@ -145,27 +145,47 @@ export const TCGCard = ({
             marginBottom: marginBottom,
             textAlign: "center",
             boxShadow: 1,
-            padding: padding,
             borderRadius: 1,
-            background: `linear-gradient(180deg,${darken(
-              backgroundColors[0],
-              0.2
-            )} 0%, ${backgroundColors[0]} 50%, ${darken(
-              backgroundColors[0],
-              0.2
-            )} 100%)`,
             width: "90%",
+            height: "40px",
+            position: "relative",
           }}
         >
-          <Typography
+          <Box
             sx={{
-              fontFamily: '"Exo 2", sans-serif',
-              fontSize: fontSize,
-              fontWeight: "bold",
+              position: "absolute",
+              width: "100%",
+              height: "100%",
+              background: `linear-gradient(180deg,${darken(
+                backgroundColors[0],
+                0.2
+              )} 0%, ${backgroundColors[0]} 50%, ${darken(
+                backgroundColors[0],
+                0.2
+              )} 100%)`,
+              opacity: useFullArt ? 0.5 : 1,
+              borderRadius: 1,
+            }}
+          />
+          <Box
+            sx={{
+              position: "absolute",
+              width: "100%",
+              height: "100%",
+              padding: padding,
+              backgroundColor: "transparent",
             }}
           >
-            {card?.character.Name}
-          </Typography>
+            <Typography
+              sx={{
+                fontFamily: '"Exo 2", sans-serif',
+                fontSize: fontSize,
+                fontWeight: "bold",
+              }}
+            >
+              {card?.character.Name}
+            </Typography>
+          </Box>
         </Box>
         <Box sx={{ position: "relative" }}>
           <CardInfoEntry

@@ -38,14 +38,11 @@ export function getBackgroundColor(character: Character): string[] {
   return colors;
 }
 
-export async function getCardArt(
-  id: number,
-  fileType: "webp" | "png" | "jpg" = "webp"
-): Promise<string> {
+export async function getCardArt(id: number): Promise<string> {
   const filename = id.toString() + "_full_art";
   const basepath = !import.meta.env.PROD ? "/src/assets/tcg/" : "assets/tcg/";
 
-  const path = basepath + filename + "." + fileType;
+  const path = basepath + filename + ".webp";
 
   // Check if the image exists
   return new Promise<string>((resolve) => {
