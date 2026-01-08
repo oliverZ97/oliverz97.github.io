@@ -14,7 +14,7 @@ export const SharpHolographicFilter = ({
     height = "450px",
     intensity = 0.5,
     enabled = true,
-    animating = false,
+    animating = true,
 }: SharpHolographicFilterProps) => {
     const [animationTime, setAnimationTime] = useState(0);
 

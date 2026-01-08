@@ -11,7 +11,8 @@ import { RadiantHolographicFilter } from "./RadiantHolographicFilter";
 import { GlitterFilter } from "./GlitterFilter";
 import { Card } from "common/types";
 
-export type Rarity = "Common" | "SuperRare" | "UltraRare" | "SecretRare";
+export const Rarities = ["Common", "SuperRare", "UltraRare", "SecretRare"] as const;
+export type Rarity = (typeof Rarities)[number]
 export type Art = "default" | "full";
 
 interface TCGCardProps {
@@ -20,6 +21,8 @@ interface TCGCardProps {
   slideOnClick?: boolean;
   move?: boolean;
   size?: "small" | "large";
+  showRarityAnimation?: boolean;
+  showInspectAnimation?: boolean;
 }
 
 export const TCGCard = ({
@@ -28,17 +31,18 @@ export const TCGCard = ({
   slideOnClick = false,
   move: inStack = false,
   size = "large",
+  showRarityAnimation = true,
+  showInspectAnimation = false,
 }: TCGCardProps) => {
   const [slideOut, setSlideOut] = useState(false);
   const [fullArtPath, setFullArtPath] = useState("");
 
-  const effectsOn = visible;
-  const inspectAnimation = inStack && !slideOut;
+  const effectsOn = visible || showRarityAnimation;
+  const inspectAnimation = (inStack && !slideOut) || showInspectAnimation;
   const showShimmer = card.rarity === "SuperRare" && effectsOn;
   const showUltraRare = card.rarity === "UltraRare" && effectsOn;
   const showHolographic = card.rarity === "SecretRare" && effectsOn;
-  const showRadiantHolo =
-    card.rarity === "UltraRare" && effectsOn && inspectAnimation;
+  const showRadiantHolo = card.rarity === "UltraRare" && effectsOn;
   const showGlitter =
     (card.rarity === "UltraRare" || card.rarity === "SecretRare") && effectsOn;
   const useFullArt = card.art === "full" && fullArtPath !== "";
@@ -108,8 +112,8 @@ export const TCGCard = ({
         animation: slideOut
           ? "slideOut 1s forwards"
           : inspectAnimation
-          ? "inspect 5s infinite ease-in-out alternate"
-          : undefined,
+            ? "inspect 5s infinite ease-in-out alternate"
+            : undefined,
         pointerEvents: slideOut ? "none" : "auto",
         "@keyframes inspect": {
           from: {
@@ -234,32 +238,35 @@ export const TCGCard = ({
             >{`HT: ${card?.character.Height ?? "???"}`}</Typography>
           </Box>
         </Box>
-        <Box sx={{ position: "absolute", left: starLeft, bottom: starBottom }}>
-          {card.rarity !== "Common" && <Star zIndex={30} size={scaleFactor} />}
-          {useFullArt && card.rarity === "Common" && (
-            <Star zIndex={30} art="full" size={scaleFactor} />
-          )}
-          {(card.rarity === "SecretRare" || card.rarity === "UltraRare") && (
-            <Star
-              art={useFullArt ? "full" : "default"}
-              zIndex={30}
-              size={scaleFactor}
-            />
-          )}
-          {card.rarity === "SecretRare" && (
-            <Star
-              zIndex={30}
-              art={useFullArt ? "full" : "default"}
-              size={scaleFactor}
-            />
-          )}
-        </Box>
-        <Box sx={{ position: "absolute", left: idLeft, bottom: idBottom }}>
-          <Typography
-            sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: idFontSize }}
-          >
-            {card.characterId}
-          </Typography>
+        <Box >
+          <Box sx={{ position: "absolute", left: starLeft, bottom: starBottom, zIndex: 20 }}>
+            {card.rarity !== "Common" && <Star zIndex={30} size={scaleFactor} />}
+            {useFullArt && card.rarity === "Common" && (
+              <Star zIndex={30} art="full" size={scaleFactor} />
+            )}
+            {(card.rarity === "SecretRare" || card.rarity === "UltraRare") && (
+              <Star
+                art={useFullArt ? "full" : "default"}
+                zIndex={30}
+                size={scaleFactor}
+              />
+            )}
+            {card.rarity === "SecretRare" && (
+              <Star
+                zIndex={30}
+                art={useFullArt ? "full" : "default"}
+                size={scaleFactor}
+              />
+            )}
+          </Box>
+          <Box sx={{ position: "absolute", left: 2, bottom: 1, width: "50px", height: "12px", backdropFilter: "blur(2px)", zIndex: 1, borderRadius: "50%" }}></Box>
+          <Box sx={{ position: "absolute", left: idLeft, bottom: idBottom, zIndex: 30 }}>
+            <Typography
+              sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: idFontSize }}
+            >
+              {card.characterId}
+            </Typography>
+          </Box>
         </Box>
       </Box>
       {showUltraRare && (
@@ -273,7 +280,7 @@ export const TCGCard = ({
             background: COLORS.cards.ultraRare,
             backgroundSize: "300% 100%",
             backgroundPosition: "0% 0%",
-            animation: "shimmer 3s infinite linear alternate",
+            animation: effectsOn ? "shimmer 3s infinite linear alternate" : "none",
             "@keyframes shimmer": {
               from: {
                 backgroundPosition: "0% 0%",
@@ -296,7 +303,7 @@ export const TCGCard = ({
             background: COLORS.cards.shimmer,
             backgroundSize: "300%",
             backgroundPositionX: "100%",
-            animation: "shimmer 2.5s infinite linear alternate",
+            animation: effectsOn ? "shimmer 2.5s infinite linear alternate" : "none",
             "@keyframes shimmer": {
               from: {
                 backgroundPosition: "0% 0%",
@@ -314,21 +321,21 @@ export const TCGCard = ({
         height={height}
         intensity={1}
         enabled={showHolographic}
-        animating={inspectAnimation}
+        animating={effectsOn}
       />
       <RadiantHolographicFilter
         width={width}
         height={height}
         intensity={0.7}
         enabled={showRadiantHolo}
-        animating={inspectAnimation}
+        animating={effectsOn}
       />
       <GlitterFilter
         width={width}
         height={height}
         intensity={0.7}
         enabled={showGlitter}
-        animating={inspectAnimation}
+        animating={effectsOn}
       />
     </Box>
   );
