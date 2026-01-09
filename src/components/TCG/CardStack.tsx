@@ -1,14 +1,20 @@
 import { Box } from "@mui/material";
 import { Rarity, TCGCard } from "./TCGCard";
-import { Character, Card } from "common/types";
+import { Character, Card, Pack } from "common/types";
 import { useEffect, useState } from "react";
-import { applyCardToCollection, generateCardId, getCardArt } from "./utils";
+import {
+  applyCardToCollection,
+  filterCharsByPack,
+  generateCardId,
+  getCardArt,
+  getCardArtSync,
+} from "./utils";
 import { BoosterPackage } from "./BoosterPackage";
 
 interface CardStackProps {
   charData: Character[];
   amount: number;
-  packname: string;
+  pack: Pack;
   openable?: boolean;
   purchased?: boolean;
   onPackEmpty?: () => void;
@@ -19,12 +25,13 @@ export const CardStack = ({
   charData,
   openable,
   purchased,
-  packname,
+  pack,
   onPackEmpty,
 }: CardStackProps) => {
   const [cards, setCards] = useState<Card[]>([]);
   const [topCardIndex, setTopCardIndex] = useState<number>(0);
   const [packOpen, setPackOpen] = useState<boolean>(false);
+  const [localCharData, setLocalCharData] = useState<Character[]>(charData);
   const secretRarePossibilty = 0.1; // 10% chance for Secret Rare
   const additionalSuperRare = 0.05; // 5% chance for Secret Rare or Super Rare
   const ultraRarePossibility = 0.5; // Always have Ultra Rare at the end
@@ -32,22 +39,38 @@ export const CardStack = ({
   const wiggleAnimation = purchased && !packOpen;
 
   useEffect(() => {
-    if (cards.length === 0) {
+    setLocalCharData(filterCharsByPack(charData, pack));
+  }, [charData, pack]);
+
+  useEffect(() => {
+    if (cards.length === 0 && openable) {
       void fillBooster();
     }
-  }, [charData, amount]);
+  }, [charData, localCharData, amount, openable]);
 
   async function fillBooster() {
     const hasSecretRare = Math.random() < secretRarePossibilty;
     const hasAdditionalSuperRare = Math.random() < additionalSuperRare;
     const hasUltraRare = Math.random() < ultraRarePossibility;
     const isGodPack = Math.random() < godPackPossibility;
+    let guaranteedInPack = false;
+
     const booster: Card[] = [];
     for (let i = 0; i < amount; i++) {
-      const randomIndex = Math.floor(Math.random() * charData.length);
-      //const randomIndex = 202;
+      let boosterCharData = charData;
+      let isFromMainAnime =
+        Math.random() < 0.3 || (i === amount - 1 && !guaranteedInPack);
+      let randomIndex;
+      if (isFromMainAnime) {
+        guaranteedInPack = true;
+        boosterCharData = localCharData;
+        randomIndex = Math.floor(Math.random() * boosterCharData.length);
+      } else {
+        randomIndex = Math.floor(Math.random() * charData.length);
+      }
+
       let isFullArt = Math.random() < 0.25;
-      let path = await getCardArt(charData[randomIndex].id);
+      let path = await getCardArt(boosterCharData[randomIndex].id);
       if (path === "") {
         isFullArt = false;
       }
@@ -59,17 +82,17 @@ export const CardStack = ({
         hasUltraRare
       );
       let card: Card = {
-        character: charData[randomIndex],
-        characterId: charData[randomIndex].id,
+        character: boosterCharData[randomIndex],
+        characterId: boosterCharData[randomIndex].id,
         cardId: generateCardId(
-          charData[randomIndex].id,
+          boosterCharData[randomIndex].id,
           rarity,
           isFullArt ? "full" : "default"
         ),
         obtainedAt: new Date().toISOString(),
         rarity: rarity,
         art: isFullArt ? "full" : "default",
-        packname: packname,
+        packId: pack.id,
       };
       booster.push(card);
     }
@@ -172,6 +195,7 @@ export const CardStack = ({
         onOpenPack={() => setPackOpen}
         openable={openable}
         showPointer={purchased}
+        coverPath={getCardArtSync(pack.coverId)}
       />
 
       {cards.map((card, index) => {

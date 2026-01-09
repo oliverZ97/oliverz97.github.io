@@ -1,17 +1,25 @@
 import { Box, Typography } from "@mui/material";
-import { Character } from "common/types";
+import { Character, Pack } from "common/types";
 import characterData from "data/character_data.json";
 import bg from "assets/bg.jpg";
 import { useEffect, useState } from "react";
 import { COLORS } from "styling/constants";
 import { getUserAvailableCredits } from "common/profileUtils";
 import { ShopEntry } from "components/TCG/ShopEntry";
+import tcg_packs from "data/tcg_packs.json";
 
 const TCG = () => {
   const [charData, setCharData] = useState<Character[]>([]);
+  const [packs, setPacks] = useState(tcg_packs as Record<string, Pack>);
   const [userAvailableCredits, setUserAvailableCredits] = useState(
     getUserAvailableCredits()
   );
+
+  console.log(packs);
+
+  useEffect(() => {
+    setPacks(tcg_packs as Record<string, Pack>);
+  }, [tcg_packs]);
 
   function updateCredits() {
     setUserAvailableCredits(getUserAvailableCredits());
@@ -64,14 +72,17 @@ const TCG = () => {
               minHeight: "700px",
             }}
           >
-            <ShopEntry
-              cardAmount={6}
-              charData={charData}
-              price={75}
-              credits={userAvailableCredits}
-              packname="Maiden's Fortune"
-              updateCredits={updateCredits}
-            />
+            {Object.values(packs).map((pack) => (
+              <ShopEntry
+                cardAmount={6}
+                charData={charData}
+                price={pack.price}
+                credits={userAvailableCredits}
+                pack={pack}
+                key={pack.id}
+                updateCredits={updateCredits}
+              />
+            ))}
           </Box>
         )}
       </Box>

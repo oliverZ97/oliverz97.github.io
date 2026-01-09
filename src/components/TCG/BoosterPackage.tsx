@@ -8,6 +8,7 @@ interface BoosterPackageProps {
   onOpenPack: () => void;
   openable?: boolean;
   showPointer?: boolean;
+  coverPath: string;
 }
 
 const pressurePattern =
@@ -18,6 +19,7 @@ export const BoosterPackage = ({
   onOpenPack,
   openable = true,
   showPointer,
+  coverPath,
 }: BoosterPackageProps) => {
   // States: 'closed' -> 'ripping' -> 'hidden'
   const [packState, setPackState] = useState("closed");
@@ -54,16 +56,18 @@ export const BoosterPackage = ({
 
   const CardLayers = (
     <>
-      <Box
-        sx={{
-          position: "absolute",
-          backgroundImage: `url(${boosterArt})`,
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-          width: "100%",
-          height: "100%",
-        }}
-      />
+      {coverPath && (
+        <Box
+          sx={{
+            position: "absolute",
+            backgroundImage: `url(${coverPath})`,
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+            width: "100%",
+            height: "100%",
+          }}
+        />
+      )}
       <Box
         sx={{
           position: "absolute",

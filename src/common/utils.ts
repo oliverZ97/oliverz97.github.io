@@ -26,8 +26,8 @@ export function getRandomNumberFromUTCDate(
   const utcDate = date
     ? cleanUTCDate(date)
     : isPrevious
-      ? getYesterdayUTCDate()
-      : getDailyUTCDate();
+    ? getYesterdayUTCDate()
+    : getDailyUTCDate();
   const dailyTimestamp = utcDate.getTime();
   const yearMonth = utcDate.getUTCFullYear() * 100 + utcDate.getUTCMonth();
 
@@ -256,7 +256,7 @@ export function getRandomCharacter(
   if (
     isPrevious &&
     currentVersion.date.split("T")[0] ===
-    getYesterdayUTCDate().toISOString().split("T")[0]
+      getYesterdayUTCDate().toISOString().split("T")[0]
   ) {
     currentVersion = getPreLatestVersion();
   }
@@ -304,7 +304,7 @@ export function getRandomAnime(
   if (
     isPrevious &&
     currentVersion.date.split("T")[0] ===
-    getYesterdayUTCDate().toISOString().split("T")[0]
+      getYesterdayUTCDate().toISOString().split("T")[0]
   ) {
     currentVersion = getPreLatestVersion();
   }

@@ -82,13 +82,21 @@ export interface Card {
   rarity: Rarity;
   art: Art;
   obtainedAt: string;
-  packname: string;
+  packId: number;
 }
 
 export interface Collection {
   cards: Card[];
   lastUpdated: string;
   totalCards: number;
+}
+
+export interface Pack {
+  id: number;
+  packname: string;
+  mainAnime: number[];
+  price: number;
+  coverId: number;
 }
 
 export interface UserProfile {

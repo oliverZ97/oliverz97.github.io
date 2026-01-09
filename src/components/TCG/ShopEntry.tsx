@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { CardStack } from "./CardStack";
-import { Character } from "common/types";
+import { Character, Pack } from "common/types";
 import { substractCreditsFromProfile } from "common/profileUtils";
 import { useState } from "react";
 
@@ -15,7 +15,7 @@ interface ShopEntryProps {
   charData: Character[];
   cardAmount: number;
   price: number;
-  packname: string;
+  pack: Pack;
   credits: number;
   updateCredits: () => void;
 }
@@ -24,7 +24,7 @@ export const ShopEntry = ({
   charData,
   cardAmount,
   price,
-  packname,
+  pack,
   credits,
   updateCredits,
 }: ShopEntryProps) => {
@@ -58,12 +58,12 @@ export const ShopEntry = ({
             amount={cardAmount}
             charData={charData}
             openable={false}
-            packname={packname}
+            pack={pack}
             purchased={purchased}
           />
         </Box>
         <Typography sx={{ color: "white", fontSize: "20px" }}>
-          {packname}
+          {pack.packname}
         </Typography>
         <Divider sx={{ marginY: 2, backgroundColor: "white" }} flexItem />
         <Button
@@ -85,12 +85,12 @@ export const ShopEntry = ({
           },
         }}
       >
-        <DialogContent>
+        <DialogContent sx={{ overflow: "hidden" }}>
           <CardStack
             amount={cardAmount}
             charData={charData}
             openable={true}
-            packname={packname}
+            pack={pack}
             onPackEmpty={() => {
               setShowOpenPackOverlay(false);
               setPurchased(false);

@@ -18,7 +18,7 @@ export const COLORS = {
     warning_light: "#ffedbd",
     correct: "#a5be00",
     primary_text: "#fff",
-    background: "#202020ff",
+    background: "#163458ff",
     light: "#90d0f0",
     hearts: "#d6477b",
     disabled: "#ccc8c9",

@@ -1,7 +1,7 @@
 import { alpha, darken, lighten } from "@mui/material";
 import { setUserProfile } from "common/profileUtils";
 import { getCurrentUserProfile } from "common/profileUtils";
-import { Card, Character } from "common/types";
+import { Card, Character, Pack } from "common/types";
 import { COLORS } from "styling/constants";
 
 export function getBackgroundColor(character: Character): string[] {
@@ -53,6 +53,14 @@ export async function getCardArt(id: number): Promise<string> {
   });
 }
 
+export function getCardArtSync(id: number): string {
+  const filename = id.toString() + "_full_art";
+  const basepath = !import.meta.env.PROD ? "/src/assets/tcg/" : "assets/tcg/";
+
+  const path = basepath + filename + ".webp";
+  return path;
+}
+
 /*
 XXX - characterId
 R - Rarity (C, SR, UR, SSR)
@@ -99,4 +107,11 @@ export function applyCardToCollection(card: Card) {
     }
     setUserProfile(profile);
   }
+}
+
+export function filterCharsByPack(
+  charData: Character[],
+  pack: Pack
+): Character[] {
+  return charData.filter((char) => pack.mainAnime.includes(char.Anime_Id));
 }
