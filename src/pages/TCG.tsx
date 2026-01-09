@@ -15,8 +15,6 @@ const TCG = () => {
     getUserAvailableCredits()
   );
 
-  console.log(packs);
-
   useEffect(() => {
     setPacks(tcg_packs as Record<string, Pack>);
   }, [tcg_packs]);

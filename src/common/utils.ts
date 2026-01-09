@@ -26,8 +26,8 @@ export function getRandomNumberFromUTCDate(
   const utcDate = date
     ? cleanUTCDate(date)
     : isPrevious
-    ? getYesterdayUTCDate()
-    : getDailyUTCDate();
+      ? getYesterdayUTCDate()
+      : getDailyUTCDate();
   const dailyTimestamp = utcDate.getTime();
   const yearMonth = utcDate.getUTCFullYear() * 100 + utcDate.getUTCMonth();
 
@@ -256,7 +256,7 @@ export function getRandomCharacter(
   if (
     isPrevious &&
     currentVersion.date.split("T")[0] ===
-      getYesterdayUTCDate().toISOString().split("T")[0]
+    getYesterdayUTCDate().toISOString().split("T")[0]
   ) {
     currentVersion = getPreLatestVersion();
   }
@@ -304,7 +304,7 @@ export function getRandomAnime(
   if (
     isPrevious &&
     currentVersion.date.split("T")[0] ===
-      getYesterdayUTCDate().toISOString().split("T")[0]
+    getYesterdayUTCDate().toISOString().split("T")[0]
   ) {
     currentVersion = getPreLatestVersion();
   }
@@ -545,4 +545,36 @@ export function combineCalendarData(
   });
 
   return combined;
+}
+
+export function createAnimeListFromCharData(charData: Character[]) {
+  // Create a map to track anime entries with lowest version numbers
+  const animeMap = new Map();
+
+  // First pass: populate the map with anime entries
+  charData.forEach((item: Character) => {
+    const animeEntry = {
+      id: item.Anime_Id,
+      Name: item.Anime,
+      First_Release_Year: item.First_Release_Year,
+      Studio: item.Studio,
+      Genre: item.Genre,
+      Subgenre1: item.Subgenre1,
+      Subgenre2: item.Subgenre2,
+      Tags: item.Tags,
+      Version: item.Version,
+    };
+
+    // If this anime isn't in the map yet or has a lower version number, update the map
+    if (
+      !animeMap.has(item.Anime) ||
+      item.Version < animeMap.get(item.Anime).Version
+    ) {
+      animeMap.set(item.Anime, { ...animeEntry });
+    }
+  });
+
+  // Convert map values to array
+  const localAnimeData = Array.from(animeMap.values());
+  return localAnimeData;
 }

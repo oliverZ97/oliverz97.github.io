@@ -37,7 +37,7 @@ export const TCGCard = ({
   const [slideOut, setSlideOut] = useState(false);
   const [fullArtPath, setFullArtPath] = useState("");
 
-  const effectsOn = visible || showRarityAnimation;
+  const effectsOn = showRarityAnimation || (visible && showRarityAnimation);
   const inspectAnimation = (inStack && !slideOut) || showInspectAnimation;
   const showShimmer = card.rarity === "SuperRare" && effectsOn;
   const showUltraRare = card.rarity === "UltraRare" && effectsOn;
@@ -178,6 +178,7 @@ export const TCGCard = ({
               height: "100%",
               padding: padding,
               backgroundColor: "transparent",
+              top: size === "small" ? "6.5px" : "0"
             }}
           >
             <Typography

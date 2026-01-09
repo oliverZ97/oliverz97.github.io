@@ -25,6 +25,7 @@ import { KissMarryKill } from "components/KissMarryKill/KissMarryKill";
 import { AnimeIndex } from "components/AnimeIndex";
 import { AnimeQuiz } from "components/AnimeQuiz/AnimeQuiz";
 import {
+  createAnimeListFromCharData,
   formatScoresForCalendar,
   getCharacterBirthdaysAsCalendarData,
   getDailyScore,
@@ -41,7 +42,6 @@ import { Avatar } from "components/Profile/Avatar";
 import { HigherLower } from "components/HigherLower";
 import { Snowfall } from "components/Snowfall";
 import { getUserAvailableCredits } from "common/profileUtils";
-import { set } from "react-hook-form";
 
 export interface Score {
   points: number;
@@ -71,34 +71,7 @@ const Home = () => {
       ] as Character[]);
     }
     if (charData && animeData.length === 0) {
-      // Create a map to track anime entries with lowest version numbers
-      const animeMap = new Map();
-
-      // First pass: populate the map with anime entries
-      charData.forEach((item: Character) => {
-        const animeEntry = {
-          id: item.Anime_Id,
-          Name: item.Anime,
-          First_Release_Year: item.First_Release_Year,
-          Studio: item.Studio,
-          Genre: item.Genre,
-          Subgenre1: item.Subgenre1,
-          Subgenre2: item.Subgenre2,
-          Tags: item.Tags,
-          Version: item.Version,
-        };
-
-        // If this anime isn't in the map yet or has a lower version number, update the map
-        if (
-          !animeMap.has(item.Anime) ||
-          item.Version < animeMap.get(item.Anime).Version
-        ) {
-          animeMap.set(item.Anime, { ...animeEntry });
-        }
-      });
-
-      // Convert map values to array
-      const localAnimeData = Array.from(animeMap.values());
+      const localAnimeData = createAnimeListFromCharData(charData)
 
       setAnimeData(
         localAnimeData.sort((a, b) => (a.Name < b.Name ? -1 : 1)) as Anime[]
