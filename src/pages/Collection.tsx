@@ -9,6 +9,8 @@ import characterData from "data/character_data.json";
 import { createAnimeListFromCharData } from "common/utils";
 import ClearIcon from '@mui/icons-material/Clear';
 import tcg_packs from "data/tcg_packs.json";
+import HomeIcon from '@mui/icons-material/Home';
+import { Link } from "react-router-dom";
 
 const Collection = () => {
   const [collection, setCollection] = useState<CollectionType | null>(null);
@@ -125,6 +127,7 @@ const Collection = () => {
     >
       <Box sx={{ position: "absolute", width: "95%", height: "100%", backgroundColor: "white", opacity: 0.3, backdropFilter: "blur(2px)" }} />
       <Box sx={{ position: "sticky", top: 0, zIndex: 1000, width: "100%", height: "80px", backgroundColor: COLORS.quiz.background, display: "flex", alignItems: "center", paddingX: 2, gap: 2 }}>
+        <IconButton><Link to={"/"}><HomeIcon sx={{ color: "white" }} /></Link></IconButton>
         <TextField
           fullWidth
           variant="outlined"
