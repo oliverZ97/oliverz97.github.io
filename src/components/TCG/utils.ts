@@ -1,8 +1,9 @@
-import { alpha, darken, lighten } from "@mui/material";
+import { lighten } from "@mui/material";
 import { setUserProfile } from "common/profileUtils";
 import { getCurrentUserProfile } from "common/profileUtils";
 import { Card, Character, Pack } from "common/types";
 import { COLORS } from "styling/constants";
+import tcg_packs from "data/tcg_packs.json";
 
 export function getBackgroundColor(character: Character): string[] {
   const charGenres = character.Genre.split(" ");
@@ -114,4 +115,9 @@ export function filterCharsByPack(
   pack: Pack
 ): Character[] {
   return charData.filter((char) => pack.mainAnime.includes(char.Anime_Id));
+}
+
+export function getPackByPackId(id: number) {
+  const packs: Record<string, Pack> = tcg_packs;
+  return packs[id]
 }

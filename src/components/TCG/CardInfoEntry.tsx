@@ -50,7 +50,7 @@ export const CardInfoEntry = ({ card, text, isFullArt, size = 1 }: CardInfoEntry
             0.3
           )} 100%)`,
           position: "absolute",
-          width: "100%",
+          minWidth: "100%",
           height: "100%",
           borderRadius: borderRadius,
           zIndex: -1,

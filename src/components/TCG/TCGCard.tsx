@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { COLORS } from "styling/constants";
 import { TCG_CARD_BASE } from "./constants";
 import { Star } from "./Star";
-import { getBackgroundColor, getCardArt } from "./utils";
+import { getBackgroundColor, getCardArt, getPackByPackId } from "./utils";
 import { CardInfoEntry } from "./CardInfoEntry";
 import { SharpHolographicFilter } from "./SharpHolographicFilter";
 import { RadiantHolographicFilter } from "./RadiantHolographicFilter";
@@ -104,10 +104,12 @@ export const TCGCard = ({
         borderWidth: borderWidth,
         borderStyle: "solid",
         boxShadow: 2,
+        background: useFullArt ? backgroundColors[1] : undefined,
         backgroundImage: useFullArt
           ? `url(${fullArtPath})`
           : `linear-gradient(230deg,${backgroundColors[0]} 29%, ${backgroundColors[1]} 100%)`,
         backgroundSize: "cover",
+        backgroundPosition: "center",
         position: "relative",
         animation: slideOut
           ? "slideOut 1s forwards"
@@ -260,13 +262,25 @@ export const TCGCard = ({
               />
             )}
           </Box>
-          <Box sx={{ position: "absolute", left: 2, bottom: 1, width: "50px", height: "12px", backdropFilter: "blur(2px)", zIndex: 1, borderRadius: "50%" }}></Box>
-          <Box sx={{ position: "absolute", left: idLeft, bottom: idBottom, zIndex: 30 }}>
-            <Typography
-              sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: idFontSize }}
-            >
-              {card.characterId}
-            </Typography>
+          <Box>
+            <Box sx={{ position: "absolute", left: 2, bottom: 1, width: "50px", height: "12px", backdropFilter: "blur(2px)", zIndex: 1, borderRadius: "50%" }}></Box>
+            <Box sx={{ position: "absolute", left: idLeft, bottom: idBottom, zIndex: 30 }}>
+              <Typography
+                sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: idFontSize }}
+              >
+                {card.characterId}
+              </Typography>
+            </Box>
+          </Box>
+          <Box>
+            <Box sx={{ position: "absolute", right: 2, bottom: 1, width: "50px", height: "12px", backdropFilter: "blur(2px)", zIndex: 1, borderRadius: "50%" }}></Box>
+            <Box sx={{ position: "absolute", right: idLeft, bottom: idBottom, zIndex: 30 }}>
+              <Typography
+                sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: idFontSize }}
+              >
+                {getPackByPackId(card.packId).tag}
+              </Typography>
+            </Box>
           </Box>
         </Box>
       </Box>

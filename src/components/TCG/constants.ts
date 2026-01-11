@@ -55,5 +55,5 @@ export const CARD_INFO_ENTRY_BASE = {
     PADDING_X: 2 * 8, // Convert to px
     FONT_SIZE_NORMAL: 18,
     FONT_SIZE_LONG: 14,
-    LONG_TEXT_THRESHOLD: 35,
+    LONG_TEXT_THRESHOLD: 30,
 } as const;

@@ -34,7 +34,7 @@ const Sandbox = () => {
         rarity,
         art,
         obtainedAt: new Date().toISOString(),
-        packname: "sandbox pack",
+        packId: 99999,
       };
       setCard(card);
     }

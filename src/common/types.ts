@@ -93,6 +93,7 @@ export interface Collection {
 
 export interface Pack {
   id: number;
+  tag: string;
   packname: string;
   mainAnime: number[];
   price: number;
