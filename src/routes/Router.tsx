@@ -5,6 +5,7 @@ import { Box, Typography, Link, Avatar, CssBaseline } from "@mui/material";
 
 const Home = lazy(() => import("pages/Home"));
 const PageNotFound = lazy(() => import("pages/PageNotFound"));
+const KeepOrPass = lazy(() => import("pages/KeepOrPass"));
 
 interface Routes {
   path: string;
@@ -30,9 +31,9 @@ const getRouteElement = (
 ): React.ReactNode => (
   <Suspense>
     <CssBaseline></CssBaseline>
-        <Box sx={{height: "100vh"}}>
-          <Component />
-        </Box>
+    <Box sx={{ height: "100vh" }}>
+      <Component />
+    </Box>
   </Suspense>
 );
 
@@ -42,6 +43,7 @@ const routes: Routes[] = [
     path: paths.NOT_FOUND,
     element: getRouteElement(PageNotFound, paths.NOT_FOUND),
   },
+  { path: paths.KEEPORPASS, element: getRouteElement(KeepOrPass, paths.KEEPORPASS) },
 ];
 
 export default createBrowserRouter(routes);
