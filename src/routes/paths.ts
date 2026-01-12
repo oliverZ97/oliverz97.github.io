@@ -5,4 +5,5 @@ interface Paths {
 export default {
   HOME: "/",
   NOT_FOUND: "*",
+  KEEPORPASS: "keep-or-pass"
 } as Paths;
