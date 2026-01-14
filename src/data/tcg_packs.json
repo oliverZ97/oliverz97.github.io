@@ -15,6 +15,22 @@
     "price": 75,
     "coverId": 97
   },
+  "3": {
+    "id": 3,
+    "tag": "MYD",
+    "packname": "Mysteries in the Dark",
+    "mainAnime": [3, 11, 31, 32, 40],
+    "price": 350,
+    "coverId": 188,
+    "config": {
+      "secretRarePossibility": 0.1,
+      "additionalSuperRare": 0.05,
+      "ultraRarePossibility": 0.5,
+      "godPackPossibility": 0.5,
+      "mainCastChance": 1,
+      "secretRareOnly": true
+    }
+  },
   "99999": {
     "id": 99999,
     "tag": "SDX",

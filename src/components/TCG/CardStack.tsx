@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { Rarity, TCGCard } from "./TCGCard";
-import { Character, Card, Pack } from "common/types";
+import { Character, Card, Pack, defaultPackConfig } from "common/types";
 import { useEffect, useState } from "react";
 import {
   applyCardToCollection,
@@ -32,10 +32,15 @@ export const CardStack = ({
   const [topCardIndex, setTopCardIndex] = useState<number>(0);
   const [packOpen, setPackOpen] = useState<boolean>(false);
   const [localCharData, setLocalCharData] = useState<Character[]>(charData);
-  const secretRarePossibilty = 0.1; // 10% chance for Secret Rare
-  const additionalSuperRare = 0.05; // 5% chance for Secret Rare or Super Rare
-  const ultraRarePossibility = 0.5; // Always have Ultra Rare at the end
-  const godPackPossibility = 0.02; // 2% chance for all Ultra Rares
+  const {
+    secretRarePossibilty,
+    additionalSuperRare,
+    ultraRarePossibility,
+    godPackPossibility,
+    mainCastChance,
+    secretRareOnly,
+    ultraRareOnly,
+  } = pack.config || defaultPackConfig;
   const wiggleAnimation = purchased && !packOpen;
 
   useEffect(() => {
@@ -49,17 +54,18 @@ export const CardStack = ({
   }, [charData, localCharData, amount, openable]);
 
   async function fillBooster() {
-    const hasSecretRare = Math.random() < secretRarePossibilty;
-    const hasAdditionalSuperRare = Math.random() < additionalSuperRare;
-    const hasUltraRare = Math.random() < ultraRarePossibility;
-    const isGodPack = Math.random() < godPackPossibility;
+    const hasSecretRare = Math.random() <= secretRarePossibilty;
+    const hasAdditionalSuperRare = Math.random() <= additionalSuperRare;
+    const hasUltraRare = Math.random() <= ultraRarePossibility;
+    const isGodPack = Math.random() <= godPackPossibility;
     let guaranteedInPack = false;
 
     const booster: Card[] = [];
     for (let i = 0; i < amount; i++) {
       let boosterCharData = charData;
       let isFromMainAnime =
-        Math.random() < 0.3 || (i === amount - 1 && !guaranteedInPack);
+        Math.random() < mainCastChance ||
+        (i === amount - 1 && !guaranteedInPack);
       let randomIndex;
       if (isFromMainAnime) {
         guaranteedInPack = true;
@@ -79,7 +85,9 @@ export const CardStack = ({
         isGodPack,
         hasSecretRare,
         hasAdditionalSuperRare,
-        hasUltraRare
+        hasUltraRare,
+        ultraRareOnly,
+        secretRareOnly
       );
       let card: Card = {
         character: boosterCharData[randomIndex],
@@ -120,11 +128,19 @@ export const CardStack = ({
     isGodPack: boolean,
     hasSecretRare: boolean,
     hasAdditionalSuperRare: boolean,
-    hasUltraRare: boolean
+    hasUltraRare: boolean,
+    ultraRareOnly?: boolean,
+    secretRareOnly?: boolean
   ): Rarity {
     let rarity: Rarity = "Common";
 
     if (isGodPack) {
+      if (ultraRareOnly) {
+        return "UltraRare";
+      }
+      if (secretRareOnly) {
+        return "SecretRare";
+      }
       let rdm = Math.random();
       if (rdm < 0.5) {
         rarity = "SecretRare";
