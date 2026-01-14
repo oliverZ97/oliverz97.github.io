@@ -3,12 +3,7 @@
     "id": 1,
     "tag": "MDF",
     "packname": "Maiden's Fortune",
-    "mainAnime": [
-      13,
-      18,
-      43,
-      54
-    ],
+    "mainAnime": [13, 18, 43, 54],
     "price": 75,
     "coverId": 109
   },
@@ -16,12 +11,7 @@
     "id": 2,
     "tag": "DRI",
     "packname": "Dream of an Idol",
-    "mainAnime": [
-      16,
-      22,
-      27,
-      28
-    ],
+    "mainAnime": [16, 22, 27, 28],
     "price": 75,
     "coverId": 97
   },
@@ -31,6 +21,7 @@
     "packname": "Sandbox",
     "mainAnime": [],
     "price": 75,
-    "coverId": 97
+    "coverId": 97,
+    "visible": false
   }
 }

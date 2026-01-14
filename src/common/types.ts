@@ -98,6 +98,7 @@ export interface Pack {
   mainAnime: number[];
   price: number;
   coverId: number;
+  visible?: boolean;
 }
 
 export interface UserProfile {

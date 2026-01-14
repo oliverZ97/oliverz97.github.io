@@ -42,6 +42,8 @@ import { Avatar } from "components/Profile/Avatar";
 import { HigherLower } from "components/HigherLower";
 import { Snowfall } from "components/Snowfall";
 import { getUserAvailableCredits } from "common/profileUtils";
+import StorefrontIcon from "@mui/icons-material/Storefront";
+import AutoAwesomeMotionIcon from "@mui/icons-material/AutoAwesomeMotion";
 
 export interface Score {
   points: number;
@@ -71,7 +73,7 @@ const Home = () => {
       ] as Character[]);
     }
     if (charData && animeData.length === 0) {
-      const localAnimeData = createAnimeListFromCharData(charData)
+      const localAnimeData = createAnimeListFromCharData(charData);
 
       setAnimeData(
         localAnimeData.sort((a, b) => (a.Name < b.Name ? -1 : 1)) as Anime[]
@@ -213,11 +215,81 @@ const Home = () => {
             </Box>
           </DrawerBasic>
 
-          <Tooltip title={"How to play"} arrow placement="right">
+          <Tooltip title={"TCG Shop"} arrow placement="right">
             <Box
               sx={{
                 position: "absolute",
                 top: "200px",
+                left: 0,
+                zIndex: 1000,
+              }}
+            >
+              <Link href="/tcg">
+                <Box
+                  sx={{
+                    width: "68px",
+                    backgroundColor: COLORS.quiz.secondary,
+                    color: "white",
+                    borderColor: "transparent",
+                    height: "60px",
+                    borderTopRightRadius: 4,
+                    borderBottomRightRadius: 4,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    cursor: "pointer",
+                    "&:hover": {
+                      backgroundColor: COLORS.quiz.main,
+                      borderColor: "transparent",
+                    },
+                  }}
+                >
+                  <StorefrontIcon fontSize="large" />
+                </Box>
+              </Link>
+            </Box>
+          </Tooltip>
+
+          <Tooltip title={"My Collection"} arrow placement="right">
+            <Box
+              sx={{
+                position: "absolute",
+                top: "280px",
+                left: 0,
+                zIndex: 1000,
+              }}
+            >
+              <Link href="/collection">
+                <Box
+                  sx={{
+                    width: "68px",
+                    backgroundColor: COLORS.quiz.secondary,
+                    color: "white",
+                    borderColor: "transparent",
+                    height: "60px",
+                    borderTopRightRadius: 4,
+                    borderBottomRightRadius: 4,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    cursor: "pointer",
+                    "&:hover": {
+                      backgroundColor: COLORS.quiz.main,
+                      borderColor: "transparent",
+                    },
+                  }}
+                >
+                  <AutoAwesomeMotionIcon fontSize="large" />
+                </Box>
+              </Link>
+            </Box>
+          </Tooltip>
+
+          <Tooltip title={"How to play"} arrow placement="right">
+            <Box
+              sx={{
+                position: "absolute",
+                top: "520px",
                 left: 0,
                 zIndex: 1000,
               }}
@@ -249,7 +321,7 @@ const Home = () => {
             <Box
               sx={{
                 position: "absolute",
-                top: "280px",
+                top: "360px",
                 left: 0,
                 zIndex: 1000,
               }}
@@ -280,7 +352,7 @@ const Home = () => {
             <Box
               sx={{
                 position: "absolute",
-                top: "360px",
+                top: "440px",
                 left: 0,
                 zIndex: 1000,
               }}
