@@ -71,13 +71,20 @@ XXX/R/AAA
 export function generateCardId(
   characterId: number,
   rarity: string,
-  art: string
+  art: string,
+  packId: string
 ): string {
   const artCode = art === "full" ? "F" : "N";
   let rarityCode = "";
   switch (rarity) {
     case "Common":
       rarityCode = "C";
+      break;
+    case "Uncommon":
+      rarityCode = "U";
+      break;
+    case "Rare":
+      rarityCode = "R";
       break;
     case "SuperRare":
       rarityCode = "SR";
@@ -89,7 +96,7 @@ export function generateCardId(
       rarityCode = "SSR";
       break;
   }
-  return `${characterId}/${rarityCode}/${artCode}`;
+  return `${packId}-${characterId}-${rarityCode}-${artCode}`;
 }
 
 export function applyCardToCollection(card: Card) {

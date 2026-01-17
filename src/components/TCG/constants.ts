@@ -30,7 +30,7 @@ export const TCG_CARD_BASE = {
     INFO_FONT_SIZE: 10,
 
     // Star positioning
-    STAR_LEFT: 17,
+    STAR_LEFT: 2,
     STAR_SIZE: 10,
     STAR_STROKE_WIDTH: 1.5,
 

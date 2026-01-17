@@ -11,7 +11,7 @@ import { RadiantHolographicFilter } from "./RadiantHolographicFilter";
 import { GlitterFilter } from "./GlitterFilter";
 import { Card } from "common/types";
 
-export const Rarities = ["Common", "SuperRare", "UltraRare", "SecretRare"] as const;
+export const Rarities = ["Common", "Uncommon", "Rare", "SuperRare", "UltraRare", "SecretRare"] as const;
 export type Rarity = (typeof Rarities)[number]
 export type Art = "default" | "full";
 
@@ -243,7 +243,9 @@ export const TCGCard = ({
         </Box>
         <Box >
           <Box sx={{ position: "absolute", left: starLeft, bottom: starBottom, zIndex: 20 }}>
-            {card.rarity !== "Common" && <Star zIndex={30} size={scaleFactor} />}
+            {!useFullArt && card.rarity === "Common" && <Box sx={{ width: "7px", height: "7px", backgroundColor: COLORS.cards.rare, position: "absolute", top: "-14px", left: 2, zIndex: 100, border: "1px solid black", borderRadius: "50%" }} />}
+            {card.rarity === "Uncommon" && <Box sx={{ width: "6px", height: "6px", backgroundColor: COLORS.cards.rare, position: "absolute", top: "-14px", left: 2, zIndex: 100, border: "1px solid black", transform: "rotate(45deg)" }} />}
+            {(card.rarity !== "Common" && card.rarity !== "Uncommon") && <Star zIndex={30} size={scaleFactor} />}
             {useFullArt && card.rarity === "Common" && (
               <Star zIndex={30} art="full" size={scaleFactor} />
             )}
@@ -262,23 +264,14 @@ export const TCGCard = ({
               />
             )}
           </Box>
-          <Box>
-            <Box sx={{ position: "absolute", left: 2, bottom: 1, width: "50px", height: "12px", backdropFilter: "blur(2px)", zIndex: 1, borderRadius: "50%" }}></Box>
-            <Box sx={{ position: "absolute", left: idLeft, bottom: idBottom, zIndex: 30 }}>
-              <Typography
-                sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: idFontSize }}
-              >
-                {card.characterId}
-              </Typography>
-            </Box>
-          </Box>
+
           <Box>
             <Box sx={{ position: "absolute", right: 2, bottom: 1, width: "50px", height: "12px", backdropFilter: "blur(2px)", zIndex: 1, borderRadius: "50%" }}></Box>
             <Box sx={{ position: "absolute", right: idLeft, bottom: idBottom, zIndex: 30 }}>
               <Typography
                 sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: idFontSize }}
               >
-                {getPackByPackId(card.packId).tag}
+                {card.cardId}
               </Typography>
             </Box>
           </Box>

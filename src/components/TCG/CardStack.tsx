@@ -38,6 +38,8 @@ export const CardStack = ({
     ultraRarePossibility,
     godPackPossibility,
     mainCastChance,
+    uncommonChance,
+    rareChance,
     secretRareOnly,
     ultraRareOnly,
   } = pack.config || defaultPackConfig;
@@ -53,27 +55,45 @@ export const CardStack = ({
     }
   }, [charData, localCharData, amount, openable]);
 
+  //Common -> C
+  //Uncommon -> B
+  //Rare -> A
+  function filterCharsByRarity(charData: Character[], rarity: Rarity) {
+    return charData.filter((char) => {
+      if (rarity === "Common") {
+        return char.Difficulty === "C"
+      } else if (rarity === "Uncommon") {
+        return char.Difficulty === "B"
+      } else if (rarity === "Rare") {
+        return char.Difficulty === "A"
+      }
+    })
+  }
+
   async function fillBooster() {
-    const hasSecretRare = Math.random() <= secretRarePossibilty;
-    const hasAdditionalSuperRare = Math.random() <= additionalSuperRare;
-    const hasUltraRare = Math.random() <= ultraRarePossibility;
-    const isGodPack = Math.random() <= godPackPossibility;
+    const hasSecretRare = Math.random() <= (secretRarePossibilty || defaultPackConfig.secretRarePossibilty!);
+    const hasAdditionalSuperRare = Math.random() <= (additionalSuperRare || defaultPackConfig.additionalSuperRare!);
+    const hasUltraRare = Math.random() <= (ultraRarePossibility || defaultPackConfig.ultraRarePossibility!);
+    const isGodPack = Math.random() <= (godPackPossibility || defaultPackConfig.godPackPossibility!);
+
     let guaranteedInPack = false;
 
     const booster: Card[] = [];
     for (let i = 0; i < amount; i++) {
+      const isUncommon = Math.random() <= (uncommonChance || defaultPackConfig.uncommonChance!);
+      const isRare = Math.random() <= (rareChance || defaultPackConfig.rareChance!);
       let boosterCharData = charData;
       let isFromMainAnime =
-        Math.random() < mainCastChance ||
+        Math.random() < (mainCastChance || defaultPackConfig.mainCastChance!) ||
         (i === amount - 1 && !guaranteedInPack);
       let randomIndex;
+      let startRarity: Rarity = isRare ? "Rare" : isUncommon && !isRare ? "Uncommon" : "Common"
       if (isFromMainAnime) {
         guaranteedInPack = true;
         boosterCharData = localCharData;
-        randomIndex = Math.floor(Math.random() * boosterCharData.length);
-      } else {
-        randomIndex = Math.floor(Math.random() * charData.length);
       }
+      boosterCharData = filterCharsByRarity(boosterCharData, startRarity)
+      randomIndex = Math.floor(Math.random() * boosterCharData.length);
 
       let isFullArt = Math.random() < 0.25;
       let path = await getCardArt(boosterCharData[randomIndex].id);
@@ -82,6 +102,7 @@ export const CardStack = ({
       }
       let rarity = getCardRarity(
         i,
+        startRarity,
         isGodPack,
         hasSecretRare,
         hasAdditionalSuperRare,
@@ -95,7 +116,8 @@ export const CardStack = ({
         cardId: generateCardId(
           boosterCharData[randomIndex].id,
           rarity,
-          isFullArt ? "full" : "default"
+          isFullArt ? "full" : "default",
+          pack.tag
         ),
         obtainedAt: new Date().toISOString(),
         rarity: rarity,
@@ -125,6 +147,7 @@ export const CardStack = ({
   }
   function getCardRarity(
     i: number,
+    startRarity: Rarity,
     isGodPack: boolean,
     hasSecretRare: boolean,
     hasAdditionalSuperRare: boolean,
@@ -132,7 +155,7 @@ export const CardStack = ({
     ultraRareOnly?: boolean,
     secretRareOnly?: boolean
   ): Rarity {
-    let rarity: Rarity = "Common";
+    let rarity: Rarity = startRarity;
 
     if (isGodPack) {
       if (ultraRareOnly) {

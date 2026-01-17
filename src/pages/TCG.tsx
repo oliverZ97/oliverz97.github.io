@@ -8,6 +8,8 @@ import { getUserAvailableCredits } from "common/profileUtils";
 import { ShopEntry } from "components/TCG/ShopEntry";
 import tcg_packs from "data/tcg_packs.json";
 import HomeIcon from "@mui/icons-material/Home";
+import AutoAwesomeMotionIcon from "@mui/icons-material/AutoAwesomeMotion";
+
 
 const TCG = () => {
   const [charData, setCharData] = useState<Character[]>([]);
@@ -78,6 +80,40 @@ const TCG = () => {
               }}
             >
               <HomeIcon fontSize="large" />
+            </Box>
+          </Link>
+        </Box>
+      </Tooltip>
+      <Tooltip title={"My Collection"} arrow placement="right">
+        <Box
+          sx={{
+            position: "absolute",
+            top: "120px",
+            left: 0,
+            zIndex: 1000,
+          }}
+        >
+          <Link href="/collection">
+            <Box
+              sx={{
+                width: "68px",
+                backgroundColor: COLORS.quiz.secondary,
+                color: "white",
+                borderColor: "transparent",
+                height: "60px",
+                borderTopRightRadius: 4,
+                borderBottomRightRadius: 4,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                cursor: "pointer",
+                "&:hover": {
+                  backgroundColor: COLORS.quiz.main,
+                  borderColor: "transparent",
+                },
+              }}
+            >
+              <AutoAwesomeMotionIcon fontSize="large" />
             </Box>
           </Link>
         </Box>
