@@ -47,7 +47,7 @@ export const TCGCard = ({
     (card.rarity === "UltraRare" || card.rarity === "SecretRare") && effectsOn;
   const useFullArt = card.art === "full" && fullArtPath !== "";
 
-  const backgroundColors = getBackgroundColor(card.character);
+  const cardColors = getBackgroundColor(card.character);
 
   // Base size is "large", small is 2/3 of large
   const scaleFactor = size === "small" ? 2 / 3 : 1;
@@ -97,17 +97,26 @@ export const TCGCard = ({
         width: width,
         height: height,
         borderRadius: borderRadius,
-        borderColor:
-          card.rarity === "SecretRare"
-            ? COLORS.cards.secretRareBorder
-            : COLORS.cards.border,
+        // borderColor:
+        //   card.rarity === "SecretRare"
+        //     ? COLORS.cards.secretRareBorder
+        //     : COLORS.cards.border,
+        borderColor: cardColors.border[0],
+        boxShadow: `0 0 10px ${cardColors.border[0]}, inset 0 0 5px ${cardColors.border[0]}`,
+        transition: 'all 0.3s ease-in-out',
+        '&:hover': {
+          transform: 'translateY(-8px)',
+          boxShadow: `0 0 20px ${cardColors.border[0]}, 0 0 40px ${cardColors.border[0]}`,
+          '& .scanline': {
+            opacity: 0.2, // Subtle interaction effect
+          }
+        },
         borderWidth: borderWidth,
         borderStyle: "solid",
-        boxShadow: 2,
-        background: useFullArt ? backgroundColors[1] : undefined,
+        background: useFullArt ? cardColors.background[1] : undefined,
         backgroundImage: useFullArt
           ? `url(${fullArtPath})`
-          : `linear-gradient(230deg,${backgroundColors[0]} 29%, ${backgroundColors[1]} 100%)`,
+          : `linear-gradient(230deg,${cardColors.background[0]} 29%, ${cardColors.background[1]} 100%)`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         position: "relative",
@@ -163,10 +172,10 @@ export const TCGCard = ({
               width: "100%",
               height: "100%",
               background: `linear-gradient(180deg,${darken(
-                backgroundColors[0],
+                cardColors.background[0],
                 0.2
-              )} 0%, ${backgroundColors[0]} 50%, ${darken(
-                backgroundColors[0],
+              )} 0%, ${cardColors.background[0]} 50%, ${darken(
+                cardColors.background[0],
                 0.2
               )} 100%)`,
               opacity: useFullArt ? 0.5 : 1,
@@ -209,8 +218,10 @@ export const TCGCard = ({
               sx={{
                 objectFit: "cover",
                 border: "1px solid black",
-                borderColor: COLORS.cards.border,
                 borderRadius: 1,
+                borderColor: cardColors.border[0],
+                boxShadow: `0 0 10px ${cardColors.border[0]}, inset 0 0 5px ${cardColors.border[0]}`,
+                transition: 'all 0.3s ease-in-out',
               }}
               src={getImgSrc(card.characterId)}
             ></Box>

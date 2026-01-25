@@ -62,7 +62,7 @@ export const CardInfoEntry = ({ card, text, isFullArt, size = 1 }: CardInfoEntry
           sx={{
             fontFamily: '"Exo 2", sans-serif',
             fontSize: fontSize,
-            color: darken(getBackgroundColor(card.character)[0], 0.3),
+            color: darken(getBackgroundColor(card.character).background[0], 0.3),
             whiteSpace: isLongText ? "normal" : "nowrap",
             wordBreak: isLongText ? "break-word" : "normal",
             textAlign: "center",

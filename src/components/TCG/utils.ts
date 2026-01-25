@@ -5,8 +5,9 @@ import { Card, Character, Pack } from "common/types";
 import { COLORS } from "styling/constants";
 import tcg_packs from "data/tcg_packs.json";
 
-export function getBackgroundColor(character: Character): string[] {
+export function getBackgroundColor(character: Character) {
   const charGenres = character.Genre.split(" ");
+  const bgColors = ["#161716"]
   const colors: string[] = [];
   if (charGenres.includes("Action")) {
     colors.push(COLORS.cards.bg.action);
@@ -30,13 +31,16 @@ export function getBackgroundColor(character: Character): string[] {
     colors.push(COLORS.cards.bg.supernatural);
   }
 
-  if (colors.length === 1) {
-    colors.push(lighten(colors[0], 0.3));
+  if (bgColors.length === 1) {
+    bgColors.push(lighten(bgColors[0], 0.1));
   }
-  if (colors.length === 0) {
-    colors.push(COLORS.cards.bg.default, lighten(COLORS.cards.bg.default, 0.3));
+  if (bgColors.length === 0) {
+    bgColors.push(COLORS.cards.bg.default, lighten(COLORS.cards.bg.default, 0.1));
   }
-  return colors;
+  return {
+    background: bgColors,
+    border: colors
+  };
 }
 
 export async function getCardArt(id: number): Promise<string> {
