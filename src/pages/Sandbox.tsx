@@ -28,7 +28,7 @@ const Sandbox = () => {
       const character =
         charData.find((char) => char.id === characterId) ?? charData[0];
       let card: Card = {
-        cardId: generateCardId(characterId, rarity, art), //combination of characterId + rarity + art
+        cardId: generateCardId(characterId, rarity, art, "99999"), //combination of characterId + rarity + art
         characterId: characterId, //id of the character
         character,
         rarity,

@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Chip,
   Divider,
   Link,
   Tooltip,
@@ -15,7 +16,7 @@ import bg from "assets/bg.jpg";
 import { Anime, Character } from "common/types";
 import BasicCharacterQuiz from "components/BasicCharacterQuiz/BasicCharacterQuiz";
 import ImageCharacterQuiz from "components/ImageCharacterQuiz/ImageCharacterQuiz";
-import DrawerBasic from "components/CustomDrawer";
+import DrawerBasic from "components/SideNavigation/SideNavigationItemDrawer";
 import MultipleChoiceQuiz from "components/MultipleChoiceQuiz/MultipleChoiceQuiz";
 import { VERSION } from "common/version";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -44,6 +45,10 @@ import { Snowfall } from "components/Snowfall";
 import { getUserAvailableCredits } from "common/profileUtils";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import AutoAwesomeMotionIcon from "@mui/icons-material/AutoAwesomeMotion";
+import { SideNavigationItemButton } from "components/SideNavigation/SideNavigationItemButton";
+import { SideNavigationItemLink } from "components/SideNavigation/SideNavigationItemLink";
+import { GameModeDrawer } from "components/SideNavigation/Drawer/GameModeDrawer";
+import SideNavigationItemDrawer from "components/SideNavigation/SideNavigationItemDrawer";
 
 export interface Score {
   points: number;
@@ -123,9 +128,9 @@ const Home = () => {
           position: "relative",
         }}
       >
-        <Box sx={{ position: "absolute", top: 0, width: "100%", zIndex: 500 }}>
+        {/* <Box sx={{ position: "absolute", top: 0, width: "100%", zIndex: 500 }}>
           <Snowfall />
-        </Box>
+        </Box> */}
         <Box
           position={"relative"}
           sx={{
@@ -134,251 +139,63 @@ const Home = () => {
             },
           }}
         >
-          <DrawerBasic
-            title="Anime Index"
-            position={{ top: "120px" }}
-            icon={<ArticleIcon fontSize="large" />}
-            sx={{ padding: 2 }}
-          >
-            <AnimeIndex animeData={animeData} />
-          </DrawerBasic>
+          <Box sx={{ position: "absolute", top: "20px", display: "flex", flexDirection: "column", gap: 2 }}>
 
-          <DrawerBasic
-            title="Gamemodes"
-            position={{ top: "40px" }}
-            icon={<MenuIcon fontSize="large" />}
-            onOpenFn={() => {
-              setGetTotalScore(getDailyScore(getDailyUTCDate().toISOString()));
-              setUserAvailableCredits(getUserAvailableCredits());
-            }}
-          >
-            <Box
-              minHeight={"100vh"}
-              display={"flex"}
-              flexDirection="column"
-              justifyContent={"space-between"}
-            >
-              <Box>
-                <NavigationTabs value={value} handleChange={handleChange} />
-                <Divider
-                  sx={{ backgroundColor: "white", marginX: 1 }}
-                ></Divider>
-              </Box>
-              <Box
-                display={"flex"}
-                justifyContent={"space-between"}
-                alignItems={"center"}
-              >
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    width: "100%",
-                  }}
-                >
-                  <Box padding={2} sx={{ color: "white" }}>
-                    <Typography>Today's score:</Typography>
-                    <Typography>
-                      <Typography
-                        component={"span"}
-                        sx={{
-                          fontWeight: "bold",
-                          color: COLORS.quiz.light_red,
-                          marginRight: 1,
-                        }}
-                      >
-                        {getTotalScore}
-                      </Typography>
-                      <Typography component={"span"} fontSize={12}>
-                        /40000
-                      </Typography>
-                    </Typography>
-                  </Box>
 
-                  <Link
-                    href="/tcg"
-                    sx={{
-                      color: "white",
-                      display: "flex",
-                      gap: 0.5,
-                      alignItems: "flex-end",
-                      justifyContent: "flex-end",
-                      cursor: "pointer",
-                      padding: 2,
-                    }}
-                  >
-                    <Typography>🪙</Typography>
-                    <Typography>{userAvailableCredits}</Typography>
-                  </Link>
-                </Box>
-              </Box>
-            </Box>
-          </DrawerBasic>
 
-          <Tooltip title={"TCG Shop"} arrow placement="right">
-            <Box
-              sx={{
-                position: "absolute",
-                top: "200px",
-                left: 0,
-                zIndex: 1000,
+            <SideNavigationItemDrawer
+              title="Gamemodes"
+              icon={<MenuIcon fontSize="large" />}
+              onOpenFn={() => {
+                setGetTotalScore(getDailyScore(getDailyUTCDate().toISOString()));
+                setUserAvailableCredits(getUserAvailableCredits());
               }}
             >
-              <Link href="/tcg">
-                <Box
-                  sx={{
-                    width: "68px",
-                    backgroundColor: COLORS.quiz.secondary,
-                    color: "white",
-                    borderColor: "transparent",
-                    height: "60px",
-                    borderTopRightRadius: 4,
-                    borderBottomRightRadius: 4,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    cursor: "pointer",
-                    "&:hover": {
-                      backgroundColor: COLORS.quiz.main,
-                      borderColor: "transparent",
-                    },
-                  }}
-                >
-                  <StorefrontIcon fontSize="large" />
-                </Box>
-              </Link>
-            </Box>
-          </Tooltip>
+              <GameModeDrawer value={value} handleChange={handleChange} getTotalScore={getTotalScore} userAvailableCredits={userAvailableCredits} />
+            </SideNavigationItemDrawer>
 
-          <Tooltip title={"My Collection"} arrow placement="right">
-            <Box
-              sx={{
-                position: "absolute",
-                top: "280px",
-                left: 0,
-                zIndex: 1000,
-              }}
+            <SideNavigationItemDrawer
+              title="Anime Index"
+              icon={<ArticleIcon fontSize="large" />}
+              sx={{ padding: 2 }}
             >
-              <Link href="/collection">
-                <Box
-                  sx={{
-                    width: "68px",
-                    backgroundColor: COLORS.quiz.secondary,
-                    color: "white",
-                    borderColor: "transparent",
-                    height: "60px",
-                    borderTopRightRadius: 4,
-                    borderBottomRightRadius: 4,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    cursor: "pointer",
-                    "&:hover": {
-                      backgroundColor: COLORS.quiz.main,
-                      borderColor: "transparent",
-                    },
-                  }}
-                >
-                  <AutoAwesomeMotionIcon fontSize="large" />
-                </Box>
-              </Link>
-            </Box>
-          </Tooltip>
+              <AnimeIndex animeData={animeData} />
+            </SideNavigationItemDrawer>
 
-          <Tooltip title={"How to play"} arrow placement="right">
-            <Box
-              sx={{
-                position: "absolute",
-                top: "520px",
-                left: 0,
-                zIndex: 1000,
-              }}
-            >
-              <Button
-                variant="outlined"
-                sx={{
-                  backgroundColor: COLORS.quiz.secondary,
-                  color: "white",
-                  borderColor: "transparent",
-                  height: "60px",
-                  borderTopLeftRadius: 0,
-                  borderBottomLeftRadius: 0,
-                  "&:hover": {
-                    backgroundColor: COLORS.quiz.main,
-                    borderColor: "transparent",
-                  },
-                }}
-                onClick={() => {
-                  dialogManager.openDialog("howToPlay");
-                }}
-              >
-                <HelpOutlineIcon fontSize="large" />
-              </Button>
-            </Box>
-          </Tooltip>
+            <SideNavigationItemLink title="Coming Soon: TCG Shop" icon={
+              <StorefrontIcon fontSize="large" />
+            }
+              href="/tcg"
+              disabled
+              variant="comingsoon"
+            />
 
-          <Tooltip title={"Score Calendar"} arrow placement="right">
-            <Box
-              sx={{
-                position: "absolute",
-                top: "360px",
-                left: 0,
-                zIndex: 1000,
-              }}
-            >
-              <Button
-                variant="outlined"
-                sx={{
-                  backgroundColor: COLORS.quiz.secondary,
-                  color: "white",
-                  borderColor: "transparent",
-                  height: "60px",
-                  borderTopLeftRadius: 0,
-                  borderBottomLeftRadius: 0,
-                  "&:hover": {
-                    backgroundColor: COLORS.quiz.main,
-                    borderColor: "transparent",
-                  },
-                }}
-                onClick={() => {
-                  dialogManager.openDialog("scoreCalendar", getCalendarData());
-                }}
-              >
-                <CalendarMonthIcon fontSize="large" />
-              </Button>
-            </Box>
-          </Tooltip>
-          <Tooltip title={"Statistics"} arrow placement="right">
-            <Box
-              sx={{
-                position: "absolute",
-                top: "440px",
-                left: 0,
-                zIndex: 1000,
-              }}
-            >
-              <Button
-                variant="outlined"
-                sx={{
-                  backgroundColor: COLORS.quiz.secondary,
-                  color: "white",
-                  borderColor: "transparent",
-                  height: "60px",
-                  borderTopLeftRadius: 0,
-                  borderBottomLeftRadius: 0,
-                  "&:hover": {
-                    backgroundColor: COLORS.quiz.main,
-                    borderColor: "transparent",
-                  },
-                }}
-                onClick={() => {
-                  dialogManager.openDialog("statistics");
-                }}
-              >
-                <BarChartIcon fontSize="large" />
-              </Button>
-            </Box>
-          </Tooltip>
+            <SideNavigationItemLink title="Coming Soon: Collection" icon={
+              <AutoAwesomeMotionIcon fontSize="large" />
+            }
+              href="/collection"
+              disabled
+              variant="comingsoon"
+            />
+
+            <SideNavigationItemButton title="How to play" icon={
+              <HelpOutlineIcon fontSize="large" />
+            } onClick={() => {
+              dialogManager.openDialog("howToPlay");
+            }} />
+
+            <SideNavigationItemButton title="Score Calendar" icon={
+              <CalendarMonthIcon fontSize="large" />
+            } onClick={() => {
+              dialogManager.openDialog("scoreCalendar", getCalendarData());
+            }} />
+
+            <SideNavigationItemButton title="Statistics" icon={
+              <BarChartIcon fontSize="large" />
+            } onClick={() => {
+              dialogManager.openDialog("statistics");
+            }} />
+          </Box>
           <Tooltip title={"Profile"} arrow placement="right">
             <Box
               sx={{
@@ -617,15 +434,12 @@ const Home = () => {
                   </Box>
                   <Box
                     padding={2}
-                    component={"link"}
-                    href="/tcg"
                     sx={{
                       color: "white",
                       display: "flex",
                       gap: 0.5,
                       alignItems: "flex-end",
                       justifyContent: "flex-end",
-                      cursor: "pointer",
                     }}
                   >
                     <Typography>🪙</Typography>
