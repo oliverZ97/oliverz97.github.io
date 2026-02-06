@@ -1,4 +1,5 @@
 import { Streak } from "components/Streak";
+import { Art, Rarity } from "components/TCG/TCGCard";
 
 export interface Character {
   id: number;
@@ -74,6 +75,55 @@ export enum StatisticFields {
   higherlowerAnimePointsTotal = "higherlowerAnimePointsTotal",
 }
 
+export interface Card {
+  cardId: string; //combination of characterId + rarity + art
+  characterId: number; //id of the character
+  character: Character;
+  rarity: Rarity;
+  art: Art;
+  obtainedAt: string;
+  packId: number;
+}
+
+export interface Collection {
+  cards: Card[];
+  lastUpdated: string;
+  totalCards: number;
+}
+
+export interface Pack {
+  id: number;
+  tag: string;
+  packname: string;
+  mainAnime: number[];
+  price: number;
+  coverId: number;
+  visible?: boolean;
+  config?: PackConfig;
+}
+
+export interface PackConfig {
+  secretRarePossibilty?: number; // e.g., 0.1 means 10% chance for one Secret Rare in pack
+  additionalSuperRare?: number; // 5% chance for an additional Super Rare
+  ultraRarePossibility?: number; // Always have Ultra Rare at the end
+  mainCastChance?: number; // e.g., 0.3 means 30% chance for main cast character
+  uncommonChance?: number;
+  rareChance?: number;
+  godPackPossibility?: number; // 2% chance for all Ultra Rares
+  secretRareOnly?: boolean; // if true and GodPack, pack only contains Secret Rares
+  ultraRareOnly?: boolean; // if true and GodPack, pack only contains Ultra Rares
+}
+
+export const defaultPackConfig: PackConfig = {
+  secretRarePossibilty: 0.1, // 10% chance for Secret Rare
+  additionalSuperRare: 0.05, // 5% chance for an additional Super Rare
+  ultraRarePossibility: 0.5, // Always have Ultra Rare at the end
+  godPackPossibility: 0.02, // 2% chance for all Ultra Rares
+  mainCastChance: 0.3, // 30% chance for main cast character
+  uncommonChance: 0.4,
+  rareChance: 0.1
+};
+
 export interface UserProfile {
   id: string;
   username: string;
@@ -87,6 +137,12 @@ export interface UserProfile {
   blurQuizSolved?: SolveData;
   imageQuizSolved?: SolveData;
   settings?: Record<string, string | boolean | number>;
+  credits: {
+    total: number;
+    used: number;
+    available: number;
+  };
+  collection?: Collection;
 }
 
 export interface SolveData {

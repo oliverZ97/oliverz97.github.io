@@ -1,7 +1,9 @@
 import {
   Box,
   Button,
+  Chip,
   Divider,
+  Link,
   Tooltip,
   Typography,
   useTheme,
@@ -14,7 +16,7 @@ import bg from "assets/bg.jpg";
 import { Anime, Character } from "common/types";
 import BasicCharacterQuiz from "components/BasicCharacterQuiz/BasicCharacterQuiz";
 import ImageCharacterQuiz from "components/ImageCharacterQuiz/ImageCharacterQuiz";
-import DrawerBasic from "components/CustomDrawer";
+import DrawerBasic from "components/SideNavigation/SideNavigationItemDrawer";
 import MultipleChoiceQuiz from "components/MultipleChoiceQuiz/MultipleChoiceQuiz";
 import { VERSION } from "common/version";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -24,6 +26,7 @@ import { KissMarryKill } from "components/KissMarryKill/KissMarryKill";
 import { AnimeIndex } from "components/AnimeIndex";
 import { AnimeQuiz } from "components/AnimeQuiz/AnimeQuiz";
 import {
+  createAnimeListFromCharData,
   formatScoresForCalendar,
   getCharacterBirthdaysAsCalendarData,
   getDailyScore,
@@ -39,6 +42,13 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { Avatar } from "components/Profile/Avatar";
 import { HigherLower } from "components/HigherLower";
 import { Snowfall } from "components/Snowfall";
+import { getUserAvailableCredits } from "common/profileUtils";
+import StorefrontIcon from "@mui/icons-material/Storefront";
+import AutoAwesomeMotionIcon from "@mui/icons-material/AutoAwesomeMotion";
+import { SideNavigationItemButton } from "components/SideNavigation/SideNavigationItemButton";
+import { SideNavigationItemLink } from "components/SideNavigation/SideNavigationItemLink";
+import { GameModeDrawer } from "components/SideNavigation/Drawer/GameModeDrawer";
+import SideNavigationItemDrawer from "components/SideNavigation/SideNavigationItemDrawer";
 
 export interface Score {
   points: number;
@@ -50,6 +60,9 @@ const Home = () => {
   const [animeData, setAnimeData] = useState<Anime[]>([]);
   const [getTotalScore, setGetTotalScore] = useState(
     getDailyScore(getDailyUTCDate().toISOString())
+  );
+  const [userAvailableCredits, setUserAvailableCredits] = useState(
+    getUserAvailableCredits()
   );
   const theme = useTheme();
 
@@ -65,34 +78,7 @@ const Home = () => {
       ] as Character[]);
     }
     if (charData && animeData.length === 0) {
-      // Create a map to track anime entries with lowest version numbers
-      const animeMap = new Map();
-
-      // First pass: populate the map with anime entries
-      charData.forEach((item: Character) => {
-        const animeEntry = {
-          id: item.Anime_Id,
-          Name: item.Anime,
-          First_Release_Year: item.First_Release_Year,
-          Studio: item.Studio,
-          Genre: item.Genre,
-          Subgenre1: item.Subgenre1,
-          Subgenre2: item.Subgenre2,
-          Tags: item.Tags,
-          Version: item.Version,
-        };
-
-        // If this anime isn't in the map yet or has a lower version number, update the map
-        if (
-          !animeMap.has(item.Anime) ||
-          item.Version < animeMap.get(item.Anime).Version
-        ) {
-          animeMap.set(item.Anime, { ...animeEntry });
-        }
-      });
-
-      // Convert map values to array
-      const localAnimeData = Array.from(animeMap.values());
+      const localAnimeData = createAnimeListFromCharData(charData);
 
       setAnimeData(
         localAnimeData.sort((a, b) => (a.Name < b.Name ? -1 : 1)) as Anime[]
@@ -142,9 +128,9 @@ const Home = () => {
           position: "relative",
         }}
       >
-        <Box sx={{ position: "absolute", top: 0, width: "100%", zIndex: 500 }}>
+        {/* <Box sx={{ position: "absolute", top: 0, width: "100%", zIndex: 500 }}>
           <Snowfall />
-        </Box>
+        </Box> */}
         <Box
           position={"relative"}
           sx={{
@@ -153,156 +139,63 @@ const Home = () => {
             },
           }}
         >
-          <DrawerBasic
-            title="Anime Index"
-            position={{ top: "120px" }}
-            icon={<ArticleIcon fontSize="large" />}
-            sx={{ padding: 2 }}
-          >
-            <AnimeIndex animeData={animeData} />
-          </DrawerBasic>
+          <Box sx={{ position: "absolute", top: "20px", display: "flex", flexDirection: "column", gap: 2 }}>
 
-          <DrawerBasic
-            title="Gamemodes"
-            position={{ top: "40px" }}
-            icon={<MenuIcon fontSize="large" />}
-            onOpenFn={() => {
-              setGetTotalScore(getDailyScore(getDailyUTCDate().toISOString()));
-            }}
-          >
-            <Box
-              minHeight={"100vh"}
-              display={"flex"}
-              flexDirection="column"
-              justifyContent={"space-between"}
-            >
-              <Box>
-                <NavigationTabs value={value} handleChange={handleChange} />
-                <Divider
-                  sx={{ backgroundColor: "white", marginX: 1 }}
-                ></Divider>
-              </Box>
-              <Box
-                display={"flex"}
-                justifyContent={"space-between"}
-                alignItems={"center"}
-              >
-                <Box padding={2} sx={{ color: "white" }}>
-                  <Typography>Today's score:</Typography>
-                  <Typography>
-                    <Typography
-                      component={"span"}
-                      sx={{
-                        fontWeight: "bold",
-                        color: COLORS.quiz.light_red,
-                        marginRight: 1,
-                      }}
-                    >
-                      {getTotalScore}
-                    </Typography>
-                    <Typography component={"span"} fontSize={12}>
-                      /40000
-                    </Typography>
-                  </Typography>
-                </Box>
-              </Box>
-            </Box>
-          </DrawerBasic>
 
-          <Tooltip title={"How to play"} arrow placement="right">
-            <Box
-              sx={{
-                position: "absolute",
-                top: "200px",
-                left: 0,
-                zIndex: 1000,
+
+            <SideNavigationItemDrawer
+              title="Gamemodes"
+              icon={<MenuIcon fontSize="large" />}
+              onOpenFn={() => {
+                setGetTotalScore(getDailyScore(getDailyUTCDate().toISOString()));
+                setUserAvailableCredits(getUserAvailableCredits());
               }}
             >
-              <Button
-                variant="outlined"
-                sx={{
-                  backgroundColor: COLORS.quiz.secondary,
-                  color: "white",
-                  borderColor: "transparent",
-                  height: "60px",
-                  borderTopLeftRadius: 0,
-                  borderBottomLeftRadius: 0,
-                  "&:hover": {
-                    backgroundColor: COLORS.quiz.main,
-                    borderColor: "transparent",
-                  },
-                }}
-                onClick={() => {
-                  dialogManager.openDialog("howToPlay");
-                }}
-              >
-                <HelpOutlineIcon fontSize="large" />
-              </Button>
-            </Box>
-          </Tooltip>
+              <GameModeDrawer value={value} handleChange={handleChange} getTotalScore={getTotalScore} userAvailableCredits={userAvailableCredits} />
+            </SideNavigationItemDrawer>
 
-          <Tooltip title={"Score Calendar"} arrow placement="right">
-            <Box
-              sx={{
-                position: "absolute",
-                top: "280px",
-                left: 0,
-                zIndex: 1000,
-              }}
+            <SideNavigationItemDrawer
+              title="Anime Index"
+              icon={<ArticleIcon fontSize="large" />}
+              sx={{ padding: 2 }}
             >
-              <Button
-                variant="outlined"
-                sx={{
-                  backgroundColor: COLORS.quiz.secondary,
-                  color: "white",
-                  borderColor: "transparent",
-                  height: "60px",
-                  borderTopLeftRadius: 0,
-                  borderBottomLeftRadius: 0,
-                  "&:hover": {
-                    backgroundColor: COLORS.quiz.main,
-                    borderColor: "transparent",
-                  },
-                }}
-                onClick={() => {
-                  dialogManager.openDialog("scoreCalendar", getCalendarData());
-                }}
-              >
-                <CalendarMonthIcon fontSize="large" />
-              </Button>
-            </Box>
-          </Tooltip>
-          <Tooltip title={"Statistics"} arrow placement="right">
-            <Box
-              sx={{
-                position: "absolute",
-                top: "360px",
-                left: 0,
-                zIndex: 1000,
-              }}
-            >
-              <Button
-                variant="outlined"
-                sx={{
-                  backgroundColor: COLORS.quiz.secondary,
-                  color: "white",
-                  borderColor: "transparent",
-                  height: "60px",
-                  borderTopLeftRadius: 0,
-                  borderBottomLeftRadius: 0,
-                  "&:hover": {
-                    backgroundColor: COLORS.quiz.main,
-                    borderColor: "transparent",
-                  },
-                }}
-                onClick={() => {
-                  dialogManager.openDialog("statistics");
-                }}
-              >
-                <BarChartIcon fontSize="large" />
-              </Button>
-            </Box>
-          </Tooltip>
+              <AnimeIndex animeData={animeData} />
+            </SideNavigationItemDrawer>
+
+            <SideNavigationItemLink title="Coming Soon: TCG Shop" icon={
+              <StorefrontIcon fontSize="large" />
+            }
+              href="/tcg"
+              disabled
+              variant="comingsoon"
+            />
+
+            <SideNavigationItemLink title="Coming Soon: Collection" icon={
+              <AutoAwesomeMotionIcon fontSize="large" />
+            }
+              href="/collection"
+              disabled
+              variant="comingsoon"
+            />
+
+            <SideNavigationItemButton title="How to play" icon={
+              <HelpOutlineIcon fontSize="large" />
+            } onClick={() => {
+              dialogManager.openDialog("howToPlay");
+            }} />
+
+            <SideNavigationItemButton title="Score Calendar" icon={
+              <CalendarMonthIcon fontSize="large" />
+            } onClick={() => {
+              dialogManager.openDialog("scoreCalendar", getCalendarData());
+            }} />
+
+            <SideNavigationItemButton title="Statistics" icon={
+              <BarChartIcon fontSize="large" />
+            } onClick={() => {
+              dialogManager.openDialog("statistics");
+            }} />
+          </Box>
           <Tooltip title={"Profile"} arrow placement="right">
             <Box
               sx={{
@@ -505,6 +398,7 @@ const Home = () => {
                 setGetTotalScore(
                   getDailyScore(getDailyUTCDate().toISOString())
                 );
+                setUserAvailableCredits(getUserAvailableCredits());
               }}
             >
               <Box
@@ -519,23 +413,38 @@ const Home = () => {
                     sx={{ backgroundColor: "white", marginX: 1 }}
                   ></Divider>
                 </Box>
-                <Box padding={2} sx={{ color: "white" }}>
-                  <Typography>Today's score:</Typography>
-                  <Typography>
-                    <Typography
-                      component={"span"}
-                      sx={{
-                        fontWeight: "bold",
-                        color: COLORS.quiz.light_red,
-                        marginRight: 1,
-                      }}
-                    >
-                      {getTotalScore}
+                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                  <Box padding={2} sx={{ color: "white" }}>
+                    <Typography>Today's score:</Typography>
+                    <Typography>
+                      <Typography
+                        component={"span"}
+                        sx={{
+                          fontWeight: "bold",
+                          color: COLORS.quiz.light_red,
+                          marginRight: 1,
+                        }}
+                      >
+                        {getTotalScore}
+                      </Typography>
+                      <Typography component={"span"} fontSize={12}>
+                        /40000
+                      </Typography>
                     </Typography>
-                    <Typography component={"span"} fontSize={12}>
-                      /40000
-                    </Typography>
-                  </Typography>
+                  </Box>
+                  <Box
+                    padding={2}
+                    sx={{
+                      color: "white",
+                      display: "flex",
+                      gap: 0.5,
+                      alignItems: "flex-end",
+                      justifyContent: "flex-end",
+                    }}
+                  >
+                    <Typography>🪙</Typography>
+                    <Typography>{userAvailableCredits}</Typography>
+                  </Box>
                 </Box>
               </Box>
             </DrawerBasic>

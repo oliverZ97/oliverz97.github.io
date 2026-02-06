@@ -18,7 +18,7 @@ interface CustomDrawerProps {
 	onOpenFn?: () => void;
 }
 
-export default function CustomDrawer({ children, position, icon, sx, title, onOpenFn }: CustomDrawerProps) {
+export default function SideNavigationItemDrawer({ children, position, icon, sx, title, onOpenFn }: CustomDrawerProps) {
 	const [open, setOpen] = React.useState(false);
 	const theme = useTheme();
 
@@ -44,7 +44,7 @@ export default function CustomDrawer({ children, position, icon, sx, title, onOp
 		}}>
 			<Tooltip title={title} arrow placement='right'>
 				<Button variant="contained" sx={{
-					position: "absolute", top: position?.top ?? "initial", bottom: position?.bottom ?? "initial", left: position?.left ?? "initial", right: position?.right ?? "initial", backgroundColor: COLORS.quiz.secondary, height: "60px", borderTopLeftRadius: 0, borderBottomLeftRadius: 0, "&:hover": {
+					backgroundColor: COLORS.quiz.secondary, height: "60px", borderTopLeftRadius: 0, borderBottomLeftRadius: 0, "&:hover": {
 						backgroundColor: COLORS.quiz.main,
 					},
 					[theme.breakpoints.down("md")]: {

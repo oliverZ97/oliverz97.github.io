@@ -1,5 +1,6 @@
 import { Box, Button, Typography } from "@mui/material";
 import {
+  applyCreditsToProfile,
   saveFieldToTotalStatistics,
   saveHasBeenSolvedToday,
 } from "common/profileUtils";
@@ -279,6 +280,7 @@ export default function ImageCharacterQuiz({
           4
         );
         saveFieldToTotalStatistics([StatisticFields.totalScore], finalScore);
+        applyCreditsToProfile(15);
       }
     }
   }

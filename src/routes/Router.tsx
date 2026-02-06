@@ -4,8 +4,11 @@ import paths from "routes/paths";
 import { Box, Typography, Link, Avatar, CssBaseline } from "@mui/material";
 
 const Home = lazy(() => import("pages/Home"));
+const TCG = lazy(() => import("pages/TCG"));
+const Collection = lazy(() => import("pages/Collection"));
 const PageNotFound = lazy(() => import("pages/PageNotFound"));
 const KeepOrPass = lazy(() => import("pages/KeepOrPass"));
+const Sandbox = lazy(() => import("pages/Sandbox"));
 
 interface Routes {
   path: string;
@@ -39,6 +42,9 @@ const getRouteElement = (
 
 const routes: Routes[] = [
   { path: paths.HOME, element: getRouteElement(Home, paths.HOME) },
+  { path: paths.TCG, element: getRouteElement(TCG, paths.TCG) },
+  { path: paths.COLLECTION, element: getRouteElement(Collection, paths.COLLECTION) },
+  { path: paths.SANDBOX, element: getRouteElement(Sandbox, paths.SANDBOX) },
   {
     path: paths.NOT_FOUND,
     element: getRouteElement(PageNotFound, paths.NOT_FOUND),

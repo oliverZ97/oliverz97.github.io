@@ -1,5 +1,6 @@
 import JSConfetti from "js-confetti";
 import {
+  applyCreditsToProfile,
   getCurrentUserLog,
   saveFieldToTotalStatistics,
   saveHasBeenSolvedToday,
@@ -153,8 +154,8 @@ export function solveQuizHelper(
           quizKey === QUIZ_KEY.CHAR
             ? StatisticFields.totalCharactersGuessed
             : quizKey === QUIZ_KEY.ANIME
-            ? StatisticFields.totalAnimesGuessed
-            : StatisticFields.totalBlurredCharactersGuessed;
+              ? StatisticFields.totalAnimesGuessed
+              : StatisticFields.totalBlurredCharactersGuessed;
         saveFieldToTotalStatistics(
           [StatisticFields.totalGamesPlayed, StatisticFields[key]],
           1
@@ -165,10 +166,11 @@ export function solveQuizHelper(
             quizKey === QUIZ_KEY.CHAR
               ? StatisticFields.charQuizMaxPoints
               : quizKey === QUIZ_KEY.ANIME
-              ? StatisticFields.animeQuizMaxPoints
-              : StatisticFields.blurQuizMaxPoints;
+                ? StatisticFields.animeQuizMaxPoints
+                : StatisticFields.blurQuizMaxPoints;
           saveFieldToTotalStatistics([StatisticFields[key]], 1);
         }
+        applyCreditsToProfile(15);
       }
       if (points > 0 && !endlessMode) {
         //Set Highscore
