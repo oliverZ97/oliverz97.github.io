@@ -54,21 +54,19 @@ export const GameModeDrawer = ({ value, handleChange, userAvailableCredits, getT
                         </Typography>
                     </Box>
 
-                    <Link
-                        href="/tcg"
+                    <Box
                         sx={{
                             color: "white",
                             display: "flex",
                             gap: 0.5,
                             alignItems: "flex-end",
                             justifyContent: "flex-end",
-                            cursor: "pointer",
                             padding: 2,
                         }}
                     >
                         <Typography>🪙</Typography>
                         <Typography>{userAvailableCredits}</Typography>
-                    </Link>
+                    </Box>
                 </Box>
             </Box>
         </Box>
