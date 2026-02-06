@@ -21,7 +21,8 @@
    "Studio": "WIT STUDIO, Inc.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Waifu"
+   "Editorial_Staff_Hint": "Waifu",
+   "FIELD23": 149
  },
  {
    "id": 2,
@@ -45,7 +46,8 @@
    "Studio": "WIT STUDIO, Inc.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "BFF"
+   "Editorial_Staff_Hint": "BFF",
+   "FIELD23": 169
  },
  {
    "id": 3,
@@ -69,7 +71,8 @@
    "Studio": "WIT STUDIO, Inc.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Husbando"
+   "Editorial_Staff_Hint": "Husbando",
+   "FIELD23": 339
  },
  {
    "id": 4,
@@ -93,7 +96,8 @@
    "Studio": "WIT STUDIO, Inc.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Daddy"
+   "Editorial_Staff_Hint": "Daddy",
+   "FIELD23": null
  },
  {
    "id": 5,
@@ -117,7 +121,8 @@
    "Studio": "WIT STUDIO, Inc.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Waifu"
+   "Editorial_Staff_Hint": "Waifu",
+   "FIELD23": null
  },
  {
    "id": 6,
@@ -130,7 +135,7 @@
    "Age_Group": "12-18",
    "Height": 171,
    "Eye_Color": "Black",
-   "Birthday": "Unknown",
+   "Birthday": "06.11",
    "Genre": "Fighting-Shounen",
    "Subgenre1": "Action",
    "Subgenre2": "Fantasy",
@@ -141,7 +146,8 @@
    "Studio": "Pierrot Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Boyfriendo"
+   "Editorial_Staff_Hint": "Boyfriendo",
+   "FIELD23": null
  },
  {
    "id": 7,
@@ -165,7 +171,8 @@
    "Studio": "Pierrot Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Sexy AF"
+   "Editorial_Staff_Hint": "Sexy AF",
+   "FIELD23": null
  },
  {
    "id": 8,
@@ -178,7 +185,7 @@
    "Age_Group": "100+",
    "Height": 156,
    "Eye_Color": "Yellow",
-   "Birthday": "Unknown",
+   "Birthday": "01.01",
    "Genre": "Fighting-Shounen",
    "Subgenre1": "Action",
    "Subgenre2": "Fantasy",
@@ -189,7 +196,8 @@
    "Studio": "Pierrot Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Mommy"
+   "Editorial_Staff_Hint": "Mommy",
+   "FIELD23": null
  },
  {
    "id": 9,
@@ -213,7 +221,8 @@
    "Studio": "Pierrot Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 10,
@@ -226,7 +235,7 @@
    "Age_Group": "100+",
    "Height": 150,
    "Eye_Color": "Black",
-   "Birthday": "Unknown",
+   "Birthday": "11.02",
    "Genre": "Fighting-Shounen",
    "Subgenre1": "Action",
    "Subgenre2": "Fantasy",
@@ -237,7 +246,8 @@
    "Studio": "Pierrot Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Sexy AF"
+   "Editorial_Staff_Hint": "Sexy AF",
+   "FIELD23": null
  },
  {
    "id": 11,
@@ -250,7 +260,7 @@
    "Age_Group": "100+",
    "Height": 186,
    "Eye_Color": "Brown",
-   "Birthday": "Unknown",
+   "Birthday": "29.05",
    "Genre": "Fighting-Shounen",
    "Subgenre1": "Action",
    "Subgenre2": "Fantasy",
@@ -261,7 +271,8 @@
    "Studio": "Pierrot Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Daddy"
+   "Editorial_Staff_Hint": "Daddy",
+   "FIELD23": null
  },
  {
    "id": 12,
@@ -285,7 +296,8 @@
    "Studio": "Pierrot Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Daddy"
+   "Editorial_Staff_Hint": "Daddy",
+   "FIELD23": null
  },
  {
    "id": 13,
@@ -309,7 +321,8 @@
    "Studio": "Pierrot Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Husbando"
+   "Editorial_Staff_Hint": "Husbando",
+   "FIELD23": null
  },
  {
    "id": 14,
@@ -333,7 +346,8 @@
    "Studio": "Pierrot Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 15,
@@ -357,7 +371,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Husbando"
+   "Editorial_Staff_Hint": "Husbando",
+   "FIELD23": null
  },
  {
    "id": 16,
@@ -381,7 +396,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Weirdo"
+   "Editorial_Staff_Hint": "Weirdo",
+   "FIELD23": null
  },
  {
    "id": 17,
@@ -405,7 +421,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Sexy AF"
+   "Editorial_Staff_Hint": "Sexy AF",
+   "FIELD23": null
  },
  {
    "id": 18,
@@ -429,7 +446,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 19,
@@ -442,7 +460,7 @@
    "Age_Group": "31-50",
    "Height": 186,
    "Eye_Color": "Olive",
-   "Birthday": "Unknown",
+   "Birthday": "10.01",
    "Genre": "Action Comedy",
    "Subgenre1": "Crime Fiction",
    "Subgenre2": "Supernatural Drama",
@@ -453,7 +471,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Daddy"
+   "Editorial_Staff_Hint": "Daddy",
+   "FIELD23": null
  },
  {
    "id": 20,
@@ -477,7 +496,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 21,
@@ -501,7 +521,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Daddy"
+   "Editorial_Staff_Hint": "Daddy",
+   "FIELD23": null
  },
  {
    "id": 22,
@@ -514,7 +535,7 @@
    "Age_Group": "12-18",
    "Height": 161,
    "Eye_Color": "Silver",
-   "Birthday": "Unknown",
+   "Birthday": "04.02",
    "Genre": "Action Comedy",
    "Subgenre1": "Crime Fiction",
    "Subgenre2": "Supernatural Drama",
@@ -525,7 +546,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 23,
@@ -549,7 +571,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Sexy AF"
+   "Editorial_Staff_Hint": "Sexy AF",
+   "FIELD23": null
  },
  {
    "id": 24,
@@ -573,7 +596,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Dead inside"
+   "Editorial_Staff_Hint": "Dead inside",
+   "FIELD23": null
  },
  {
    "id": 25,
@@ -586,7 +610,7 @@
    "Age_Group": "19-30",
    "Height": 168,
    "Eye_Color": "Green",
-   "Birthday": "Unknown",
+   "Birthday": "21.10",
    "Genre": "Action Comedy",
    "Subgenre1": "Crime Fiction",
    "Subgenre2": "Supernatural Drama",
@@ -597,7 +621,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Husbando"
+   "Editorial_Staff_Hint": "Husbando",
+   "FIELD23": null
  },
  {
    "id": 26,
@@ -610,7 +635,7 @@
    "Age_Group": "100+",
    "Height": 170,
    "Eye_Color": "Yellow",
-   "Birthday": "Unknown",
+   "Birthday": "29.01",
    "Genre": "Action Drama",
    "Subgenre1": "Horror",
    "Subgenre2": "-",
@@ -621,7 +646,8 @@
    "Studio": "MAPPA Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Girlfriend"
+   "Editorial_Staff_Hint": "Girlfriend",
+   "FIELD23": null
  },
  {
    "id": 27,
@@ -634,7 +660,7 @@
    "Age_Group": "19-30",
    "Height": 175,
    "Eye_Color": "Blue",
-   "Birthday": "Unknown",
+   "Birthday": "11.05",
    "Genre": "Action Drama",
    "Subgenre1": "Horror",
    "Subgenre2": "-",
@@ -645,7 +671,8 @@
    "Studio": "MAPPA Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Wifu"
+   "Editorial_Staff_Hint": "Wifu",
+   "FIELD23": null
  },
  {
    "id": 28,
@@ -658,7 +685,7 @@
    "Age_Group": "19-30",
    "Height": 168,
    "Eye_Color": "Orange",
-   "Birthday": "Unknown",
+   "Birthday": "07.01",
    "Genre": "Action Drama",
    "Subgenre1": "Horror",
    "Subgenre2": "-",
@@ -669,7 +696,8 @@
    "Studio": "MAPPA Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Hot"
+   "Editorial_Staff_Hint": "Hot",
+   "FIELD23": null
  },
  {
    "id": 29,
@@ -682,7 +710,7 @@
    "Age_Group": "19-30",
    "Height": 182,
    "Eye_Color": "Blue",
-   "Birthday": "Unknown",
+   "Birthday": "11.11",
    "Genre": "Action Drama",
    "Subgenre1": "Horror",
    "Subgenre2": "-",
@@ -693,7 +721,8 @@
    "Studio": "MAPPA Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Boyfriendo"
+   "Editorial_Staff_Hint": "Boyfriendo",
+   "FIELD23": null
  },
  {
    "id": 30,
@@ -717,7 +746,8 @@
    "Studio": "MAPPA Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Daddy"
+   "Editorial_Staff_Hint": "Daddy",
+   "FIELD23": null
  },
  {
    "id": 31,
@@ -730,7 +760,7 @@
    "Age_Group": "19-30",
    "Height": 198,
    "Eye_Color": "Aubergine",
-   "Birthday": "Unknown",
+   "Birthday": "31.10",
    "Genre": "Action Drama",
    "Subgenre1": "Fantasy",
    "Subgenre2": "Fighting-Shounen",
@@ -741,7 +771,8 @@
    "Studio": "ufotable, Inc.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Daddy"
+   "Editorial_Staff_Hint": "Daddy",
+   "FIELD23": null
  },
  {
    "id": 32,
@@ -754,7 +785,7 @@
    "Age_Group": "19-30",
    "Height": 167,
    "Eye_Color": "Green",
-   "Birthday": "Unknown",
+   "Birthday": "01.06",
    "Genre": "Action Drama",
    "Subgenre1": "Fantasy",
    "Subgenre2": "Fighting-Shounen",
@@ -765,7 +796,8 @@
    "Studio": "ufotable, Inc.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Girlfriendo"
+   "Editorial_Staff_Hint": "Girlfriendo",
+   "FIELD23": null
  },
  {
    "id": 33,
@@ -778,7 +810,7 @@
    "Age_Group": "19-30",
    "Height": 177,
    "Eye_Color": "Red",
-   "Birthday": "Unknown",
+   "Birthday": "10.05",
    "Genre": "Action Drama",
    "Subgenre1": "Fantasy",
    "Subgenre2": "Fighting-Shounen",
@@ -789,7 +821,8 @@
    "Studio": "ufotable, Inc.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "BFF"
+   "Editorial_Staff_Hint": "BFF",
+   "FIELD23": null
  },
  {
    "id": 34,
@@ -802,7 +835,7 @@
    "Age_Group": "12-18",
    "Height": 153,
    "Eye_Color": "Pink",
-   "Birthday": "Unknown",
+   "Birthday": "28.12",
    "Genre": "Action Drama",
    "Subgenre1": "Fantasy",
    "Subgenre2": "Fighting-Shounen",
@@ -813,7 +846,8 @@
    "Studio": "ufotable, Inc.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 35,
@@ -826,7 +860,7 @@
    "Age_Group": "19-30",
    "Height": 176,
    "Eye_Color": "Blue",
-   "Birthday": "Unknown",
+   "Birthday": "08.02",
    "Genre": "Action Drama",
    "Subgenre1": "Fantasy",
    "Subgenre2": "Fighting-Shounen",
@@ -837,7 +871,8 @@
    "Studio": "ufotable, Inc.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Dead inside"
+   "Editorial_Staff_Hint": "Dead inside",
+   "FIELD23": null
  },
  {
    "id": 36,
@@ -861,7 +896,8 @@
    "Studio": "ufotable, Inc.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Husbando"
+   "Editorial_Staff_Hint": "Husbando",
+   "FIELD23": null
  },
  {
    "id": 37,
@@ -885,7 +921,8 @@
    "Studio": "MADHOUSE Inc.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Mommy"
+   "Editorial_Staff_Hint": "Mommy",
+   "FIELD23": null
  },
  {
    "id": 38,
@@ -909,7 +946,8 @@
    "Studio": "MADHOUSE Inc.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Sexy AF"
+   "Editorial_Staff_Hint": "Sexy AF",
+   "FIELD23": null
  },
  {
    "id": 39,
@@ -933,7 +971,8 @@
    "Studio": "MADHOUSE Inc.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 40,
@@ -957,7 +996,8 @@
    "Studio": "MADHOUSE Inc.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Husbando"
+   "Editorial_Staff_Hint": "Husbando",
+   "FIELD23": null
  },
  {
    "id": 41,
@@ -981,7 +1021,8 @@
    "Studio": "MADHOUSE Inc.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Daddy"
+   "Editorial_Staff_Hint": "Daddy",
+   "FIELD23": null
  },
  {
    "id": 42,
@@ -1005,7 +1046,8 @@
    "Studio": "MADHOUSE Inc.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Mommy"
+   "Editorial_Staff_Hint": "Mommy",
+   "FIELD23": null
  },
  {
    "id": 43,
@@ -1029,7 +1071,8 @@
    "Studio": "MADHOUSE Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Sexy AF"
+   "Editorial_Staff_Hint": "Sexy AF",
+   "FIELD23": null
  },
  {
    "id": 44,
@@ -1053,7 +1096,8 @@
    "Studio": "MADHOUSE Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Sexy AF"
+   "Editorial_Staff_Hint": "Sexy AF",
+   "FIELD23": null
  },
  {
    "id": 45,
@@ -1077,7 +1121,8 @@
    "Studio": "MADHOUSE Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Boyfriendo"
+   "Editorial_Staff_Hint": "Boyfriendo",
+   "FIELD23": null
  },
  {
    "id": 46,
@@ -1101,7 +1146,8 @@
    "Studio": "Production I.G., Inc.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 47,
@@ -1125,7 +1171,8 @@
    "Studio": "Production I.G., Inc.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Husbando"
+   "Editorial_Staff_Hint": "Husbando",
+   "FIELD23": null
  },
  {
    "id": 48,
@@ -1149,7 +1196,8 @@
    "Studio": "Production I.G., Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 49,
@@ -1173,7 +1221,8 @@
    "Studio": "Production I.G., Inc.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 50,
@@ -1197,7 +1246,8 @@
    "Studio": "Production I.G., Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Sexy AF"
+   "Editorial_Staff_Hint": "Sexy AF",
+   "FIELD23": null
  },
  {
    "id": 51,
@@ -1221,7 +1271,8 @@
    "Studio": "Production I.G., Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Daddy"
+   "Editorial_Staff_Hint": "Daddy",
+   "FIELD23": null
  },
  {
    "id": 52,
@@ -1245,7 +1296,8 @@
    "Studio": "Production I.G., Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "BFF"
+   "Editorial_Staff_Hint": "BFF",
+   "FIELD23": null
  },
  {
    "id": 53,
@@ -1269,7 +1321,8 @@
    "Studio": "Production I.G., Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "BFF"
+   "Editorial_Staff_Hint": "BFF",
+   "FIELD23": null
  },
  {
    "id": 54,
@@ -1293,7 +1346,8 @@
    "Studio": "Production I.G., Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 55,
@@ -1317,7 +1371,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Girlfriendo"
+   "Editorial_Staff_Hint": "Girlfriendo",
+   "FIELD23": null
  },
  {
    "id": 56,
@@ -1341,7 +1396,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 57,
@@ -1365,7 +1421,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Waifu"
+   "Editorial_Staff_Hint": "Waifu",
+   "FIELD23": null
  },
  {
    "id": 58,
@@ -1389,7 +1446,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "BFF"
+   "Editorial_Staff_Hint": "BFF",
+   "FIELD23": null
  },
  {
    "id": 59,
@@ -1413,7 +1471,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "BFF"
+   "Editorial_Staff_Hint": "BFF",
+   "FIELD23": null
  },
  {
    "id": 60,
@@ -1437,7 +1496,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Girlfriendo"
+   "Editorial_Staff_Hint": "Girlfriendo",
+   "FIELD23": null
  },
  {
    "id": 61,
@@ -1461,7 +1521,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 62,
@@ -1485,7 +1546,8 @@
    "Studio": "MAPPA Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Husbando"
+   "Editorial_Staff_Hint": "Husbando",
+   "FIELD23": null
  },
  {
    "id": 63,
@@ -1509,7 +1571,8 @@
    "Studio": "MAPPA Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Weirdo"
+   "Editorial_Staff_Hint": "Weirdo",
+   "FIELD23": null
  },
  {
    "id": 64,
@@ -1533,7 +1596,8 @@
    "Studio": "MAPPA Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Waifu"
+   "Editorial_Staff_Hint": "Waifu",
+   "FIELD23": null
  },
  {
    "id": 65,
@@ -1557,7 +1621,8 @@
    "Studio": "MAPPA Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Sexy AF"
+   "Editorial_Staff_Hint": "Sexy AF",
+   "FIELD23": null
  },
  {
    "id": 66,
@@ -1581,7 +1646,8 @@
    "Studio": "MAPPA Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 67,
@@ -1605,7 +1671,8 @@
    "Studio": "C-Station Co., Ltd",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 68,
@@ -1629,7 +1696,8 @@
    "Studio": "C-Station Co., Ltd",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 69,
@@ -1653,7 +1721,8 @@
    "Studio": "C-Station Co., Ltd",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 70,
@@ -1677,7 +1746,8 @@
    "Studio": "C-Station Co., Ltd",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 71,
@@ -1701,7 +1771,8 @@
    "Studio": "C-Station Co., Ltd",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 72,
@@ -1725,7 +1796,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 73,
@@ -1749,7 +1821,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Girlfriendo"
+   "Editorial_Staff_Hint": "Girlfriendo",
+   "FIELD23": null
  },
  {
    "id": 74,
@@ -1773,7 +1846,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Waifu"
+   "Editorial_Staff_Hint": "Waifu",
+   "FIELD23": null
  },
  {
    "id": 75,
@@ -1797,7 +1871,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "BFF"
+   "Editorial_Staff_Hint": "BFF",
+   "FIELD23": null
  },
  {
    "id": 76,
@@ -1821,7 +1896,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "BFF"
+   "Editorial_Staff_Hint": "BFF",
+   "FIELD23": null
  },
  {
    "id": 77,
@@ -1845,7 +1921,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Mommy"
+   "Editorial_Staff_Hint": "Mommy",
+   "FIELD23": null
  },
  {
    "id": 78,
@@ -1869,7 +1946,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Girlfriendo"
+   "Editorial_Staff_Hint": "Girlfriendo",
+   "FIELD23": null
  },
  {
    "id": 79,
@@ -1893,7 +1971,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Mommy"
+   "Editorial_Staff_Hint": "Mommy",
+   "FIELD23": null
  },
  {
    "id": 80,
@@ -1917,7 +1996,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Waifu"
+   "Editorial_Staff_Hint": "Waifu",
+   "FIELD23": null
  },
  {
    "id": 81,
@@ -1941,7 +2021,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "BFF"
+   "Editorial_Staff_Hint": "BFF",
+   "FIELD23": null
  },
  {
    "id": 82,
@@ -1954,7 +2035,7 @@
    "Age_Group": "100+",
    "Height": 176,
    "Eye_Color": "Red",
-   "Birthday": "Unknown",
+   "Birthday": "30.06",
    "Genre": "Slice of Life Comedy",
    "Subgenre1": "Ecchi",
    "Subgenre2": "Fantasy",
@@ -1965,7 +2046,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Waifu"
+   "Editorial_Staff_Hint": "Waifu",
+   "FIELD23": null
  },
  {
    "id": 83,
@@ -1989,7 +2071,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "BFF"
+   "Editorial_Staff_Hint": "BFF",
+   "FIELD23": null
  },
  {
    "id": 84,
@@ -2013,7 +2096,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Mommy"
+   "Editorial_Staff_Hint": "Mommy",
+   "FIELD23": null
  },
  {
    "id": 85,
@@ -2037,7 +2121,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "BFF"
+   "Editorial_Staff_Hint": "BFF",
+   "FIELD23": null
  },
  {
    "id": 86,
@@ -2061,7 +2146,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Sexy AF"
+   "Editorial_Staff_Hint": "Sexy AF",
+   "FIELD23": null
  },
  {
    "id": 87,
@@ -2085,7 +2171,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Daddy"
+   "Editorial_Staff_Hint": "Daddy",
+   "FIELD23": null
  },
  {
    "id": 88,
@@ -2109,7 +2196,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Husbando"
+   "Editorial_Staff_Hint": "Husbando",
+   "FIELD23": null
  },
  {
    "id": 89,
@@ -2133,7 +2221,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Girlfriendo"
+   "Editorial_Staff_Hint": "Girlfriendo",
+   "FIELD23": null
  },
  {
    "id": 90,
@@ -2157,7 +2246,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "BFF"
+   "Editorial_Staff_Hint": "BFF",
+   "FIELD23": null
  },
  {
    "id": 91,
@@ -2181,7 +2271,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 92,
@@ -2205,7 +2296,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 93,
@@ -2229,7 +2321,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Boyfriendo"
+   "Editorial_Staff_Hint": "Boyfriendo",
+   "FIELD23": null
  },
  {
    "id": 94,
@@ -2253,7 +2346,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "BFF"
+   "Editorial_Staff_Hint": "BFF",
+   "FIELD23": null
  },
  {
    "id": 95,
@@ -2277,7 +2371,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Mommy"
+   "Editorial_Staff_Hint": "Mommy",
+   "FIELD23": null
  },
  {
    "id": 96,
@@ -2301,7 +2396,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 97,
@@ -2325,7 +2421,8 @@
    "Studio": "Doga Kobo",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Girlfriendo"
+   "Editorial_Staff_Hint": "Girlfriendo",
+   "FIELD23": null
  },
  {
    "id": 98,
@@ -2349,7 +2446,8 @@
    "Studio": "Doga Kobo",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Dead inside"
+   "Editorial_Staff_Hint": "Dead inside",
+   "FIELD23": null
  },
  {
    "id": 99,
@@ -2373,7 +2471,8 @@
    "Studio": "Doga Kobo",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 100,
@@ -2397,7 +2496,8 @@
    "Studio": "Doga Kobo",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "BFF"
+   "Editorial_Staff_Hint": "BFF",
+   "FIELD23": null
  },
  {
    "id": 101,
@@ -2421,7 +2521,8 @@
    "Studio": "Doga Kobo",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Waifu"
+   "Editorial_Staff_Hint": "Waifu",
+   "FIELD23": null
  },
  {
    "id": 102,
@@ -2445,7 +2546,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Boyfriendo"
+   "Editorial_Staff_Hint": "Boyfriendo",
+   "FIELD23": null
  },
  {
    "id": 103,
@@ -2469,7 +2571,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Mommy"
+   "Editorial_Staff_Hint": "Mommy",
+   "FIELD23": null
  },
  {
    "id": 104,
@@ -2493,7 +2596,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Waifu"
+   "Editorial_Staff_Hint": "Waifu",
+   "FIELD23": null
  },
  {
    "id": 105,
@@ -2517,7 +2621,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 106,
@@ -2541,7 +2646,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "BFF"
+   "Editorial_Staff_Hint": "BFF",
+   "FIELD23": null
  },
  {
    "id": 107,
@@ -2565,7 +2671,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 108,
@@ -2589,7 +2696,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Sexy AF"
+   "Editorial_Staff_Hint": "Sexy AF",
+   "FIELD23": null
  },
  {
    "id": 109,
@@ -2613,7 +2721,8 @@
    "Studio": "WHITE FOX Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Waifu"
+   "Editorial_Staff_Hint": "Waifu",
+   "FIELD23": null
  },
  {
    "id": 110,
@@ -2637,7 +2746,8 @@
    "Studio": "WHITE FOX Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Waifu"
+   "Editorial_Staff_Hint": "Waifu",
+   "FIELD23": null
  },
  {
    "id": 111,
@@ -2661,7 +2771,8 @@
    "Studio": "WHITE FOX Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "BFF"
+   "Editorial_Staff_Hint": "BFF",
+   "FIELD23": null
  },
  {
    "id": 112,
@@ -2685,7 +2796,8 @@
    "Studio": "WHITE FOX Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Boyfriendo"
+   "Editorial_Staff_Hint": "Boyfriendo",
+   "FIELD23": null
  },
  {
    "id": 113,
@@ -2709,7 +2821,8 @@
    "Studio": "WHITE FOX Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Daddy"
+   "Editorial_Staff_Hint": "Daddy",
+   "FIELD23": null
  },
  {
    "id": 114,
@@ -2733,7 +2846,8 @@
    "Studio": "WHITE FOX Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Girlfriendo"
+   "Editorial_Staff_Hint": "Girlfriendo",
+   "FIELD23": null
  },
  {
    "id": 115,
@@ -2757,7 +2871,8 @@
    "Studio": "WHITE FOX Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Waifu"
+   "Editorial_Staff_Hint": "Waifu",
+   "FIELD23": null
  },
  {
    "id": 116,
@@ -2781,7 +2896,8 @@
    "Studio": "WHITE FOX Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "BFF"
+   "Editorial_Staff_Hint": "BFF",
+   "FIELD23": null
  },
  {
    "id": 117,
@@ -2805,7 +2921,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Waifu"
+   "Editorial_Staff_Hint": "Waifu",
+   "FIELD23": null
  },
  {
    "id": 118,
@@ -2829,7 +2946,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Sexy AF"
+   "Editorial_Staff_Hint": "Sexy AF",
+   "FIELD23": null
  },
  {
    "id": 119,
@@ -2853,7 +2971,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Girlfriendo"
+   "Editorial_Staff_Hint": "Girlfriendo",
+   "FIELD23": null
  },
  {
    "id": 120,
@@ -2877,7 +2996,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 121,
@@ -2901,7 +3021,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Sexy AF"
+   "Editorial_Staff_Hint": "Sexy AF",
+   "FIELD23": null
  },
  {
    "id": 122,
@@ -2925,7 +3046,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "BFF"
+   "Editorial_Staff_Hint": "BFF",
+   "FIELD23": null
  },
  {
    "id": 123,
@@ -2949,7 +3071,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Waifu"
+   "Editorial_Staff_Hint": "Waifu",
+   "FIELD23": null
  },
  {
    "id": 124,
@@ -2973,7 +3096,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "BFF"
+   "Editorial_Staff_Hint": "BFF",
+   "FIELD23": null
  },
  {
    "id": 125,
@@ -2997,7 +3121,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "B",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 126,
@@ -3021,7 +3146,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Mommy"
+   "Editorial_Staff_Hint": "Mommy",
+   "FIELD23": null
  },
  {
    "id": 127,
@@ -3045,7 +3171,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "Daddy"
+   "Editorial_Staff_Hint": "Daddy",
+   "FIELD23": null
  },
  {
    "id": 128,
@@ -3058,7 +3185,7 @@
    "Age_Group": "12-18",
    "Height": 150,
    "Eye_Color": "Brown",
-   "Birthday": "Unknown",
+   "Birthday": "01.04",
    "Genre": "Romantic Comedy",
    "Subgenre1": "Ecchi",
    "Subgenre2": "Slice of Life",
@@ -3069,7 +3196,8 @@
    "Studio": "Telecom Animation Film Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.0",
-   "Editorial_Staff_Hint": "BFF"
+   "Editorial_Staff_Hint": "BFF",
+   "FIELD23": null
  },
  {
    "id": 129,
@@ -3093,7 +3221,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.1",
-   "Editorial_Staff_Hint": "BFF"
+   "Editorial_Staff_Hint": "BFF",
+   "FIELD23": null
  },
  {
    "id": 130,
@@ -3117,7 +3246,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.1",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 131,
@@ -3141,7 +3271,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.1",
-   "Editorial_Staff_Hint": "BFF"
+   "Editorial_Staff_Hint": "BFF",
+   "FIELD23": null
  },
  {
    "id": 132,
@@ -3165,7 +3296,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.1",
-   "Editorial_Staff_Hint": "Girlfriendo"
+   "Editorial_Staff_Hint": "Girlfriendo",
+   "FIELD23": null
  },
  {
    "id": 133,
@@ -3189,7 +3321,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.1",
-   "Editorial_Staff_Hint": "BFF"
+   "Editorial_Staff_Hint": "BFF",
+   "FIELD23": null
  },
  {
    "id": 134,
@@ -3213,7 +3346,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "V",
    "Version": "v1.1",
-   "Editorial_Staff_Hint": "Dead inside"
+   "Editorial_Staff_Hint": "Dead inside",
+   "FIELD23": null
  },
  {
    "id": 135,
@@ -3237,7 +3371,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.1",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 136,
@@ -3250,7 +3385,7 @@
    "Age_Group": "19-30",
    "Height": 160,
    "Eye_Color": "Brown",
-   "Birthday": "Unknown",
+   "Birthday": "23.04",
    "Genre": "Slice of Life Comedy",
    "Subgenre1": "Ecchi",
    "Subgenre2": "Fantasy",
@@ -3261,7 +3396,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.1",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 137,
@@ -3274,7 +3410,7 @@
    "Age_Group": "12-18",
    "Height": 168,
    "Eye_Color": "Orange",
-   "Birthday": "Unknown",
+   "Birthday": "15.06",
    "Genre": "Romantic Comedy",
    "Subgenre1": "Ecchi",
    "Subgenre2": "Slice of Life",
@@ -3285,7 +3421,8 @@
    "Studio": "Telecom Animation Film Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.1",
-   "Editorial_Staff_Hint": "Sexy AF"
+   "Editorial_Staff_Hint": "Sexy AF",
+   "FIELD23": null
  },
  {
    "id": 138,
@@ -3298,7 +3435,7 @@
    "Age_Group": "12-18",
    "Height": 160,
    "Eye_Color": "Golden",
-   "Birthday": "Unknown",
+   "Birthday": "23.11",
    "Genre": "Romantic Comedy",
    "Subgenre1": "Ecchi",
    "Subgenre2": "Slice of Life",
@@ -3309,7 +3446,8 @@
    "Studio": "Telecom Animation Film Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.1",
-   "Editorial_Staff_Hint": "BFF"
+   "Editorial_Staff_Hint": "BFF",
+   "FIELD23": null
  },
  {
    "id": 139,
@@ -3322,7 +3460,7 @@
    "Age_Group": "12-18",
    "Height": 157,
    "Eye_Color": "Brown",
-   "Birthday": "Unknown",
+   "Birthday": "04.09",
    "Genre": "Romantic Comedy",
    "Subgenre1": "Ecchi",
    "Subgenre2": "Slice of Life",
@@ -3333,7 +3471,8 @@
    "Studio": "Telecom Animation Film Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.1",
-   "Editorial_Staff_Hint": "BFF"
+   "Editorial_Staff_Hint": "BFF",
+   "FIELD23": null
  },
  {
    "id": 140,
@@ -3357,7 +3496,8 @@
    "Studio": "TROYCA Inc.",
    "Difficulty": "C",
    "Version": "v1.1",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 141,
@@ -3381,7 +3521,8 @@
    "Studio": "TROYCA Inc.",
    "Difficulty": "C",
    "Version": "v1.1",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 142,
@@ -3405,7 +3546,8 @@
    "Studio": "TROYCA Inc.",
    "Difficulty": "C",
    "Version": "v1.1",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 143,
@@ -3418,7 +3560,7 @@
    "Age_Group": "12-18",
    "Height": 150,
    "Eye_Color": "Aubergine",
-   "Birthday": "Unknown",
+   "Birthday": "02.03",
    "Genre": "Romance",
    "Subgenre1": "Comedy",
    "Subgenre2": "Sports",
@@ -3429,7 +3571,8 @@
    "Studio": "Telecom Animation Film Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.1",
-   "Editorial_Staff_Hint": "Waifu"
+   "Editorial_Staff_Hint": "Waifu",
+   "FIELD23": null
  },
  {
    "id": 144,
@@ -3442,7 +3585,7 @@
    "Age_Group": "12-18",
    "Height": 162,
    "Eye_Color": "Brown",
-   "Birthday": "Unknown",
+   "Birthday": "26.08",
    "Genre": "Romance",
    "Subgenre1": "Comedy",
    "Subgenre2": "Sports",
@@ -3453,7 +3596,8 @@
    "Studio": "Telecom Animation Film Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.1",
-   "Editorial_Staff_Hint": "Waifu"
+   "Editorial_Staff_Hint": "Waifu",
+   "FIELD23": null
  },
  {
    "id": 145,
@@ -3466,7 +3610,7 @@
    "Age_Group": "12-18",
    "Height": 166,
    "Eye_Color": "Brown",
-   "Birthday": "Unknown",
+   "Birthday": "15.01",
    "Genre": "Romance",
    "Subgenre1": "Comedy",
    "Subgenre2": "Sports",
@@ -3477,7 +3621,8 @@
    "Studio": "Telecom Animation Film Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.1",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 146,
@@ -3490,7 +3635,7 @@
    "Age_Group": "19-30",
    "Height": 127,
    "Eye_Color": "Green",
-   "Birthday": "Unknown",
+   "Birthday": "09.03",
    "Genre": "Romantic Comedy",
    "Subgenre1": "Slice of Life",
    "Subgenre2": "-",
@@ -3501,7 +3646,8 @@
    "Studio": "Doga Kobo",
    "Difficulty": "B",
    "Version": "v1.1",
-   "Editorial_Staff_Hint": "Waifu"
+   "Editorial_Staff_Hint": "Waifu",
+   "FIELD23": null
  },
  {
    "id": 147,
@@ -3514,7 +3660,7 @@
    "Age_Group": "31-50",
    "Height": 195,
    "Eye_Color": "Black",
-   "Birthday": "Unknown",
+   "Birthday": "09.03",
    "Genre": "Romantic Comedy",
    "Subgenre1": "Slice of Life",
    "Subgenre2": "-",
@@ -3525,7 +3671,8 @@
    "Studio": "Doga Kobo",
    "Difficulty": "C",
    "Version": "v1.1",
-   "Editorial_Staff_Hint": "Husbando"
+   "Editorial_Staff_Hint": "Husbando",
+   "FIELD23": null
  },
  {
    "id": 148,
@@ -3538,7 +3685,7 @@
    "Age_Group": "19-30",
    "Height": 165,
    "Eye_Color": "Black",
-   "Birthday": "Unknown",
+   "Birthday": "01.04",
    "Genre": "Romantic Comedy",
    "Subgenre1": "Slice of Life",
    "Subgenre2": "-",
@@ -3549,7 +3696,8 @@
    "Studio": "Doga Kobo",
    "Difficulty": "C",
    "Version": "v1.1",
-   "Editorial_Staff_Hint": "Waifu"
+   "Editorial_Staff_Hint": "Waifu",
+   "FIELD23": null
  },
  {
    "id": 149,
@@ -3573,7 +3721,8 @@
    "Studio": "Doga Kobo",
    "Difficulty": "C",
    "Version": "v1.1",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 150,
@@ -3597,7 +3746,8 @@
    "Studio": "Doga Kobo",
    "Difficulty": "C",
    "Version": "v1.1",
-   "Editorial_Staff_Hint": "Sexy AF"
+   "Editorial_Staff_Hint": "Sexy AF",
+   "FIELD23": null
  },
  {
    "id": 151,
@@ -3621,7 +3771,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "A",
    "Version": "v1.1",
-   "Editorial_Staff_Hint": "BFF"
+   "Editorial_Staff_Hint": "BFF",
+   "FIELD23": null
  },
  {
    "id": 152,
@@ -3645,7 +3796,8 @@
    "Studio": "Passione Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.2",
-   "Editorial_Staff_Hint": "BFF"
+   "Editorial_Staff_Hint": "BFF",
+   "FIELD23": null
  },
  {
    "id": 153,
@@ -3669,7 +3821,8 @@
    "Studio": "Passione Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.2",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 154,
@@ -3693,7 +3846,8 @@
    "Studio": "Passione Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.2",
-   "Editorial_Staff_Hint": "BFF"
+   "Editorial_Staff_Hint": "BFF",
+   "FIELD23": null
  },
  {
    "id": 155,
@@ -3717,7 +3871,8 @@
    "Studio": "Passione Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.2",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 156,
@@ -3741,7 +3896,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "A",
    "Version": "v1.3",
-   "Editorial_Staff_Hint": "Dead inside"
+   "Editorial_Staff_Hint": "Dead inside",
+   "FIELD23": null
  },
  {
    "id": 157,
@@ -3765,7 +3921,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "B",
    "Version": "v1.3",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 158,
@@ -3789,7 +3946,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "B",
    "Version": "v1.3",
-   "Editorial_Staff_Hint": "BFF"
+   "Editorial_Staff_Hint": "BFF",
+   "FIELD23": null
  },
  {
    "id": 159,
@@ -3813,7 +3971,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "B",
    "Version": "v1.3",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 160,
@@ -3837,7 +3996,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "C",
    "Version": "v1.3",
-   "Editorial_Staff_Hint": "Waifu"
+   "Editorial_Staff_Hint": "Waifu",
+   "FIELD23": null
  },
  {
    "id": 161,
@@ -3861,7 +4021,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "C",
    "Version": "v1.3",
-   "Editorial_Staff_Hint": "Cool AF"
+   "Editorial_Staff_Hint": "Cool AF",
+   "FIELD23": null
  },
  {
    "id": 162,
@@ -3874,7 +4035,7 @@
    "Age_Group": "12-18",
    "Height": 155,
    "Eye_Color": "Brown",
-   "Birthday": "Unknown",
+   "Birthday": "30.03",
    "Genre": "Slice of Life Drama",
    "Subgenre1": "Comedy",
    "Subgenre2": "-",
@@ -3885,7 +4046,8 @@
    "Studio": "Doga Kobo",
    "Difficulty": "C",
    "Version": "v1.3",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 163,
@@ -3898,7 +4060,7 @@
    "Age_Group": "12-18",
    "Height": 162,
    "Eye_Color": "Blue",
-   "Birthday": "Unknown",
+   "Birthday": "04.07",
    "Genre": "Slice of Life Drama",
    "Subgenre1": "Comedy",
    "Subgenre2": "-",
@@ -3909,7 +4071,8 @@
    "Studio": "Doga Kobo",
    "Difficulty": "C",
    "Version": "v1.3",
-   "Editorial_Staff_Hint": "Girlfriendo"
+   "Editorial_Staff_Hint": "Girlfriendo",
+   "FIELD23": null
  },
  {
    "id": 164,
@@ -3922,7 +4085,7 @@
    "Age_Group": "12-18",
    "Height": 145,
    "Eye_Color": "Petrol",
-   "Birthday": "Unknown",
+   "Birthday": "01.04",
    "Genre": "Slice of Life Drama",
    "Subgenre1": "Comedy",
    "Subgenre2": "-",
@@ -3933,7 +4096,8 @@
    "Studio": "Doga Kobo",
    "Difficulty": "C",
    "Version": "v1.3",
-   "Editorial_Staff_Hint": "Girlfriendo"
+   "Editorial_Staff_Hint": "Girlfriendo",
+   "FIELD23": null
  },
  {
    "id": 165,
@@ -3946,7 +4110,7 @@
    "Age_Group": "12-18",
    "Height": 167,
    "Eye_Color": "Purple",
-   "Birthday": "Unknown",
+   "Birthday": "13.09",
    "Genre": "Slice of Life Drama",
    "Subgenre1": "Comedy",
    "Subgenre2": "-",
@@ -3957,7 +4121,8 @@
    "Studio": "Doga Kobo",
    "Difficulty": "C",
    "Version": "v1.3",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 166,
@@ -3981,7 +4146,8 @@
    "Studio": "Toei Animation Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.3",
-   "Editorial_Staff_Hint": "BFF"
+   "Editorial_Staff_Hint": "BFF",
+   "FIELD23": null
  },
  {
    "id": 167,
@@ -4005,7 +4171,8 @@
    "Studio": "Toei Animation Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.3",
-   "Editorial_Staff_Hint": "Waifu"
+   "Editorial_Staff_Hint": "Waifu",
+   "FIELD23": null
  },
  {
    "id": 168,
@@ -4029,7 +4196,8 @@
    "Studio": "Toei Animation Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.3",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 169,
@@ -4053,7 +4221,8 @@
    "Studio": "Toei Animation Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.3",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 170,
@@ -4077,7 +4246,8 @@
    "Studio": "Toei Animation Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.3",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 171,
@@ -4101,7 +4271,8 @@
    "Studio": "AJIADO CO.,LTD.",
    "Difficulty": "B",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 172,
@@ -4125,7 +4296,8 @@
    "Studio": "AJIADO CO.,LTD.",
    "Difficulty": "B",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 173,
@@ -4149,7 +4321,8 @@
    "Studio": "AJIADO CO.,LTD.",
    "Difficulty": "C",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 174,
@@ -4173,7 +4346,8 @@
    "Studio": "AJIADO CO.,LTD.",
    "Difficulty": "C",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 175,
@@ -4197,7 +4371,8 @@
    "Studio": "AJIADO CO.,LTD.",
    "Difficulty": "C",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 176,
@@ -4221,7 +4396,8 @@
    "Studio": "MADHOUSE Inc.",
    "Difficulty": "B",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 177,
@@ -4245,7 +4421,8 @@
    "Studio": "MADHOUSE Inc.",
    "Difficulty": "C",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 178,
@@ -4269,7 +4446,8 @@
    "Studio": "MADHOUSE Inc.",
    "Difficulty": "B",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 179,
@@ -4293,7 +4471,8 @@
    "Studio": "MADHOUSE Inc.",
    "Difficulty": "C",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 180,
@@ -4317,7 +4496,8 @@
    "Studio": "MADHOUSE Inc.",
    "Difficulty": "C",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 181,
@@ -4341,7 +4521,8 @@
    "Studio": "MADHOUSE Inc.",
    "Difficulty": "C",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 182,
@@ -4365,7 +4546,8 @@
    "Studio": "MADHOUSE Inc.",
    "Difficulty": "C",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 183,
@@ -4389,7 +4571,8 @@
    "Studio": "MADHOUSE Inc.",
    "Difficulty": "C",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 184,
@@ -4413,7 +4596,8 @@
    "Studio": "MADHOUSE Inc.",
    "Difficulty": "C",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 185,
@@ -4437,7 +4621,8 @@
    "Studio": "Gainax Co., Ltd., Tatsunoko Production Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 186,
@@ -4461,7 +4646,8 @@
    "Studio": "Gainax Co., Ltd., Tatsunoko Production Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 187,
@@ -4485,7 +4671,8 @@
    "Studio": "Gainax Co., Ltd., Tatsunoko Production Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 188,
@@ -4509,7 +4696,8 @@
    "Studio": "Gainax Co., Ltd., Tatsunoko Production Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": "Sexy AF"
+   "Editorial_Staff_Hint": "Sexy AF",
+   "FIELD23": null
  },
  {
    "id": 189,
@@ -4533,7 +4721,8 @@
    "Studio": "Gainax Co., Ltd., Tatsunoko Production Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 190,
@@ -4557,7 +4746,8 @@
    "Studio": "Gainax Co., Ltd., Tatsunoko Production Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 191,
@@ -4581,7 +4771,8 @@
    "Studio": "OLM, Inc., TOHO animation STUDIO Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 192,
@@ -4605,7 +4796,8 @@
    "Studio": "OLM, Inc., TOHO animation STUDIO Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 193,
@@ -4629,7 +4821,8 @@
    "Studio": "OLM, Inc., TOHO animation STUDIO Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 194,
@@ -4653,7 +4846,8 @@
    "Studio": "OLM, Inc., TOHO animation STUDIO Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 195,
@@ -4677,7 +4871,8 @@
    "Studio": "OLM, Inc., TOHO animation STUDIO Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 196,
@@ -4701,7 +4896,8 @@
    "Studio": "OLM, Inc., TOHO animation STUDIO Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 197,
@@ -4725,7 +4921,8 @@
    "Studio": "OLM, Inc., TOHO animation STUDIO Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 198,
@@ -4749,7 +4946,8 @@
    "Studio": "OLM, Inc., TOHO animation STUDIO Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 199,
@@ -4773,7 +4971,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "A",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 200,
@@ -4797,7 +4996,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "B",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 201,
@@ -4821,7 +5021,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "B",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 202,
@@ -4845,7 +5046,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "B",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 203,
@@ -4869,7 +5071,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "B",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 204,
@@ -4893,7 +5096,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "B",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 205,
@@ -4917,7 +5121,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "B",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 206,
@@ -4941,7 +5146,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "B",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": "Cool AF"
+   "Editorial_Staff_Hint": "Cool AF",
+   "FIELD23": null
  },
  {
    "id": 207,
@@ -4965,7 +5171,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "B",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": "Cutie"
+   "Editorial_Staff_Hint": "Cutie",
+   "FIELD23": null
  },
  {
    "id": 208,
@@ -4989,7 +5196,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 209,
@@ -5013,7 +5221,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 210,
@@ -5037,7 +5246,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 211,
@@ -5061,7 +5271,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 212,
@@ -5085,7 +5296,8 @@
    "Studio": "Production I.G., Inc.",
    "Difficulty": "B",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 213,
@@ -5109,7 +5321,8 @@
    "Studio": "Production I.G., Inc.",
    "Difficulty": "B",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 214,
@@ -5133,7 +5346,8 @@
    "Studio": "Production I.G., Inc.",
    "Difficulty": "C",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 215,
@@ -5157,7 +5371,8 @@
    "Studio": "Production I.G., Inc.",
    "Difficulty": "C",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 216,
@@ -5181,7 +5396,8 @@
    "Studio": "Production I.G., Inc.",
    "Difficulty": "C",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 217,
@@ -5205,7 +5421,8 @@
    "Studio": "Production I.G., Inc.",
    "Difficulty": "C",
    "Version": "v1.4",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 218,
@@ -5229,7 +5446,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "C",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 219,
@@ -5253,7 +5471,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "A",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 220,
@@ -5277,7 +5496,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "C",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 221,
@@ -5301,7 +5521,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "C",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 222,
@@ -5325,7 +5546,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "B",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 223,
@@ -5349,7 +5571,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "C",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 224,
@@ -5373,7 +5596,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "C",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 225,
@@ -5397,7 +5621,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "B",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 226,
@@ -5421,7 +5646,8 @@
    "Studio": "Science SARU Inc.",
    "Difficulty": "A",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 227,
@@ -5445,7 +5671,8 @@
    "Studio": "Science SARU Inc.",
    "Difficulty": "A",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 228,
@@ -5469,7 +5696,8 @@
    "Studio": "Science SARU Inc.",
    "Difficulty": "A",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 229,
@@ -5493,7 +5721,8 @@
    "Studio": "Science SARU Inc.",
    "Difficulty": "B",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 230,
@@ -5517,7 +5746,8 @@
    "Studio": "Trigger Inc.",
    "Difficulty": "A",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 231,
@@ -5541,7 +5771,8 @@
    "Studio": "Trigger Inc.",
    "Difficulty": "A",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 232,
@@ -5565,7 +5796,8 @@
    "Studio": "Trigger Inc.",
    "Difficulty": "B",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 233,
@@ -5589,7 +5821,8 @@
    "Studio": "Trigger Inc.",
    "Difficulty": "B",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 234,
@@ -5613,7 +5846,8 @@
    "Studio": "Trigger Inc.",
    "Difficulty": "B",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 235,
@@ -5637,7 +5871,8 @@
    "Studio": "Trigger Inc.",
    "Difficulty": "C",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 236,
@@ -5661,7 +5896,8 @@
    "Studio": "Trigger Inc.",
    "Difficulty": "C",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 237,
@@ -5685,7 +5921,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 238,
@@ -5709,7 +5946,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 239,
@@ -5733,7 +5971,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 240,
@@ -5757,7 +5996,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 241,
@@ -5781,7 +6021,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 242,
@@ -5805,7 +6046,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 243,
@@ -5829,7 +6071,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 244,
@@ -5853,7 +6096,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 245,
@@ -5877,7 +6121,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 246,
@@ -5901,7 +6146,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 247,
@@ -5925,7 +6171,8 @@
    "Studio": "TMS Entertainment Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 248,
@@ -5949,7 +6196,8 @@
    "Studio": "TMS Entertainment Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 249,
@@ -5973,7 +6221,8 @@
    "Studio": "TMS Entertainment Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 250,
@@ -5997,7 +6246,8 @@
    "Studio": "TMS Entertainment Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.5",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 251,
@@ -6021,7 +6271,8 @@
    "Studio": "SILVER LINK.",
    "Difficulty": "C",
    "Version": "v1.6",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 252,
@@ -6045,7 +6296,8 @@
    "Studio": "SILVER LINK.",
    "Difficulty": "C",
    "Version": "v1.6",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 253,
@@ -6069,7 +6321,8 @@
    "Studio": "SILVER LINK.",
    "Difficulty": "C",
    "Version": "v1.6",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 254,
@@ -6093,7 +6346,8 @@
    "Studio": "SILVER LINK.",
    "Difficulty": "C",
    "Version": "v1.6",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 255,
@@ -6117,7 +6371,8 @@
    "Studio": "SILVER LINK.",
    "Difficulty": "C",
    "Version": "v1.6",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 256,
@@ -6141,7 +6396,8 @@
    "Studio": "TMS Entertainment Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.6",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 257,
@@ -6165,7 +6421,8 @@
    "Studio": "TMS Entertainment Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.6",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 258,
@@ -6189,7 +6446,8 @@
    "Studio": "TMS Entertainment Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.6",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 259,
@@ -6213,7 +6471,8 @@
    "Studio": "TMS Entertainment Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.6",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 260,
@@ -6237,7 +6496,8 @@
    "Studio": "TMS Entertainment Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.6",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 261,
@@ -6261,7 +6521,8 @@
    "Studio": "TMS Entertainment Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.6",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 262,
@@ -6285,7 +6546,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "B",
    "Version": "v1.7",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 263,
@@ -6309,7 +6571,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.7",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 264,
@@ -6333,7 +6596,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.7",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 265,
@@ -6357,7 +6621,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.7",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 266,
@@ -6381,7 +6646,8 @@
    "Studio": "J.C.STAFF Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 267,
@@ -6405,7 +6671,8 @@
    "Studio": "J.C.STAFF Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 268,
@@ -6429,7 +6696,8 @@
    "Studio": "J.C.STAFF Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 269,
@@ -6453,7 +6721,8 @@
    "Studio": "J.C.STAFF Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 270,
@@ -6477,7 +6746,8 @@
    "Studio": "J.C.STAFF Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 271,
@@ -6501,7 +6771,8 @@
    "Studio": "J.C.STAFF Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 272,
@@ -6525,7 +6796,8 @@
    "Studio": "J.C.STAFF Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 273,
@@ -6549,7 +6821,8 @@
    "Studio": "J.C.STAFF Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 274,
@@ -6573,7 +6846,8 @@
    "Studio": "J.C.STAFF Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 275,
@@ -6597,7 +6871,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 276,
@@ -6621,7 +6896,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 277,
@@ -6645,7 +6921,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "A",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 278,
@@ -6669,7 +6946,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "A",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 279,
@@ -6693,7 +6971,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "B",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 280,
@@ -6717,7 +6996,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "B",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 281,
@@ -6741,7 +7021,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 282,
@@ -6765,7 +7046,8 @@
    "Studio": "P.A. Works Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 283,
@@ -6789,7 +7071,8 @@
    "Studio": "P.A. Works Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 284,
@@ -6813,7 +7096,8 @@
    "Studio": "P.A. Works Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 285,
@@ -6837,7 +7121,8 @@
    "Studio": "P.A. Works Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 286,
@@ -6861,7 +7146,8 @@
    "Studio": "P.A. Works Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 287,
@@ -6885,7 +7171,8 @@
    "Studio": "P.A. Works Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 288,
@@ -6909,7 +7196,8 @@
    "Studio": "ZERO-G, Inc.",
    "Difficulty": "C",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 289,
@@ -6933,7 +7221,8 @@
    "Studio": "ZERO-G, Inc.",
    "Difficulty": "C",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 290,
@@ -6957,7 +7246,8 @@
    "Studio": "ZERO-G, Inc.",
    "Difficulty": "C",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 291,
@@ -6981,7 +7271,8 @@
    "Studio": "ZERO-G, Inc.",
    "Difficulty": "C",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 292,
@@ -7005,7 +7296,8 @@
    "Studio": "ZERO-G, Inc.",
    "Difficulty": "C",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 293,
@@ -7029,7 +7321,8 @@
    "Studio": "Toei Animation Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 294,
@@ -7053,7 +7346,8 @@
    "Studio": "Toei Animation Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 295,
@@ -7077,7 +7371,8 @@
    "Studio": "Toei Animation Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 296,
@@ -7101,7 +7396,8 @@
    "Studio": "Toei Animation Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 297,
@@ -7125,7 +7421,8 @@
    "Studio": "Toei Animation Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 298,
@@ -7149,7 +7446,8 @@
    "Studio": "Toei Animation Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 299,
@@ -7173,7 +7471,8 @@
    "Studio": "Toei Animation Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 300,
@@ -7197,7 +7496,8 @@
    "Studio": "Passione Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 301,
@@ -7221,7 +7521,8 @@
    "Studio": "Passione Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 302,
@@ -7245,7 +7546,8 @@
    "Studio": "CLOUDHEARTS Inc., Yokohama Animation Lab",
    "Difficulty": "C",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 303,
@@ -7269,7 +7571,8 @@
    "Studio": "CLOUDHEARTS Inc., Yokohama Animation Lab",
    "Difficulty": "C",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 304,
@@ -7293,7 +7596,8 @@
    "Studio": "CLOUDHEARTS Inc., Yokohama Animation Lab",
    "Difficulty": "C",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 305,
@@ -7317,7 +7621,8 @@
    "Studio": "CLOUDHEARTS Inc., Yokohama Animation Lab",
    "Difficulty": "C",
    "Version": "v1.8",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 306,
@@ -7341,7 +7646,8 @@
    "Studio": "J.C.STAFF Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.9",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 307,
@@ -7365,7 +7671,8 @@
    "Studio": "J.C.STAFF Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.9",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 308,
@@ -7389,7 +7696,8 @@
    "Studio": "J.C.STAFF Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.9",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 309,
@@ -7413,7 +7721,8 @@
    "Studio": "J.C.STAFF Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.9",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 310,
@@ -7437,7 +7746,8 @@
    "Studio": "J.C.STAFF Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.9",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 311,
@@ -7461,7 +7771,8 @@
    "Studio": "asread",
    "Difficulty": "A",
    "Version": "v1.10",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 312,
@@ -7485,7 +7796,8 @@
    "Studio": "asread",
    "Difficulty": "C",
    "Version": "v1.10",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 313,
@@ -7509,7 +7821,8 @@
    "Studio": "asread",
    "Difficulty": "C",
    "Version": "v1.10",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 314,
@@ -7533,7 +7846,8 @@
    "Studio": "Studio KAFKA Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.10",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 315,
@@ -7557,7 +7871,8 @@
    "Studio": "Studio KAFKA Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.10",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 316,
@@ -7581,7 +7896,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "A",
    "Version": "v1.10",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 317,
@@ -7605,7 +7921,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "B",
    "Version": "v1.10",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 318,
@@ -7629,7 +7946,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "A",
    "Version": "v1.10",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 319,
@@ -7653,7 +7971,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.10",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 320,
@@ -7677,7 +7996,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.10",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 321,
@@ -7701,7 +8021,8 @@
    "Studio": "Trigger Inc.",
    "Difficulty": "A",
    "Version": "v1.10",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 322,
@@ -7725,7 +8046,8 @@
    "Studio": "Trigger Inc.",
    "Difficulty": "B",
    "Version": "v1.10",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 323,
@@ -7749,7 +8071,8 @@
    "Studio": "Trigger Inc.",
    "Difficulty": "C",
    "Version": "v1.10",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 324,
@@ -7773,7 +8096,8 @@
    "Studio": "Trigger Inc.",
    "Difficulty": "C",
    "Version": "v1.10",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 325,
@@ -7797,7 +8121,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "A",
    "Version": "v1.11",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 326,
@@ -7821,7 +8146,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "A",
    "Version": "v1.11",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 327,
@@ -7845,7 +8171,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "B",
    "Version": "v1.11",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 328,
@@ -7869,7 +8196,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "B",
    "Version": "v1.11",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 329,
@@ -7893,7 +8221,8 @@
    "Studio": "TMS Entertainment Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.11",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 330,
@@ -7917,7 +8246,8 @@
    "Studio": "TMS Entertainment Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.11",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 331,
@@ -7941,7 +8271,8 @@
    "Studio": "TMS Entertainment Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.11",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 332,
@@ -7965,7 +8296,8 @@
    "Studio": "Studio KAFKA Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.11",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 333,
@@ -7989,7 +8321,8 @@
    "Studio": "Studio KAFKA Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.11",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 334,
@@ -8013,7 +8346,8 @@
    "Studio": "Studio KAFKA Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.11",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 335,
@@ -8037,7 +8371,8 @@
    "Studio": "Studio KAFKA Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.11",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 336,
@@ -8061,7 +8396,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.11",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 337,
@@ -8085,7 +8421,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.11",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 338,
@@ -8109,7 +8446,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.11",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 339,
@@ -8133,7 +8471,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.11",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 340,
@@ -8157,7 +8496,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.11",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 341,
@@ -8181,7 +8521,8 @@
    "Studio": "bones film inc.",
    "Difficulty": "C",
    "Version": "v1.12",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 342,
@@ -8205,7 +8546,8 @@
    "Studio": "bones film inc.",
    "Difficulty": "C",
    "Version": "v1.12",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 343,
@@ -8229,7 +8571,8 @@
    "Studio": "bones film inc.",
    "Difficulty": "C",
    "Version": "v1.12",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 344,
@@ -8253,7 +8596,8 @@
    "Studio": "P.A. Works Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.12",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 345,
@@ -8277,7 +8621,8 @@
    "Studio": "P.A. Works Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.12",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 346,
@@ -8301,7 +8646,8 @@
    "Studio": "P.A. Works Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.12",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 347,
@@ -8325,7 +8671,8 @@
    "Studio": "P.A. Works Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.12",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 348,
@@ -8349,7 +8696,8 @@
    "Studio": "Soigne Animation Studio",
    "Difficulty": "C",
    "Version": "v1.12",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 349,
@@ -8373,7 +8721,8 @@
    "Studio": "Soigne Animation Studio",
    "Difficulty": "C",
    "Version": "v1.12",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 350,
@@ -8397,7 +8746,8 @@
    "Studio": "Soigne Animation Studio",
    "Difficulty": "C",
    "Version": "v1.12",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 351,
@@ -8421,7 +8771,8 @@
    "Studio": "Soigne Animation Studio",
    "Difficulty": "C",
    "Version": "v1.12",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 352,
@@ -8445,7 +8796,8 @@
    "Studio": "Soigne Animation Studio",
    "Difficulty": "C",
    "Version": "v1.12",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 353,
@@ -8469,7 +8821,8 @@
    "Studio": "WHITE FOX Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.12",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 354,
@@ -8493,7 +8846,8 @@
    "Studio": "WHITE FOX Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.12",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 355,
@@ -8517,7 +8871,8 @@
    "Studio": "WHITE FOX Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.12",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 356,
@@ -8541,7 +8896,8 @@
    "Studio": "Bibury Animation Studios",
    "Difficulty": "C",
    "Version": "v1.12",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 357,
@@ -8565,7 +8921,8 @@
    "Studio": "Bibury Animation Studios",
    "Difficulty": "B",
    "Version": "v1.12",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 358,
@@ -8589,7 +8946,8 @@
    "Studio": "Bibury Animation Studios",
    "Difficulty": "C",
    "Version": "v1.12",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 359,
@@ -8613,7 +8971,8 @@
    "Studio": "Bibury Animation Studios",
    "Difficulty": "C",
    "Version": "v1.12",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 360,
@@ -8637,7 +8996,8 @@
    "Studio": "P.A. Works Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.13",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 361,
@@ -8661,7 +9021,8 @@
    "Studio": "ARVO ANIMATION Inc.",
    "Difficulty": "B",
    "Version": "v1.13",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 362,
@@ -8685,7 +9046,8 @@
    "Studio": "ARVO ANIMATION Inc.",
    "Difficulty": "B",
    "Version": "v1.13",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 363,
@@ -8709,7 +9071,8 @@
    "Studio": "ARVO ANIMATION Inc.",
    "Difficulty": "C",
    "Version": "v1.13",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 364,
@@ -8733,7 +9096,8 @@
    "Studio": "ARVO ANIMATION Inc.",
    "Difficulty": "C",
    "Version": "v1.13",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 365,
@@ -8757,7 +9121,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "B",
    "Version": "v1.13",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 366,
@@ -8781,7 +9146,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "C",
    "Version": "v1.13",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 367,
@@ -8805,7 +9171,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "C",
    "Version": "v1.13",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 368,
@@ -8829,7 +9196,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "C",
    "Version": "v1.13",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 369,
@@ -8853,7 +9221,8 @@
    "Studio": "CoMix Wave Films Inc.",
    "Difficulty": "A",
    "Version": "v1.14",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 370,
@@ -8877,7 +9246,8 @@
    "Studio": "CoMix Wave Films Inc.",
    "Difficulty": "A",
    "Version": "v1.14",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 371,
@@ -8901,7 +9271,8 @@
    "Studio": "CoMix Wave Films Inc.",
    "Difficulty": "B",
    "Version": "v1.14",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 372,
@@ -8925,7 +9296,8 @@
    "Studio": "CoMix Wave Films Inc.",
    "Difficulty": "B",
    "Version": "v1.14",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 373,
@@ -8949,7 +9321,8 @@
    "Studio": "CoMix Wave Films Inc.",
    "Difficulty": "A",
    "Version": "v1.14",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 374,
@@ -8973,7 +9346,8 @@
    "Studio": "CoMix Wave Films Inc.",
    "Difficulty": "A",
    "Version": "v1.14",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 375,
@@ -8997,7 +9371,8 @@
    "Studio": "CoMix Wave Films Inc.",
    "Difficulty": "B",
    "Version": "v1.14",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 376,
@@ -9021,7 +9396,8 @@
    "Studio": "CoMix Wave Films Inc.",
    "Difficulty": "B",
    "Version": "v1.14",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 377,
@@ -9045,7 +9421,8 @@
    "Studio": "CoMix Wave Films Inc.",
    "Difficulty": "A",
    "Version": "v1.14",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 378,
@@ -9069,7 +9446,8 @@
    "Studio": "CoMix Wave Films Inc.",
    "Difficulty": "A",
    "Version": "v1.14",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 379,
@@ -9093,7 +9471,8 @@
    "Studio": "CoMix Wave Films Inc.",
    "Difficulty": "B",
    "Version": "v1.14",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 380,
@@ -9117,7 +9496,8 @@
    "Studio": "StudioBind Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.14",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 381,
@@ -9141,7 +9521,8 @@
    "Studio": "StudioBind Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.14",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 382,
@@ -9165,7 +9546,8 @@
    "Studio": "Studio Ghibli Inc.",
    "Difficulty": "A",
    "Version": "v1.14",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 383,
@@ -9189,7 +9571,8 @@
    "Studio": "Studio Ghibli Inc.",
    "Difficulty": "A",
    "Version": "v1.14",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 384,
@@ -9213,7 +9596,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "A",
    "Version": "v1.14",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 385,
@@ -9237,7 +9621,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "C",
    "Version": "v1.14",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 386,
@@ -9261,7 +9646,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "C",
    "Version": "v1.14",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 387,
@@ -9285,7 +9671,8 @@
    "Studio": "Gainax Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.15",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 388,
@@ -9309,7 +9696,8 @@
    "Studio": "Gainax Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.15",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 389,
@@ -9333,7 +9721,8 @@
    "Studio": "Gainax Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.15",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 390,
@@ -9357,7 +9746,8 @@
    "Studio": "ufotable, Inc.",
    "Difficulty": "A",
    "Version": "v1.15",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 391,
@@ -9381,7 +9771,8 @@
    "Studio": "ufotable, Inc.",
    "Difficulty": "A",
    "Version": "v1.15",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 392,
@@ -9405,7 +9796,8 @@
    "Studio": "ufotable, Inc.",
    "Difficulty": "A",
    "Version": "v1.15",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 393,
@@ -9429,7 +9821,8 @@
    "Studio": "ufotable, Inc.",
    "Difficulty": "B",
    "Version": "v1.15",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 394,
@@ -9453,7 +9846,8 @@
    "Studio": "ufotable, Inc.",
    "Difficulty": "A",
    "Version": "v1.15",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 395,
@@ -9477,7 +9871,8 @@
    "Studio": "ufotable, Inc.",
    "Difficulty": "B",
    "Version": "v1.15",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 396,
@@ -9501,7 +9896,8 @@
    "Studio": "ufotable, Inc.",
    "Difficulty": "B",
    "Version": "v1.15",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 397,
@@ -9525,7 +9921,8 @@
    "Studio": "ufotable, Inc.",
    "Difficulty": "B",
    "Version": "v1.15",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 398,
@@ -9549,7 +9946,8 @@
    "Studio": "WIT STUDIO, Inc.",
    "Difficulty": "A",
    "Version": "v1.15",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 399,
@@ -9573,7 +9971,8 @@
    "Studio": "WIT STUDIO, Inc., CloverWorks Inc.",
    "Difficulty": "A",
    "Version": "v1.15",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 400,
@@ -9597,7 +9996,8 @@
    "Studio": "WIT STUDIO, Inc., CloverWorks Inc.",
    "Difficulty": "A",
    "Version": "v1.15",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 401,
@@ -9621,7 +10021,8 @@
    "Studio": "WIT STUDIO, Inc., CloverWorks Inc.",
    "Difficulty": "A",
    "Version": "v1.15",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 402,
@@ -9645,7 +10046,8 @@
    "Studio": "Studio DEEN Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.15",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 403,
@@ -9669,7 +10071,8 @@
    "Studio": "Studio DEEN Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.15",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 404,
@@ -9693,7 +10096,8 @@
    "Studio": "Studio DEEN Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.15",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 405,
@@ -9717,7 +10121,8 @@
    "Studio": "Studio DEEN Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.15",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 406,
@@ -9741,7 +10146,8 @@
    "Studio": "J.C.STAFF Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.15",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 407,
@@ -9765,7 +10171,8 @@
    "Studio": "J.C.STAFF Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.15",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 408,
@@ -9789,7 +10196,8 @@
    "Studio": "J.C.STAFF Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.15",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 409,
@@ -9813,7 +10221,8 @@
    "Studio": "J.C.STAFF Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.15",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 410,
@@ -9837,7 +10246,8 @@
    "Studio": "David Production Inc.",
    "Difficulty": "B",
    "Version": "v1.15",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 411,
@@ -9861,7 +10271,8 @@
    "Studio": "David Production Inc.",
    "Difficulty": "B",
    "Version": "v1.15",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 412,
@@ -9885,7 +10296,8 @@
    "Studio": "David Production Inc.",
    "Difficulty": "B",
    "Version": "v1.15",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 413,
@@ -9909,7 +10321,8 @@
    "Studio": "David Production Inc.",
    "Difficulty": "B",
    "Version": "v1.15",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 414,
@@ -9933,7 +10346,8 @@
    "Studio": "David Production Inc.",
    "Difficulty": "B",
    "Version": "v1.15",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 415,
@@ -9957,7 +10371,8 @@
    "Studio": "David Production Inc.",
    "Difficulty": "B",
    "Version": "v1.15",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 416,
@@ -9981,7 +10396,8 @@
    "Studio": "ufotable, Inc.",
    "Difficulty": "C",
    "Version": "v1.15",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 417,
@@ -10005,7 +10421,8 @@
    "Studio": "MAPPA Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.16",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 418,
@@ -10029,7 +10446,8 @@
    "Studio": "MAPPA Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.16",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 419,
@@ -10053,7 +10471,8 @@
    "Studio": "MAPPA Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.16",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 420,
@@ -10077,7 +10496,8 @@
    "Studio": "MAPPA Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.16",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 421,
@@ -10101,7 +10521,8 @@
    "Studio": "MAPPA Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.16",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 422,
@@ -10125,7 +10546,8 @@
    "Studio": "MAPPA Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.16",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 423,
@@ -10149,7 +10571,8 @@
    "Studio": "Studio DEEN Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.16",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 424,
@@ -10173,7 +10596,8 @@
    "Studio": "Studio DEEN Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.16",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 425,
@@ -10197,7 +10621,8 @@
    "Studio": "Studio DEEN Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.16",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 426,
@@ -10221,7 +10646,8 @@
    "Studio": "Studio DEEN Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.16",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 427,
@@ -10245,7 +10671,8 @@
    "Studio": "Studio DEEN Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.16",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 428,
@@ -10269,7 +10696,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.17",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 429,
@@ -10293,7 +10721,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.17",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 430,
@@ -10317,7 +10746,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.17",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 431,
@@ -10341,7 +10771,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.17",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 432,
@@ -10365,7 +10796,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.17",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 433,
@@ -10389,7 +10821,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.17",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 434,
@@ -10413,7 +10846,8 @@
    "Studio": "StudioBind Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.17",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 435,
@@ -10437,7 +10871,8 @@
    "Studio": "StudioBind Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.17",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 436,
@@ -10461,7 +10896,8 @@
    "Studio": "Studio Ghibli Inc.",
    "Difficulty": "A",
    "Version": "v1.17",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 437,
@@ -10485,7 +10921,8 @@
    "Studio": "LIDEN FILMS Inc.",
    "Difficulty": "C",
    "Version": "v1.18",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 438,
@@ -10509,7 +10946,8 @@
    "Studio": "LIDEN FILMS Inc.",
    "Difficulty": "A",
    "Version": "v1.18",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 439,
@@ -10533,7 +10971,8 @@
    "Studio": "LIDEN FILMS Inc.",
    "Difficulty": "C",
    "Version": "v1.18",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 440,
@@ -10557,7 +10996,8 @@
    "Studio": "LIDEN FILMS Inc.",
    "Difficulty": "C",
    "Version": "v1.18",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 441,
@@ -10581,7 +11021,8 @@
    "Studio": "LIDEN FILMS Inc.",
    "Difficulty": "C",
    "Version": "v1.18",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 442,
@@ -10605,7 +11046,8 @@
    "Studio": "Atelier Pontdarc Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.18",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 443,
@@ -10629,7 +11071,8 @@
    "Studio": "Atelier Pontdarc Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.18",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 444,
@@ -10640,7 +11083,7 @@
    "Hair_Color": "Light Brown",
    "Age": "17",
    "Age_Group": "12-18",
-   "Height": null,
+   "Height": 146,
    "Eye_Color": "Brown",
    "Birthday": "Unknown",
    "Genre": "Action",
@@ -10653,7 +11096,8 @@
    "Studio": "Studio Gokumi",
    "Difficulty": "C",
    "Version": "v1.18",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 445,
@@ -10677,7 +11121,8 @@
    "Studio": "Studio Gokumi",
    "Difficulty": "C",
    "Version": "v1.18",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 446,
@@ -10701,7 +11146,8 @@
    "Studio": "Studio Gokumi",
    "Difficulty": "C",
    "Version": "v1.18",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 447,
@@ -10725,7 +11171,8 @@
    "Studio": "Studio Gokumi",
    "Difficulty": "C",
    "Version": "v1.18",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 448,
@@ -10749,7 +11196,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "A",
    "Version": "v1.18",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 449,
@@ -10773,7 +11221,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "A",
    "Version": "v1.18",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 450,
@@ -10797,7 +11246,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "A",
    "Version": "v1.18",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 451,
@@ -10821,7 +11271,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "A",
    "Version": "v1.18",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 452,
@@ -10845,7 +11296,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "B",
    "Version": "v1.18",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 453,
@@ -10869,7 +11321,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "B",
    "Version": "v1.18",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 454,
@@ -10893,7 +11346,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "B",
    "Version": "v1.18",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 455,
@@ -10917,7 +11371,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "B",
    "Version": "v1.18",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 456,
@@ -10941,7 +11396,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "A",
    "Version": "v1.18",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 457,
@@ -10965,7 +11421,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "C",
    "Version": "v1.18",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 458,
@@ -10989,7 +11446,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "C",
    "Version": "v1.18",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 459,
@@ -11013,7 +11471,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "B",
    "Version": "v1.19",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 460,
@@ -11037,7 +11496,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "B",
    "Version": "v1.19",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 461,
@@ -11061,7 +11521,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "B",
    "Version": "v1.19",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 462,
@@ -11085,7 +11546,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "A",
    "Version": "v1.19",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 463,
@@ -11109,7 +11571,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "A",
    "Version": "v1.19",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 464,
@@ -11133,7 +11596,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.19",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 465,
@@ -11157,7 +11621,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.19",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 466,
@@ -11181,7 +11646,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.19",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 467,
@@ -11205,7 +11671,8 @@
    "Studio": "TMS Entertainment Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.19",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 468,
@@ -11229,7 +11696,8 @@
    "Studio": "TMS Entertainment Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.19",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 469,
@@ -11253,7 +11721,8 @@
    "Studio": "TMS Entertainment Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.19",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 470,
@@ -11277,7 +11746,8 @@
    "Studio": "Doga Kobo",
    "Difficulty": "B",
    "Version": "v1.19",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 471,
@@ -11301,7 +11771,8 @@
    "Studio": "Doga Kobo",
    "Difficulty": "C",
    "Version": "v1.19",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 472,
@@ -11325,7 +11796,8 @@
    "Studio": "Doga Kobo",
    "Difficulty": "C",
    "Version": "v1.19",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 473,
@@ -11349,7 +11821,8 @@
    "Studio": "Doga Kobo",
    "Difficulty": "C",
    "Version": "v1.19",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 474,
@@ -11373,7 +11846,8 @@
    "Studio": "MADHOUSE Inc.",
    "Difficulty": "C",
    "Version": "v1.19",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 475,
@@ -11397,7 +11871,8 @@
    "Studio": "MADHOUSE Inc.",
    "Difficulty": "C",
    "Version": "v1.19",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 476,
@@ -11421,7 +11896,8 @@
    "Studio": "MADHOUSE Inc.",
    "Difficulty": "C",
    "Version": "v1.19",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 477,
@@ -11445,7 +11921,8 @@
    "Studio": "MADHOUSE Inc.",
    "Difficulty": "C",
    "Version": "v1.19",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 478,
@@ -11469,7 +11946,8 @@
    "Studio": "MADHOUSE Inc.",
    "Difficulty": "C",
    "Version": "v1.19",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 479,
@@ -11493,7 +11971,8 @@
    "Studio": "MADHOUSE Inc.",
    "Difficulty": "C",
    "Version": "v1.19",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 480,
@@ -11517,7 +11996,8 @@
    "Studio": "Doga Kobo",
    "Difficulty": "C",
    "Version": "v1.19",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 481,
@@ -11541,7 +12021,8 @@
    "Studio": "Doga Kobo",
    "Difficulty": "C",
    "Version": "v1.19",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 482,
@@ -11565,7 +12046,8 @@
    "Studio": "Doga Kobo",
    "Difficulty": "C",
    "Version": "v1.19",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 483,
@@ -11589,7 +12071,8 @@
    "Studio": "Doga Kobo",
    "Difficulty": "C",
    "Version": "v1.19",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 484,
@@ -11613,7 +12096,8 @@
    "Studio": "Doga Kobo",
    "Difficulty": "C",
    "Version": "v1.19",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 485,
@@ -11637,7 +12121,8 @@
    "Studio": "Doga Kobo",
    "Difficulty": "C",
    "Version": "v1.19",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 486,
@@ -11661,7 +12146,8 @@
    "Studio": "Doga Kobo",
    "Difficulty": "C",
    "Version": "v1.19",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 487,
@@ -11685,7 +12171,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "B",
    "Version": "v1.20",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 488,
@@ -11709,7 +12196,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "B",
    "Version": "v1.20",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 489,
@@ -11733,7 +12221,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.20",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 490,
@@ -11757,7 +12246,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "B",
    "Version": "v1.20",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 491,
@@ -11781,7 +12271,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.20",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 492,
@@ -11805,7 +12296,8 @@
    "Studio": "A-1 Pictures Inc.",
    "Difficulty": "C",
    "Version": "v1.20",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 493,
@@ -11818,7 +12310,7 @@
    "Age_Group": "12-18",
    "Height": 160,
    "Eye_Color": "Red",
-   "Birthday": "Unknown",
+   "Birthday": "24.12",
    "Genre": "Romantic Comedy",
    "Subgenre1": "Harem",
    "Subgenre2": "Slice of Life",
@@ -11829,7 +12321,8 @@
    "Studio": "P.A. Works Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.20",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 494,
@@ -11853,7 +12346,8 @@
    "Studio": "P.A. Works Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.20",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 495,
@@ -11877,7 +12371,8 @@
    "Studio": "P.A. Works Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.20",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 496,
@@ -11901,7 +12396,8 @@
    "Studio": "P.A. Works Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.20",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 497,
@@ -11925,7 +12421,8 @@
    "Studio": "Science SARU Inc.",
    "Difficulty": "A",
    "Version": "v1.20",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 498,
@@ -11949,7 +12446,8 @@
    "Studio": "Science SARU Inc.",
    "Difficulty": "C",
    "Version": "v1.20",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 499,
@@ -11973,7 +12471,8 @@
    "Studio": "Science SARU Inc.",
    "Difficulty": "C",
    "Version": "v1.20",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 500,
@@ -11997,7 +12496,8 @@
    "Studio": "Telecom Animation Film Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.20",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 501,
@@ -12021,7 +12521,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "C",
    "Version": "v1.21",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 502,
@@ -12045,7 +12546,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "C",
    "Version": "v1.21",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 503,
@@ -12069,7 +12571,8 @@
    "Studio": "studio MOTHER Inc.",
    "Difficulty": "C",
    "Version": "v1.21",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 504,
@@ -12093,7 +12596,8 @@
    "Studio": "studio MOTHER Inc.",
    "Difficulty": "C",
    "Version": "v1.21",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 505,
@@ -12117,7 +12621,8 @@
    "Studio": "studio MOTHER Inc.",
    "Difficulty": "C",
    "Version": "v1.21",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 506,
@@ -12141,7 +12646,8 @@
    "Studio": "studio MOTHER Inc.",
    "Difficulty": "C",
    "Version": "v1.21",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 507,
@@ -12165,7 +12671,8 @@
    "Studio": "studio MOTHER Inc.",
    "Difficulty": "C",
    "Version": "v1.21",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 508,
@@ -12189,7 +12696,8 @@
    "Studio": "MAPPA Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.21",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 509,
@@ -12213,7 +12721,8 @@
    "Studio": "MAPPA Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.21",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 510,
@@ -12237,7 +12746,8 @@
    "Studio": "MAPPA Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.21",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 511,
@@ -12261,7 +12771,8 @@
    "Studio": "MAPPA Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.21",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 512,
@@ -12285,7 +12796,8 @@
    "Studio": "MAPPA Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.21",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 513,
@@ -12309,7 +12821,8 @@
    "Studio": "MAPPA Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.21",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 514,
@@ -12333,7 +12846,8 @@
    "Studio": "TMS Entertainment Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.21",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 515,
@@ -12357,7 +12871,8 @@
    "Studio": "TMS Entertainment Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.21",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 516,
@@ -12381,7 +12896,8 @@
    "Studio": "TMS Entertainment Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.21",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 517,
@@ -12405,7 +12921,8 @@
    "Studio": "TMS Entertainment Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.21",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 518,
@@ -12429,7 +12946,8 @@
    "Studio": "TMS Entertainment Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.21",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 519,
@@ -12453,7 +12971,8 @@
    "Studio": "TMS Entertainment Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.21",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 520,
@@ -12477,7 +12996,8 @@
    "Studio": "TMS Entertainment Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.21",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 521,
@@ -12501,7 +13021,8 @@
    "Studio": "TMS Entertainment Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.21",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 522,
@@ -12525,7 +13046,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "A",
    "Version": "v1.21",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 523,
@@ -12549,7 +13071,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "A",
    "Version": "v1.21",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 524,
@@ -12573,7 +13096,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "B",
    "Version": "v1.21",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 525,
@@ -12597,7 +13121,8 @@
    "Studio": "CloverWorks Inc.",
    "Difficulty": "B",
    "Version": "v1.21",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 526,
@@ -12621,7 +13146,8 @@
    "Studio": "TMS Entertainment Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.21",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 527,
@@ -12645,7 +13171,8 @@
    "Studio": "TMS Entertainment Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.21",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 528,
@@ -12669,7 +13196,8 @@
    "Studio": "TMS Entertainment Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.21",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 529,
@@ -12693,7 +13221,8 @@
    "Studio": "TMS Entertainment Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.21",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 530,
@@ -12717,7 +13246,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.22",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 531,
@@ -12741,7 +13271,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.22",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 532,
@@ -12765,7 +13296,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.22",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 533,
@@ -12789,7 +13321,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.22",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 534,
@@ -12813,7 +13346,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.22",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 535,
@@ -12837,7 +13371,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.22",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 536,
@@ -12861,7 +13396,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.22",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 537,
@@ -12885,7 +13421,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.22",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 538,
@@ -12909,7 +13446,8 @@
    "Studio": "Shin-ei Animation Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.22",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 539,
@@ -12933,7 +13471,8 @@
    "Studio": "Shin-ei Animation Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.22",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 540,
@@ -12957,7 +13496,8 @@
    "Studio": "P.A. Works Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.22",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 541,
@@ -12981,7 +13521,8 @@
    "Studio": "P.A. Works Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.22",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 542,
@@ -13005,7 +13546,8 @@
    "Studio": "P.A. Works Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.22",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 543,
@@ -13029,7 +13571,8 @@
    "Studio": "Doga Kobo",
    "Difficulty": "B",
    "Version": "v1.22",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 544,
@@ -13053,7 +13596,8 @@
    "Studio": "Felix Film",
    "Difficulty": "C",
    "Version": "v1.22",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 545,
@@ -13077,7 +13621,8 @@
    "Studio": "Felix Film",
    "Difficulty": "C",
    "Version": "v1.22",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 546,
@@ -13101,7 +13646,8 @@
    "Studio": "Felix Film",
    "Difficulty": "C",
    "Version": "v1.22",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 547,
@@ -13125,7 +13671,8 @@
    "Studio": "Felix Film",
    "Difficulty": "C",
    "Version": "v1.22",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 548,
@@ -13149,7 +13696,8 @@
    "Studio": "Doga Kobo",
    "Difficulty": "C",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 549,
@@ -13173,7 +13721,8 @@
    "Studio": "Doga Kobo",
    "Difficulty": "C",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 550,
@@ -13197,7 +13746,8 @@
    "Studio": "Doga Kobo",
    "Difficulty": "C",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 551,
@@ -13221,7 +13771,8 @@
    "Studio": "Doga Kobo",
    "Difficulty": "C",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 552,
@@ -13245,7 +13796,8 @@
    "Studio": "Pierrot Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 553,
@@ -13269,7 +13821,8 @@
    "Studio": "Pierrot Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 554,
@@ -13293,7 +13846,8 @@
    "Studio": "Pierrot Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 555,
@@ -13317,7 +13871,8 @@
    "Studio": "Pierrot Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 556,
@@ -13341,7 +13896,8 @@
    "Studio": "Pierrot Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 557,
@@ -13365,7 +13921,8 @@
    "Studio": "Pierrot Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 558,
@@ -13389,7 +13946,8 @@
    "Studio": "Pierrot Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 559,
@@ -13413,7 +13971,8 @@
    "Studio": "Pierrot Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 560,
@@ -13437,7 +13996,8 @@
    "Studio": "Pierrot Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 561,
@@ -13461,7 +14021,8 @@
    "Studio": "Pierrot Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 562,
@@ -13485,7 +14046,8 @@
    "Studio": "Pierrot Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 563,
@@ -13509,7 +14071,8 @@
    "Studio": "Pierrot Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 564,
@@ -13533,7 +14096,8 @@
    "Studio": "Pierrot Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 565,
@@ -13557,7 +14121,8 @@
    "Studio": "Pierrot Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 566,
@@ -13581,7 +14146,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 567,
@@ -13605,7 +14171,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 568,
@@ -13629,7 +14196,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 569,
@@ -13653,7 +14221,8 @@
    "Studio": "C2C Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 570,
@@ -13677,7 +14246,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "B",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 571,
@@ -13701,7 +14271,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "B",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 572,
@@ -13725,7 +14296,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "C",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 573,
@@ -13749,7 +14321,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "C",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 574,
@@ -13773,7 +14346,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "C",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 575,
@@ -13797,7 +14371,8 @@
    "Studio": "Liden Films Kyoto Studio",
    "Difficulty": "C",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 576,
@@ -13821,7 +14396,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 577,
@@ -13845,7 +14421,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 578,
@@ -13869,7 +14446,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 579,
@@ -13893,7 +14471,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 580,
@@ -13917,7 +14496,8 @@
    "Studio": "MAPPA Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 581,
@@ -13930,7 +14510,7 @@
    "Age_Group": "19-30",
    "Height": 170,
    "Eye_Color": "Green",
-   "Birthday": "Unknown",
+   "Birthday": "15.10",
    "Genre": "Action Drama",
    "Subgenre1": "Horror",
    "Subgenre2": "-",
@@ -13941,7 +14521,8 @@
    "Studio": "MAPPA Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 582,
@@ -13965,7 +14546,8 @@
    "Studio": "MAPPA Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 583,
@@ -13989,7 +14571,8 @@
    "Studio": "MAPPA Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 584,
@@ -14002,7 +14585,7 @@
    "Age_Group": "19-30",
    "Height": 155,
    "Eye_Color": "Orange",
-   "Birthday": "Unknown",
+   "Birthday": "09.08",
    "Genre": "Action Drama",
    "Subgenre1": "Horror",
    "Subgenre2": "-",
@@ -14013,7 +14596,8 @@
    "Studio": "MAPPA Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 585,
@@ -14037,7 +14621,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "B",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 586,
@@ -14061,7 +14646,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "B",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 587,
@@ -14085,7 +14671,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "B",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 588,
@@ -14109,7 +14696,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "A",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 589,
@@ -14133,7 +14721,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "A",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 590,
@@ -14157,7 +14746,8 @@
    "Studio": "BONES Inc.",
    "Difficulty": "C",
    "Version": "v1.23",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 591,
@@ -14181,7 +14771,8 @@
    "Studio": "bones film inc.",
    "Difficulty": "A",
    "Version": "v1.24",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 592,
@@ -14205,7 +14796,8 @@
    "Studio": "bones film inc.",
    "Difficulty": "C",
    "Version": "v1.24",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 593,
@@ -14229,7 +14821,8 @@
    "Studio": "bones film inc.",
    "Difficulty": "C",
    "Version": "v1.24",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 594,
@@ -14253,7 +14846,8 @@
    "Studio": "bones film inc.",
    "Difficulty": "C",
    "Version": "v1.24",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 595,
@@ -14277,7 +14871,8 @@
    "Studio": "bones film inc.",
    "Difficulty": "A",
    "Version": "v1.24",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 596,
@@ -14301,7 +14896,8 @@
    "Studio": "bones film inc.",
    "Difficulty": "B",
    "Version": "v1.24",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 597,
@@ -14325,7 +14921,8 @@
    "Studio": "bones film inc.",
    "Difficulty": "C",
    "Version": "v1.24",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 598,
@@ -14349,7 +14946,8 @@
    "Studio": "bones film inc.",
    "Difficulty": "B",
    "Version": "v1.24",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 599,
@@ -14373,7 +14971,8 @@
    "Studio": "bones film inc.",
    "Difficulty": "A",
    "Version": "v1.24",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 600,
@@ -14397,7 +14996,8 @@
    "Studio": "bones film inc.",
    "Difficulty": "C",
    "Version": "v1.24",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 601,
@@ -14421,7 +15021,8 @@
    "Studio": "bones film inc.",
    "Difficulty": "C",
    "Version": "v1.24",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 602,
@@ -14445,7 +15046,8 @@
    "Studio": "MADHOUSE Inc.",
    "Difficulty": "A",
    "Version": "v1.24",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 603,
@@ -14469,7 +15071,8 @@
    "Studio": "WHITE FOX Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.24",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 604,
@@ -14493,7 +15096,8 @@
    "Studio": "WHITE FOX Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.24",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 605,
@@ -14517,7 +15121,8 @@
    "Studio": "WHITE FOX Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.24",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 606,
@@ -14541,7 +15146,8 @@
    "Studio": "WHITE FOX Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.24",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 607,
@@ -14565,7 +15171,8 @@
    "Studio": "WHITE FOX Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.24",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 608,
@@ -14589,7 +15196,8 @@
    "Studio": "WHITE FOX Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.24",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 609,
@@ -14613,7 +15221,8 @@
    "Studio": "WHITE FOX Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.24",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 610,
@@ -14637,7 +15246,8 @@
    "Studio": "WHITE FOX Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.24",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 611,
@@ -14661,7 +15271,8 @@
    "Studio": "WHITE FOX Co., Ltd.",
    "Difficulty": "A",
    "Version": "v1.24",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 612,
@@ -14685,7 +15296,8 @@
    "Studio": "WHITE FOX Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.24",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 613,
@@ -14709,7 +15321,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.24",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 614,
@@ -14733,7 +15346,8 @@
    "Studio": "Kyoto Animation Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.24",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 615,
@@ -14757,7 +15371,8 @@
    "Studio": "Studio Lings, Inc.",
    "Difficulty": "C",
    "Version": "v1.25",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 616,
@@ -14781,7 +15396,8 @@
    "Studio": "Studio Lings, Inc.",
    "Difficulty": "C",
    "Version": "v1.25",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 617,
@@ -14805,7 +15421,8 @@
    "Studio": "Studio Lings, Inc.",
    "Difficulty": "C",
    "Version": "v1.25",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 618,
@@ -14829,7 +15446,8 @@
    "Studio": "WHITE FOX Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.25",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 619,
@@ -14853,7 +15471,8 @@
    "Studio": "WHITE FOX Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.25",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 620,
@@ -14877,7 +15496,8 @@
    "Studio": "WHITE FOX Co., Ltd.",
    "Difficulty": "B",
    "Version": "v1.25",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 621,
@@ -14901,7 +15521,8 @@
    "Studio": "WHITE FOX Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.25",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 622,
@@ -14925,7 +15546,8 @@
    "Studio": "WHITE FOX Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.25",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 623,
@@ -14949,7 +15571,8 @@
    "Studio": "WHITE FOX Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.25",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 624,
@@ -14973,7 +15596,8 @@
    "Studio": "WHITE FOX Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.25",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 625,
@@ -14997,7 +15621,8 @@
    "Studio": "WHITE FOX Co., Ltd.",
    "Difficulty": "C",
    "Version": "v1.25",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 626,
@@ -15021,7 +15646,8 @@
    "Studio": "ufotable, Inc.",
    "Difficulty": "A",
    "Version": "v1.25",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 627,
@@ -15034,7 +15660,7 @@
    "Age_Group": "31-50",
    "Height": 154,
    "Eye_Color": "Green",
-   "Birthday": "",
+   "Birthday": "Unknown",
    "Genre": "Action Drama",
    "Subgenre1": "Adventure",
    "Subgenre2": "Fantasy",
@@ -15045,7 +15671,8 @@
    "Studio": "ufotable, Inc.",
    "Difficulty": "A",
    "Version": "v1.25",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 628,
@@ -15069,7 +15696,8 @@
    "Studio": "ufotable, Inc.",
    "Difficulty": "C",
    "Version": "v1.25",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 629,
@@ -15093,7 +15721,8 @@
    "Studio": "ufotable, Inc.",
    "Difficulty": "B",
    "Version": "v1.25",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 630,
@@ -15106,7 +15735,7 @@
    "Age_Group": "19-30",
    "Height": 182,
    "Eye_Color": "Red",
-   "Birthday": "",
+   "Birthday": "Unknown",
    "Genre": "Action Drama",
    "Subgenre1": "Adventure",
    "Subgenre2": "Fantasy",
@@ -15117,7 +15746,8 @@
    "Studio": "ufotable, Inc.",
    "Difficulty": "A",
    "Version": "v1.25",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 631,
@@ -15141,7 +15771,8 @@
    "Studio": "ufotable, Inc.",
    "Difficulty": "C",
    "Version": "v1.25",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 632,
@@ -15165,7 +15796,8 @@
    "Studio": "ufotable, Inc.",
    "Difficulty": "B",
    "Version": "v1.25",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 633,
@@ -15189,7 +15821,8 @@
    "Studio": "ufotable, Inc.",
    "Difficulty": "C",
    "Version": "v1.25",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 634,
@@ -15202,7 +15835,7 @@
    "Age_Group": "19-30",
    "Height": null,
    "Eye_Color": "Purple",
-   "Birthday": "",
+   "Birthday": "Unknown",
    "Genre": "Slice of Life Comedy",
    "Subgenre1": "-",
    "Subgenre2": "-",
@@ -15213,7 +15846,8 @@
    "Studio": "Voil Inc.",
    "Difficulty": "C",
    "Version": "v1.25",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 635,
@@ -15226,7 +15860,7 @@
    "Age_Group": "19-30",
    "Height": null,
    "Eye_Color": "Olive",
-   "Birthday": "",
+   "Birthday": "Unknown",
    "Genre": "Slice of Life Comedy",
    "Subgenre1": "-",
    "Subgenre2": "-",
@@ -15237,7 +15871,8 @@
    "Studio": "Voil Inc.",
    "Difficulty": "C",
    "Version": "v1.25",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 636,
@@ -15250,7 +15885,7 @@
    "Age_Group": "19-30",
    "Height": null,
    "Eye_Color": "Brown",
-   "Birthday": "",
+   "Birthday": "Unknown",
    "Genre": "Slice of Life Comedy",
    "Subgenre1": "-",
    "Subgenre2": "-",
@@ -15261,7 +15896,8 @@
    "Studio": "Voil Inc.",
    "Difficulty": "C",
    "Version": "v1.25",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 637,
@@ -15274,7 +15910,7 @@
    "Age_Group": "19-30",
    "Height": null,
    "Eye_Color": "Brown",
-   "Birthday": "",
+   "Birthday": "Unknown",
    "Genre": "Slice of Life Comedy",
    "Subgenre1": "-",
    "Subgenre2": "-",
@@ -15285,7 +15921,8 @@
    "Studio": "Voil Inc.",
    "Difficulty": "C",
    "Version": "v1.25",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 638,
@@ -15298,7 +15935,7 @@
    "Age_Group": "19-30",
    "Height": null,
    "Eye_Color": "Green",
-   "Birthday": "",
+   "Birthday": "Unknown",
    "Genre": "Slice of Life Comedy",
    "Subgenre1": "-",
    "Subgenre2": "-",
@@ -15309,7 +15946,8 @@
    "Studio": "Voil Inc.",
    "Difficulty": "C",
    "Version": "v1.25",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  },
  {
    "id": 639,
@@ -15322,7 +15960,7 @@
    "Age_Group": "12-18",
    "Height": null,
    "Eye_Color": "Green",
-   "Birthday": "",
+   "Birthday": "Unknown",
    "Genre": "Slice of Life Comedy",
    "Subgenre1": "-",
    "Subgenre2": "-",
@@ -15333,6 +15971,482 @@
    "Studio": "Voil Inc.",
    "Difficulty": "C",
    "Version": "v1.25",
-   "Editorial_Staff_Hint": ""
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
+ },
+ {
+   "id": 640,
+   "label": "Yua Serufu",
+   "Name": "Yua Serufu",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Light Ochre",
+   "Age": "15",
+   "Age_Group": "12-18",
+   "Height": 156,
+   "Eye_Color": "Orange",
+   "Birthday": "01.04",
+   "Genre": "Slice of Life Comedy",
+   "Subgenre1": "-",
+   "Subgenre2": "-",
+   "Tags": "High School; Present; Club",
+   "Anime": "Do It Yourself!!",
+   "Anime_Id": 104,
+   "First_Release_Year": 2022,
+   "Studio": "Pine Jam",
+   "Difficulty": "C",
+   "Version": "v1.26",
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
+ },
+ {
+   "id": 641,
+   "label": "Miku Suride",
+   "Name": "Miku Suride",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Dark Violet",
+   "Age": "15",
+   "Age_Group": "12-18",
+   "Height": 158,
+   "Eye_Color": "Red",
+   "Birthday": "03.06",
+   "Genre": "Slice of Life Comedy",
+   "Subgenre1": "-",
+   "Subgenre2": "-",
+   "Tags": "High School; Present; Club",
+   "Anime": "Do It Yourself!!",
+   "Anime_Id": 104,
+   "First_Release_Year": 2022,
+   "Studio": "Pine Jam",
+   "Difficulty": "C",
+   "Version": "v1.26",
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
+ },
+ {
+   "id": 642,
+   "label": "Rei Yasaku",
+   "Name": "Rei Yasaku",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Orange",
+   "Age": "17",
+   "Age_Group": "12-18",
+   "Height": 166,
+   "Eye_Color": "Brown",
+   "Birthday": "03.12",
+   "Genre": "Slice of Life Comedy",
+   "Subgenre1": "-",
+   "Subgenre2": "-",
+   "Tags": "High School; Present; Club",
+   "Anime": "Do It Yourself!!",
+   "Anime_Id": 104,
+   "First_Release_Year": 2022,
+   "Studio": "Pine Jam",
+   "Difficulty": "C",
+   "Version": "v1.26",
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
+ },
+ {
+   "id": 643,
+   "label": "Takumi Hikage",
+   "Name": "Takumi Hikage",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Aubergine",
+   "Age": "15",
+   "Age_Group": "12-18",
+   "Height": 145,
+   "Eye_Color": "Green",
+   "Birthday": "08.10",
+   "Genre": "Slice of Life Comedy",
+   "Subgenre1": "-",
+   "Subgenre2": "-",
+   "Tags": "High School; Present; Club",
+   "Anime": "Do It Yourself!!",
+   "Anime_Id": 104,
+   "First_Release_Year": 2022,
+   "Studio": "Pine Jam",
+   "Difficulty": "C",
+   "Version": "v1.26",
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
+ },
+ {
+   "id": 644,
+   "label": "Kokoro Kouki",
+   "Name": "Kokoro Kouki",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Black",
+   "Age": "15",
+   "Age_Group": "12-18",
+   "Height": 162,
+   "Eye_Color": "Violet",
+   "Birthday": "06.08",
+   "Genre": "Slice of Life Comedy",
+   "Subgenre1": "-",
+   "Subgenre2": "-",
+   "Tags": "High School; Present; Club",
+   "Anime": "Do It Yourself!!",
+   "Anime_Id": 104,
+   "First_Release_Year": 2022,
+   "Studio": "Pine Jam",
+   "Difficulty": "C",
+   "Version": "v1.26",
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
+ },
+ {
+   "id": 645,
+   "label": "Juliet Queen Elizabeth VIII",
+   "Name": "Juliet Queen Elizabeth VIII",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Blonde",
+   "Age": "12",
+   "Age_Group": "12-18",
+   "Height": 142,
+   "Eye_Color": "Blue",
+   "Birthday": "24.02",
+   "Genre": "Slice of Life Comedy",
+   "Subgenre1": "-",
+   "Subgenre2": "-",
+   "Tags": "High School; Present; Club",
+   "Anime": "Do It Yourself!!",
+   "Anime_Id": 104,
+   "First_Release_Year": 2022,
+   "Studio": "Pine Jam",
+   "Difficulty": "C",
+   "Version": "v1.26",
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
+ },
+ {
+   "id": 646,
+   "label": "Petra Leyte",
+   "Name": "Petra Leyte",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Orange",
+   "Age": "12",
+   "Age_Group": "12-18",
+   "Height": 140,
+   "Eye_Color": "Cyan",
+   "Birthday": "14.02",
+   "Genre": "Drama",
+   "Subgenre1": "Action",
+   "Subgenre2": "Adventure",
+   "Tags": "Alternative World; Middle Ages; Isekai",
+   "Anime": "Re:Zero - Starting Life in Another World",
+   "Anime_Id": 18,
+   "First_Release_Year": 2016,
+   "Studio": "WHITE FOX Co., Ltd.",
+   "Difficulty": "C",
+   "Version": "v1.26",
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
+ },
+ {
+   "id": 647,
+   "label": "Theresia van Astrea",
+   "Name": "Theresia van Astrea",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Red",
+   "Age": "46",
+   "Age_Group": "31-50",
+   "Height": 162,
+   "Eye_Color": "Blue",
+   "Birthday": "Unknown",
+   "Genre": "Drama",
+   "Subgenre1": "Action",
+   "Subgenre2": "Adventure",
+   "Tags": "Alternative World; Middle Ages; Isekai",
+   "Anime": "Re:Zero - Starting Life in Another World",
+   "Anime_Id": 18,
+   "First_Release_Year": 2016,
+   "Studio": "WHITE FOX Co., Ltd.",
+   "Difficulty": "C",
+   "Version": "v1.26",
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
+ },
+ {
+   "id": 648,
+   "label": "Liliana Masquerade",
+   "Name": "Liliana Masquerade",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Blonde",
+   "Age": "22",
+   "Age_Group": "19-30",
+   "Height": 150,
+   "Eye_Color": "Golden",
+   "Birthday": "Unknown",
+   "Genre": "Drama",
+   "Subgenre1": "Action",
+   "Subgenre2": "Adventure",
+   "Tags": "Alternative World; Middle Ages; Isekai",
+   "Anime": "Re:Zero - Starting Life in Another World",
+   "Anime_Id": 18,
+   "First_Release_Year": 2016,
+   "Studio": "WHITE FOX Co., Ltd.",
+   "Difficulty": "C",
+   "Version": "v1.26",
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
+ },
+ {
+   "id": 649,
+   "label": "Capella Emerada Lugunica",
+   "Name": "Capella Emerada Lugunica",
+   "Sex": "Female",
+   "Origin": "Unknown",
+   "Hair_Color": "Blonde",
+   "Age": "Unknown",
+   "Age_Group": "51-70",
+   "Height": 145,
+   "Eye_Color": "Rot",
+   "Birthday": "Unknown",
+   "Genre": "Drama",
+   "Subgenre1": "Action",
+   "Subgenre2": "Adventure",
+   "Tags": "Alternative World; Middle Ages; Isekai",
+   "Anime": "Re:Zero - Starting Life in Another World",
+   "Anime_Id": 18,
+   "First_Release_Year": 2016,
+   "Studio": "WHITE FOX Co., Ltd.",
+   "Difficulty": "C",
+   "Version": "v1.26",
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
+ },
+ {
+   "id": 650,
+   "label": "Sirius Romanée-Conti",
+   "Name": "Sirius Romanée-Conti",
+   "Sex": "Female",
+   "Origin": "Unknown",
+   "Hair_Color": "Silver",
+   "Age": "Unknown",
+   "Age_Group": "100+",
+   "Height": 168,
+   "Eye_Color": "Purple",
+   "Birthday": "Unknown",
+   "Genre": "Drama",
+   "Subgenre1": "Action",
+   "Subgenre2": "Adventure",
+   "Tags": "Alternative World; Middle Ages; Isekai",
+   "Anime": "Re:Zero - Starting Life in Another World",
+   "Anime_Id": 18,
+   "First_Release_Year": 2016,
+   "Studio": "WHITE FOX Co., Ltd.",
+   "Difficulty": "C",
+   "Version": "v1.26",
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
+ },
+ {
+   "id": 651,
+   "label": "Yuji Itadori",
+   "Name": "Yuji Itadori",
+   "Sex": "Male",
+   "Origin": "Human",
+   "Hair_Color": "Pink",
+   "Age": "15",
+   "Age_Group": "12-18",
+   "Height": 173,
+   "Eye_Color": "Brown",
+   "Birthday": "20.03",
+   "Genre": "Fighting-Shounen",
+   "Subgenre1": "Action",
+   "Subgenre2": "Comedy",
+   "Tags": "Contemporary Fantasy; High School; Present",
+   "Anime": "Jujutsu Kaisen",
+   "Anime_Id": 9,
+   "First_Release_Year": 2020,
+   "Studio": "MAPPA Co., Ltd.",
+   "Difficulty": "A",
+   "Version": "v1.26",
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
+ },
+ {
+   "id": 652,
+   "label": "Riko Amanai",
+   "Name": "Riko Amanai",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Black",
+   "Age": "14",
+   "Age_Group": "12-18",
+   "Height": 156,
+   "Eye_Color": "Blue",
+   "Birthday": "",
+   "Genre": "Fighting-Shounen",
+   "Subgenre1": "Action",
+   "Subgenre2": "Comedy",
+   "Tags": "Contemporary Fantasy; High School; Present",
+   "Anime": "Jujutsu Kaisen",
+   "Anime_Id": 9,
+   "First_Release_Year": 2020,
+   "Studio": "MAPPA Co., Ltd.",
+   "Difficulty": "C",
+   "Version": "v1.26",
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
+ },
+ {
+   "id": 653,
+   "label": "Miyako Honda",
+   "Name": "Miyako Honda",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Light Brown",
+   "Age": "",
+   "Age_Group": "19-30",
+   "Height": 160,
+   "Eye_Color": "Grey",
+   "Birthday": "",
+   "Genre": "Romantic Comedy",
+   "Subgenre1": "Ecchi",
+   "Subgenre2": "Slice of Life",
+   "Tags": "High School; Present; Verbal Comedy",
+   "Anime": "My Dress-Up Darling",
+   "Anime_Id": 14,
+   "First_Release_Year": 2022,
+   "Studio": "CloverWorks Inc.",
+   "Difficulty": "C",
+   "Version": "v1.26",
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
+ },
+ {
+   "id": 654,
+   "label": "Akira Ogata",
+   "Name": "Akira Ogata",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Black",
+   "Age": "",
+   "Age_Group": "19-30",
+   "Height": 166,
+   "Eye_Color": "Grey",
+   "Birthday": "",
+   "Genre": "Romantic Comedy",
+   "Subgenre1": "Ecchi",
+   "Subgenre2": "Slice of Life",
+   "Tags": "High School; Present; Verbal Comedy",
+   "Anime": "My Dress-Up Darling",
+   "Anime_Id": 14,
+   "First_Release_Year": 2022,
+   "Studio": "CloverWorks Inc.",
+   "Difficulty": "C",
+   "Version": "v1.26",
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
+ },
+ {
+   "id": 655,
+   "label": "Suzuka Itou",
+   "Name": "Suzuka Itou",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Ochre",
+   "Age": "",
+   "Age_Group": "19-30",
+   "Height": 166,
+   "Eye_Color": "Dark Brown",
+   "Birthday": "",
+   "Genre": "Romantic Comedy",
+   "Subgenre1": "Ecchi",
+   "Subgenre2": "Slice of Life",
+   "Tags": "High School; Present; Verbal Comedy",
+   "Anime": "My Dress-Up Darling",
+   "Anime_Id": 14,
+   "First_Release_Year": 2022,
+   "Studio": "CloverWorks Inc.",
+   "Difficulty": "C",
+   "Version": "v1.26",
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
+ },
+ {
+   "id": 656,
+   "label": "Kaguya",
+   "Name": "Kaguya",
+   "Sex": "Female",
+   "Origin": "Alien",
+   "Hair_Color": "Ochre",
+   "Age": "",
+   "Age_Group": "100+",
+   "Height": null,
+   "Eye_Color": "Orange",
+   "Birthday": "",
+   "Genre": "Comedy",
+   "Subgenre1": "Fantasy",
+   "Subgenre2": "Science-Fiction",
+   "Tags": "Music; Virtual World",
+   "Anime": "Cosmic Princess Kaguya!",
+   "Anime_Id": 105,
+   "First_Release_Year": 2026,
+   "Studio": "Studio Chromato Co., Ltd., Studio Colorido Co., Ltd.",
+   "Difficulty": "C",
+   "Version": "v1.26",
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
+ },
+ {
+   "id": 657,
+   "label": "Iroha Sakayori",
+   "Name": "Iroha Sakayori",
+   "Sex": "Female",
+   "Origin": "Human",
+   "Hair_Color": "Dark Purple",
+   "Age": "",
+   "Age_Group": "12-18",
+   "Height": null,
+   "Eye_Color": "Green",
+   "Birthday": "",
+   "Genre": "Comedy",
+   "Subgenre1": "Fantasy",
+   "Subgenre2": "Science-Fiction",
+   "Tags": "Music; Virtual World",
+   "Anime": "Cosmic Princess Kaguya!",
+   "Anime_Id": 105,
+   "First_Release_Year": 2026,
+   "Studio": "Studio Chromato Co., Ltd., Studio Colorido Co., Ltd.",
+   "Difficulty": "C",
+   "Version": "",
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
+ },
+ {
+   "id": 658,
+   "label": "Yachiyo Runami",
+   "Name": "Yachiyo Runami",
+   "Sex": "Female",
+   "Origin": "Alien",
+   "Hair_Color": "Silver",
+   "Age": "",
+   "Age_Group": "100+",
+   "Height": null,
+   "Eye_Color": "Multicolored",
+   "Birthday": "",
+   "Genre": "Comedy",
+   "Subgenre1": "Fantasy",
+   "Subgenre2": "Science-Fiction",
+   "Tags": "Music; Virtual World",
+   "Anime": "Cosmic Princess Kaguya!",
+   "Anime_Id": 105,
+   "First_Release_Year": 2026,
+   "Studio": "Studio Chromato Co., Ltd., Studio Colorido Co., Ltd.",
+   "Difficulty": "C",
+   "Version": "",
+   "Editorial_Staff_Hint": "",
+   "FIELD23": null
  }
 ]

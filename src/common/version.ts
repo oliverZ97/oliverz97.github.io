@@ -139,6 +139,11 @@ export const CHAR_VERSIONS: CHAR_VERSION[] = [
     date: "2025-12-18T00:00:00.00Z",
     lastId: 639,
   },
+  {
+    version: "v1.26",
+    date: "2026-02-06T00:00:00.00Z",
+    lastId: 658,
+  },
 ];
 
 export function getCurrentVersion(): CHAR_VERSION {
