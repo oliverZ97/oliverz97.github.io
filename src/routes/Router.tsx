@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react";
-import { createBrowserRouter } from "react-router-dom";
+import { createHashRouter } from "react-router-dom";
 import paths from "routes/paths";
-import { Box, Typography, Link, Avatar, CssBaseline } from "@mui/material";
+import { Box, CssBaseline } from "@mui/material";
 
 const Home = lazy(() => import("pages/Home"));
 const TCG = lazy(() => import("pages/TCG"));
@@ -12,19 +12,6 @@ const Sandbox = lazy(() => import("pages/Sandbox"));
 interface Routes {
   path: string;
   element: React.ReactNode;
-}
-
-function Copyright(props: any) {
-  return (
-    <Typography variant="body2" color={props.color} align="center" {...props}>
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
 }
 
 const getRouteElement = (
@@ -50,4 +37,4 @@ const routes: Routes[] = [
   },
 ];
 
-export default createBrowserRouter(routes);
+export default createHashRouter(routes);

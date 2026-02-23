@@ -24,7 +24,7 @@ export const Hints = forwardRef(({ isCorrect, gaveUp, targetChar, points, onClic
     const tagsHintRef = useRef<HintRef | null>(null);
 
     const [revealAnimeHint, setRevealAnimeHint] = useState(false);
-    const [randomIndices, setRandomIndices] = useState<number[]>([]);
+
 
     const theme = useTheme();
 
@@ -33,19 +33,6 @@ export const Hints = forwardRef(({ isCorrect, gaveUp, targetChar, points, onClic
         revealAllHints,
         handleSetRevealAnimeHint
     }));
-
-    useEffect(() => {
-        if (targetChar) {
-            const maxChars = Math.ceil(targetChar.Name.length * 0.5);
-            const allIndices = Array.from({ length: targetChar.Name.length }, (_, i) => i);
-
-            // Shuffle and select maxChars random indices
-            const shuffled = allIndices.sort(() => Math.random() - 0.5);
-            const selected = shuffled.slice(0, maxChars);
-
-            setRandomIndices(selected);
-        }
-    }, [targetChar])
 
     function resetHints() {
         if (genreHintRef.current) {
@@ -79,15 +66,6 @@ export const Hints = forwardRef(({ isCorrect, gaveUp, targetChar, points, onClic
 
     function handleSetRevealAnimeHint(state: boolean) {
         setRevealAnimeHint(state)
-    }
-
-    function renderNameHintChar(char: string, index: number, points: number) {
-        
-        if(randomIndices.includes(index)) {
-            return char;
-        }
-
-        return "_"
     }
 
     return (
@@ -159,11 +137,6 @@ export const Hints = forwardRef(({ isCorrect, gaveUp, targetChar, points, onClic
                     cardTitle="Anime"
                     revealFromOutside={revealAnimeHint}
                 ></RevealCard>
-            </Box>
-            <Box sx={{ display: "flex", gap: 1, width: "100%", justifyContent: "center" }}>
-                {Array.from(targetChar?.Name ?? "").map((char, index) => (
-                    <Typography sx={{ color: "white" }} key={index}>{renderNameHintChar(char, index, points)}</Typography>
-                ))}
             </Box>
         </Box >
     )

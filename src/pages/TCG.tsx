@@ -93,7 +93,7 @@ const TCG = () => {
             zIndex: 1000,
           }}
         >
-          <Link href="/collection">
+          <Link href="#/collection">
             <Box
               sx={{
                 width: "68px",

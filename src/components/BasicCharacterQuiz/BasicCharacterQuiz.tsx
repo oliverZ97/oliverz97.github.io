@@ -208,27 +208,28 @@ export default function BasicCharacterQuiz({
 
   return (
     <Box sx={{ position: "relative" }}>
-      <Box
-        sx={{
-          borderRadius: 2,
-          background:
-            COLORS.gradient,
-          marginBottom: 4,
-          border: `1px solid ${COLORS.quiz.light}`,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          paddingY: 2,
-        }}
-      >
+      {!endlessMode && (
+
         <Box
           sx={{
+            borderRadius: 2,
+            background:
+              COLORS.gradient,
+            marginBottom: 4,
+            border: `1px solid ${COLORS.quiz.light}`,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            paddingY: 2,
           }}
         >
-          {!endlessMode && (
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
             <Box sx={{ display: "flex", height: "70px", alignItems: "center" }}>
               {scores.map((item, index) => (
                 <Box
@@ -267,13 +268,14 @@ export default function BasicCharacterQuiz({
                 </Typography>
               )}
             </Box>
+
+          </Box>
+
+          {!endlessMode && (
+            <DayStreak ref={streakRef} streakKey={STREAK_KEY}></DayStreak>
           )}
         </Box>
-
-        {!endlessMode && (
-          <DayStreak ref={streakRef} streakKey={STREAK_KEY}></DayStreak>
-        )}
-      </Box>
+      )}
 
       <SearchBar
         difficulty={difficulty}

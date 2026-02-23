@@ -55,7 +55,7 @@ export const GameModeDrawer = ({ value, handleChange, userAvailableCredits, getT
                     </Box>
 
                     <Link
-                        href="/tcg"
+                        href="#/tcg"
                         sx={{
                             color: "white",
                             display: "flex",
