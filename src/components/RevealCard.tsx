@@ -6,7 +6,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { COLORS } from "styling/constants";
 
 interface RevealCardProps {
@@ -33,9 +33,11 @@ export const RevealCard = forwardRef(
     ref
   ) => {
     const [revealHint, setRevealHint] = useState(false);
+    const hasCalledOnReveal = useRef(false);
 
     const resetHint = () => {
       setRevealHint(false);
+      hasCalledOnReveal.current = false;
     };
 
     const revealHintFn = () => {
@@ -46,7 +48,8 @@ export const RevealCard = forwardRef(
       if (revealFromOutside) {
         setRevealHint(true);
       }
-      if (revealHint && onReveal) {
+      if (revealHint && onReveal && !hasCalledOnReveal.current) {
+        hasCalledOnReveal.current = true;
         onReveal();
       }
     }, [revealHint, revealFromOutside, onReveal]);
@@ -96,9 +99,8 @@ export const RevealCard = forwardRef(
           minHeight: "58px",
           padding: 0,
           borderRadius: "9px",
-          border: `2px solid ${
-            disabled ? COLORS.quiz.disabled_border : COLORS.quiz.light
-          }`,
+          border: `2px solid ${disabled ? COLORS.quiz.disabled_border : COLORS.quiz.light
+            }`,
           ...sx,
         }}
         onClick={() => setRevealHint(true)}
@@ -127,8 +129,8 @@ export const RevealCard = forwardRef(
             background: revealHint
               ? "rgba(255, 255, 255, 0.0)"
               : disabled
-              ? COLORS.quiz.disabled
-              : COLORS.quiz.main_rgba,
+                ? COLORS.quiz.disabled
+                : COLORS.quiz.main_rgba,
             "@keyframes removeBlur": {
               "0%": {
                 background: COLORS.quiz.main_rgba,

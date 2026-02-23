@@ -19,6 +19,8 @@ export const SideNavigationItemButton = ({ title, icon, onClick, disabled, varia
             <Box
                 sx={{
                     zIndex: 1000,
+                    boxShadow: disabled ? "none" : "0px 4px 10px rgba(0, 0, 0, 0.3)",
+
                 }}
             >
                 <Button

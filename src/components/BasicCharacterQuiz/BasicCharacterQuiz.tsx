@@ -1,5 +1,4 @@
-import { Box, Typography, useTheme } from "@mui/material";
-import { RevealCard } from "components/RevealCard";
+import { Box, Typography } from "@mui/material";
 import { COLORS } from "styling/constants";
 import CharacterList from "./CharacterList";
 import { SearchBar } from "./SearchBar";
@@ -29,11 +28,7 @@ import {
   saveFieldToTotalStatistics,
 } from "common/profileUtils";
 import { useProfile } from "components/Profile/ProfileContext";
-
-interface HintRef {
-  resetHint: () => void;
-  revealHint: () => void;
-}
+import { HintFunctionRef, Hints } from "./Hints";
 
 const CHAR_SOLVED_KEY = (QUIZ_KEY.CHAR + "Solved") as SolvedKeys;
 
@@ -60,15 +55,8 @@ export default function BasicCharacterQuiz({
   const [showGiveUp, setShowGiveUp] = useState(false);
   const [gaveUp, setGaveUp] = useState(false);
 
-  const [revealAnimeHint, setRevealAnimeHint] = useState(false);
-
-  const genreHintRef = useRef<HintRef | null>(null);
-  const animeHintRef = useRef<HintRef | null>(null);
-  const studioHintRef = useRef<HintRef | null>(null);
-  const tagsHintRef = useRef<HintRef | null>(null);
   const streakRef = useRef<StreakRef | null>(null);
-
-  const theme = useTheme();
+  const hintRef = useRef<HintFunctionRef | null>(null);
 
   const { refreshKey } = useProfile();
 
@@ -120,17 +108,8 @@ export default function BasicCharacterQuiz({
     setUsedHints(0);
     setShowGiveUp(false);
     setGaveUp(false);
-    if (genreHintRef.current) {
-      genreHintRef.current.resetHint();
-    }
-    if (animeHintRef.current) {
-      animeHintRef?.current.resetHint();
-    }
-    if (studioHintRef.current) {
-      studioHintRef?.current.resetHint();
-    }
-    if (tagsHintRef.current) {
-      tagsHintRef?.current.resetHint();
+    if (hintRef.current) {
+      hintRef.current.resetHints()
     }
   }
 
@@ -154,17 +133,8 @@ export default function BasicCharacterQuiz({
         setGaveUp(true);
       }
       if (hasSolvedToday || gaveUpToday) {
-        if (animeHintRef.current) {
-          animeHintRef.current.revealHint();
-        }
-        if (tagsHintRef.current) {
-          tagsHintRef.current.revealHint();
-        }
-        if (genreHintRef.current) {
-          genreHintRef.current.revealHint();
-        }
-        if (studioHintRef.current) {
-          studioHintRef.current.revealHint();
+        if (hintRef.current) {
+          hintRef.current.revealAllHints()
         }
       }
     }
@@ -178,14 +148,16 @@ export default function BasicCharacterQuiz({
   ) {
     if (value && targetChar) {
       const res = compareObjects(value, targetChar);
-      console.log("Compare Result: ", res);
       value.ValidFields = res.all;
 
       if (
         value.ValidFields.includes("Anime") &&
         getProfileSetting("autoRevealBasicQuizHints")
       ) {
-        setRevealAnimeHint(true);
+        if (hintRef.current) {
+
+          hintRef.current.handleSetRevealAnimeHint(true);
+        }
       }
 
       setSelectedOption(value);
@@ -236,27 +208,28 @@ export default function BasicCharacterQuiz({
 
   return (
     <Box sx={{ position: "relative" }}>
-      <Box
-        sx={{
-          borderRadius: 2,
-          background:
-            COLORS.gradient,
-          marginBottom: 4,
-          border: `1px solid ${COLORS.quiz.light}`,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          paddingY: 2,
-        }}
-      >
+      {!endlessMode && (
+
         <Box
           sx={{
+            borderRadius: 2,
+            background:
+              COLORS.gradient,
+            marginBottom: 4,
+            border: `1px solid ${COLORS.quiz.light}`,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            paddingY: 2,
           }}
         >
-          {!endlessMode && (
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
             <Box sx={{ display: "flex", height: "70px", alignItems: "center" }}>
               {scores.map((item, index) => (
                 <Box
@@ -295,69 +268,14 @@ export default function BasicCharacterQuiz({
                 </Typography>
               )}
             </Box>
+
+          </Box>
+
+          {!endlessMode && (
+            <DayStreak ref={streakRef} streakKey={STREAK_KEY}></DayStreak>
           )}
         </Box>
-
-        <Box
-          sx={{
-            width: "100%",
-            paddingX: 2,
-            marginTop: 2,
-            borderRadius: 2,
-            display: "flex",
-            gap: 2,
-            justifyContent: "space-between",
-            [theme.breakpoints.down("md")]: {
-              flexWrap: "wrap",
-            },
-          }}
-        >
-          <RevealCard
-            costs={500}
-            onReveal={
-              isCorrect || gaveUp ? undefined : () => reducePointsForHint(500)
-            }
-            ref={tagsHintRef}
-            cardText={targetChar?.Tags ?? ""}
-            cardTitle="Tags"
-          ></RevealCard>
-          <RevealCard
-            costs={500}
-            onReveal={
-              isCorrect || gaveUp ? undefined : () => reducePointsForHint(500)
-            }
-            ref={genreHintRef}
-            cardText={
-              [targetChar?.Subgenre1, targetChar?.Subgenre2].join(";") ?? ""
-            }
-            cardTitle="Subgenres"
-          ></RevealCard>
-          <RevealCard
-            costs={500}
-            onReveal={
-              isCorrect || gaveUp ? undefined : () => reducePointsForHint(500)
-            }
-            ref={studioHintRef}
-            cardText={targetChar?.Studio ?? ""}
-            cardTitle="Studio"
-          ></RevealCard>
-          <RevealCard
-            costs={revealAnimeHint ? 0 : 1000}
-            onReveal={
-              isCorrect || gaveUp
-                ? undefined
-                : () => reducePointsForHint(revealAnimeHint ? 0 : 1000)
-            }
-            ref={animeHintRef}
-            cardText={targetChar?.Anime ?? ""}
-            cardTitle="Anime"
-            revealFromOutside={revealAnimeHint}
-          ></RevealCard>
-        </Box>
-        {!endlessMode && (
-          <DayStreak ref={streakRef} streakKey={STREAK_KEY}></DayStreak>
-        )}
-      </Box>
+      )}
 
       <SearchBar
         difficulty={difficulty}
@@ -375,6 +293,8 @@ export default function BasicCharacterQuiz({
         endlessMode={endlessMode}
         originalCharData={charData}
         quizKey={QUIZ_KEY.CHAR}
+        hintBar={<Hints ref={hintRef} gaveUp={gaveUp} isCorrect={isCorrect} targetChar={targetChar} onClickHint={reducePointsForHint} points={points} />
+        }
       ></SearchBar>
 
       {targetChar && isCorrect && (

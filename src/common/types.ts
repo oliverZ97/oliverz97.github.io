@@ -163,3 +163,8 @@ export interface Score {
   points: number;
   date: string;
 }
+
+export interface HintRef {
+  resetHint: () => void;
+  revealHint: () => void;
+}

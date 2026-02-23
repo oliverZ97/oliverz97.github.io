@@ -18,9 +18,12 @@ export const SideNavigationItemLink = ({ title, icon, href, disabled, variant = 
             <Box
                 sx={{
                     zIndex: 1000,
+                    pointerEvents: disabled ? "none" : "auto",
+                    opacity: disabled ? 0.5 : 1,
+                    boxShadow: disabled ? "none" : "0px 4px 10px rgba(0, 0, 0, 0.3)",
                 }}
             >
-                <Link href={href} component={"button"} disabled={disabled}>
+                <Link href={disabled ? undefined : href} component={"a"}>
                     <Box
                         sx={{
                             width: "68px",

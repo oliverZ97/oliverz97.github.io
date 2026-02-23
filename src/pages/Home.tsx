@@ -165,17 +165,14 @@ const Home = () => {
             <SideNavigationItemLink title="Coming Soon: TCG Shop" icon={
               <StorefrontIcon fontSize="large" />
             }
-              href="/tcg"
-              disabled
-              variant="comingsoon"
+              href="#/tcg"
+              disabled={false}
             />
 
             <SideNavigationItemLink title="Coming Soon: Collection" icon={
               <AutoAwesomeMotionIcon fontSize="large" />
             }
-              href="/collection"
-              disabled
-              variant="comingsoon"
+              href="#/collection"
             />
 
             <SideNavigationItemButton title="How to play" icon={

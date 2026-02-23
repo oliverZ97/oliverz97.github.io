@@ -241,22 +241,10 @@ export const AnimeQuiz = ({
             </Box>
           </Box>
 
-          <Box
-            sx={{
-              width: "100%",
-              paddingX: 2,
-              marginTop: 2,
-              borderRadius: 2,
-              display: "flex",
-              gap: 2,
-              justifyContent: "space-between",
-              [theme.breakpoints.down("md")]: {
-                flexWrap: "wrap",
-              },
-            }}
-          >
+
+          {!endlessMode && (
             <DayStreak ref={streakRef} streakKey={STREAK_KEY}></DayStreak>
-          </Box>
+          )}
         </Box>
       )}
       <SearchBar

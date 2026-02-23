@@ -15,7 +15,7 @@ import { Character, Difficulty } from "common/types";
 import { getRandomCharacter, QUIZ_KEY } from "common/utils";
 import { CharacterAutocomplete } from "components/CharacterAutocomplete";
 import { CustomSwitch } from "components/CustomSwitch";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { COLORS } from "styling/constants";
 
 interface SearchBarProps {
@@ -41,6 +41,7 @@ interface SearchBarProps {
   showAnimeHintOption?: boolean;
   mode?: "blurred" | "normal";
   quizKey?: QUIZ_KEY;
+  hintBar?: ReactNode;
 }
 
 export function SearchBar({
@@ -62,6 +63,7 @@ export function SearchBar({
   showAnimeHintOption = true,
   mode = "normal",
   quizKey,
+  hintBar
 }: SearchBarProps) {
   const [autoRevealHintSetting, setAutoRevealHintSetting] = useState<boolean>(
     getProfileSetting("autoRevealBasicQuizHints") as boolean
@@ -99,7 +101,7 @@ export function SearchBar({
       sx={{
         display: "flex",
         flexDirection: "column",
-        gap: 4,
+        gap: 3,
         alignItems: "center",
         justifyContent: "space-between",
         background:
@@ -189,7 +191,7 @@ export function SearchBar({
           )}
         </Box>
       )}
-
+      {hintBar}
       <Box
         sx={{
           width: "100%",
