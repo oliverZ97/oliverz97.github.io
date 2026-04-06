@@ -1,10 +1,10 @@
 import { Box, darken, Typography } from "@mui/material";
 import { getImgSrc } from "common/quizUtils";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { COLORS } from "styling/constants";
 import { TCG_CARD_BASE } from "./constants";
 import { Star } from "./Star";
-import { getBackgroundColor, getCardArt, getPackByPackId } from "./utils";
+import { getBackgroundColor, getCardArtSync } from "./utils";
 import { CardInfoEntry } from "./CardInfoEntry";
 import { SharpHolographicFilter } from "./SharpHolographicFilter";
 import { RadiantHolographicFilter } from "./RadiantHolographicFilter";
@@ -35,7 +35,7 @@ export const TCGCard = ({
   showInspectAnimation = false,
 }: TCGCardProps) => {
   const [slideOut, setSlideOut] = useState(false);
-  const [fullArtPath, setFullArtPath] = useState("");
+  const fullArtPath = card.art === "full" ? getCardArtSync(card.characterId) : "";
 
   const effectsOn = showRarityAnimation || (visible && showRarityAnimation);
   const inspectAnimation = (inStack && !slideOut) || showInspectAnimation;
@@ -83,12 +83,6 @@ export const TCGCard = ({
       setSlideOut(true);
     }
   }
-
-  useEffect(() => {
-    getCardArt(card.characterId).then((path) => {
-      setFullArtPath(path);
-    });
-  }, [card.characterId]);
 
   return (
     <Box

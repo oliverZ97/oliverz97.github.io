@@ -104,6 +104,7 @@ export interface Pack {
 
 export interface PackConfig {
   secretRarePossibilty?: number; // e.g., 0.1 means 10% chance for one Secret Rare in pack
+  secretRarePossibility?: number; // backwards-compatible spelling used in pack JSON
   additionalSuperRare?: number; // 5% chance for an additional Super Rare
   ultraRarePossibility?: number; // Always have Ultra Rare at the end
   mainCastChance?: number; // e.g., 0.3 means 30% chance for main cast character
@@ -112,6 +113,7 @@ export interface PackConfig {
   godPackPossibility?: number; // 2% chance for all Ultra Rares
   secretRareOnly?: boolean; // if true and GodPack, pack only contains Secret Rares
   ultraRareOnly?: boolean; // if true and GodPack, pack only contains Ultra Rares
+  fullArtChance?: number; // chance to get a full art card if available
 }
 
 export const defaultPackConfig: PackConfig = {
@@ -121,7 +123,8 @@ export const defaultPackConfig: PackConfig = {
   godPackPossibility: 0.02, // 2% chance for all Ultra Rares
   mainCastChance: 0.3, // 30% chance for main cast character
   uncommonChance: 0.4,
-  rareChance: 0.1
+  rareChance: 0.1,
+  fullArtChance: 0.25
 };
 
 export interface UserProfile {
