@@ -150,8 +150,19 @@ export function NavigationTabs({ value, handleChange }: TabPanelProps) {
             color: "white",
           },
         }}
-        label="Character Birthdays"
+        label="Category Quiz MULTIPLAYER"
         {...a11yProps(12)}
+      />
+
+      <Tab
+        sx={{
+          color: COLORS.quiz.light,
+          "&.Mui-selected": {
+            color: "white",
+          },
+        }}
+        label="Character Birthdays"
+        {...a11yProps(13)}
       />
     </Tabs>
   );

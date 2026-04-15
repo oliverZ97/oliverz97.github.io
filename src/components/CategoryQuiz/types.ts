@@ -1,0 +1,34 @@
+export type GamePhase = 'LOBBY' | 'WRITING' | 'VOTING' | 'RESULTS';
+
+export interface Player {
+    id: string;
+    name: string;
+    score: number;
+    currentAnswer: string;
+    isHost: boolean;
+}
+
+export type GameMessage =
+    | { type: 'START_ROUND'; category: string; endTime: number }
+    | { type: 'SUBMIT_ANSWER'; playerId: string; playerName: string; answer: string }
+    | { type: 'START_VOTING'; submissions: Submission[] }
+    | { type: 'CAST_VOTE'; targetPlayerId: string; isApproved: boolean }
+    | { type: 'END_ROUND'; finalSubmissions: Submission[], updatedTotals: Record<string, number> };
+
+export interface PlayerProfile {
+    name: string;
+    isHost: boolean;
+}
+
+export interface GameState {
+    phase: GamePhase;
+    category: string;
+    endTime: number; // Timestamp for the synced timer
+}
+
+export interface Submission {
+    playerId: string;
+    playerName: string;
+    answer: string;
+    votes: number;
+}

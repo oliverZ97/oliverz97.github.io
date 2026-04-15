@@ -42,13 +42,16 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { Avatar } from "components/Profile/Avatar";
 import { HigherLower } from "components/HigherLower";
 import { Snowfall } from "components/Snowfall";
-import { getUserAvailableCredits } from "common/profileUtils";
+import { getCurrentUserProfile, getUserAvailableCredits } from "common/profileUtils";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import AutoAwesomeMotionIcon from "@mui/icons-material/AutoAwesomeMotion";
 import { SideNavigationItemButton } from "components/SideNavigation/SideNavigationItemButton";
 import { SideNavigationItemLink } from "components/SideNavigation/SideNavigationItemLink";
 import { GameModeDrawer } from "components/SideNavigation/Drawer/GameModeDrawer";
 import SideNavigationItemDrawer from "components/SideNavigation/SideNavigationItemDrawer";
+import { GameLobby } from "components/CategoryQuiz/GameLobby";
+import { GameContainer } from "components/CategoryQuiz/GameContainer";
+import { GameWrapper } from "components/CategoryQuiz/GameWrapper";
 
 export interface Score {
   points: number;
@@ -331,6 +334,10 @@ const Home = () => {
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={12}>
+              <GameWrapper />
+            </CustomTabPanel>
+
+            <CustomTabPanel value={value} index={13}>
               <Calendar
                 title="Birthdays"
                 data={getCharacterBirthdaysAsCalendarData(charData)}
