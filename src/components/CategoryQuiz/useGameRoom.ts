@@ -3,7 +3,7 @@ import ably from './ablyClient';
 import { GameMessage, GamePhase, PlayerProfile, Submission } from './types';
 import * as Ably from 'ably';
 
-export const useGameRoom = (roomId: string, playerName: string) => {
+export const useGameRoom = (roomId: string, playerName: string, mode: "host" | "join") => {
     const [members, setMembers] = useState<Ably.PresenceMessage[]>([]);
     const [phase, setPhase] = useState<GamePhase>('LOBBY');
     const [category, setCategory] = useState('');
@@ -90,7 +90,7 @@ export const useGameRoom = (roomId: string, playerName: string) => {
 
     // Determine Host (First one in the list)
     const sorted = [...members].sort((a, b) => a.timestamp - b.timestamp);
-    const isHost = sorted[0]?.clientId === ably.auth.clientId;
+    const isHost = mode === "host" && sorted[0]?.clientId === ably.auth.clientId;
 
     // Helper to send the start signal
     const startRound = (selectedCategory: string, seconds: number) => {

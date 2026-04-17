@@ -1,5 +1,5 @@
 export function generateLobbyKey() {
-    const allowedSymbols = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    const allowedSymbols = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     let hash: string[] = [];
 
     for (let i = 0; i < 6; i++) {

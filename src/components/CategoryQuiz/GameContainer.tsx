@@ -1,12 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import categories from '../../data/categories.json';
 import { useGameRoom } from './useGameRoom';
 import { GameLobby } from './GameLobby';
 import { PlayScreen } from './PlayScreen';
 import { VotingScreen } from './VotingScreen';
+import { getCurrentUserProfile } from 'common/profileUtils';
+import { generateLobbyKey } from './utils';
+import { Box } from '@mui/material';
+import { COLORS } from 'styling/constants';
 
-export const GameContainer = ({ roomId, playerName }: { roomId: string, playerName: string }) => {
-    const { phase, members, isHost, category, endTime, startRound, submissions, submitAnswer, startVoting, finalizeRound, sendVote, clientId, totalScores } = useGameRoom(roomId, playerName);
+export const GameContainer = () => {
+    const [mode, setMode] = useState<"host" | "join">("host");
+    const [roomId, setRoomId] = useState(generateLobbyKey())
+    const { phase, members, isHost, category, endTime, startRound, submissions, submitAnswer, startVoting, finalizeRound, sendVote, clientId, totalScores } = useGameRoom(roomId, getCurrentUserProfile()?.username || "Rem", mode);
 
     useEffect(() => {
         if (isHost && phase === 'WRITING' && submissions.length > 0) {
@@ -29,70 +35,66 @@ export const GameContainer = ({ roomId, playerName }: { roomId: string, playerNa
         startRound(randomCat, 30); // Start 30s round
     };
 
-    if (phase === 'LOBBY') {
-        return (
+    return (
+        <Box sx={{ width: "100%", display: "flex", justifyContent: "space-between", background: COLORS.fresh.bg.bg_1, padding: 2, borderRadius: 2, border: `1px solid ${COLORS.fresh.primary.main}` }}>
             <GameLobby
                 members={members}
                 isHost={isHost}
                 onStart={handleStartGame}
+                onModeChange={(mode) => setMode(mode)}
+                onRoomIdChange={(roomId) => setRoomId(roomId)}
+                roomId={roomId}
             />
-        );
-    }
-    if (phase === 'WRITING') {
-        return <PlayScreen category={category} endTime={endTime} onTimeUp={handleTimeUp} />;
-    }
+            <Box sx={{ flexGrow: 1 }}>
+                {phase === "WRITING" && <PlayScreen category={category} endTime={endTime} onTimeUp={handleTimeUp} />}
+                {phase === "VOTING" && <VotingScreen submissions={submissions}
+                    myId={clientId}
+                    isHost={isHost}
+                    onVote={(target, approved) => sendVote(target, approved)}
+                    onDone={finalizeRound} />}
+                {phase === "RESULTS" && <div style={{ textAlign: 'center', padding: '20px' }}>
+                    <h2>Round Results</h2>
+                    <div style={{ marginBottom: '30px' }}>
+                        {submissions.sort((a, b) => b.votes - a.votes).map(s => (
+                            <div key={s.playerId} style={resultRowStyle}>
+                                <span>{s.playerName}</span>
+                                <span style={{ fontWeight: 'bold' }}>+{s.votes} pts</span>
+                            </div>
+                        ))}
+                    </div>
 
-    if (phase === 'VOTING') {
-        return <VotingScreen submissions={submissions}
-            myId={clientId}
-            isHost={isHost}
-            onVote={(target, approved) => sendVote(target, approved)}
-            onDone={finalizeRound} />;
-    }
-    if (phase === 'RESULTS') {
-        return (
-            <div style={{ textAlign: 'center', padding: '20px' }}>
-                <h2>Round Results</h2>
-                <div style={{ marginBottom: '30px' }}>
-                    {submissions.sort((a, b) => b.votes - a.votes).map(s => (
-                        <div key={s.playerId} style={resultRowStyle}>
-                            <span>{s.playerName}</span>
-                            <span style={{ fontWeight: 'bold' }}>+{s.votes} pts</span>
-                        </div>
-                    ))}
-                </div>
+                    <hr />
 
-                <hr />
+                    <div className="leaderboard">
+                        <h3>🏆 All-Time Leaderboard</h3>
+                        {Object.entries(totalScores)
+                            .sort(([, scoreA], [, scoreB]) => scoreB - scoreA) // Sort by highest score
+                            .map(([id, score]) => {
+                                // Find the player's name from the members list using their ID
+                                const player = members.find(m => m.clientId === id);
+                                const name = player?.data?.name || "Unknown Player";
 
-                <div className="leaderboard">
-                    <h3>🏆 All-Time Leaderboard</h3>
-                    {Object.entries(totalScores)
-                        .sort(([, scoreA], [, scoreB]) => scoreB - scoreA) // Sort by highest score
-                        .map(([id, score]) => {
-                            // Find the player's name from the members list using their ID
-                            const player = members.find(m => m.clientId === id);
-                            const name = player?.data?.name || "Unknown Player";
+                                return (
+                                    <div key={id} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                        <span>{name}</span>
+                                        <span>{score} pts</span>
+                                    </div>
+                                );
+                            })}
+                    </div>
 
-                            return (
-                                <div key={id} style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                    <span>{name}</span>
-                                    <span>{score} pts</span>
-                                </div>
-                            );
-                        })}
-                </div>
-
-                {isHost && (
-                    <button
-                        onClick={handleStartGame}
-                        style={{ marginTop: '30px', padding: '15px 30px', background: '#4CAF50', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}
-                    >
-                        Start Next Round
-                    </button>
-                )}
-            </div>
-        );
-    }
+                    {isHost && (
+                        <button
+                            onClick={handleStartGame}
+                            style={{ marginTop: '30px', padding: '15px 30px', background: '#4CAF50', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}
+                        >
+                            Start Next Round
+                        </button>
+                    )}
+                </div>}
+            </Box>
+        </Box>
+    )
 
     return <div>Loading...</div>;
 };

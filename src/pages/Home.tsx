@@ -334,7 +334,7 @@ const Home = () => {
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={12}>
-              <GameWrapper />
+              <GameContainer />
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={13}>
