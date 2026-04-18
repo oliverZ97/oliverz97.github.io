@@ -18,6 +18,7 @@ export const useGameRoom = (
   const [voteEndTime, setVoteEndTime] = useState<number>(0);
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [totalScores, setTotalScores] = useState<Record<string, number>>({});
+  const [roundCounter, setRoundCounter] = useState<number>(1);
 
   const submissionsRef = useRef<Submission[]>([]);
 
@@ -25,7 +26,6 @@ export const useGameRoom = (
 
   // Keep the ref in sync with the state
   useEffect(() => {
-    console.log("Current Submissions State:", submissions);
     submissionsRef.current = submissions;
   }, [submissions]);
 
@@ -81,14 +81,19 @@ export const useGameRoom = (
       }
 
       if (data.type === "END_ROUND") {
-        // 1. Update the round submissions with the "official" ones from the Host
+        console.log("CRITICAL: Processing END_ROUND. isLastRound is:", data.isLastRound);
+
         setSubmissions(data.finalSubmissions);
-
-        // 2. Update the leaderboard with the "official" totals from the Host
         setTotalScores(data.updatedTotals);
+        setRoundCounter(data.nextRoundNumber);
 
-        // 3. Switch screen
-        setPhase("RESULTS");
+        if (data.isLastRound === true) {
+          console.log("SWITCHING TO RESULTS PHASE NOW");
+          setPhase("RESULTS");
+        } else {
+          console.log("SWITCHING TO WRITING PHASE FOR NEXT ROUND");
+          setPhase("WRITING");
+        }
       }
     });
 
@@ -97,7 +102,7 @@ export const useGameRoom = (
       channel.presence.unsubscribe();
       channel.unsubscribe();
     };
-  }, [roomId, playerName]);
+  }, [roomId, playerName, config]);
 
   // Determine Host (First one in the list)
   const sorted = [...members].sort((a, b) => a.timestamp - b.timestamp);
@@ -141,24 +146,30 @@ export const useGameRoom = (
   const finalizeRound = () => {
     if (!isHost) return;
 
-    // 1. Start with the current total scores
-    const updatedTotals = { ...totalScores };
+    // 1. Force everything to Numbers to prevent "3" vs 3 issues
+    const currentRound = Number(roundCounter);
+    const totalRounds = Number(config.rounds);
 
-    // 2. Add the votes from the round that just ended
+    // 2. Determine if this is the end
+    const isLastRound = currentRound >= totalRounds;
+
+    console.log(`Finalizing: Round ${currentRound} of ${totalRounds}. Last Round: ${isLastRound}`);
+
+    const updatedTotals = { ...totalScores };
     submissions.forEach((s) => {
       const currentScore = updatedTotals[s.playerId] || 0;
       updatedTotals[s.playerId] = currentScore + s.votes;
     });
 
-    // 3. Broadcast the "Official" totals to everyone
+    // 3. Broadcast
     channel.publish("game-event", {
       type: "END_ROUND",
       finalSubmissions: submissions,
-      updatedTotals: updatedTotals, // This is the property the clients look for
+      updatedTotals: updatedTotals,
+      isLastRound: isLastRound,
+      nextRoundNumber: currentRound + 1,
     });
   };
-
-  console.log(voteEndTime);
 
   return {
     members,
@@ -168,6 +179,7 @@ export const useGameRoom = (
     endTime,
     voteEndTime,
     roundDuration,
+    roundCounter,
     startRound,
     clientId: ably.auth.clientId,
     submissions,

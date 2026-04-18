@@ -42,3 +42,28 @@ export const TIMER_STYLING: SxProps<Theme> = {
   fontWeight: "bold",
   FontVariantNumeric: "tabular-nums", // Prevents numbers from jumping
 };
+
+export const INPUT_BASE_STYLE: SxProps<Theme> = {
+  // 1. Target the text inside the input
+  "& .MuiInputBase-input": {
+    color: COLORS.fresh.secondary.highlight,
+  },
+  // 2. Target the placeholder text
+  "& .MuiInputBase-input::placeholder": {
+    color: COLORS.fresh.secondary.highlight,
+    opacity: 0.7, // Placeholders usually look better with slight transparency
+  },
+  // 3. Target the border (the "OutlinedInput" fieldset)
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: COLORS.fresh.secondary.highlight,
+    },
+    "&:hover fieldset": {
+      borderColor: COLORS.fresh.secondary.highlight, // Color when hovering
+      borderWidth: "2px",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: COLORS.fresh.secondary.highlight, // Color when typing
+    },
+  },
+};

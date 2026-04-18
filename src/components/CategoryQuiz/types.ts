@@ -13,7 +13,13 @@ export type GameMessage =
   | { type: "SUBMIT_ANSWER"; playerId: string; playerName: string; answer: string }
   | { type: "START_VOTING"; submissions: Submission[]; voteEndTime: number }
   | { type: "CAST_VOTE"; targetPlayerId: string; isApproved: boolean }
-  | { type: "END_ROUND"; finalSubmissions: Submission[]; updatedTotals: Record<string, number> };
+  | {
+      type: "END_ROUND";
+      finalSubmissions: Submission[];
+      updatedTotals: Record<string, number>;
+      isLastRound: boolean;
+      nextRoundNumber: number;
+    };
 
 export interface PlayerProfile {
   name: string;

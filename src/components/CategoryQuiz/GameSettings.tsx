@@ -36,7 +36,10 @@ const GameSettings = ({ gameConfig, onSettingChange, disabled }: GameSettingProp
               onChange={(event) => {
                 const newConfig: GameConfig = {
                   ...gameConfig,
-                  rounds: event.target.value as number,
+                  rounds:
+                    typeof event.target.value === "string"
+                      ? parseInt(event.target.value)
+                      : event.target.value,
                 };
                 onSettingChange(newConfig);
               }}

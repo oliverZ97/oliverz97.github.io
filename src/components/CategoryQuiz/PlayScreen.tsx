@@ -1,15 +1,23 @@
-import { Box, Divider, LinearProgress, Typography } from "@mui/material";
+import { Box, Divider, LinearProgress, TextField, Typography } from "@mui/material";
 import React, { useState, useEffect, useRef } from "react";
-import { TIMER_STYLING, WINDOW_BASE_STYLE } from "./styles";
+import { INPUT_BASE_STYLE, TIMER_STYLING, WINDOW_BASE_STYLE } from "./styles";
 import { COLORS } from "@/styling/constants";
 
 interface PlayScreenProps {
   category: string;
   endTime: number;
   onTimeUp: (answer: string) => void;
+  roundCounter: number;
+  maxRounds: number;
 }
 
-export const PlayScreen = ({ category, endTime, onTimeUp }: PlayScreenProps) => {
+export const PlayScreen = ({
+  category,
+  endTime,
+  onTimeUp,
+  roundCounter,
+  maxRounds,
+}: PlayScreenProps) => {
   const [answer, setAnswer] = useState("");
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [progress, setProgress] = React.useState(100);
@@ -48,7 +56,8 @@ export const PlayScreen = ({ category, endTime, onTimeUp }: PlayScreenProps) => 
     }, 100);
 
     return () => clearInterval(timer);
-  }, [endTime]);
+  }, [endTime, answer]);
+
   return (
     <Box
       sx={{
@@ -58,8 +67,14 @@ export const PlayScreen = ({ category, endTime, onTimeUp }: PlayScreenProps) => 
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+        position: "relative",
       }}
     >
+      <Box sx={{ position: "absolute", top: 4, right: 12 }}>
+        <Typography sx={{ fontSize: "24px", color: COLORS.fresh.primary.main }}>
+          {roundCounter + "/" + maxRounds}
+        </Typography>
+      </Box>
       <Typography sx={{ color: COLORS.fresh.primary.main, fontSize: "22px" }}>
         Name a character who is
       </Typography>
@@ -77,6 +92,7 @@ export const PlayScreen = ({ category, endTime, onTimeUp }: PlayScreenProps) => 
       <Box
         sx={{
           ...TIMER_STYLING,
+          marginTop: 0,
           color: timeLeft <= 5 ? "#ff4d4d" : COLORS.fresh.primary.main, // Turn red when 5s left
         }}
       >
@@ -123,14 +139,17 @@ export const PlayScreen = ({ category, endTime, onTimeUp }: PlayScreenProps) => 
       </Box>
 
       <Box style={{ marginTop: "50px" }}>
-        <input
+        <TextField
           id="answer"
           type="text"
           value={answer}
-          onChange={(e) => setAnswer(e.target.value)}
+          onChange={(e) => {
+            console.log("e: ", e.target.value);
+            setAnswer(e.target.value);
+          }}
           placeholder="Type here..."
           autoFocus
-          style={inputStyle}
+          sx={INPUT_BASE_STYLE}
           disabled={timeLeft <= 0}
         />
       </Box>
@@ -138,13 +157,4 @@ export const PlayScreen = ({ category, endTime, onTimeUp }: PlayScreenProps) => 
       {timeLeft === 0 && <p>Times up! Submitting...</p>}
     </Box>
   );
-};
-
-const inputStyle: React.CSSProperties = {
-  padding: "12px 20px",
-  fontSize: "1.2rem",
-  borderRadius: "8px",
-  border: "2px solid #ddd",
-  width: "100%",
-  outline: "none",
 };

@@ -9,6 +9,9 @@ interface VotingProps {
   myId: string;
   isHost: boolean;
   votingEndTime: number;
+  category: string;
+  roundCounter: number;
+  maxRounds: number;
   onVote: (targetId: string, approved: boolean) => void;
   onDone: () => void;
 }
@@ -17,9 +20,12 @@ export const VotingScreen = ({
   submissions,
   myId,
   isHost,
+  category,
   onVote,
   onDone,
   votingEndTime,
+  roundCounter,
+  maxRounds,
 }: VotingProps) => {
   // Track which players we've already voted for locally to disable buttons
   const [votedFor, setVotedFor] = useState<string[]>([]);
@@ -55,16 +61,27 @@ export const VotingScreen = ({
   };
 
   return (
-    <Box sx={{ ...WINDOW_BASE_STYLE, height: "100%" }}>
+    <Box sx={{ ...WINDOW_BASE_STYLE, height: "100%", position: "relative" }}>
+      <Box sx={{ position: "absolute", top: 4, right: 12 }}>
+        <Typography sx={{ fontSize: "24px", color: COLORS.fresh.primary.main }}>
+          {roundCounter + "/" + maxRounds}
+        </Typography>
+      </Box>
       <Box
         sx={{
           ...TIMER_STYLING,
-          color: timeLeft <= 5 ? "#ff4d4d" : "#333", // Turn red when 5s left
+          fontSize: "2rem",
+          lineHeight: 1,
+          mb: 2,
+          color: timeLeft <= 5 ? "#ff4d4d" : COLORS.fresh.secondary.main, // Turn red when 5s left
         }}
       >
         {timeLeft}s
       </Box>
-      <h2>Review Answers</h2>
+
+      <Typography sx={{ color: COLORS.fresh.primary.main, mb: 2 }} variant="h6">
+        {`Category: Name a character who is ${category}`}
+      </Typography>
       {submissions.map((s) => (
         <Box key={s.playerId}>
           <Box
@@ -78,7 +95,10 @@ export const VotingScreen = ({
               borderRadius: 2,
               padding: 2,
               mb: 2,
-              border: "1px solid rgba(255, 255, 255, 0.1)",
+              border:
+                s.playerId !== myId
+                  ? "1px solid rgba(255, 255, 255, 0.1)"
+                  : `1px solid ${COLORS.fresh.primary.main}`,
               boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
               color: "#fff", // Set base text color to white for glass contrast
 
@@ -110,7 +130,7 @@ export const VotingScreen = ({
           >
             {/* --- CONTENT (Slightly dimmed for contrast) --- */}
             <Typography sx={{ fontWeight: "bold", color: "rgba(255,255,255,0.7)" }}>
-              {s.playerName}
+              {`${s.playerName}'s Answer`}
             </Typography>
 
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>

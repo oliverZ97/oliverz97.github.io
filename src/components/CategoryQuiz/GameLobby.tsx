@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { COLORS } from "@/styling/constants";
 import { GamePhase } from "./types";
-import { WINDOW_BASE_STYLE } from "./styles";
+import { INPUT_BASE_STYLE, WINDOW_BASE_STYLE } from "./styles";
 
 interface LobbyProps {
   members: any[];
@@ -39,6 +39,16 @@ export const GameLobby = ({
     if (newMode !== null) {
       if (onModeChange) onModeChange(newMode);
       setMode(newMode);
+    }
+  };
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(roomId);
+      // You could add a toast/snackbar here
+      console.log("Copied!");
+    } catch (err) {
+      console.error("Failed to copy!", err);
     }
   };
 
@@ -119,36 +129,26 @@ export const GameLobby = ({
         </ToggleButtonGroup>
         <Box sx={{ display: "flex", width: "100%", justifyContent: "center", marginBottom: 2 }}>
           {mode === "host" && (
-            <Typography sx={{ fontSize: "36px", height: "56px", color: COLORS.fresh.primary.main }}>
-              {roomId}
-            </Typography>
+            <Box onClick={handleCopy}>
+              <Typography
+                sx={{
+                  fontSize: "36px",
+                  height: "56px",
+                  color: COLORS.fresh.primary.main,
+                  cursor: "pointer",
+                  "&:hover": {
+                    color: COLORS.fresh.primary.hover,
+                  },
+                }}
+              >
+                {roomId}
+              </Typography>
+            </Box>
           )}
           {mode === "join" && (
             <TextField
-              sx={{
-                // 1. Target the text inside the input
-                "& .MuiInputBase-input": {
-                  color: COLORS.fresh.secondary.highlight,
-                },
-                // 2. Target the placeholder text
-                "& .MuiInputBase-input::placeholder": {
-                  color: COLORS.fresh.secondary.highlight,
-                  opacity: 0.7, // Placeholders usually look better with slight transparency
-                },
-                // 3. Target the border (the "OutlinedInput" fieldset)
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: COLORS.fresh.secondary.highlight,
-                  },
-                  "&:hover fieldset": {
-                    borderColor: COLORS.fresh.secondary.highlight, // Color when hovering
-                    borderWidth: "2px",
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: COLORS.fresh.secondary.highlight, // Color when typing
-                  },
-                },
-              }}
+              disabled={phase !== "LOBBY"}
+              sx={INPUT_BASE_STYLE}
               onPaste={(event) =>
                 onRoomIdChange && onRoomIdChange(event.clipboardData.getData("text"))
               }

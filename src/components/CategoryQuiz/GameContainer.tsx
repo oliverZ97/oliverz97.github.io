@@ -23,6 +23,7 @@ export const GameContainer = () => {
     voteEndTime,
     startRound,
     submissions,
+    roundCounter,
     submitAnswer,
     startVoting,
     finalizeRound,
@@ -84,16 +85,30 @@ export const GameContainer = () => {
           />
         )}
         {phase === "WRITING" && (
-          <PlayScreen category={category} endTime={endTime} onTimeUp={handleTimeUp} />
+          <PlayScreen
+            category={category}
+            endTime={endTime}
+            onTimeUp={handleTimeUp}
+            roundCounter={roundCounter}
+            maxRounds={gameConfig.rounds}
+          />
         )}
         {phase === "VOTING" && (
           <VotingScreen
             submissions={submissions}
             myId={clientId}
             isHost={isHost}
+            category={category}
             votingEndTime={voteEndTime}
+            roundCounter={roundCounter}
+            maxRounds={gameConfig.rounds}
             onVote={(target, approved) => sendVote(target, approved)}
-            onDone={finalizeRound}
+            onDone={() => {
+              finalizeRound();
+              if (roundCounter < gameConfig.rounds) {
+                handleStartGame();
+              }
+            }}
           />
         )}
         {phase === "RESULTS" && (
