@@ -1,31 +1,23 @@
 import { Box, Typography, useTheme } from "@mui/material";
-import { RevealCard } from "components/RevealCard";
-import { COLORS } from "styling/constants";
+import { RevealCard } from "@/components/RevealCard";
+import { COLORS } from "@/styling/constants";
 import { SearchBar } from "../BasicCharacterQuiz/SearchBar";
 import { SyntheticEvent, useEffect, useRef, useState } from "react";
-import {
-  Character,
-  Difficulty,
-  SolvedKeys,
-  StatisticFields,
-} from "common/types";
-import { compareObjects, getImgSrc, solveQuizHelper } from "common/quizUtils";
-import { Score } from "pages/Home";
-import { DayStreak } from "components/Streak";
-import { StreakRef } from "components/Streak";
+import { Character, Difficulty, SolvedKeys, StatisticFields } from "@/common/types";
+import { compareObjects, getImgSrc, solveQuizHelper } from "@/common/quizUtils";
+import { Score } from "@/pages/Home";
+import { DayStreak } from "@/components/Streak";
+import { StreakRef } from "@/components/Streak";
 import {
   gaveUpOnTodaysQuiz,
   getRandomCharacter,
   hasBeenSolvedToday,
   isIncludedInDifficulty,
   QUIZ_KEY,
-} from "common/utils";
+} from "@/common/utils";
 import CharacterList from "./CharacterList";
-import {
-  getHighscoresFromProfile,
-  saveFieldToTotalStatistics,
-} from "common/profileUtils";
-import { useProfile } from "components/Profile/ProfileContext";
+import { getHighscoresFromProfile, saveFieldToTotalStatistics } from "@/common/profileUtils";
+import { useProfile } from "@/components/Profile/ProfileContext";
 
 interface HintRef {
   resetHint: () => void;
@@ -122,13 +114,7 @@ export default function BasicCharacterQuiz({
 
   // Safeguard to ensure blurFactor is never accidentally 0 unless the puzzle is solved
   useEffect(() => {
-    if (
-      blurFactor === 0 &&
-      !isCorrect &&
-      !gaveUp &&
-      targetChar &&
-      !freezeBlur
-    ) {
+    if (blurFactor === 0 && !isCorrect && !gaveUp && targetChar && !freezeBlur) {
       // If blur factor is 0 but the puzzle isn't solved, reset it
       // But don't do this if blur is frozen
       setBlurWithFreeze(50);
@@ -241,7 +227,7 @@ export default function BasicCharacterQuiz({
   function handleSearchChange(
     event: SyntheticEvent<Element, Event> | null,
     value: Character | null,
-    reason: any
+    reason: any,
   ) {
     if (value && targetChar) {
       const res = compareObjects(value, targetChar);
@@ -252,8 +238,7 @@ export default function BasicCharacterQuiz({
       setSearchHistory([value, ...searchHistory]);
 
       // Check if the answer is correct
-      const isCorrectAnswer =
-        res.all.length + 1 === Object.keys(targetChar).length;
+      const isCorrectAnswer = res.all.length + 1 === Object.keys(targetChar).length;
 
       if (isCorrectAnswer) {
         // Always allow setting blur to 0 for a correct answer
@@ -265,7 +250,7 @@ export default function BasicCharacterQuiz({
 
         saveFieldToTotalStatistics(
           [StatisticFields.totalBlurredCharacterGuesses],
-          searchHistory.length + 1
+          searchHistory.length + 1,
         );
 
         solveQuizHelper(
@@ -278,7 +263,7 @@ export default function BasicCharacterQuiz({
           points,
           targetChar,
           res,
-          searchHistory.length + 1
+          searchHistory.length + 1,
         );
 
         //get scores
@@ -317,8 +302,7 @@ export default function BasicCharacterQuiz({
         <Box
           sx={{
             borderRadius: 2,
-            background:
-              COLORS.gradient,
+            background: COLORS.gradient,
             marginBottom: 4,
             border: `1px solid ${COLORS.quiz.light}`,
             display: "flex",
@@ -349,22 +333,13 @@ export default function BasicCharacterQuiz({
                   {index === 0 && <Typography fontSize={"24px"}>🏆</Typography>}
                   {index === 1 && <Typography fontSize={"24px"}>🥈</Typography>}
                   {index === 2 && <Typography fontSize={"24px"}>🥉</Typography>}
-                  <Typography fontSize={"12px"}>
-                    {"Points: " + item.points}
-                  </Typography>
-                  <Typography fontSize={"12px"}>
-                    {"Date: " + item.date}
-                  </Typography>
+                  <Typography fontSize={"12px"}>{"Points: " + item.points}</Typography>
+                  <Typography fontSize={"12px"}>{"Date: " + item.date}</Typography>
                 </Box>
               ))}
               {scores.length === 0 && (
-                <Typography
-                  sx={{ color: COLORS.quiz.primary_text }}
-                  textAlign={"center"}
-                >
-                  <Typography component={"span"}>
-                    No Scores available.
-                  </Typography>
+                <Typography sx={{ color: COLORS.quiz.primary_text }} textAlign={"center"}>
+                  <Typography component={"span"}>No Scores available.</Typography>
                   <br />
                   <Typography component={"span"}>
                     You should definitely change that (*≧ω≦*)
@@ -381,8 +356,7 @@ export default function BasicCharacterQuiz({
       <Box
         sx={{
           borderRadius: 2,
-          background:
-            COLORS.gradient,
+          background: COLORS.gradient,
           marginBottom: 4,
           border: `1px solid ${COLORS.quiz.light}`,
           paddingY: 2,
@@ -416,7 +390,7 @@ export default function BasicCharacterQuiz({
             }}
           >
             <RevealCard
-              onReveal={() => { }}
+              onReveal={() => {}}
               ref={studioHintRef}
               cardText={targetChar?.Studio ?? ""}
               cardTitle="Studio"
@@ -426,7 +400,7 @@ export default function BasicCharacterQuiz({
               }}
             ></RevealCard>
             <RevealCard
-              onReveal={() => { }}
+              onReveal={() => {}}
               ref={releaseHintRef}
               cardText={targetChar?.First_Release_Year.toString() ?? ""}
               cardTitle="First Release Year"
@@ -436,7 +410,7 @@ export default function BasicCharacterQuiz({
               }}
             ></RevealCard>
             <RevealCard
-              onReveal={() => { }}
+              onReveal={() => {}}
               ref={animeHintRef}
               cardText={targetChar?.Anime.toString() ?? ""}
               cardTitle="Anime"
@@ -472,8 +446,7 @@ export default function BasicCharacterQuiz({
                   backgroundImage: `url(${getImgSrc(targetChar.id)})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
-                  filter: `blur(${freezeBlur ? frozenBlurValue : blurFactor
-                    }px)`,
+                  filter: `blur(${freezeBlur ? frozenBlurValue : blurFactor}px)`,
                   transform: "scale(1.05)",
                   zIndex: 1,
                   willChange: "filter, opacity",
@@ -491,8 +464,7 @@ export default function BasicCharacterQuiz({
                   width: "300px",
                   height: "420px",
                   objectFit: "cover",
-                  filter: `blur(${freezeBlur ? frozenBlurValue : blurFactor
-                    }px)`,
+                  filter: `blur(${freezeBlur ? frozenBlurValue : blurFactor}px)`,
                   opacity: blurFactor > 0 ? 0.5 : 0, // Low opacity backup when blurred
                   zIndex: 1,
                 }}
@@ -542,12 +514,8 @@ export default function BasicCharacterQuiz({
                 },
               }}
             >
-              <Typography sx={{ color: "white", fontSize: 20 }}>
-                Todays Character was:
-              </Typography>
-              <Typography
-                sx={{ fontSize: 24, fontWeight: "bold", color: "white" }}
-              >
+              <Typography sx={{ color: "white", fontSize: 20 }}>Todays Character was:</Typography>
+              <Typography sx={{ fontSize: 24, fontWeight: "bold", color: "white" }}>
                 {targetChar?.Name}
               </Typography>
             </Box>
@@ -588,10 +556,7 @@ export default function BasicCharacterQuiz({
         quizKey={QUIZ_KEY.BLUR}
       ></SearchBar>
       {(endlessMode || (!endlessMode && !isCorrect)) && (
-        <CharacterList
-          searchHistory={searchHistory}
-          targetChar={targetChar}
-        ></CharacterList>
+        <CharacterList searchHistory={searchHistory} targetChar={targetChar}></CharacterList>
       )}
     </Box>
   );

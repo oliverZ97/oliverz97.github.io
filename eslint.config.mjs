@@ -28,6 +28,7 @@ export default tseslint.config(
       "@typescript-eslint/no-explicit-any": "warn",
       "react-hooks/immutability": "off",
       "react/react-in-jsx-scope": "off", // Not needed in modern React
+      "@typescript-eslint/ban-ts-comment": "off",
       "unused-imports/no-unused-vars": [
         "warn",
         {

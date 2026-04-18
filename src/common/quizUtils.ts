@@ -7,12 +7,7 @@ import {
   saveHighscoreToProfile,
 } from "./profileUtils";
 import { Anime, Character, SolvedKeys, StatisticFields } from "./types";
-import {
-  getDailyUTCDate,
-  getRandomNumberFromUTCDate,
-  QUIZ_KEY,
-  setDailyScore,
-} from "./utils";
+import { getDailyUTCDate, getRandomNumberFromUTCDate, QUIZ_KEY, setDailyScore } from "./utils";
 
 export function isMoreThanADay(date1: Date, date2: Date) {
   // Calculate the time difference in milliseconds
@@ -47,25 +42,21 @@ export function checkAgeGroup(value: string) {
 
 export function getImgSrc(id: number) {
   const filename = id.toString();
-  const basepath = !import.meta.env.PROD
-    ? "/src/assets/characters/"
-    : "assets/characters/";
+  const basepath = !import.meta.env.PROD ? "/src/assets/characters/" : "@/assets/characters/";
 
   return basepath + filename + ".webp";
 }
 
 export function getAnimeImgSrc(id: number) {
   const filename = id.toString();
-  const basepath = !import.meta.env.PROD
-    ? "/src/assets/posters/"
-    : "assets/posters/";
+  const basepath = !import.meta.env.PROD ? "/src/assets/posters/" : "@/assets/posters/";
 
   return basepath + filename + ".webp";
 }
 
 export function compareObjects<T extends Record<string, any>>(
   obj1: T,
-  obj2: T
+  obj2: T,
 ): {
   all: string[];
   short: string[];
@@ -74,6 +65,7 @@ export function compareObjects<T extends Record<string, any>>(
     all: string[];
     short: string[];
   } = { all: [], short: [] };
+
   const validFields = [
     "Name",
     "Sex",
@@ -87,17 +79,16 @@ export function compareObjects<T extends Record<string, any>>(
   ];
 
   for (const key in obj1) {
-    if (
-      obj1.hasOwnProperty(key) &&
-      obj2.hasOwnProperty(key) &&
-      obj1[key] === obj2[key]
-    ) {
+    // Using Object.hasOwn is the ESLint-approved way
+    if (Object.hasOwn(obj1, key) && Object.hasOwn(obj2, key) && obj1[key] === obj2[key]) {
+      // Logic for trimming trailing spaces
       if (typeof obj1[key] === "string" && obj1[key].endsWith(" ")) {
         obj1[key] = obj1[key].slice(0, -1);
       }
       if (typeof obj2[key] === "string" && obj2[key].endsWith(" ")) {
         obj2[key] = obj2[key].slice(0, -1);
       }
+
       if (validFields.includes(key)) {
         sameFieldsObj.short.push(key);
       }
@@ -120,7 +111,7 @@ export function solveQuizHelper(
     all: string[];
     short: string[];
   },
-  tries?: number
+  tries?: number,
 ) {
   if (target) {
     if (correctFields.all.length + 1 === Object.keys(target).length) {
@@ -144,30 +135,22 @@ export function solveQuizHelper(
           gaveUp: reason === "giveUp",
         };
         saveHasBeenSolvedToday(solvedKey, solveData);
-        setDailyScore(
-          utcDate.toISOString(),
-          points,
-          quizKey,
-          tries ?? undefined
-        );
+        setDailyScore(utcDate.toISOString(), points, quizKey, tries ?? undefined);
         const key =
           quizKey === QUIZ_KEY.CHAR
             ? StatisticFields.totalCharactersGuessed
             : quizKey === QUIZ_KEY.ANIME
-              ? StatisticFields.totalAnimesGuessed
-              : StatisticFields.totalBlurredCharactersGuessed;
-        saveFieldToTotalStatistics(
-          [StatisticFields.totalGamesPlayed, StatisticFields[key]],
-          1
-        );
+            ? StatisticFields.totalAnimesGuessed
+            : StatisticFields.totalBlurredCharactersGuessed;
+        saveFieldToTotalStatistics([StatisticFields.totalGamesPlayed, StatisticFields[key]], 1);
         saveFieldToTotalStatistics([StatisticFields.totalScore], points);
         if (points === 10000) {
           const key =
             quizKey === QUIZ_KEY.CHAR
               ? StatisticFields.charQuizMaxPoints
               : quizKey === QUIZ_KEY.ANIME
-                ? StatisticFields.animeQuizMaxPoints
-                : StatisticFields.blurQuizMaxPoints;
+              ? StatisticFields.animeQuizMaxPoints
+              : StatisticFields.blurQuizMaxPoints;
           saveFieldToTotalStatistics([StatisticFields[key]], 1);
         }
         applyCreditsToProfile(15);
@@ -192,7 +175,7 @@ export function solveQuizHelper(
 export function getCharacterFromAnime(
   animeId: number,
   charData: Character[],
-  animeData: Anime[]
+  animeData: Anime[],
 ): Character {
   const anime = animeData.find((a) => a.id === animeId);
   if (!anime) {

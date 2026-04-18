@@ -1,24 +1,15 @@
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Typography,
-  useTheme,
-} from "@mui/material";
-import { getImgSrc } from "common/quizUtils";
-import { Anime, Character } from "common/types";
-import { DayStreak, StreakRef } from "components/Streak";
+import { Box, Button, CircularProgress, Typography, useTheme } from "@mui/material";
+import { getImgSrc } from "@/common/quizUtils";
+import { Anime, Character } from "@/common/types";
+import { DayStreak, StreakRef } from "@/components/Streak";
 import { useEffect, useRef, useState } from "react";
-import { COLORS } from "styling/constants";
+import { COLORS } from "@/styling/constants";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
-import { Score } from "pages/Home";
-import { getRandomCharacter, QUIZ_KEY } from "common/utils";
-import {
-  getHighscoresFromProfile,
-  saveHighscoreToProfile,
-} from "common/profileUtils";
-import { useProfile } from "components/Profile/ProfileContext";
+import { Score } from "@/pages/Home";
+import { getRandomCharacter } from "@/common/utils";
+import { getHighscoresFromProfile, saveHighscoreToProfile } from "@/common/profileUtils";
+import { useProfile } from "@/components/Profile/ProfileContext";
 
 interface ImageCharacterQuizProps {
   charData: Character[];
@@ -37,25 +28,17 @@ const MULTIPLE_CHOICE_SCORE_KEY = "multiple_choice_quiz";
 let topThree: Score[] = [];
 topThree = getHighscoresFromProfile(MULTIPLE_CHOICE_SCORE_KEY);
 
-export default function MultipleChoiceQuiz({
-  charData,
-}: ImageCharacterQuizProps) {
+export default function MultipleChoiceQuiz({ charData }: ImageCharacterQuizProps) {
   const [answers, setAnswers] = useState<ImageTarget[]>([]);
   const [target, setTarget] = useState<Character | null>(null);
   const [level, setLevel] = useState(1);
   const [lifes, setLifes] = useState(3);
   const [sessionHistory, setSessionHistory] = useState<string[]>([]);
   const [isGameOver, setIsGameOver] = useState(false);
-  const [selectedAnswer, setSelectedAnswer] = useState<ImageTarget | null>(
-    null
-  );
+  const [selectedAnswer, setSelectedAnswer] = useState<ImageTarget | null>(null);
   const [scores, setScores] = useState<Score[]>(topThree);
-  const [fiftyJoker, setFiftyJoker] = useState<"idle" | "active" | "used">(
-    "idle"
-  );
-  const [skipJoker, setSkipJoker] = useState<"idle" | "active" | "used">(
-    "idle"
-  );
+  const [fiftyJoker, setFiftyJoker] = useState<"idle" | "active" | "used">("idle");
+  const [skipJoker, setSkipJoker] = useState<"idle" | "active" | "used">("idle");
   const [disableButtons, setDisableButtons] = useState(false);
 
   const streakRef = useRef<StreakRef | null>(null);
@@ -102,7 +85,7 @@ export default function MultipleChoiceQuiz({
       }),
     };
 
-    let localScores = getHighscoresFromProfile(MULTIPLE_CHOICE_SCORE_KEY);
+    const localScores = getHighscoresFromProfile(MULTIPLE_CHOICE_SCORE_KEY);
     let scores;
     if (localScores) {
       scores = localScores;
@@ -171,10 +154,10 @@ export default function MultipleChoiceQuiz({
 
       // Add exactly 3 more incorrect answers
       while (answers.length < 4) {
-        let char = getRandomCharacter(charData);
+        const char = getRandomCharacter(charData);
 
         // Check if this character is not the correct one and not already in answers
-        const isDuplicate = answers.some(a => a.character === char.Name);
+        const isDuplicate = answers.some((a) => a.character === char.Name);
 
         if (!isDuplicate && char.Name !== correctAnswer.character) {
           answers.push({
@@ -197,9 +180,9 @@ export default function MultipleChoiceQuiz({
       // Ensure we only have exactly 4 answers and that the correct answer is included
       const finalAnswers = answers.slice(0, 4);
       // Check if the correct answer is in the final set
-      if (!finalAnswers.some(a => a.isTarget)) {
+      if (!finalAnswers.some((a) => a.isTarget)) {
         // If not, replace a random answer with the correct one
-        const correctAnswer = answers.find(a => a.isTarget);
+        const correctAnswer = answers.find((a) => a.isTarget);
         if (correctAnswer) {
           const randomIndex = Math.floor(Math.random() * 4);
           finalAnswers[randomIndex] = correctAnswer;
@@ -284,8 +267,7 @@ export default function MultipleChoiceQuiz({
       <Box
         sx={{
           borderRadius: 2,
-          background:
-            COLORS.gradient,
+          background: COLORS.gradient,
           marginBottom: 4,
           border: `1px solid ${COLORS.quiz.light}`,
           display: "flex",
@@ -310,36 +292,24 @@ export default function MultipleChoiceQuiz({
               {index === 0 && <Typography fontSize={"24px"}>🏆</Typography>}
               {index === 1 && <Typography fontSize={"24px"}>🥈</Typography>}
               {index === 2 && <Typography fontSize={"24px"}>🥉</Typography>}
-              <Typography fontSize={"12px"}>
-                {"Points: " + item.points}
-              </Typography>
+              <Typography fontSize={"12px"}>{"Points: " + item.points}</Typography>
               <Typography fontSize={"12px"}>{"Date: " + item.date}</Typography>
             </Box>
           ))}
           {scores.length === 0 && (
-            <Typography
-              sx={{ color: COLORS.quiz.primary_text }}
-              textAlign={"center"}
-            >
+            <Typography sx={{ color: COLORS.quiz.primary_text }} textAlign={"center"}>
               <Typography component={"span"}>No Scores available.</Typography>
               <br />
-              <Typography component={"span"}>
-                You should definitely change that (*≧ω≦*)
-              </Typography>
+              <Typography component={"span"}>You should definitely change that (*≧ω≦*)</Typography>
             </Typography>
           )}
         </Box>
       </Box>
-      <DayStreak
-        ref={streakRef}
-        streakKey={"choiceStreak"}
-        colorRotate="70deg"
-      ></DayStreak>
+      <DayStreak ref={streakRef} streakKey={"choiceStreak"} colorRotate="70deg"></DayStreak>
       <Box
         sx={{
           position: "relative",
-          background:
-            COLORS.gradient,
+          background: COLORS.gradient,
           padding: 4,
           borderRadius: 2,
           border: `1px solid ${COLORS.quiz.light}`,
@@ -528,9 +498,7 @@ export default function MultipleChoiceQuiz({
                       }
                       onClick={() => checkCorrectAnswers(answer)}
                     >
-                      <Typography fontWeight={"bold"}>
-                        {answer.character}
-                      </Typography>
+                      <Typography fontWeight={"bold"}>{answer.character}</Typography>
                       <Typography>{answer.anime}</Typography>
                     </Button>
                   ))}

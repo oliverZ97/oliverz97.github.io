@@ -1,5 +1,5 @@
 import { Divider, Tab, Tabs, useMediaQuery, useTheme } from "@mui/material";
-import { COLORS } from "styling/constants";
+import { COLORS } from "@/styling/constants";
 
 function a11yProps(index: number) {
   return {

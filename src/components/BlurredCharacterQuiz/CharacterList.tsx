@@ -1,17 +1,14 @@
 import { Box, Tooltip, Typography, useTheme } from "@mui/material";
-import { getImgSrc } from "common/quizUtils";
-import { Character } from "common/types";
-import { COLORS } from "styling/constants";
+import { getImgSrc } from "@/common/quizUtils";
+import { Character } from "@/common/types";
+import { COLORS } from "@/styling/constants";
 
 interface CharacterListProps {
   searchHistory: Character[];
   targetChar: Character | null;
 }
 
-export default function CharacterList({
-  searchHistory,
-  targetChar,
-}: CharacterListProps) {
+export default function CharacterList({ searchHistory, targetChar }: CharacterListProps) {
   const theme = useTheme();
 
   function getCardBorderColor(item: Character) {
@@ -21,9 +18,7 @@ export default function CharacterList({
   }
 
   function getCardBackgroundColor(item: Character) {
-    return item.Name === targetChar?.Name
-      ? COLORS.quiz.success
-      : COLORS.quiz.main;
+    return item.Name === targetChar?.Name ? COLORS.quiz.success : COLORS.quiz.main;
   }
 
   return (
@@ -40,13 +35,9 @@ export default function CharacterList({
           overflowY: "auto",
           borderTopLeftRadius: "8px",
           borderTopRightRadius: "8px",
-          border:
-            searchHistory.length > 0
-              ? `1px solid ${COLORS.quiz.light}`
-              : "none",
+          border: searchHistory.length > 0 ? `1px solid ${COLORS.quiz.light}` : "none",
           borderBottom: 0,
-          background:
-            COLORS.gradient,
+          background: COLORS.gradient,
           [theme.breakpoints.down("md")]: {
             overflowX: "scroll",
           },
@@ -160,7 +151,7 @@ export default function CharacterList({
           </Box>
         ))}
       </Box>
-      { }
+      {}
     </Box>
   );
 }

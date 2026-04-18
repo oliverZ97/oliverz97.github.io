@@ -1,29 +1,17 @@
-import { Box, Typography, useTheme } from "@mui/material";
-import {
-  compareObjects,
-  getAnimeImgSrc,
-  solveQuizHelper,
-} from "common/quizUtils";
-import { Anime, Character, SolvedKeys, StatisticFields } from "common/types";
-import {
-  gaveUpOnTodaysQuiz,
-  getRandomAnime,
-  hasBeenSolvedToday,
-  QUIZ_KEY,
-} from "common/utils";
-import { DayStreak, StreakRef } from "components/Streak";
-import { Score } from "pages/Home";
+import { Box, Typography } from "@mui/material";
+import { compareObjects, getAnimeImgSrc, solveQuizHelper } from "@/common/quizUtils";
+import { Anime, Character, SolvedKeys, StatisticFields } from "@/common/types";
+import { gaveUpOnTodaysQuiz, getRandomAnime, hasBeenSolvedToday, QUIZ_KEY } from "@/common/utils";
+import { DayStreak, StreakRef } from "@/components/Streak";
+import { Score } from "@/pages/Home";
 import { SyntheticEvent, useEffect, useRef, useState } from "react";
-import { COLORS } from "styling/constants";
+import { COLORS } from "@/styling/constants";
 import AnimeList from "./AnimeList";
 import { SearchBar } from "./SearchBar";
-import { LemonButton } from "components/LemonButton";
+import { LemonButton } from "@/components/LemonButton";
 import { calculateSelectionPoints, removeOptionFromArray } from "./utils";
-import {
-  getHighscoresFromProfile,
-  saveFieldToTotalStatistics,
-} from "common/profileUtils";
-import { useProfile } from "components/Profile/ProfileContext";
+import { getHighscoresFromProfile, saveFieldToTotalStatistics } from "@/common/profileUtils";
+import { useProfile } from "@/components/Profile/ProfileContext";
 
 const ANIME_SOLVED_KEY = (QUIZ_KEY.ANIME + "Solved") as SolvedKeys;
 
@@ -51,8 +39,6 @@ export const AnimeQuiz = ({
   const [gaveUp, setGaveUp] = useState(false);
 
   const streakRef = useRef<StreakRef | null>(null);
-
-  const theme = useTheme();
 
   const { refreshKey } = useProfile();
 
@@ -98,9 +84,7 @@ export const AnimeQuiz = ({
   }
 
   function resetQuiz() {
-    setLocalAnimeData([
-      ...animeData.sort((a, b) => (a.Name < b.Name ? -1 : 1)),
-    ]);
+    setLocalAnimeData([...animeData.sort((a, b) => (a.Name < b.Name ? -1 : 1))]);
     setSearchHistory([]);
     setPoints(10000);
     setShowGiveUp(false);
@@ -131,7 +115,7 @@ export const AnimeQuiz = ({
   function handleSearchChange(
     event: SyntheticEvent<Element, Event> | null,
     value: Anime | null,
-    reason: any
+    reason: any,
   ) {
     if (value && targetAnime) {
       const res = compareObjects(value, targetAnime);
@@ -142,10 +126,7 @@ export const AnimeQuiz = ({
       setSearchHistory([value, ...searchHistory]);
 
       if (res.all.length + 1 === Object.keys(targetAnime).length) {
-        saveFieldToTotalStatistics(
-          [StatisticFields.totalAnimeGuesses],
-          searchHistory.length + 1
-        );
+        saveFieldToTotalStatistics([StatisticFields.totalAnimeGuesses], searchHistory.length + 1);
 
         solveQuizHelper(
           reason,
@@ -157,7 +138,7 @@ export const AnimeQuiz = ({
           points,
           targetAnime,
           res,
-          searchHistory.length + 1
+          searchHistory.length + 1,
         );
 
         //get scores
@@ -169,12 +150,7 @@ export const AnimeQuiz = ({
         }
       }
       //calculate point reduce
-      calculateSelectionPoints(
-        res.short.length,
-        searchHistory,
-        points,
-        setPoints
-      );
+      calculateSelectionPoints(res.short.length, searchHistory, points, setPoints);
     }
   }
 
@@ -184,8 +160,7 @@ export const AnimeQuiz = ({
         <Box
           sx={{
             borderRadius: 2,
-            background:
-              COLORS.gradient,
+            background: COLORS.gradient,
             marginBottom: 4,
             border: `1px solid ${COLORS.quiz.light}`,
             display: "flex",
@@ -216,22 +191,13 @@ export const AnimeQuiz = ({
                   {index === 0 && <Typography fontSize={"24px"}>🏆</Typography>}
                   {index === 1 && <Typography fontSize={"24px"}>🥈</Typography>}
                   {index === 2 && <Typography fontSize={"24px"}>🥉</Typography>}
-                  <Typography fontSize={"12px"}>
-                    {"Points: " + item.points}
-                  </Typography>
-                  <Typography fontSize={"12px"}>
-                    {"Date: " + item.date}
-                  </Typography>
+                  <Typography fontSize={"12px"}>{"Points: " + item.points}</Typography>
+                  <Typography fontSize={"12px"}>{"Date: " + item.date}</Typography>
                 </Box>
               ))}
               {scores.length === 0 && (
-                <Typography
-                  sx={{ color: COLORS.quiz.primary_text }}
-                  textAlign={"center"}
-                >
-                  <Typography component={"span"}>
-                    No Scores available.
-                  </Typography>
+                <Typography sx={{ color: COLORS.quiz.primary_text }} textAlign={"center"}>
+                  <Typography component={"span"}>No Scores available.</Typography>
                   <br />
                   <Typography component={"span"}>
                     You should definitely change that (*≧ω≦*)
@@ -241,10 +207,7 @@ export const AnimeQuiz = ({
             </Box>
           </Box>
 
-
-          {!endlessMode && (
-            <DayStreak ref={streakRef} streakKey={STREAK_KEY}></DayStreak>
-          )}
+          {!endlessMode && <DayStreak ref={streakRef} streakKey={STREAK_KEY}></DayStreak>}
         </Box>
       )}
       <SearchBar
@@ -275,9 +238,7 @@ export const AnimeQuiz = ({
         >
           <Box
             sx={{
-              backgroundColor: gaveUp
-                ? COLORS.quiz.failed
-                : COLORS.quiz.success,
+              backgroundColor: gaveUp ? COLORS.quiz.failed : COLORS.quiz.success,
               width: "300px",
               display: "flex",
               flexDirection: "column",
@@ -292,9 +253,7 @@ export const AnimeQuiz = ({
                 : `2px solid ${COLORS.quiz.success_light}`,
             }}
           >
-            <Typography
-              sx={{ fontWeight: "bold", fontSize: "20px", marginBottom: 1 }}
-            >
+            <Typography sx={{ fontWeight: "bold", fontSize: "20px", marginBottom: 1 }}>
               {showGiveUp ? "Better luck next time!" : "Congratulations!"}
             </Typography>
             <Typography sx={{ marginBottom: 3 }}>The Anime was:</Typography>
@@ -328,10 +287,7 @@ export const AnimeQuiz = ({
       )}
 
       {(endlessMode || (!endlessMode && !isCorrect)) && (
-        <AnimeList
-          searchHistory={searchHistory}
-          targetAnime={targetAnime}
-        ></AnimeList>
+        <AnimeList searchHistory={searchHistory} targetAnime={targetAnime}></AnimeList>
       )}
     </Box>
   );

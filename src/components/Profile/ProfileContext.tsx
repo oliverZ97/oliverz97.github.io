@@ -12,9 +12,7 @@ const ProfileContext = createContext<AvatarContextType>({
   profileChanged: () => {},
 });
 
-export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [refreshKey, setRefreshKey] = useState(0);
 
   const refreshAvatar = () => {
@@ -23,7 +21,7 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   // Add a specific function for profile changes
-  const profileChanged = (username?: string) => {
+  const profileChanged = () => {
     // The username parameter is optional but can be used for logging/debugging
     setRefreshKey(Date.now());
   };

@@ -17,20 +17,18 @@ import {
   loadExistingProfiles,
   setCurrentUserProfile,
   setUserLog,
-} from "common/profileUtils";
+} from "@/common/profileUtils";
 import { useEffect, useRef, useState } from "react";
 import Fileupload from "../Fileupload";
-import { UserLogs, UserProfile } from "common/types";
+import { UserLogs, UserProfile } from "@/common/types";
 import { AvatarEdit } from "./AvatarEdit";
 import { useProfile } from "./ProfileContext";
 
 export default function Profile() {
   const avatarEditRef = useRef(null);
-  const [existingProfiles, setExistingProfiles] = useState(
-    loadExistingProfiles()
-  );
+  const [existingProfiles, setExistingProfiles] = useState(loadExistingProfiles());
   const [currentUser, setCurrentUser] = useState<UserProfile | null>(
-    getCurrentUserProfile() ?? null
+    getCurrentUserProfile() ?? null,
   );
   const { profileChanged } = useProfile();
 
@@ -38,7 +36,7 @@ export default function Profile() {
 
   useEffect(() => {
     if (avatarEditRef.current) {
-      // @ts-ignore
+      // @ts-expect-error
       avatarEditRef.current.reloadAvatar();
     }
   }, [currentUser]);
@@ -86,15 +84,8 @@ export default function Profile() {
           <Typography variant="h5" gutterBottom>
             Profile
           </Typography>
-          <Typography sx={{ marginTop: 4, marginBottom: 1 }}>
-            Active Profile
-          </Typography>
-          <Box
-            display={"flex"}
-            alignItems={"center"}
-            gap={2}
-            sx={{ marginBottom: 4 }}
-          >
+          <Typography sx={{ marginTop: 4, marginBottom: 1 }}>Active Profile</Typography>
+          <Box display={"flex"} alignItems={"center"} gap={2} sx={{ marginBottom: 4 }}>
             <Select
               sx={{
                 width: 300,
