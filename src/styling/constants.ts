@@ -53,10 +53,8 @@ export const COLORS = {
       "#55d6c2",
     ],
   },
-  gradient:
-    "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
-  gradientBar:
-    "linear-gradient(90deg,rgba(0, 53, 84, 1) 0%, rgba(0, 100, 148, 1) 100%)",
+  gradient: "linear-gradient(90deg,rgba(0, 100, 148, 1) 0%, rgba(209, 107, 129, 1) 100%)",
+  gradientBar: "linear-gradient(90deg,rgba(0, 53, 84, 1) 0%, rgba(0, 100, 148, 1) 100%)",
   cards: {
     border: "#ede9df",
     rare: "#e2ebf0",
@@ -80,17 +78,19 @@ export const COLORS = {
   },
   fresh: {
     bg: {
-      bg_1: "#1D1A23"
+      bg_1: "#1D1A23",
     },
     primary: {
       main: "#90d0f0",
-      hover: "#5899B7"
+      hover: "#5899B7",
+      highlight: "#73B3D2",
+      selected: "#004D65",
     },
     secondary: {
       main: "#606ED5",
       selected: "#4654BA",
       hover: "#2D3BA1",
-      highlight: "#BCC2FF"
-    }
-  }
+      highlight: "#BCC2FF",
+    },
+  },
 };

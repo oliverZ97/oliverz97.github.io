@@ -1,93 +1,150 @@
-import React, { useState, useEffect } from 'react';
+import { Box, Divider, LinearProgress, Typography } from "@mui/material";
+import React, { useState, useEffect, useRef } from "react";
+import { TIMER_STYLING, WINDOW_BASE_STYLE } from "./styles";
+import { COLORS } from "@/styling/constants";
 
 interface PlayScreenProps {
-    category: string;
-    endTime: number;
-    onTimeUp: (answer: string) => void;
+  category: string;
+  endTime: number;
+  onTimeUp: (answer: string) => void;
 }
 
 export const PlayScreen = ({ category, endTime, onTimeUp }: PlayScreenProps) => {
-    const [answer, setAnswer] = useState('');
-    const [timeLeft, setTimeLeft] = useState<number>(0);
+  const [answer, setAnswer] = useState("");
+  const [timeLeft, setTimeLeft] = useState<number>(0);
+  const [progress, setProgress] = React.useState(100);
 
-    useEffect(() => {
-        // 1. Calculate time immediately on mount
-        const calculateTime = () => {
-            const now = Date.now();
-            const diff = Math.max(0, Math.floor((endTime - now) / 1000));
-            return diff;
-        };
+  // Use a Ref to store the "Effective Start Time"
+  // This is the exact moment this specific component mounted on the user's screen
+  const startTimeRef = useRef<number>(Date.now());
 
-        setTimeLeft(calculateTime());
+  useEffect(() => {
+    const updateUI = () => {
+      const now = Date.now();
+      const remainingMs = endTime - now;
 
-        // 2. Start the countdown interval
-        const timer = setInterval(() => {
-            const remaining = calculateTime();
-            setTimeLeft(remaining);
+      // Calculate total window from the moment the player entered this screen
+      // instead of using a fixed 30s setting
+      const totalWindow = endTime - startTimeRef.current;
 
-            if (remaining <= 0) {
-                clearInterval(timer);
-                onTimeUp(answer); // This triggers the submission logic in the Container
-            }
-        }, 1000);
+      const remainingSec = Math.max(0, Math.ceil(remainingMs / 1000));
 
-        return () => clearInterval(timer);
-    }, [endTime, onTimeUp, answer]);
+      // Progress is relative to when THIS browser started the phase
+      const newProgress = totalWindow > 0 ? Math.max(0, (remainingMs / totalWindow) * 100) : 0;
 
-    return (
-        <div style={containerStyle}>
-            <header>
-                <p>Category:</p>
-                <h1 style={{ margin: '0 0 20px 0', fontSize: '2.5rem' }}>{category}</h1>
-            </header>
+      setTimeLeft(remainingSec);
+      setProgress(newProgress);
 
-            <div style={{
-                ...timerStyle,
-                color: timeLeft <= 5 ? '#ff4d4d' : '#333' // Turn red when 5s left
-            }}>
-                {timeLeft}s
-            </div>
+      if (remainingMs <= 0) return true;
+      return false;
+    };
 
-            <div style={{ marginTop: '30px' }}>
-                <label htmlFor="answer" style={{ display: 'block', marginBottom: '10px' }}>
-                    Your Answer:
-                </label>
-                <input
-                    id="answer"
-                    type="text"
-                    value={answer}
-                    onChange={(e) => setAnswer(e.target.value)}
-                    placeholder="Type here..."
-                    autoFocus
-                    style={inputStyle}
-                    disabled={timeLeft <= 0}
-                />
-            </div>
+    updateUI();
+    const timer = setInterval(() => {
+      if (updateUI()) {
+        clearInterval(timer);
+        onTimeUp(answer);
+      }
+    }, 100);
 
-            {timeLeft === 0 && <p>Times up! Submitting...</p>}
-        </div>
-    );
-};
+    return () => clearInterval(timer);
+  }, [endTime]);
+  return (
+    <Box
+      sx={{
+        ...WINDOW_BASE_STYLE,
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Typography sx={{ color: COLORS.fresh.primary.main, fontSize: "22px" }}>
+        Name a character who is
+      </Typography>
+      <Typography variant="h2" sx={{ color: COLORS.fresh.primary.main, fontWeight: "400" }}>
+        {" "}
+        {category}
+      </Typography>
+      <Box sx={{ display: "flex", width: "100%", justifyContent: "center" }}>
+        <Divider
+          sx={{ backgroundColor: COLORS.fresh.secondary.main, width: "30%", my: 2 }}
+          flexItem
+        ></Divider>
+      </Box>
 
-// Simple inline styles to keep the UI clean
-const containerStyle: React.CSSProperties = {
-    padding: '40px',
-    textAlign: 'center',
-    maxWidth: '500px',
-    margin: '0 auto'
-};
+      <Box
+        sx={{
+          ...TIMER_STYLING,
+          color: timeLeft <= 5 ? "#ff4d4d" : COLORS.fresh.primary.main, // Turn red when 5s left
+        }}
+      >
+        {timeLeft}s
+      </Box>
+      <Box sx={{ width: "60%" }}>
+        <LinearProgress
+          variant="determinate"
+          value={progress}
+          sx={{
+            height: 10,
+            borderRadius: 5,
+            backgroundColor: "rgba(255,255,255,0.1)",
+            // Add a slight glow to the track (optional)
+            boxShadow: `0 0 30px ${
+              progress < 20 ? "rgba(255, 0, 0, 0.2)" : COLORS.fresh.secondary.main + "AA"
+            }`,
 
-const timerStyle: React.CSSProperties = {
-    fontSize: '4rem',
-    fontWeight: 'bold',
-    fontVariantNumeric: 'tabular-nums' // Prevents numbers from jumping
+            "& .MuiLinearProgress-bar": {
+              backgroundColor: progress < 20 ? "red" : COLORS.fresh.secondary.main,
+              transition: "none",
+              borderRadius: 5, // Keep the bar itself rounded
+
+              // THE GLOW EFFECT
+              boxShadow:
+                progress < 20
+                  ? "0 0 25px #ff0000, 0 0 10px #ff4d4d" // Intense red glow
+                  : `0 0 25px ${COLORS.fresh.secondary.main}, 0 0 10px ${COLORS.fresh.secondary.main}`, // Themed glow
+
+              // Optional: Add a "shine" highlight on top of the bar for extra polish
+              "&::after": {
+                content: '""',
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: "50%", // Only top half
+                background: "rgba(255, 255, 255, 0.2)",
+                borderRadius: 5,
+              },
+            },
+          }}
+        />
+      </Box>
+
+      <Box style={{ marginTop: "50px" }}>
+        <input
+          id="answer"
+          type="text"
+          value={answer}
+          onChange={(e) => setAnswer(e.target.value)}
+          placeholder="Type here..."
+          autoFocus
+          style={inputStyle}
+          disabled={timeLeft <= 0}
+        />
+      </Box>
+
+      {timeLeft === 0 && <p>Times up! Submitting...</p>}
+    </Box>
+  );
 };
 
 const inputStyle: React.CSSProperties = {
-    padding: '12px 20px',
-    fontSize: '1.2rem',
-    borderRadius: '8px',
-    border: '2px solid #ddd',
-    width: '100%',
-    outline: 'none'
+  padding: "12px 20px",
+  fontSize: "1.2rem",
+  borderRadius: "8px",
+  border: "2px solid #ddd",
+  width: "100%",
+  outline: "none",
 };
