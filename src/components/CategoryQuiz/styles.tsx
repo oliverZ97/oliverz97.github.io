@@ -16,24 +16,45 @@ export const TEXT_BASE_STYLE: SxProps<Theme> = {
 
 export const SELECT_BASE_STYLE: SxProps<Theme> = {
   width: "300px",
-  // 1. The text color
   color: COLORS.fresh.secondary.highlight,
 
-  // 2. The Border (The specific class for the Outlined variant)
+  // 1. Standard Border State
   "& .MuiOutlinedInput-notchedOutline": {
     borderColor: `${COLORS.fresh.secondary.highlight} !important`,
+    borderWidth: "1px", // Define a base width
   },
-  "&:hover .MuiOutlinedInput-notchedOutline": {
+
+  // 2. Hover State (only when NOT disabled)
+  "&:hover:not(.Mui-disabled) .MuiOutlinedInput-notchedOutline": {
     borderColor: `${COLORS.fresh.secondary.highlight} !important`,
     borderWidth: "2px",
   },
+
+  // 3. Focused State
   "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
     borderColor: `${COLORS.fresh.secondary.highlight} !important`,
   },
 
-  // 3. The Arrow Icon
+  // 4. The Arrow Icon
   "& .MuiSelect-icon": {
     color: COLORS.fresh.secondary.highlight,
+  },
+
+  // 5. Disabled State Overrides
+  "&.Mui-disabled": {
+    // Hide the arrow icon
+    "& .MuiSelect-icon": {
+      display: "none",
+    },
+    // Fix the text color
+    "& .MuiSelect-select": {
+      WebkitTextFillColor: COLORS.fresh.secondary.highlight,
+    },
+    // Force border width to stay constant on hover when disabled
+    "& .MuiOutlinedInput-notchedOutline": {
+      borderColor: `${COLORS.fresh.secondary.highlight} !important`,
+      borderWidth: "1px !important",
+    },
   },
 };
 
@@ -55,6 +76,16 @@ export const INPUT_BASE_STYLE: SxProps<Theme> = {
   },
   // 3. Target the border (the "OutlinedInput" fieldset)
   "& .MuiOutlinedInput-root": {
+    "&.Mui-disabled": {
+      "& .MuiInputBase-input": {
+        WebkitTextFillColor: COLORS.fresh.secondary.highlight,
+      },
+      // Force border width to stay constant on hover when disabled
+      "& .MuiOutlinedInput-notchedOutline": {
+        borderColor: `${COLORS.fresh.secondary.highlight} !important`,
+        borderWidth: "1px !important",
+      },
+    },
     "& fieldset": {
       borderColor: COLORS.fresh.secondary.highlight,
     },

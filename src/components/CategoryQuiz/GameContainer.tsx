@@ -14,6 +14,15 @@ export const GameContainer = () => {
   const [mode, setMode] = useState<"host" | "join">("host");
   const [gameConfig, setGameConfig] = useState<GameConfig>(defaultConfig);
   const [roomId, setRoomId] = useState(generateLobbyKey());
+
+  const handleStartGame = () => {
+    if (!isHost) return;
+    const randomCat = categories[Math.floor(Math.random() * categories.length)];
+    // Ensure we are passing a valid number from config
+    const duration = Number(gameConfig.writeTime) || 30;
+    startRound(randomCat, duration);
+  };
+
   const {
     phase,
     members,
@@ -24,31 +33,42 @@ export const GameContainer = () => {
     startRound,
     submissions,
     roundCounter,
+    updateGameSettings,
     submitAnswer,
     startVoting,
     finalizeRound,
     sendVote,
     clientId,
     totalScores,
-  } = useGameRoom(roomId, getCurrentUserProfile()?.username || "Rem", mode, gameConfig);
+  } = useGameRoom(
+    roomId,
+    getCurrentUserProfile()?.username || "Rem",
+    mode,
+    gameConfig,
+    setGameConfig,
+    handleStartGame,
+  );
 
   useEffect(() => {
+    // Only trigger if we are in WRITING phase AND we actually have
+    // submissions that belong to THIS round (length > 0)
     if (isHost && phase === "WRITING" && submissions.length > 0) {
-      // Check if everyone in the lobby has submitted
       if (submissions.length === members.length) {
-        startVoting(submissions, gameConfig.voteTime);
+        console.log("Everyone submitted! Starting voting...");
+        startVoting(submissions, Number(gameConfig.voteTime) || 15);
       }
     }
-  }, [submissions, members.length, isHost, phase]);
+  }, [submissions.length, members.length, isHost, phase, gameConfig.voteTime]);
+
+  useEffect(() => {
+    if (mode === "host" && gameConfig) {
+      updateGameSettings(gameConfig);
+    }
+  }, [gameConfig, mode]);
 
   const handleTimeUp = (finalAnswer: string) => {
+    console.log("time up", finalAnswer);
     submitAnswer(finalAnswer);
-  };
-
-  const handleStartGame = () => {
-    if (!isHost) return;
-    const randomCat = categories[Math.floor(Math.random() * categories.length)];
-    startRound(randomCat, gameConfig.writeTime); // Start 30s round
   };
 
   return (
@@ -78,7 +98,6 @@ export const GameContainer = () => {
           <GameSettings
             gameConfig={gameConfig}
             onSettingChange={(config) => {
-              console.log(config);
               setGameConfig(config);
             }}
             disabled={!isHost}
@@ -86,6 +105,7 @@ export const GameContainer = () => {
         )}
         {phase === "WRITING" && (
           <PlayScreen
+            key={`round-${roundCounter}-${category}`}
             category={category}
             endTime={endTime}
             onTimeUp={handleTimeUp}
@@ -95,6 +115,7 @@ export const GameContainer = () => {
         )}
         {phase === "VOTING" && (
           <VotingScreen
+            key={`voting-${roundCounter}`}
             submissions={submissions}
             myId={clientId}
             isHost={isHost}
@@ -103,12 +124,7 @@ export const GameContainer = () => {
             roundCounter={roundCounter}
             maxRounds={gameConfig.rounds}
             onVote={(target, approved) => sendVote(target, approved)}
-            onDone={() => {
-              finalizeRound();
-              if (roundCounter < gameConfig.rounds) {
-                handleStartGame();
-              }
-            }}
+            onDone={() => finalizeRound()}
           />
         )}
         {phase === "RESULTS" && (
@@ -166,8 +182,6 @@ export const GameContainer = () => {
       </Box>
     </Box>
   );
-
-  return <div>Loading...</div>;
 };
 
 const resultRowStyle = {

@@ -1,3 +1,5 @@
+import { GameConfig } from "./GameSettings";
+
 export type GamePhase = "LOBBY" | "WRITING" | "VOTING" | "RESULTS";
 
 export interface Player {
@@ -9,6 +11,7 @@ export interface Player {
 }
 
 export type GameMessage =
+  | { type: "GAME_PREPARATION"; config: GameConfig }
   | { type: "START_ROUND"; category: string; endTime: number; writeTime: number }
   | { type: "SUBMIT_ANSWER"; playerId: string; playerName: string; answer: string }
   | { type: "START_VOTING"; submissions: Submission[]; voteEndTime: number }

@@ -27,6 +27,11 @@ export const PlayScreen = ({
   const startTimeRef = useRef<number>(Date.now());
 
   useEffect(() => {
+    // Reset the start time whenever a new round begins (endTime changes significantly)
+    startTimeRef.current = Date.now();
+  }, [endTime]);
+
+  useEffect(() => {
     const updateUI = () => {
       const now = Date.now();
       const remainingMs = endTime - now;
@@ -56,7 +61,7 @@ export const PlayScreen = ({
     }, 100);
 
     return () => clearInterval(timer);
-  }, [endTime, answer]);
+  }, [endTime, onTimeUp]);
 
   return (
     <Box
@@ -72,7 +77,7 @@ export const PlayScreen = ({
     >
       <Box sx={{ position: "absolute", top: 4, right: 12 }}>
         <Typography sx={{ fontSize: "24px", color: COLORS.fresh.primary.main }}>
-          {roundCounter + "/" + maxRounds}
+          {"Round " + roundCounter + "/" + maxRounds}
         </Typography>
       </Box>
       <Typography sx={{ color: COLORS.fresh.primary.main, fontSize: "22px" }}>
@@ -154,7 +159,7 @@ export const PlayScreen = ({
         />
       </Box>
 
-      {timeLeft === 0 && <p>Times up! Submitting...</p>}
+      {timeLeft === 0 && <Typography>Times up! Submitting...</Typography>}
     </Box>
   );
 };

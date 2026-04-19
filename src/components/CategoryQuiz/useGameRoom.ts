@@ -9,6 +9,8 @@ export const useGameRoom = (
   playerName: string,
   mode: "host" | "join",
   config: GameConfig,
+  onConfigSync?: (newConfig: GameConfig) => void,
+  onNextRound?: () => void,
 ) => {
   const [members, setMembers] = useState<Ably.PresenceMessage[]>([]);
   const [phase, setPhase] = useState<GamePhase>("LOBBY");
@@ -23,6 +25,7 @@ export const useGameRoom = (
   const submissionsRef = useRef<Submission[]>([]);
 
   const channel = ably.channels.get(`room-${roomId}`);
+  const isHost = mode === "host";
 
   // Keep the ref in sync with the state
   useEffect(() => {
@@ -47,11 +50,23 @@ export const useGameRoom = (
     channel.subscribe("game-event", (message) => {
       const data = message.data as GameMessage;
 
+      if (data.type === "GAME_PREPARATION") {
+        // Only non-hosts should force-update their local config to match the host
+        // This prevents the host from getting stuck in a loop
+        if (mode === "join") {
+          // You'll need a way to pass the setGameConfig setter into the hook
+          // or return the data so the Container can handle it.
+          onConfigSync?.(data.config);
+        }
+      }
+
       if (data.type === "START_ROUND") {
-        setSubmissions([]); // CRITICAL: Clear previous round answers
+        setSubmissions([]); // Clear state for the new round
         setCategory(data.category);
-        setEndTime(data.endTime);
-        setRoundDuration(data.writeTime);
+        // Ensure writeTime is a valid number to prevent NaN timers
+        const duration = Number(data.writeTime) || 30;
+        setEndTime(Date.now() + duration * 1000);
+        setRoundDuration(duration);
         setPhase("WRITING");
       }
 
@@ -81,18 +96,25 @@ export const useGameRoom = (
       }
 
       if (data.type === "END_ROUND") {
-        console.log("CRITICAL: Processing END_ROUND. isLastRound is:", data.isLastRound);
-
-        setSubmissions(data.finalSubmissions);
         setTotalScores(data.updatedTotals);
         setRoundCounter(data.nextRoundNumber);
 
-        if (data.isLastRound === true) {
-          console.log("SWITCHING TO RESULTS PHASE NOW");
+        if (data.isLastRound) {
+          setSubmissions(data.finalSubmissions);
           setPhase("RESULTS");
         } else {
-          console.log("SWITCHING TO WRITING PHASE FOR NEXT ROUND");
+          // 1. Clear submissions immediately for all players
+          setSubmissions([]);
+          // 2. Change phase
           setPhase("WRITING");
+
+          if (isHost) {
+            // 3. Wait slightly longer for React state to settle
+            // before the Host picks the next category
+            setTimeout(() => {
+              onNextRound?.();
+            }, 500);
+          }
         }
       }
     });
@@ -102,19 +124,24 @@ export const useGameRoom = (
       channel.presence.unsubscribe();
       channel.unsubscribe();
     };
-  }, [roomId, playerName, config]);
+  }, [roomId, playerName, config, isHost]);
 
-  // Determine Host (First one in the list)
-  const sorted = [...members].sort((a, b) => a.timestamp - b.timestamp);
-  const isHost = mode === "host" && sorted[0]?.clientId === ably.auth.clientId;
+  const updateGameSettings = (gameConfig: GameConfig) => {
+    channel.publish("game-event", {
+      type: "GAME_PREPARATION",
+      config: gameConfig,
+    });
+  };
 
-  // Helper to send the start signal
   const startRound = (selectedCategory: string, seconds: number) => {
+    // HOST: Clear locally before publishing to prevent auto-triggering voting
+    setSubmissions([]);
+
     channel.publish("game-event", {
       type: "START_ROUND",
       category: selectedCategory,
       endTime: Date.now() + seconds * 1000,
-      writeTime: config.writeTime,
+      writeTime: seconds,
     });
   };
 
@@ -183,6 +210,7 @@ export const useGameRoom = (
     startRound,
     clientId: ably.auth.clientId,
     submissions,
+    updateGameSettings,
     submitAnswer,
     startVoting,
     sendVote,
