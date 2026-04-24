@@ -8,12 +8,12 @@ import {
     RadioGroup,
     Typography,
 } from "@mui/material";
-import { getImgSrc } from "common/quizUtils";
-import { Character } from "common/types";
+import { getImgSrc } from "@/common/quizUtils";
+import { Character } from "@/common/types";
 import { useEffect, useState } from "react";
-import { COLORS } from "styling/constants";
+import { COLORS } from "@/styling/constants";
 import { useProfile } from "../components/Profile/ProfileContext";
-import characterData from "data/character_data.json";
+import characterData from "@/data/character_data.json";
 
 
 const KeepOrPass = () => {
@@ -56,11 +56,11 @@ const KeepOrPass = () => {
         }
         const randomChar =
             filteredChars[Math.floor(Math.random() * filteredChars.length)];
-        let anotherRandomChar =
+        const anotherRandomChar =
             filteredChars[Math.floor(Math.random() * filteredChars.length)];
-        let nextLeft =
+        const nextLeft =
             filteredChars[Math.floor(Math.random() * filteredChars.length)];
-        let nextRight =
+        const nextRight =
             filteredChars[Math.floor(Math.random() * filteredChars.length)];
         setActiveElement(randomChar);
         setNewElement(anotherRandomChar);
@@ -97,7 +97,7 @@ const KeepOrPass = () => {
                 filteredChars[Math.floor(Math.random() * filteredChars.length)];
 
             if (guess === "left") {
-                let arr = charHistory
+                const arr = charHistory
                 arr.push(activeElement);
                 setCharHistory(arr)
                 // Trigger animation - right image moves up
@@ -109,7 +109,7 @@ const KeepOrPass = () => {
                     setAnimate("false");
                 }, 500);
             } else {
-                let arr = charHistory
+                const arr = charHistory
                 arr.push(newElement);
                 setCharHistory(arr)
                 // Trigger animation - left image moves up

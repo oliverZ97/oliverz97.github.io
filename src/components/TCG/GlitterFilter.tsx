@@ -21,7 +21,7 @@ export const GlitterFilter = ({
   useEffect(() => {
     if (!animating) return;
 
-    let startTime = Date.now();
+    const startTime = Date.now();
     const animate = () => {
       const elapsed = (Date.now() - startTime) / 1000; // time in seconds
       setAnimationTime(elapsed);
@@ -37,14 +37,11 @@ export const GlitterFilter = ({
   // Calculate positions based on animation rotation
   const rotation = animating ? Math.sin((animationTime * Math.PI) / 5) * 40 : 0;
   const bgX = 50 + rotation * 0.8;
-  const bgY =
-    50 + (animating ? Math.sin((animationTime * Math.PI) / 5) * 15 : 0);
+  const bgY = 50 + (animating ? Math.sin((animationTime * Math.PI) / 5) * 15 : 0);
 
   // Glitter animation - creates pulsing sparkle effect
   const glitterPhase = animating ? (animationTime * 2) % 1 : 0.5;
-  const glitterOpacity = animating
-    ? Math.sin(glitterPhase * Math.PI * 2) * 0.5 + 0.5
-    : 0.6;
+  const glitterOpacity = animating ? Math.sin(glitterPhase * Math.PI * 2) * 0.5 + 0.5 : 0.6;
 
   return (
     <Box

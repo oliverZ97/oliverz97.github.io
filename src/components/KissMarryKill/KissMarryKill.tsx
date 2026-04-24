@@ -8,14 +8,14 @@ import {
   RadioGroup,
   Typography,
 } from "@mui/material";
-import { getImgSrc } from "common/quizUtils";
-import { Character, StatisticFields } from "common/types";
-import { getRandomCharacterArray } from "common/utils";
+import { getImgSrc } from "@/common/quizUtils";
+import { Character, StatisticFields } from "@/common/types";
+import { getRandomCharacterArray } from "@/common/utils";
 import { useEffect, useRef, useState } from "react";
-import { COLORS } from "styling/constants";
+import { COLORS } from "@/styling/constants";
 import { ButtonContainer, State } from "./ButtonContainer";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import { saveFieldToTotalStatistics } from "common/profileUtils";
+import { saveFieldToTotalStatistics } from "@/common/profileUtils";
 
 interface StateRef {
   resetState: () => void;
@@ -60,7 +60,6 @@ export const KissMarryKill = ({ charData }: KissMarryKillProps) => {
       }
     }
 
-
     if (refs.current.length > 0) {
       refs.current.forEach((el) => {
         if (el !== null) {
@@ -68,11 +67,7 @@ export const KissMarryKill = ({ charData }: KissMarryKillProps) => {
         }
       });
     }
-    const targetCharacters = getRandomCharacterArray(
-      [...charData],
-      3,
-      genderFilter
-    );
+    const targetCharacters = getRandomCharacterArray([...charData], 3, genderFilter);
     const targets = targetCharacters;
     setTargets(targets);
     setSelectionStates({
@@ -87,8 +82,7 @@ export const KissMarryKill = ({ charData }: KissMarryKillProps) => {
       <Box
         sx={{
           position: "relative",
-          background:
-            COLORS.gradient,
+          background: COLORS.gradient,
           padding: 4,
           borderRadius: 2,
           border: `1px solid ${COLORS.quiz.light}`,
@@ -214,10 +208,7 @@ export const KissMarryKill = ({ charData }: KissMarryKillProps) => {
             variant="contained"
             onClick={resetTargets}
           >
-            <RefreshIcon
-              fontSize="medium"
-              sx={{ color: COLORS.quiz.primary_text }}
-            ></RefreshIcon>
+            <RefreshIcon fontSize="medium" sx={{ color: COLORS.quiz.primary_text }}></RefreshIcon>
           </Button>
         </Box>
       </Box>

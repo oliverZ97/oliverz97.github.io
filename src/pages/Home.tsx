@@ -1,30 +1,21 @@
-import {
-  Box,
-  Button,
-  Chip,
-  Divider,
-  Link,
-  Tooltip,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Box, Button, Divider, Tooltip, Typography, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
-import characterData from "data/character_data.json";
-import { COLORS } from "styling/constants";
+import characterData from "@/data/character_data.json";
+import { COLORS } from "@/styling/constants";
 
-import bg from "assets/bg.jpg";
-import { Anime, Character } from "common/types";
-import BasicCharacterQuiz from "components/BasicCharacterQuiz/BasicCharacterQuiz";
-import ImageCharacterQuiz from "components/ImageCharacterQuiz/ImageCharacterQuiz";
-import DrawerBasic from "components/SideNavigation/SideNavigationItemDrawer";
-import MultipleChoiceQuiz from "components/MultipleChoiceQuiz/MultipleChoiceQuiz";
-import { VERSION } from "common/version";
+import bg from "@/assets/bg.jpg";
+import { Anime, Character } from "@/common/types";
+import BasicCharacterQuiz from "@/components/BasicCharacterQuiz/BasicCharacterQuiz";
+import ImageCharacterQuiz from "@/components/ImageCharacterQuiz/ImageCharacterQuiz";
+import DrawerBasic from "@/components/SideNavigation/SideNavigationItemDrawer";
+import MultipleChoiceQuiz from "@/components/MultipleChoiceQuiz/MultipleChoiceQuiz";
+import { VERSION } from "@/common/version";
 import MenuIcon from "@mui/icons-material/Menu";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import ArticleIcon from "@mui/icons-material/Article";
-import { KissMarryKill } from "components/KissMarryKill/KissMarryKill";
-import { AnimeIndex } from "components/AnimeIndex";
-import { AnimeQuiz } from "components/AnimeQuiz/AnimeQuiz";
+import { KissMarryKill } from "@/components/KissMarryKill/KissMarryKill";
+import { AnimeIndex } from "@/components/AnimeIndex";
+import { AnimeQuiz } from "@/components/AnimeQuiz/AnimeQuiz";
 import {
   createAnimeListFromCharData,
   formatScoresForCalendar,
@@ -32,23 +23,23 @@ import {
   getDailyScore,
   getDailyUTCDate,
   getScoreLogs,
-} from "common/utils";
-import BlurredCharacterQuiz from "components/BlurredCharacterQuiz/BlurredCharacterQuiz";
-import { dialogManager } from "components/Dialogs/DialogPortal";
-import { NavigationTabs } from "components/NavigationTabs";
-import Calendar from "components/Calendar";
+} from "@/common/utils";
+import BlurredCharacterQuiz from "@/components/BlurredCharacterQuiz/BlurredCharacterQuiz";
+import { dialogManager } from "@/components/Dialogs/DialogPortal";
+import { NavigationTabs } from "@/components/NavigationTabs";
+import Calendar from "@/components/Calendar";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import { Avatar } from "components/Profile/Avatar";
-import { HigherLower } from "components/HigherLower";
-import { Snowfall } from "components/Snowfall";
-import { getUserAvailableCredits } from "common/profileUtils";
+import { Avatar } from "@/components/Profile/Avatar";
+import { HigherLower } from "@/components/HigherLower";
+import { getUserAvailableCredits } from "@/common/profileUtils";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import AutoAwesomeMotionIcon from "@mui/icons-material/AutoAwesomeMotion";
-import { SideNavigationItemButton } from "components/SideNavigation/SideNavigationItemButton";
-import { SideNavigationItemLink } from "components/SideNavigation/SideNavigationItemLink";
-import { GameModeDrawer } from "components/SideNavigation/Drawer/GameModeDrawer";
-import SideNavigationItemDrawer from "components/SideNavigation/SideNavigationItemDrawer";
+import { SideNavigationItemButton } from "@/components/SideNavigation/SideNavigationItemButton";
+import { SideNavigationItemLink } from "@/components/SideNavigation/SideNavigationItemLink";
+import { GameModeDrawer } from "@/components/SideNavigation/Drawer/GameModeDrawer";
+import SideNavigationItemDrawer from "@/components/SideNavigation/SideNavigationItemDrawer";
+import { GameContainer } from "@/components/CategoryQuiz/GameContainer";
 
 export interface Score {
   points: number;
@@ -59,11 +50,9 @@ const Home = () => {
   const [charData, setCharData] = useState<Character[]>([]);
   const [animeData, setAnimeData] = useState<Anime[]>([]);
   const [getTotalScore, setGetTotalScore] = useState(
-    getDailyScore(getDailyUTCDate().toISOString())
+    getDailyScore(getDailyUTCDate().toISOString()),
   );
-  const [userAvailableCredits, setUserAvailableCredits] = useState(
-    getUserAvailableCredits()
-  );
+  const [userAvailableCredits, setUserAvailableCredits] = useState(getUserAvailableCredits());
   const theme = useTheme();
 
   function getCalendarData() {
@@ -73,16 +62,12 @@ const Home = () => {
 
   useEffect(() => {
     if (charData.length === 0) {
-      setCharData([
-        ...characterData.sort((a, b) => (a.Name < b.Name ? -1 : 1)),
-      ] as Character[]);
+      setCharData([...characterData.sort((a, b) => (a.Name < b.Name ? -1 : 1))] as Character[]);
     }
     if (charData && animeData.length === 0) {
       const localAnimeData = createAnimeListFromCharData(charData);
 
-      setAnimeData(
-        localAnimeData.sort((a, b) => (a.Name < b.Name ? -1 : 1)) as Anime[]
-      );
+      setAnimeData(localAnimeData.sort((a, b) => (a.Name < b.Name ? -1 : 1)) as Anime[]);
     }
   }, [charData, characterData, animeData]);
 
@@ -139,10 +124,15 @@ const Home = () => {
             },
           }}
         >
-          <Box sx={{ position: "absolute", top: "20px", display: "flex", flexDirection: "column", gap: 2 }}>
-
-
-
+          <Box
+            sx={{
+              position: "absolute",
+              top: "20px",
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
+            }}
+          >
             <SideNavigationItemDrawer
               title="Gamemodes"
               icon={<MenuIcon fontSize="large" />}
@@ -151,7 +141,12 @@ const Home = () => {
                 setUserAvailableCredits(getUserAvailableCredits());
               }}
             >
-              <GameModeDrawer value={value} handleChange={handleChange} getTotalScore={getTotalScore} userAvailableCredits={userAvailableCredits} />
+              <GameModeDrawer
+                value={value}
+                handleChange={handleChange}
+                getTotalScore={getTotalScore}
+                userAvailableCredits={userAvailableCredits}
+              />
             </SideNavigationItemDrawer>
 
             <SideNavigationItemDrawer
@@ -162,36 +157,42 @@ const Home = () => {
               <AnimeIndex animeData={animeData} />
             </SideNavigationItemDrawer>
 
-            <SideNavigationItemLink title="Coming Soon: TCG Shop" icon={
-              <StorefrontIcon fontSize="large" />
-            }
+            <SideNavigationItemLink
+              title="Coming Soon: TCG Shop"
+              icon={<StorefrontIcon fontSize="large" />}
               href="#/tcg"
               disabled={false}
             />
 
-            <SideNavigationItemLink title="Coming Soon: Collection" icon={
-              <AutoAwesomeMotionIcon fontSize="large" />
-            }
+            <SideNavigationItemLink
+              title="Coming Soon: Collection"
+              icon={<AutoAwesomeMotionIcon fontSize="large" />}
               href="#/collection"
             />
 
-            <SideNavigationItemButton title="How to play" icon={
-              <HelpOutlineIcon fontSize="large" />
-            } onClick={() => {
-              dialogManager.openDialog("howToPlay");
-            }} />
+            <SideNavigationItemButton
+              title="How to play"
+              icon={<HelpOutlineIcon fontSize="large" />}
+              onClick={() => {
+                dialogManager.openDialog("howToPlay");
+              }}
+            />
 
-            <SideNavigationItemButton title="Score Calendar" icon={
-              <CalendarMonthIcon fontSize="large" />
-            } onClick={() => {
-              dialogManager.openDialog("scoreCalendar", getCalendarData());
-            }} />
+            <SideNavigationItemButton
+              title="Score Calendar"
+              icon={<CalendarMonthIcon fontSize="large" />}
+              onClick={() => {
+                dialogManager.openDialog("scoreCalendar", getCalendarData());
+              }}
+            />
 
-            <SideNavigationItemButton title="Statistics" icon={
-              <BarChartIcon fontSize="large" />
-            } onClick={() => {
-              dialogManager.openDialog("statistics");
-            }} />
+            <SideNavigationItemButton
+              title="Statistics"
+              icon={<BarChartIcon fontSize="large" />}
+              onClick={() => {
+                dialogManager.openDialog("statistics");
+              }}
+            />
           </Box>
           <Tooltip title={"Profile"} arrow placement="right">
             <Box
@@ -279,17 +280,11 @@ const Home = () => {
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={3}>
-              <BlurredCharacterQuiz
-                charData={charData}
-                endlessMode={false}
-              ></BlurredCharacterQuiz>
+              <BlurredCharacterQuiz charData={charData} endlessMode={false}></BlurredCharacterQuiz>
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={5}>
-              <BasicCharacterQuiz
-                charData={charData}
-                endlessMode={true}
-              ></BasicCharacterQuiz>
+              <BasicCharacterQuiz charData={charData} endlessMode={true}></BasicCharacterQuiz>
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={6}>
@@ -301,11 +296,7 @@ const Home = () => {
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={7}>
-              <AnimeQuiz
-                animeData={animeData}
-                endlessMode={true}
-                charData={charData}
-              ></AnimeQuiz>
+              <AnimeQuiz animeData={animeData} endlessMode={true} charData={charData}></AnimeQuiz>
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={8}>
@@ -313,10 +304,7 @@ const Home = () => {
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={9}>
-              <MultipleChoiceQuiz
-                animeData={animeData}
-                charData={charData}
-              ></MultipleChoiceQuiz>
+              <MultipleChoiceQuiz animeData={animeData} charData={charData}></MultipleChoiceQuiz>
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={10}>
@@ -324,13 +312,14 @@ const Home = () => {
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={11}>
-              <HigherLower
-                charData={charData}
-                animeData={animeData}
-              ></HigherLower>
+              <HigherLower charData={charData} animeData={animeData}></HigherLower>
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={12}>
+              <GameContainer />
+            </CustomTabPanel>
+
+            <CustomTabPanel value={value} index={13}>
               <Calendar
                 title="Birthdays"
                 data={getCharacterBirthdaysAsCalendarData(charData)}
@@ -350,9 +339,7 @@ const Home = () => {
             },
           }}
         >
-          <Typography sx={{ color: "white", padding: 1 }}>
-            {"Version " + VERSION}
-          </Typography>
+          <Typography sx={{ color: "white", padding: 1 }}>{"Version " + VERSION}</Typography>
         </Box>
         <Box
           position={"sticky"}
@@ -373,10 +360,7 @@ const Home = () => {
             }}
             flexGrow={1}
           >
-            <DrawerBasic
-              title="Anime Index"
-              icon={<ArticleIcon fontSize="large" />}
-            >
+            <DrawerBasic title="Anime Index" icon={<ArticleIcon fontSize="large" />}>
               <AnimeIndex animeData={animeData} />
             </DrawerBasic>
           </Box>
@@ -392,9 +376,7 @@ const Home = () => {
               title="Gamemodes"
               icon={<MenuIcon fontSize="large" />}
               onOpenFn={() => {
-                setGetTotalScore(
-                  getDailyScore(getDailyUTCDate().toISOString())
-                );
+                setGetTotalScore(getDailyScore(getDailyUTCDate().toISOString()));
                 setUserAvailableCredits(getUserAvailableCredits());
               }}
             >
@@ -406,9 +388,7 @@ const Home = () => {
               >
                 <Box>
                   <NavigationTabs value={value} handleChange={handleChange} />
-                  <Divider
-                    sx={{ backgroundColor: "white", marginX: 1 }}
-                  ></Divider>
+                  <Divider sx={{ backgroundColor: "white", marginX: 1 }}></Divider>
                 </Box>
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                   <Box padding={2} sx={{ color: "white" }}>

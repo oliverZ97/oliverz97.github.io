@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
-import { COLORS } from "styling/constants";
-import boosterArt from "assets/tcg/109_full_art.webp";
+import { COLORS } from "@/styling/constants";
 import { useEffect, useState } from "react";
 
 interface BoosterPackageProps {
@@ -113,8 +112,7 @@ export const BoosterPackage = ({
           width: "100%",
           height: "90px",
           bottom: 40,
-          background:
-            "linear-gradient(0deg,rgba(0, 0, 0, 0.3) 0%, rgba(255, 255, 255, 0) 100%)",
+          background: "linear-gradient(0deg,rgba(0, 0, 0, 0.3) 0%, rgba(255, 255, 255, 0) 100%)",
         }}
       />
       <Box
@@ -158,8 +156,7 @@ export const BoosterPackage = ({
           opacity: packState === "hidden" ? 0 : 1,
           transition: "opacity 0.8s ease-out, transform 0.2s ease",
           "&:active": {
-            transform:
-              packState === "closed" && openable ? "scale(1.04)" : "none",
+            transform: packState === "closed" && openable ? "scale(1.04)" : "none",
           },
         }}
       >
@@ -190,10 +187,7 @@ export const BoosterPackage = ({
             clipPath: bottomPath,
             zIndex: 1,
             transition: "transform 2.0s cubic-bezier(0.34, 1.56, 0.64, 1)",
-            transform:
-              packState !== "closed"
-                ? "translateY(400px) scale(1.02)"
-                : "translateY(0)",
+            transform: packState !== "closed" ? "translateY(400px) scale(1.02)" : "translateY(0)",
           }}
         >
           {CardLayers}

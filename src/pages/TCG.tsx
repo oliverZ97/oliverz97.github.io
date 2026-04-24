@@ -1,26 +1,23 @@
 import { Box, Link, Tooltip, Typography } from "@mui/material";
-import { Character, Pack } from "common/types";
-import characterData from "data/character_data.json";
-import bg from "assets/bg.jpg";
+import { Character, Pack } from "@/common/types";
+import characterData from "@/data/character_data.json";
+import bg from "@/assets/bg.jpg";
 import { useEffect, useState } from "react";
-import { COLORS } from "styling/constants";
-import { getUserAvailableCredits } from "common/profileUtils";
-import { ShopEntry } from "components/TCG/ShopEntry";
-import tcg_packs from "data/tcg_packs.json";
+import { COLORS } from "@/styling/constants";
+import { getUserAvailableCredits } from "@/common/profileUtils";
+import { ShopEntry } from "@/components/TCG/ShopEntry";
+import tcg_packs from "@/data/tcg_packs.json";
 import HomeIcon from "@mui/icons-material/Home";
 import AutoAwesomeMotionIcon from "@mui/icons-material/AutoAwesomeMotion";
-
 
 const TCG = () => {
   const [charData, setCharData] = useState<Character[]>([]);
   const [packs, setPacks] = useState(tcg_packs as Record<string, Pack>);
-  const [userAvailableCredits, setUserAvailableCredits] = useState(
-    getUserAvailableCredits()
-  );
+  const [userAvailableCredits, setUserAvailableCredits] = useState(getUserAvailableCredits());
 
   useEffect(() => {
     setPacks(tcg_packs as Record<string, Pack>);
-  }, [tcg_packs]);
+  }, [tcg_packs, setPacks]);
 
   function updateCredits() {
     setUserAvailableCredits(getUserAvailableCredits());
@@ -28,9 +25,7 @@ const TCG = () => {
 
   useEffect(() => {
     if (charData.length === 0) {
-      setCharData([
-        ...characterData.sort((a, b) => (a.Name < b.Name ? -1 : 1)),
-      ] as Character[]);
+      setCharData([...characterData.sort((a, b) => (a.Name < b.Name ? -1 : 1))] as Character[]);
     }
   }, [charData, characterData]);
 

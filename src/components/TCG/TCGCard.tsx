@@ -1,7 +1,7 @@
 import { Box, darken, Typography } from "@mui/material";
-import { getImgSrc } from "common/quizUtils";
+import { getImgSrc } from "@/common/quizUtils";
 import { useState } from "react";
-import { COLORS } from "styling/constants";
+import { COLORS } from "@/styling/constants";
 import { TCG_CARD_BASE } from "./constants";
 import { Star } from "./Star";
 import { getBackgroundColor, getCardArtSync } from "./utils";
@@ -9,10 +9,17 @@ import { CardInfoEntry } from "./CardInfoEntry";
 import { SharpHolographicFilter } from "./SharpHolographicFilter";
 import { RadiantHolographicFilter } from "./RadiantHolographicFilter";
 import { GlitterFilter } from "./GlitterFilter";
-import { Card } from "common/types";
+import { Card } from "@/common/types";
 
-export const Rarities = ["Common", "Uncommon", "Rare", "SuperRare", "UltraRare", "SecretRare"] as const;
-export type Rarity = (typeof Rarities)[number]
+export const Rarities = [
+  "Common",
+  "Uncommon",
+  "Rare",
+  "SuperRare",
+  "UltraRare",
+  "SecretRare",
+] as const;
+export type Rarity = (typeof Rarities)[number];
 export type Art = "default" | "full";
 
 interface TCGCardProps {
@@ -43,8 +50,7 @@ export const TCGCard = ({
   const showUltraRare = card.rarity === "UltraRare" && effectsOn;
   const showHolographic = card.rarity === "SecretRare" && effectsOn;
   const showRadiantHolo = card.rarity === "UltraRare" && effectsOn;
-  const showGlitter =
-    (card.rarity === "UltraRare" || card.rarity === "SecretRare") && effectsOn;
+  const showGlitter = (card.rarity === "UltraRare" || card.rarity === "SecretRare") && effectsOn;
   const useFullArt = card.art === "full" && fullArtPath !== "";
 
   const backgroundColors = getBackgroundColor(card.character);
@@ -92,9 +98,7 @@ export const TCGCard = ({
         height: height,
         borderRadius: borderRadius,
         borderColor:
-          card.rarity === "SecretRare"
-            ? COLORS.cards.secretRareBorder
-            : COLORS.cards.border,
+          card.rarity === "SecretRare" ? COLORS.cards.secretRareBorder : COLORS.cards.border,
         borderWidth: borderWidth,
         borderStyle: "solid",
         boxShadow: 2,
@@ -108,8 +112,8 @@ export const TCGCard = ({
         animation: slideOut
           ? "slideOut 1s forwards"
           : inspectAnimation
-            ? "inspect 5s infinite ease-in-out alternate"
-            : undefined,
+          ? "inspect 5s infinite ease-in-out alternate"
+          : undefined,
         pointerEvents: slideOut ? "none" : "auto",
         "@keyframes inspect": {
           from: {
@@ -156,13 +160,9 @@ export const TCGCard = ({
               position: "absolute",
               width: "100%",
               height: "100%",
-              background: `linear-gradient(180deg,${darken(
-                backgroundColors[0],
-                0.2
-              )} 0%, ${backgroundColors[0]} 50%, ${darken(
-                backgroundColors[0],
-                0.2
-              )} 100%)`,
+              background: `linear-gradient(180deg,${darken(backgroundColors[0], 0.2)} 0%, ${
+                backgroundColors[0]
+              } 50%, ${darken(backgroundColors[0], 0.2)} 100%)`,
               opacity: useFullArt ? 0.5 : 1,
               borderRadius: 1,
             }}
@@ -174,7 +174,7 @@ export const TCGCard = ({
               height: "100%",
               padding: padding,
               backgroundColor: "transparent",
-              top: size === "small" ? "6.5px" : "0"
+              top: size === "small" ? "6.5px" : "0",
             }}
           >
             <Typography
@@ -227,44 +227,75 @@ export const TCGCard = ({
               gap: 1,
             }}
           >
-            <Typography
-              sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: infoFontSize }}
-            >{`DOB: ${card?.character.Birthday ?? "???"}`}</Typography>
-            <Typography
-              sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: infoFontSize }}
-            >{`HT: ${card?.character.Height ?? "???"}`}</Typography>
+            <Typography sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: infoFontSize }}>{`DOB: ${
+              card?.character.Birthday ?? "???"
+            }`}</Typography>
+            <Typography sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: infoFontSize }}>{`HT: ${
+              card?.character.Height ?? "???"
+            }`}</Typography>
           </Box>
         </Box>
-        <Box >
+        <Box>
           <Box sx={{ position: "absolute", left: starLeft, bottom: starBottom, zIndex: 20 }}>
-            {!useFullArt && card.rarity === "Common" && <Box sx={{ width: "7px", height: "7px", backgroundColor: COLORS.cards.rare, position: "absolute", top: "-14px", left: 2, zIndex: 100, border: "1px solid black", borderRadius: "50%" }} />}
-            {card.rarity === "Uncommon" && <Box sx={{ width: "6px", height: "6px", backgroundColor: COLORS.cards.rare, position: "absolute", top: "-14px", left: 2, zIndex: 100, border: "1px solid black", transform: "rotate(45deg)" }} />}
-            {(card.rarity !== "Common" && card.rarity !== "Uncommon") && <Star zIndex={30} size={scaleFactor} />}
+            {!useFullArt && card.rarity === "Common" && (
+              <Box
+                sx={{
+                  width: "7px",
+                  height: "7px",
+                  backgroundColor: COLORS.cards.rare,
+                  position: "absolute",
+                  top: "-14px",
+                  left: 2,
+                  zIndex: 100,
+                  border: "1px solid black",
+                  borderRadius: "50%",
+                }}
+              />
+            )}
+            {card.rarity === "Uncommon" && (
+              <Box
+                sx={{
+                  width: "6px",
+                  height: "6px",
+                  backgroundColor: COLORS.cards.rare,
+                  position: "absolute",
+                  top: "-14px",
+                  left: 2,
+                  zIndex: 100,
+                  border: "1px solid black",
+                  transform: "rotate(45deg)",
+                }}
+              />
+            )}
+            {card.rarity !== "Common" && card.rarity !== "Uncommon" && (
+              <Star zIndex={30} size={scaleFactor} />
+            )}
             {useFullArt && card.rarity === "Common" && (
               <Star zIndex={30} art="full" size={scaleFactor} />
             )}
             {(card.rarity === "SecretRare" || card.rarity === "UltraRare") && (
-              <Star
-                art={useFullArt ? "full" : "default"}
-                zIndex={30}
-                size={scaleFactor}
-              />
+              <Star art={useFullArt ? "full" : "default"} zIndex={30} size={scaleFactor} />
             )}
             {card.rarity === "SecretRare" && (
-              <Star
-                zIndex={30}
-                art={useFullArt ? "full" : "default"}
-                size={scaleFactor}
-              />
+              <Star zIndex={30} art={useFullArt ? "full" : "default"} size={scaleFactor} />
             )}
           </Box>
 
           <Box>
-            <Box sx={{ position: "absolute", right: 2, bottom: 1, width: "50px", height: "12px", backdropFilter: "blur(2px)", zIndex: 1, borderRadius: "50%" }}></Box>
+            <Box
+              sx={{
+                position: "absolute",
+                right: 2,
+                bottom: 1,
+                width: "50px",
+                height: "12px",
+                backdropFilter: "blur(2px)",
+                zIndex: 1,
+                borderRadius: "50%",
+              }}
+            ></Box>
             <Box sx={{ position: "absolute", right: idLeft, bottom: idBottom, zIndex: 30 }}>
-              <Typography
-                sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: idFontSize }}
-              >
+              <Typography sx={{ fontFamily: '"Exo 2", sans-serif', fontSize: idFontSize }}>
                 {card.cardId}
               </Typography>
             </Box>

@@ -1,5 +1,5 @@
-import { Streak } from "components/Streak";
-import { Art, Rarity } from "components/TCG/TCGCard";
+import { Streak } from "@/components/Streak";
+import { Art, Rarity } from "@/components/TCG/TCGCard";
 
 export interface Character {
   id: number;
@@ -124,7 +124,7 @@ export const defaultPackConfig: PackConfig = {
   mainCastChance: 0.3, // 30% chance for main cast character
   uncommonChance: 0.4,
   rareChance: 0.1,
-  fullArtChance: 0.25
+  fullArtChance: 0.25,
 };
 
 export interface UserProfile {

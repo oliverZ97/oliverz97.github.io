@@ -1,5 +1,5 @@
 import { Divider, Tab, Tabs, useMediaQuery, useTheme } from "@mui/material";
-import { COLORS } from "styling/constants";
+import { COLORS } from "@/styling/constants";
 
 function a11yProps(index: number) {
   return {
@@ -150,8 +150,19 @@ export function NavigationTabs({ value, handleChange }: TabPanelProps) {
             color: "white",
           },
         }}
-        label="Character Birthdays"
+        label="Category Quiz MULTIPLAYER (BETA)"
         {...a11yProps(12)}
+      />
+
+      <Tab
+        sx={{
+          color: COLORS.quiz.light,
+          "&.Mui-selected": {
+            color: "white",
+          },
+        }}
+        label="Character Birthdays"
+        {...a11yProps(13)}
       />
     </Tabs>
   );

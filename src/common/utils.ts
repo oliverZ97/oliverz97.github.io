@@ -1,13 +1,7 @@
-import {
-  Anime,
-  Character,
-  Difficulty,
-  SolvedKeys,
-  StatisticFields,
-} from "common/types";
+import { Anime, Character, Difficulty, SolvedKeys, StatisticFields } from "@/common/types";
 import { getCurrentVersion, getPreLatestVersion } from "./version";
 import { DateTime } from "luxon";
-import { CalendarEntry } from "components/Calendar";
+import { CalendarEntry } from "@/components/Calendar";
 import {
   getCurrentUserLog,
   getCurrentUserProfile,
@@ -18,7 +12,7 @@ export function getRandomNumberFromUTCDate(
   max: number,
   isPrevious = false,
   mode: "blurred" | "normal" = "normal",
-  date?: Date
+  date?: Date,
 ): number {
   if (max <= 0 || !Number.isInteger(max)) {
     throw new Error("Max must be a positive integer.");
@@ -26,16 +20,15 @@ export function getRandomNumberFromUTCDate(
   const utcDate = date
     ? cleanUTCDate(date)
     : isPrevious
-      ? getYesterdayUTCDate()
-      : getDailyUTCDate();
+    ? getYesterdayUTCDate()
+    : getDailyUTCDate();
   const dailyTimestamp = utcDate.getTime();
   const yearMonth = utcDate.getUTCFullYear() * 100 + utcDate.getUTCMonth();
 
   // Create multiple seeds based on different aspects of the date
   const seed1 = dailyTimestamp;
   const seed2 = utcDate.getUTCDate() + yearMonth * 31;
-  const seed3 =
-    utcDate.getUTCDate() * utcDate.getUTCMonth() + utcDate.getUTCFullYear();
+  const seed3 = utcDate.getUTCDate() * utcDate.getUTCMonth() + utcDate.getUTCFullYear();
 
   // Enhanced hash function with multiple seeds for better distribution
   let hash = seed1;
@@ -79,8 +72,7 @@ export function getYesterdayUTCDate(): Date {
 export function findNearestPrime(n: number): number {
   // For small numbers, use a lookup table of common primes
   const smallPrimes = [
-    2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71,
-    73, 79, 83, 89, 97,
+    2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97,
   ];
 
   // If n is small, return the largest prime <= n
@@ -134,7 +126,7 @@ export function sortObjectsByKey(
   element1: Record<string, any>,
   element2: Record<string, any>,
   key: string,
-  desc = false
+  desc = false,
 ) {
   if (desc) {
     if (element1[key] > element2[key]) {
@@ -154,10 +146,7 @@ export function sortObjectsByKey(
   return 0;
 }
 
-export function isIncludedInDifficulty(
-  char: Character,
-  difficulty: Difficulty
-) {
+export function isIncludedInDifficulty(char: Character, difficulty: Difficulty) {
   if (difficulty === "C") {
     return true;
   } else if (difficulty === "B") {
@@ -177,22 +166,16 @@ export function isIncludedInDifficulty(
 
 export function getDailyUTCDate() {
   const now = new Date(); // Get current date and time in local timezone
-  const utcDate = new Date(
-    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
-  ); // Create UTC date at 00:00:00
+  const utcDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())); // Create UTC date at 00:00:00
 
   //add days for TESTING purposes
   //utcDate.setUTCDate(utcDate.getUTCDate() + 0);
   return utcDate;
 }
 
-export function getRandomCharacterArray(
-  charData: Character[],
-  count: number,
-  gender = "all"
-) {
+export function getRandomCharacterArray(charData: Character[], count: number, gender = "all") {
   let counter = 0;
-  let chars: Character[] = [];
+  const chars: Character[] = [];
   while (counter < Math.max(0, count)) {
     const char = getRandomCharacter(Object.values(charData), {
       endlessMode: undefined,
@@ -249,21 +232,18 @@ export function getRandomCharacter(
     gender = "all",
     quizMode = "normal",
     date = undefined,
-  }: GetRandomCharacterParams = {}
+  }: GetRandomCharacterParams = {},
 ) {
   let chars = charData.sort((a, b) => (a.id < b.id ? -1 : 1));
   let currentVersion = getCurrentVersion();
   if (
     isPrevious &&
-    currentVersion.date.split("T")[0] ===
-    getYesterdayUTCDate().toISOString().split("T")[0]
+    currentVersion.date.split("T")[0] === getYesterdayUTCDate().toISOString().split("T")[0]
   ) {
     currentVersion = getPreLatestVersion();
   }
 
-  chars = chars.filter(
-    (char) => compareVersions(char.Version, currentVersion.version) <= 0
-  );
+  chars = chars.filter((char) => compareVersions(char.Version, currentVersion.version) <= 0);
   let charArray = Object.values(chars);
   if (gender !== "all") {
     charArray = charArray.filter((char) => char.Sex.toLowerCase() === gender);
@@ -276,8 +256,7 @@ export function getRandomCharacter(
     // First, get the deterministic index based on date
     // This ensures the daily character is always the same for a given date
     index =
-      getRandomNumberFromUTCDate(charArray.length, isPrevious, quizMode, date) %
-      charArray.length;
+      getRandomNumberFromUTCDate(charArray.length, isPrevious, quizMode, date) % charArray.length;
   }
 
   const target = charArray[index];
@@ -292,24 +271,19 @@ interface GetRandomAnimeParams {
 }
 export function getRandomAnime(
   animeData: Anime[],
-  {
-    endlessMode = true,
-    isPrevious = false,
-    date = undefined,
-  }: GetRandomAnimeParams
+  { endlessMode = true, isPrevious = false, date = undefined }: GetRandomAnimeParams,
 ) {
   let animeArray = Object.values(animeData);
   animeArray = animeArray.sort((a, b) => (a.id < b.id ? -1 : 1));
   let currentVersion = getCurrentVersion();
   if (
     isPrevious &&
-    currentVersion.date.split("T")[0] ===
-    getYesterdayUTCDate().toISOString().split("T")[0]
+    currentVersion.date.split("T")[0] === getYesterdayUTCDate().toISOString().split("T")[0]
   ) {
     currentVersion = getPreLatestVersion();
   }
   animeArray = animeArray.filter(
-    (anime) => compareVersions(anime.Version, currentVersion.version) <= 0
+    (anime) => compareVersions(anime.Version, currentVersion.version) <= 0,
   );
 
   let index;
@@ -317,12 +291,7 @@ export function getRandomAnime(
     index = Math.floor(Math.random() * animeArray.length);
   } else {
     // For daily deterministic selection, get the index first
-    index = getRandomNumberFromUTCDate(
-      animeArray.length,
-      isPrevious,
-      "normal",
-      date
-    );
+    index = getRandomNumberFromUTCDate(animeArray.length, isPrevious, "normal", date);
   }
 
   const target = animeArray[index];
@@ -391,12 +360,7 @@ export function getDailyScore(date: string): number {
   return dailyScore;
 }
 
-export function setDailyScore(
-  date: string,
-  score: number,
-  key: QUIZ_KEY,
-  tries?: number
-): void {
+export function setDailyScore(date: string, score: number, key: QUIZ_KEY, tries?: number): void {
   const currentProfile = getCurrentUserProfile();
   if (!currentProfile) {
     return; // Do not track score if disabled in settings
@@ -424,10 +388,7 @@ export function setDailyScore(
       scores: scoreLog,
       user: currentProfile.id,
     };
-    localStorage.setItem(
-      "stats_" + currentProfile.id,
-      JSON.stringify(profileStatistics)
-    );
+    localStorage.setItem("stats_" + currentProfile.id, JSON.stringify(profileStatistics));
     localStorage.removeItem("scorelog");
   } else if (localStorage.getItem("stats_" + currentProfile.id)) {
     const profileData = localStorage.getItem("stats_" + currentProfile.id);
@@ -452,10 +413,7 @@ export function setDailyScore(
         }
         profileStatistics.scores[date].totalScore = score;
       }
-      localStorage.setItem(
-        "stats_" + currentProfile.id,
-        JSON.stringify(profileStatistics)
-      );
+      localStorage.setItem("stats_" + currentProfile.id, JSON.stringify(profileStatistics));
       //TODO: Check here later for total days of played games for achievement
     }
   } else {
@@ -466,10 +424,7 @@ export function setDailyScore(
       user: currentProfile.id,
     };
 
-    localStorage.setItem(
-      "stats_" + currentProfile.id,
-      JSON.stringify(profileStatistics)
-    );
+    localStorage.setItem("stats_" + currentProfile.id, JSON.stringify(profileStatistics));
   }
 
   const newDailyTotal = getDailyScore(date);
@@ -487,7 +442,7 @@ export function getScoreLogs(): Record<string, { [key: string]: number }> {
 }
 
 export function formatScoresForCalendar(
-  scoreLogs: Record<string, { [key: string]: number }>
+  scoreLogs: Record<string, { [key: string]: number }>,
 ): Record<string, CalendarEntry[]> {
   const entries: Record<string, CalendarEntry[]> = {};
 
@@ -532,9 +487,7 @@ export function getCharacterBirthdaysAsCalendarData(charData: Character[]) {
 }
 
 // Example of combining regular events with recurring birthday events:
-export function combineCalendarData(
-  ...dataSources: Record<string, CalendarEntry[]>[]
-) {
+export function combineCalendarData(...dataSources: Record<string, CalendarEntry[]>[]) {
   const combined: Record<string, CalendarEntry[]> = {};
 
   dataSources.forEach((source) => {
@@ -566,10 +519,7 @@ export function createAnimeListFromCharData(charData: Character[]) {
     };
 
     // If this anime isn't in the map yet or has a lower version number, update the map
-    if (
-      !animeMap.has(item.Anime) ||
-      item.Version < animeMap.get(item.Anime).Version
-    ) {
+    if (!animeMap.has(item.Anime) || item.Version < animeMap.get(item.Anime).Version) {
       animeMap.set(item.Anime, { ...animeEntry });
     }
   });

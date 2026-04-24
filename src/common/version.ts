@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
 
-export const VERSION = "1.7.18";
+export const VERSION = "1.8.0";
 
 interface CHAR_VERSION {
   version: string;
@@ -144,13 +144,16 @@ export const CHAR_VERSIONS: CHAR_VERSION[] = [
     date: "2026-02-06T00:00:00.00Z",
     lastId: 658,
   },
+  {
+    version: "v1.27",
+    date: "2026-04-24T00:00:00.00Z",
+    lastId: 684,
+  },
 ];
 
 export function getCurrentVersion(): CHAR_VERSION {
   const today = DateTime.now();
-  const latestVersionDate = DateTime.fromISO(
-    CHAR_VERSIONS[CHAR_VERSIONS.length - 1].date
-  );
+  const latestVersionDate = DateTime.fromISO(CHAR_VERSIONS[CHAR_VERSIONS.length - 1].date);
 
   // Compare only the date part (ignoring time)
   if (today.toISODate() === latestVersionDate.toISODate()) {
@@ -182,7 +185,7 @@ export function getNLatestVersion(n: number): CHAR_VERSION {
     return CHAR_VERSIONS[CHAR_VERSIONS.length - n];
   } else {
     throw new Error(
-      `Version ${n} is not available. Maximum available version is ${CHAR_VERSIONS.length}.`
+      `Version ${n} is not available. Maximum available version is ${CHAR_VERSIONS.length}.`,
     );
   }
 }
