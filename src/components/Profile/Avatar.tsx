@@ -8,7 +8,9 @@ interface AvatarProps {
   size?: number;
 }
 
-export const avatarBasepath = !import.meta.env.PROD ? "/src/assets/profile/" : "@/assets/profile/";
+export const avatarBasepath = !import.meta.env.PROD
+  ? "/src/assets/profile/"
+  : `${import.meta.env.BASE_URL}assets/profile/`;
 
 const Avatar = forwardRef(({ size = 60 }: AvatarProps, ref) => {
   const [user, setUser] = useState(getCurrentUserProfile());
