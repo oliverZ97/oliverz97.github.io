@@ -13,12 +13,14 @@ import {
 import { COLORS } from "@/styling/constants";
 import { GamePhase } from "./types";
 import { INPUT_BASE_STYLE, WINDOW_BASE_STYLE } from "./styles";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 interface LobbyProps {
   members: any[];
   isHost: boolean;
   roomId: string;
   phase: GamePhase;
+  totalScores: Record<string, number>;
   onStart: () => void;
   onModeChange?: (mode: "host" | "join") => void;
   onRoomIdChange?: (roomId: string) => void;
@@ -32,6 +34,7 @@ export const GameLobby = ({
   roomId,
   phase,
   onRoomIdChange,
+  totalScores,
 }: LobbyProps) => {
   const [mode, setMode] = useState<"host" | "join">("host");
 
@@ -62,8 +65,8 @@ export const GameLobby = ({
         flexDirection: "column",
         alignItems: "center",
         minHeight: "600px",
-        width: "25%",
-        maxWidth: "260px",
+        width: "30%",
+        maxWidth: "300px",
         gap: 2,
       }}
     >
@@ -141,6 +144,7 @@ export const GameLobby = ({
                   },
                 }}
               >
+                <ContentCopyIcon sx={{ mr: 1 }} />
                 {roomId}
               </Typography>
             </Box>
@@ -173,19 +177,28 @@ export const GameLobby = ({
                   border: `1px solid ${COLORS.fresh.primary.main}`,
                   borderRadius: 1,
                   marginBottom: 1,
-                  width: "200px",
+                  width: "260px",
                 }}
               >
                 <ListItem
                   sx={{
                     color: COLORS.fresh.primary.main,
                     fontWeight: m.clientId === ably.auth.clientId ? "bold" : "normal",
+                    display: "flex",
+                    justifyContent: "space-between",
                   }}
                   key={m.clientId}
                 >
-                  {"#" + (idx + 1) + " "}
-                  {m.data?.name || "Anonymous"}
-                  {m.clientId === ably.auth.clientId && " (You)"}
+                  <Box>
+                    {"#" + (idx + 1) + " "}
+                    {m.data?.name || "Anonymous"}
+                    {m.clientId === ably.auth.clientId && " (You)"}
+                  </Box>
+                  <Typography
+                    sx={{ fontWeight: m.clientId === ably.auth.clientId ? "bold" : "normal" }}
+                  >
+                    {totalScores[m.clientId] ?? 0}
+                  </Typography>
                 </ListItem>
               </Box>
             ))}

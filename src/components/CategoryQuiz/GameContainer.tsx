@@ -9,6 +9,7 @@ import { generateLobbyKey } from "./utils";
 import { Box } from "@mui/material";
 import { COLORS } from "@/styling/constants";
 import GameSettings, { defaultConfig, GameConfig } from "./GameSettings";
+import ResultScreen from "./ResultScreen";
 
 export const GameContainer = () => {
   const [mode, setMode] = useState<"host" | "join">("host");
@@ -40,6 +41,7 @@ export const GameContainer = () => {
     sendVote,
     clientId,
     totalScores,
+    resetGame,
   } = useGameRoom(
     roomId,
     getCurrentUserProfile()?.username || "Rem",
@@ -92,6 +94,7 @@ export const GameContainer = () => {
         onModeChange={(mode) => setMode(mode)}
         onRoomIdChange={(roomId) => setRoomId(roomId)}
         roomId={roomId}
+        totalScores={totalScores}
       />
       <Box sx={{ flexGrow: 1 }}>
         {phase === "LOBBY" && (
@@ -128,65 +131,14 @@ export const GameContainer = () => {
           />
         )}
         {phase === "RESULTS" && (
-          <div style={{ textAlign: "center", padding: "20px" }}>
-            <h2>Round Results</h2>
-            <div style={{ marginBottom: "30px" }}>
-              {submissions
-                .sort((a, b) => b.votes - a.votes)
-                .map((s) => (
-                  <div key={s.playerId} style={resultRowStyle}>
-                    <span>{s.playerName}</span>
-                    <span style={{ fontWeight: "bold" }}>+{s.votes} pts</span>
-                  </div>
-                ))}
-            </div>
-
-            <hr />
-
-            <div className="leaderboard">
-              <h3>🏆 All-Time Leaderboard</h3>
-              {Object.entries(totalScores)
-                .sort(([, scoreA], [, scoreB]) => scoreB - scoreA) // Sort by highest score
-                .map(([id, score]) => {
-                  // Find the player's name from the members list using their ID
-                  const player = members.find((m) => m.clientId === id);
-                  const name = player?.data?.name || "Unknown Player";
-
-                  return (
-                    <div key={id} style={{ display: "flex", justifyContent: "space-between" }}>
-                      <span>{name}</span>
-                      <span>{score} pts</span>
-                    </div>
-                  );
-                })}
-            </div>
-
-            {isHost && (
-              <button
-                onClick={handleStartGame}
-                style={{
-                  marginTop: "30px",
-                  padding: "15px 30px",
-                  background: "#4CAF50",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "5px",
-                  cursor: "pointer",
-                }}
-              >
-                Start Next Round
-              </button>
-            )}
-          </div>
+          <ResultScreen
+            handleFinishGame={resetGame}
+            isHost={isHost}
+            members={members}
+            totalScores={totalScores}
+          />
         )}
       </Box>
     </Box>
   );
-};
-
-const resultRowStyle = {
-  display: "flex",
-  justifyContent: "space-between",
-  padding: "10px",
-  borderBottom: "1px solid #eee",
 };

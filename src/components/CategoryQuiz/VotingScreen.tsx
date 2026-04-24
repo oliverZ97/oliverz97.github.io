@@ -138,18 +138,16 @@ export const VotingScreen = ({
                 {s.answer ? s.answer : "-"}
               </Typography>
 
-              {isHost && (
-                <Typography
-                  sx={{
-                    background: "rgba(255,255,255,0.1)",
-                    padding: "4px 8px",
-                    borderRadius: "12px",
-                    color: "rgba(255,255,255,0.8)",
-                  }}
-                >
-                  ❤️ {s.votes}
-                </Typography>
-              )}
+              <Typography
+                sx={{
+                  background: "rgba(255,255,255,0.1)",
+                  padding: "4px 8px",
+                  borderRadius: "12px",
+                  color: "rgba(255,255,255,0.8)",
+                }}
+              >
+                ❤️ {s.votes}
+              </Typography>
             </Box>
 
             {/* --- VOTING SECTION --- */}

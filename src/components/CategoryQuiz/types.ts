@@ -11,6 +11,7 @@ export interface Player {
 }
 
 export type GameMessage =
+  | { type: "RESET_GAME"; config: GameConfig }
   | { type: "GAME_PREPARATION"; config: GameConfig }
   | { type: "START_ROUND"; category: string; endTime: number; writeTime: number }
   | { type: "SUBMIT_ANSWER"; playerId: string; playerName: string; answer: string }

@@ -23,6 +23,7 @@ export const useGameRoom = (
   const [roundCounter, setRoundCounter] = useState<number>(1);
 
   const submissionsRef = useRef<Submission[]>([]);
+  const configRef = useRef(config);
 
   const channel = ably.channels.get(`room-${roomId}`);
   const isHost = mode === "host";
@@ -31,6 +32,10 @@ export const useGameRoom = (
   useEffect(() => {
     submissionsRef.current = submissions;
   }, [submissions]);
+
+  useEffect(() => {
+    configRef.current = config;
+  }, [config]);
 
   useEffect(() => {
     // --- 1. PRESENCE LOGIC (The Lobby) ---
@@ -50,6 +55,16 @@ export const useGameRoom = (
     channel.subscribe("game-event", (message) => {
       const data = message.data as GameMessage;
 
+      if (data.type === "RESET_GAME") {
+        setPhase("LOBBY");
+        setRoundCounter(1);
+        setTotalScores({});
+        setCategory("");
+        setSubmissions([]);
+        // If you want to sync the config back to default for everyone:
+        onConfigSync?.(data.config);
+      }
+
       if (data.type === "GAME_PREPARATION") {
         // Only non-hosts should force-update their local config to match the host
         // This prevents the host from getting stuck in a loop
@@ -64,7 +79,7 @@ export const useGameRoom = (
         setSubmissions([]); // Clear state for the new round
         setCategory(data.category);
         // Ensure writeTime is a valid number to prevent NaN timers
-        const duration = Number(data.writeTime) || 30;
+        const duration = Number(data.writeTime) || configRef.current.writeTime;
         setEndTime(Date.now() + duration * 1000);
         setRoundDuration(duration);
         setPhase("WRITING");
@@ -124,7 +139,16 @@ export const useGameRoom = (
       channel.presence.unsubscribe();
       channel.unsubscribe();
     };
-  }, [roomId, playerName, config, isHost]);
+  }, [roomId, playerName, isHost]);
+
+  const resetGame = () => {
+    if (!isHost) return;
+
+    channel.publish("game-event", {
+      type: "RESET_GAME",
+      config: config, // Optional: reset settings too
+    });
+  };
 
   const updateGameSettings = (gameConfig: GameConfig) => {
     channel.publish("game-event", {
@@ -215,6 +239,7 @@ export const useGameRoom = (
     startVoting,
     sendVote,
     finalizeRound,
+    resetGame,
     totalScores,
   };
 };

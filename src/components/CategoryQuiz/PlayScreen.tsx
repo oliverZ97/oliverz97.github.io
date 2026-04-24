@@ -158,8 +158,6 @@ export const PlayScreen = ({
           disabled={timeLeft <= 0}
         />
       </Box>
-
-      {timeLeft === 0 && <Typography>Times up! Submitting...</Typography>}
     </Box>
   );
 };
