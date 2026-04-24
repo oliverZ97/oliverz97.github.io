@@ -39,11 +39,7 @@ export const LemonButton = ({ onClick, text }: { onClick: (event: any) => void; 
       <Box
         className="wiggle-img"
         component={"img"}
-        src={
-          !import.meta.env.PROD
-            ? "/src/assets/Remon.png"
-            : `${import.meta.env.BASE_URL}assets/Remon.png`
-        }
+        src={!import.meta.env.PROD ? "/src/assets/Remon.png" : "/assets/Remon.png"}
         width={"40px"}
       />
       <Typography

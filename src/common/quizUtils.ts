@@ -42,18 +42,14 @@ export function checkAgeGroup(value: string) {
 
 export function getImgSrc(id: number) {
   const filename = id.toString();
-  const basepath = !import.meta.env.PROD
-    ? "/src/assets/characters/"
-    : `${import.meta.env.BASE_URL}assets/characters/`;
+  const basepath = !import.meta.env.PROD ? "/src/assets/characters/" : "/assets/characters/";
 
   return basepath + filename + ".webp";
 }
 
 export function getAnimeImgSrc(id: number) {
   const filename = id.toString();
-  const basepath = !import.meta.env.PROD
-    ? "/src/assets/posters/"
-    : `${import.meta.env.BASE_URL}assets/posters/`;
+  const basepath = !import.meta.env.PROD ? "/src/assets/posters/" : "/assets/posters/";
 
   return basepath + filename + ".webp";
 }
