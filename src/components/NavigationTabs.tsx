@@ -150,7 +150,7 @@ export function NavigationTabs({ value, handleChange }: TabPanelProps) {
             color: "white",
           },
         }}
-        label="Category Quiz MULTIPLAYER"
+        label="Category Quiz MULTIPLAYER (BETA)"
         {...a11yProps(12)}
       />
 
