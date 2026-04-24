@@ -1,7 +1,7 @@
-import { Box, Grid, Tooltip, Typography, useTheme } from "@mui/material";
-import { getImgSrc, checkAgeGroup } from "common/quizUtils";
-import { Character } from "common/types";
-import { COLORS } from "styling/constants";
+import { Box, Tooltip, Typography, useTheme } from "@mui/material";
+import { getImgSrc, checkAgeGroup } from "@/common/quizUtils";
+import { Character } from "@/common/types";
+import { COLORS } from "@/styling/constants";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
@@ -10,10 +10,7 @@ interface CharacterListProps {
   targetChar: Character | null;
 }
 
-export default function CharacterList({
-  searchHistory,
-  targetChar,
-}: CharacterListProps) {
+export default function CharacterList({ searchHistory, targetChar }: CharacterListProps) {
   const theme = useTheme();
 
   function checkValueDiff(value1: number, value2: number) {
@@ -34,52 +31,34 @@ export default function CharacterList({
   }
 
   function getCardBackgroundColor(key: string, item: Character) {
-    return item.ValidFields?.includes(key)
-      ? COLORS.quiz.success
-      : COLORS.quiz.main;
+    return item.ValidFields?.includes(key) ? COLORS.quiz.success : COLORS.quiz.main;
   }
 
-  function findPartialOriginMatch(
-    item: Character,
-    targetChar: Character | null
-  ) {
+  function findPartialOriginMatch(item: Character, targetChar: Character | null) {
     if (!targetChar) return false;
 
     // If both genres are the same, return false
-    if (JSON.stringify(item.Origin) === JSON.stringify(targetChar.Origin))
-      return false;
+    if (JSON.stringify(item.Origin) === JSON.stringify(targetChar.Origin)) return false;
 
-    if (
-      item.Origin.includes(targetChar.Origin) ||
-      targetChar.Origin.includes(item.Origin)
-    ) {
+    if (item.Origin.includes(targetChar.Origin) || targetChar.Origin.includes(item.Origin)) {
       return true;
     }
 
     return false;
   }
 
-  function findPartialGenreMatch(
-    item: Character,
-    targetChar: Character | null
-  ) {
+  function findPartialGenreMatch(item: Character, targetChar: Character | null) {
     if (!targetChar) return false;
 
     // If both genres are the same, return false
-    if (JSON.stringify(item.Genre) === JSON.stringify(targetChar.Genre))
-      return false;
+    if (JSON.stringify(item.Genre) === JSON.stringify(targetChar.Genre)) return false;
 
     // Special case for "Slice of Life" - check before splitting
-    if (
-      item.Genre === "Slice of Life" &&
-      targetChar.Genre === "Slice of Life"
-    ) {
+    if (item.Genre === "Slice of Life" && targetChar.Genre === "Slice of Life") {
       return true;
     }
 
-    const targetGenres = targetChar.Genre.split(" ").map((genre) =>
-      genre.trim()
-    );
+    const targetGenres = targetChar.Genre.split(" ").map((genre) => genre.trim());
     const itemGenres = item.Genre.split(" ").map((genre) => genre.trim());
 
     // Check for partial matches between item and target genres
@@ -118,13 +97,9 @@ export default function CharacterList({
           overflowY: "auto",
           borderTopLeftRadius: "8px",
           borderTopRightRadius: "8px",
-          border:
-            searchHistory.length > 0
-              ? `1px solid ${COLORS.quiz.light}`
-              : "none",
+          border: searchHistory.length > 0 ? `1px solid ${COLORS.quiz.light}` : "none",
           borderBottom: 0,
-          background:
-            COLORS.gradient,
+          background: COLORS.gradient,
           [theme.breakpoints.down("md")]: {
             overflowX: "scroll",
           },
@@ -337,7 +312,7 @@ export default function CharacterList({
                 <Typography>{item.Age_Group}</Typography>
                 {checkValueDiff(
                   checkAgeGroup(item.Age_Group) ?? 0,
-                  checkAgeGroup(targetChar?.Age_Group ?? "12-18") ?? 0
+                  checkAgeGroup(targetChar?.Age_Group ?? "12-18") ?? 0,
                 )}
               </Box>
             </Box>
@@ -462,20 +437,14 @@ export default function CharacterList({
                   display: "flex",
                   alignItems: "center",
                   padding: "10px",
-                  backgroundColor: getCardBackgroundColor(
-                    "First_Release_Year",
-                    item
-                  ),
+                  backgroundColor: getCardBackgroundColor("First_Release_Year", item),
                   height: "100%",
                   borderRadius: "4px",
                   border: getCardBorderColor("First_Release_Year", item),
                 }}
               >
                 <Typography>{item.First_Release_Year}</Typography>
-                {checkValueDiff(
-                  item.First_Release_Year ?? 0,
-                  targetChar?.First_Release_Year ?? 0
-                )}
+                {checkValueDiff(item.First_Release_Year ?? 0, targetChar?.First_Release_Year ?? 0)}
               </Box>
             </Box>
             <Box
@@ -510,7 +479,7 @@ export default function CharacterList({
           </Box>
         ))}
       </Box>
-      { }
+      {}
     </Box>
   );
 }

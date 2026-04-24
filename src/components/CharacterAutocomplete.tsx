@@ -1,19 +1,14 @@
 import { Autocomplete, Box, TextField, Typography } from "@mui/material";
-import { getImgSrc } from "common/quizUtils";
-import { Character, Difficulty } from "common/types";
-import { isIncludedInDifficulty } from "common/utils";
-import { COLORS } from "styling/constants";
+import { getImgSrc } from "@/common/quizUtils";
+import { Character, Difficulty } from "@/common/types";
+import { isIncludedInDifficulty } from "@/common/utils";
+import { COLORS } from "@/styling/constants";
 
 interface CharacterAutocompleteProps {
   charData: Character[];
   disabled: boolean;
   value: Character | null;
-  handleSearchChange: (
-    event: any,
-    value: Character | null,
-    reason: any,
-    id?: number
-  ) => void;
+  handleSearchChange: (event: any, value: Character | null, reason: any, id?: number) => void;
   showPreviewImage?: boolean;
   id?: number;
   width?: number;
@@ -34,9 +29,7 @@ export function CharacterAutocomplete({
     <Autocomplete
       disablePortal
       options={
-        difficulty
-          ? charData.filter((char) => isIncludedInDifficulty(char, difficulty))
-          : charData
+        difficulty ? charData.filter((char) => isIncludedInDifficulty(char, difficulty)) : charData
       }
       getOptionLabel={(option) => `${option.Name} (${option.id})`}
       sx={{
@@ -76,18 +69,14 @@ export function CharacterAutocomplete({
           </Typography>
         </Box>
       )}
-      onChange={(ev, value, reason) =>
-        handleSearchChange(ev, value, reason, id)
-      }
+      onChange={(ev, value, reason) => handleSearchChange(ev, value, reason, id)}
       clearOnBlur
       disabled={disabled}
       value={value}
       filterOptions={(options, { inputValue }) => {
         // Only filter if there is at least one character in the input
         return inputValue !== ""
-          ? options.filter((option) =>
-            option.Name.toLowerCase().includes(inputValue.toLowerCase())
-          )
+          ? options.filter((option) => option.Name.toLowerCase().includes(inputValue.toLowerCase()))
           : [];
       }}
     />

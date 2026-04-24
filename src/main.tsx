@@ -6,11 +6,11 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { RouterProvider } from "react-router-dom";
-import Router from "routes/Router";
+import Router from "@/routes/Router";
 import { ThemeProvider } from "@mui/material";
-import { theme } from "styling/theme";
-import { HowToPlayDialogPortal } from "components/Dialogs/DialogPortal";
-import { ProfileProvider } from "components/Profile/ProfileContext";
+import { theme } from "@/styling/theme";
+import { HowToPlayDialogPortal } from "@/components/Dialogs/DialogPortal";
+import { ProfileProvider } from "@/components/Profile/ProfileContext";
 
 // Create dialog root element before React initializes
 if (!document.getElementById("dialog-root")) {
@@ -29,5 +29,5 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         </>
       </ProfileProvider>
     </ThemeProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

@@ -1,9 +1,9 @@
 import { lighten } from "@mui/material";
-import { setUserProfile } from "common/profileUtils";
-import { getCurrentUserProfile } from "common/profileUtils";
-import { Card, Character, Pack } from "common/types";
-import { COLORS } from "styling/constants";
-import tcg_packs from "data/tcg_packs.json";
+import { setUserProfile } from "@/common/profileUtils";
+import { getCurrentUserProfile } from "@/common/profileUtils";
+import { Card, Character, Pack } from "@/common/types";
+import { COLORS } from "@/styling/constants";
+import tcg_packs from "@/data/tcg_packs.json";
 
 export function getBackgroundColor(character: Character): string[] {
   const charGenres = character.Genre.split(" ");
@@ -41,7 +41,7 @@ export function getBackgroundColor(character: Character): string[] {
 
 export async function getCardArt(id: number): Promise<string> {
   const filename = id.toString() + "_full_art";
-  const basepath = !import.meta.env.PROD ? "/src/assets/tcg/" : "assets/tcg/";
+  const basepath = !import.meta.env.PROD ? "/src/assets/tcg/" : "@/assets/tcg/";
 
   const path = basepath + filename + ".webp";
 
@@ -56,7 +56,7 @@ export async function getCardArt(id: number): Promise<string> {
 
 export function getCardArtSync(id: number): string {
   const filename = id.toString() + "_full_art";
-  const basepath = !import.meta.env.PROD ? "/src/assets/tcg/" : "assets/tcg/";
+  const basepath = !import.meta.env.PROD ? "/src/assets/tcg/" : "@/assets/tcg/";
 
   const path = basepath + filename + ".webp";
   return path;
@@ -72,7 +72,7 @@ export function generateCardId(
   characterId: number,
   rarity: string,
   art: string,
-  packId: string
+  packId: string,
 ): string {
   const artCode = art === "full" ? "F" : "N";
   let rarityCode = "";
@@ -117,14 +117,11 @@ export function applyCardToCollection(card: Card) {
   }
 }
 
-export function filterCharsByPack(
-  charData: Character[],
-  pack: Pack
-): Character[] {
+export function filterCharsByPack(charData: Character[], pack: Pack): Character[] {
   return charData.filter((char) => pack.mainAnime.includes(char.Anime_Id));
 }
 
 export function getPackByPackId(id: number) {
   const packs: Record<string, Pack> = tcg_packs;
-  return packs[id]
+  return packs[id];
 }

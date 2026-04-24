@@ -1,13 +1,6 @@
-import {
-  Box,
-  Button,
-  SxProps,
-  Theme,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Box, Button, SxProps, Theme, Typography } from "@mui/material";
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
-import { COLORS } from "styling/constants";
+import { COLORS } from "@/styling/constants";
 
 interface RevealCardProps {
   disabled?: boolean;
@@ -21,16 +14,8 @@ interface RevealCardProps {
 
 export const RevealCard = forwardRef(
   (
-    {
-      cardText,
-      cardTitle,
-      costs,
-      onReveal,
-      disabled,
-      sx,
-      revealFromOutside,
-    }: RevealCardProps,
-    ref
+    { cardText, cardTitle, costs, onReveal, disabled, sx, revealFromOutside }: RevealCardProps,
+    ref,
   ) => {
     const [revealHint, setRevealHint] = useState(false);
     const hasCalledOnReveal = useRef(false);
@@ -99,8 +84,7 @@ export const RevealCard = forwardRef(
           minHeight: "58px",
           padding: 0,
           borderRadius: "9px",
-          border: `2px solid ${disabled ? COLORS.quiz.disabled_border : COLORS.quiz.light
-            }`,
+          border: `2px solid ${disabled ? COLORS.quiz.disabled_border : COLORS.quiz.light}`,
           ...sx,
         }}
         onClick={() => setRevealHint(true)}
@@ -129,8 +113,8 @@ export const RevealCard = forwardRef(
             background: revealHint
               ? "rgba(255, 255, 255, 0.0)"
               : disabled
-                ? COLORS.quiz.disabled
-                : COLORS.quiz.main_rgba,
+              ? COLORS.quiz.disabled
+              : COLORS.quiz.main_rgba,
             "@keyframes removeBlur": {
               "0%": {
                 background: COLORS.quiz.main_rgba,
@@ -167,9 +151,7 @@ export const RevealCard = forwardRef(
             animation: revealHint ? `hideTitle 1000ms ease-in-out` : undefined,
           }}
         >
-          <Typography sx={{ textTransform: "capitalize", color: "black" }}>
-            {cardTitle}
-          </Typography>
+          <Typography sx={{ textTransform: "capitalize", color: "black" }}>{cardTitle}</Typography>
           {costs && (
             <Box
               sx={{
@@ -181,13 +163,11 @@ export const RevealCard = forwardRef(
                 borderRadius: "4px",
               }}
             >
-              <Typography sx={{ color: COLORS.quiz.primary_text }}>
-                {costs}
-              </Typography>
+              <Typography sx={{ color: COLORS.quiz.primary_text }}>{costs}</Typography>
             </Box>
           )}
         </Box>
       </Button>
     );
-  }
+  },
 );

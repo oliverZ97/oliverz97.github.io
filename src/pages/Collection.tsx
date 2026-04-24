@@ -1,15 +1,24 @@
-import { Box, FormControl, IconButton, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
-import { Anime, Card, Character, Collection as CollectionType, Pack } from "common/types";
+import {
+  Box,
+  FormControl,
+  IconButton,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { Anime, Card, Character, Collection as CollectionType, Pack } from "@/common/types";
 import { useEffect, useState } from "react";
-import { COLORS } from "styling/constants";
-import bg from "assets/bg.jpg";
-import { getUserCollection } from "common/profileUtils";
-import { TCGCard } from "components/TCG/TCGCard";
-import characterData from "data/character_data.json";
-import { createAnimeListFromCharData } from "common/utils";
-import ClearIcon from '@mui/icons-material/Clear';
-import tcg_packs from "data/tcg_packs.json";
-import HomeIcon from '@mui/icons-material/Home';
+import { COLORS } from "@/styling/constants";
+import bg from "@/assets/bg.jpg";
+import { getUserCollection } from "@/common/profileUtils";
+import { TCGCard } from "@/components/TCG/TCGCard";
+import characterData from "@/data/character_data.json";
+import { createAnimeListFromCharData } from "@/common/utils";
+import ClearIcon from "@mui/icons-material/Clear";
+import tcg_packs from "@/data/tcg_packs.json";
+import HomeIcon from "@mui/icons-material/Home";
 import { Link } from "react-router-dom";
 import React from "react";
 
@@ -29,61 +38,56 @@ const Collection = () => {
 
   useEffect(() => {
     if (charData.length === 0) {
-      setCharData([
-        ...characterData.sort((a, b) => (a.Name < b.Name ? -1 : 1)),
-      ] as Character[]);
+      setCharData([...characterData.sort((a, b) => (a.Name < b.Name ? -1 : 1))] as Character[]);
     }
     if (charData && animeData.length === 0) {
-      const localAnimeData = createAnimeListFromCharData(charData)
+      const localAnimeData = createAnimeListFromCharData(charData);
 
-      setAnimeData(
-        localAnimeData.sort((a, b) => (a.Name < b.Name ? -1 : 1)) as Anime[]
-      );
+      setAnimeData(localAnimeData.sort((a, b) => (a.Name < b.Name ? -1 : 1)) as Anime[]);
     }
   }, [charData, characterData, animeData]);
 
   useEffect(() => {
     if (collection === null) {
-      let collectionData = getUserCollection();
+      const collectionData = getUserCollection();
       if (collectionData === null) {
-        setCollection(null)
+        setCollection(null);
       } else {
         setCollection(collectionData);
 
-        let filteredArr = filterCards(collectionData);
+        const filteredArr = filterCards(collectionData);
         setCards(filteredArr);
       }
     } else {
-      let filteredArr = filterCards(collection);
+      const filteredArr = filterCards(collection);
       setCards(filteredArr);
     }
   }, [collection, search, animeFilter, packFilter]);
 
   function filterCards(collectionData: CollectionType) {
-
     //remove duplicates based on cardId
 
-    let counts: Record<string, number> = {};
-    for (let element of collectionData.cards) {
+    const counts: Record<string, number> = {};
+    for (const element of collectionData.cards) {
       counts[element.cardId] = (counts[element.cardId] || 0) + 1; // Increment count or start at 1
     }
 
-    let temp: Card[] = collectionData.cards.filter((card, index, self) =>
-      index === self.findIndex((c) => c.cardId === card.cardId)
+    const temp: Card[] = collectionData.cards.filter(
+      (card, index, self) => index === self.findIndex((c) => c.cardId === card.cardId),
     );
 
-    let filteredArr = temp.map((elem) => ({ ...elem, amount: counts[elem.cardId] }))
+    let filteredArr = temp.map((elem) => ({ ...elem, amount: counts[elem.cardId] }));
 
     if (animeFilter) {
       filteredArr = filteredArr.filter((card) => {
-        return card.character.Anime_Id === animeFilter
-      })
+        return card.character.Anime_Id === animeFilter;
+      });
     }
 
     if (packFilter) {
       filteredArr = filteredArr.filter((card) => {
-        return card.packId === packFilter
-      })
+        return card.packId === packFilter;
+      });
     }
 
     if (search.length >= 3) {
@@ -113,9 +117,7 @@ const Collection = () => {
     });
 
     return filteredArr;
-
   }
-
 
   return (
     <Box
@@ -131,12 +133,38 @@ const Collection = () => {
         flexDirection: "column",
         alignItems: "center",
         paddingBottom: 4,
-        position: "relative"
+        position: "relative",
       }}
     >
-      <Box sx={{ position: "absolute", width: "95%", height: "100%", backgroundColor: "white", opacity: 0.3, backdropFilter: "blur(2px)" }} />
-      <Box sx={{ position: "sticky", top: 0, zIndex: 1000, width: "100%", height: "80px", backgroundColor: COLORS.quiz.secondary, display: "flex", alignItems: "center", paddingX: 2, gap: 2 }}>
-        <IconButton><Link to={"/"}><HomeIcon sx={{ color: "white" }} /></Link></IconButton>
+      <Box
+        sx={{
+          position: "absolute",
+          width: "95%",
+          height: "100%",
+          backgroundColor: "white",
+          opacity: 0.3,
+          backdropFilter: "blur(2px)",
+        }}
+      />
+      <Box
+        sx={{
+          position: "sticky",
+          top: 0,
+          zIndex: 1000,
+          width: "100%",
+          height: "80px",
+          backgroundColor: COLORS.quiz.secondary,
+          display: "flex",
+          alignItems: "center",
+          paddingX: 2,
+          gap: 2,
+        }}
+      >
+        <IconButton>
+          <Link to={"/"}>
+            <HomeIcon sx={{ color: "white" }} />
+          </Link>
+        </IconButton>
         <TextField
           fullWidth
           variant="outlined"
@@ -145,10 +173,17 @@ const Collection = () => {
           onChange={(e) => setSearch(e.target.value)}
           inputProps={{
             style: {
-              color: "white"
-            }
+              color: "white",
+            },
           }}
-          sx={{ width: "300px", "& .MuiOutlinedInput-root": { "& fieldset": { borderColor: "white" }, "&:hover fieldset": { borderColor: "white" }, "&.Mui-focused fieldset": { borderColor: "white" } } }}
+          sx={{
+            width: "300px",
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": { borderColor: "white" },
+              "&:hover fieldset": { borderColor: "white" },
+              "&.Mui-focused fieldset": { borderColor: "white" },
+            },
+          }}
         />
         <FormControl>
           <InputLabel sx={{ color: "white" }}>Anime</InputLabel>
@@ -156,33 +191,41 @@ const Collection = () => {
             displayEmpty
             value={animeFilter}
             onChange={(event) => setAnimeFilter(event.target.value as number)}
-            endAdornment={<IconButton onClick={() => setAnimeFilter(null)}><ClearIcon /></IconButton>}
+            endAdornment={
+              <IconButton onClick={() => setAnimeFilter(null)}>
+                <ClearIcon />
+              </IconButton>
+            }
             sx={{
               width: "300px",
               color: "white",
-              '.MuiOutlinedInput-notchedOutline': {
-                borderColor: 'white',
+              ".MuiOutlinedInput-notchedOutline": {
+                borderColor: "white",
               },
-              '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                borderColor: 'white',
+              "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                borderColor: "white",
               },
-              '&:hover .MuiOutlinedInput-notchedOutline': {
-                borderColor: 'white',
+              "&:hover .MuiOutlinedInput-notchedOutline": {
+                borderColor: "white",
               },
-              '.MuiSvgIcon-root ': {
+              ".MuiSvgIcon-root ": {
                 fill: "white !important",
                 "&.MuiSelect-icon": {
                   marginRight: "32px",
-                  display: "none"
+                  display: "none",
                 },
-
               },
               ".MuiIconButton-root": {
                 margin: 0,
-                padding: 0
-              }
-            }}>
-            {animeData.map((anime) => (<MenuItem key={anime.id} value={anime.id}>{anime.Name}</MenuItem>))}
+                padding: 0,
+              },
+            }}
+          >
+            {animeData.map((anime) => (
+              <MenuItem key={anime.id} value={anime.id}>
+                {anime.Name}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
         <FormControl>
@@ -191,33 +234,43 @@ const Collection = () => {
             displayEmpty
             value={packFilter}
             onChange={(event) => setPackFilter(event.target.value as number)}
-            endAdornment={<IconButton onClick={() => setPackFilter(null)}><ClearIcon /></IconButton>}
+            endAdornment={
+              <IconButton onClick={() => setPackFilter(null)}>
+                <ClearIcon />
+              </IconButton>
+            }
             sx={{
               width: "300px",
               color: "white",
-              '.MuiOutlinedInput-notchedOutline': {
-                borderColor: 'white',
+              ".MuiOutlinedInput-notchedOutline": {
+                borderColor: "white",
               },
-              '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                borderColor: 'white',
+              "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                borderColor: "white",
               },
-              '&:hover .MuiOutlinedInput-notchedOutline': {
-                borderColor: 'white',
+              "&:hover .MuiOutlinedInput-notchedOutline": {
+                borderColor: "white",
               },
-              '.MuiSvgIcon-root ': {
+              ".MuiSvgIcon-root ": {
                 fill: "white !important",
                 "&.MuiSelect-icon": {
                   marginRight: "32px",
-                  display: "none"
+                  display: "none",
                 },
-
               },
               ".MuiIconButton-root": {
                 margin: 0,
-                padding: 0
-              }
-            }}>
-            {Object.values(packs).filter((pack) => pack.visible !== false).map((pack) => (<MenuItem key={pack.id} value={pack.id}>{pack.packname}</MenuItem>))}
+                padding: 0,
+              },
+            }}
+          >
+            {Object.values(packs)
+              .filter((pack) => pack.visible !== false)
+              .map((pack) => (
+                <MenuItem key={pack.id} value={pack.id}>
+                  {pack.packname}
+                </MenuItem>
+              ))}
           </Select>
         </FormControl>
       </Box>
@@ -225,12 +278,32 @@ const Collection = () => {
         {cards.map((card, index) => (
           <React.Fragment key={index}>
             {index > 0 && cards[index - 1].rarity !== card.rarity && (
-              <Box key={card.rarity} sx={{ width: "100%", borderBottom: `2px solid white`, marginY: 2 }} />
+              <Box
+                key={card.rarity}
+                sx={{ width: "100%", borderBottom: `2px solid white`, marginY: 2 }}
+              />
             )}
             <Box sx={{ position: "relative" }}>
-              {card.amount! > 1 && <Box sx={{ width: "30px", height: "30px", borderRadius: "50%", backgroundColor: COLORS.quiz.main, border: "1px solid white", display: "flex", justifyContent: "center", alignItems: "center", position: "absolute", right: -12, top: -12, zIndex: 100 }}>
-                <Typography sx={{ color: "white" }}>{card.amount}</Typography>
-              </Box>}
+              {card.amount! > 1 && (
+                <Box
+                  sx={{
+                    width: "30px",
+                    height: "30px",
+                    borderRadius: "50%",
+                    backgroundColor: COLORS.quiz.main,
+                    border: "1px solid white",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    position: "absolute",
+                    right: -12,
+                    top: -12,
+                    zIndex: 100,
+                  }}
+                >
+                  <Typography sx={{ color: "white" }}>{card.amount}</Typography>
+                </Box>
+              )}
               <TCGCard key={card.cardId} card={card} visible size="small" />
             </Box>
           </React.Fragment>

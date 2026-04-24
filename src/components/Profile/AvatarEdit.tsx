@@ -2,8 +2,8 @@ import { Box, Fade, IconButton } from "@mui/material";
 import { Avatar, avatarBasepath } from "./Avatar";
 import EditIcon from "@mui/icons-material/Edit";
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
-import { COLORS } from "styling/constants";
-import { getCurrentUserProfile, setUserProfile } from "common/profileUtils";
+import { COLORS } from "@/styling/constants";
+import { getCurrentUserProfile, setUserProfile } from "@/common/profileUtils";
 import SaveIcon from "@mui/icons-material/Save";
 import { useProfile } from "./ProfileContext";
 
@@ -21,7 +21,7 @@ export const AvatarEdit = forwardRef((props, ref) => {
     reloadAvatar() {
       // Force re-render by updating state
       if (avatarRef.current) {
-        // @ts-ignore
+        // @ts-expect-error
         avatarRef.current.reloadAvatar();
       }
     },
@@ -48,7 +48,7 @@ export const AvatarEdit = forwardRef((props, ref) => {
         },
       });
       if (avatarRef.current) {
-        // @ts-ignore
+        // @ts-expect-error
         avatarRef.current.reloadAvatar();
       }
     }
@@ -68,7 +68,7 @@ export const AvatarEdit = forwardRef((props, ref) => {
         },
       });
       if (avatarRef.current) {
-        // @ts-ignore
+        // @ts-expect-error
         avatarRef.current.reloadAvatar();
       }
     }
@@ -91,9 +91,7 @@ export const AvatarEdit = forwardRef((props, ref) => {
       flexDirection={"row"}
       alignItems={"flex-start"}
     >
-      <Box
-        sx={{ display: "flex", alignItems: "center", gap: 1, marginRight: 2 }}
-      >
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1, marginRight: 2 }}>
         <Avatar ref={avatarRef} size={120} />
         {!showEdit && isValidProfile && (
           <IconButton onClick={() => setShowEdit(true)}>
@@ -153,9 +151,7 @@ export const AvatarEdit = forwardRef((props, ref) => {
                   ))}
                 </Box>
               </Box>
-              <Box
-                sx={{ marginTop: 2, display: "flex", gap: 1, flexWrap: "wrap" }}
-              >
+              <Box sx={{ marginTop: 2, display: "flex", gap: 1, flexWrap: "wrap" }}>
                 <Box
                   sx={{
                     display: "flex",

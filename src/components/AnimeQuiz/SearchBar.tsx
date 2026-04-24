@@ -1,14 +1,14 @@
-import { Box, Typography, Button, useTheme, Tooltip } from "@mui/material";
+import { Box, Typography, Button, useTheme } from "@mui/material";
 import {
   getAnimeImgSrc,
   getCharacterFromAnime,
   getTodaysCharacterPointsAndTries,
-} from "common/quizUtils";
-import { Anime, Character } from "common/types";
-import { getRandomAnime, QUIZ_KEY } from "common/utils";
-import { AnimeAutocomplete } from "components/AnimeAutocomplete";
+} from "@/common/quizUtils";
+import { Anime, Character } from "@/common/types";
+import { getRandomAnime, QUIZ_KEY } from "@/common/utils";
+import { AnimeAutocomplete } from "@/components/AnimeAutocomplete";
 import { useEffect, useState } from "react";
-import { COLORS } from "styling/constants";
+import { COLORS } from "@/styling/constants";
 import FastForwardIcon from "@mui/icons-material/FastForward";
 
 interface SearchBarProps {
@@ -46,8 +46,7 @@ export function SearchBar({
 }: SearchBarProps) {
   const [blurFactor, setBlurFactor] = useState(5);
   const [clueCount, setClueCount] = useState(0);
-  const showClueCount =
-    searchHistory.length % 5 !== 0 || searchHistory.length === 0;
+  const showClueCount = searchHistory.length % 5 !== 0 || searchHistory.length === 0;
 
   const theme = useTheme();
 
@@ -109,8 +108,7 @@ export function SearchBar({
             gap: 4,
             alignItems: "center",
             justifyContent: "space-between",
-            background:
-              COLORS.gradient,
+            background: COLORS.gradient,
             borderRadius: 2,
             border: `1px solid ${COLORS.quiz.light}`,
             width: "500px",
@@ -140,19 +138,9 @@ export function SearchBar({
 
               {clueCount > 0 && (
                 <Box textAlign={"center"}>
-                  <Typography sx={{ color: "white" }}>
-                    Character from this anime:
-                  </Typography>
-                  <Typography
-                    sx={{ fontWeight: "bold", color: "white", fontSize: 20 }}
-                  >
-                    {
-                      getCharacterFromAnime(
-                        targetAnime?.id,
-                        charData,
-                        originalAnimeData
-                      )?.Name
-                    }
+                  <Typography sx={{ color: "white" }}>Character from this anime:</Typography>
+                  <Typography sx={{ fontWeight: "bold", color: "white", fontSize: 20 }}>
+                    {getCharacterFromAnime(targetAnime?.id, charData, originalAnimeData)?.Name}
                   </Typography>
                 </Box>
               )}
@@ -167,8 +155,7 @@ export function SearchBar({
           gap: 2,
           alignItems: "center",
           justifyContent: "space-between",
-          background:
-            COLORS.gradient,
+          background: COLORS.gradient,
           borderRadius: 2,
           border: `1px solid ${COLORS.quiz.light}`,
           width: "100%",
@@ -193,12 +180,7 @@ export function SearchBar({
               paddingY: 1,
             }}
           >
-            <Typography
-              fontSize="16px"
-              textAlign={"center"}
-              fontWeight={"bold"}
-              color={"white"}
-            >
+            <Typography fontSize="16px" textAlign={"center"} fontWeight={"bold"} color={"white"}>
               {"Yesterdays anime: " + getYesterdaysAnime(originalAnimeData)}
             </Typography>
           </Box>
@@ -225,16 +207,16 @@ export function SearchBar({
                 (isCorrect
                   ? getTodaysCharacterPointsAndTries(QUIZ_KEY.ANIME).points
                   : gaveUp
-                    ? 0
-                    : points)}
+                  ? 0
+                  : points)}
             </Typography>
             <Typography sx={{ color: "white" }}>
               {"Tries: " +
                 (isCorrect
                   ? getTodaysCharacterPointsAndTries(QUIZ_KEY.ANIME).tries
                   : gaveUp
-                    ? 0
-                    : searchHistory.length)}
+                  ? 0
+                  : searchHistory.length)}
             </Typography>
           </Box>
           <Box
@@ -253,12 +235,9 @@ export function SearchBar({
               handleSearchChange={handleSearchChange}
             ></AnimeAutocomplete>
             {!showClueButton() && searchHistory.length <= 10 && (
-              <Typography
-                sx={{ color: "white", fontStyle: "italic" }}
-              >{`Next clue in ${searchHistory.length > 5
-                ? 10 - searchHistory.length
-                : 5 - searchHistory.length
-                } Tries`}</Typography>
+              <Typography sx={{ color: "white", fontStyle: "italic" }}>{`Next clue in ${
+                searchHistory.length > 5 ? 10 - searchHistory.length : 5 - searchHistory.length
+              } Tries`}</Typography>
             )}
 
             {showClueButton() && (

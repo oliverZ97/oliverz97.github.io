@@ -1,14 +1,7 @@
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogContent,
-  Divider,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Dialog, DialogContent, Divider, Typography } from "@mui/material";
 import { CardStack } from "./CardStack";
-import { Character, Pack } from "common/types";
-import { substractCreditsFromProfile } from "common/profileUtils";
+import { Character, Pack } from "@/common/types";
+import { substractCreditsFromProfile } from "@/common/profileUtils";
 import { useState } from "react";
 
 interface ShopEntryProps {
@@ -41,9 +34,7 @@ export const ShopEntry = ({
 
   return (
     <>
-      <Box
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-      >
+      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
         <Box
           onClick={
             purchased
@@ -62,15 +53,9 @@ export const ShopEntry = ({
             purchased={purchased}
           />
         </Box>
-        <Typography sx={{ color: "white", fontSize: "20px" }}>
-          {pack.packname}
-        </Typography>
+        <Typography sx={{ color: "white", fontSize: "20px" }}>{pack.packname}</Typography>
         <Divider sx={{ marginY: 2, backgroundColor: "white" }} flexItem />
-        <Button
-          onClick={purchasePack}
-          variant="contained"
-          disabled={credits < price}
-        >
+        <Button onClick={purchasePack} variant="contained" disabled={credits < price}>
           {price + " 🪙"}
         </Button>
       </Box>

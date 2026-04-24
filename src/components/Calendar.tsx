@@ -1,14 +1,7 @@
-import {
-  Box,
-  Button,
-  IconButton,
-  SxProps,
-  Theme,
-  Typography,
-} from "@mui/material";
+import { Box, Button, IconButton, SxProps, Theme, Typography } from "@mui/material";
 import { DateTime, MonthNumbers } from "luxon";
 import { useState } from "react";
-import { COLORS } from "styling/constants";
+import { COLORS } from "@/styling/constants";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import React from "react";
@@ -29,8 +22,7 @@ export default function Calendar({ title, data, cellStyling }: CalendarProps) {
   const [selectedDate, setSelectedDate] = useState(DateTime.now().toUTC());
   const [currentMonth, setCurrentMonth] = useState(selectedDate.month);
   const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  const daysInMonth =
-    DateTime.local(selectedDate.year, currentMonth).daysInMonth ?? 0;
+  const daysInMonth = DateTime.local(selectedDate.year, currentMonth).daysInMonth ?? 0;
 
   const handleDateChange = (date: DateTime) => {
     // Create a UTC date at the same calendar date
@@ -47,27 +39,15 @@ export default function Calendar({ title, data, cellStyling }: CalendarProps) {
     setCurrentMonth(newMonth);
     if (currentMonth === 12 && newMonth === 1) {
       setSelectedDate(
-        DateTime.utc(
-          selectedDate.year + 1,
-          newMonth,
-          selectedDate.day
-        ).toUTC() as DateTime<true>
+        DateTime.utc(selectedDate.year + 1, newMonth, selectedDate.day).toUTC() as DateTime<true>,
       );
     } else if (currentMonth === 1 && newMonth === 12) {
       setSelectedDate(
-        DateTime.utc(
-          selectedDate.year - 1,
-          newMonth,
-          selectedDate.day
-        ).toUTC() as DateTime<true>
+        DateTime.utc(selectedDate.year - 1, newMonth, selectedDate.day).toUTC() as DateTime<true>,
       );
     } else {
       setSelectedDate(
-        DateTime.utc(
-          selectedDate.year,
-          newMonth,
-          selectedDate.day
-        ).toUTC() as DateTime<true>
+        DateTime.utc(selectedDate.year, newMonth, selectedDate.day).toUTC() as DateTime<true>,
       );
     }
   };
@@ -86,19 +66,14 @@ export default function Calendar({ title, data, cellStyling }: CalendarProps) {
         {/* Calendar implementation goes here */}
         <Box>
           {/* Render calendar grid here */}
-          <Box
-            width={"100%"}
-            display={"flex"}
-            justifyContent={"center"}
-            position={"relative"}
-          >
+          <Box width={"100%"} display={"flex"} justifyContent={"center"} position={"relative"}>
             <Box display={"flex"} alignItems={"center"} gap={2}>
               <IconButton
                 onClick={() =>
                   handleMonthChange(
                     currentMonth - 1 > 0
                       ? ((currentMonth - 1) as MonthNumbers)
-                      : (12 as MonthNumbers)
+                      : (12 as MonthNumbers),
                   )
                 }
               >
@@ -112,7 +87,7 @@ export default function Calendar({ title, data, cellStyling }: CalendarProps) {
                   handleMonthChange(
                     currentMonth + 1 <= 12
                       ? ((currentMonth + 1) as MonthNumbers)
-                      : (1 as MonthNumbers)
+                      : (1 as MonthNumbers),
                   )
                 }
               >
@@ -135,23 +110,17 @@ export default function Calendar({ title, data, cellStyling }: CalendarProps) {
           >
             {/* Render weekday headers */}
             {weekdays.map((day) => (
-              <Box
-                key={day}
-                sx={{ textAlign: "center", fontWeight: "bold", padding: 1 }}
-              >
+              <Box key={day} sx={{ textAlign: "center", fontWeight: "bold", padding: 1 }}>
                 {day}
               </Box>
             ))}
 
             {/* Calculate first day of month offset and show previous month days */}
             {(() => {
-              const firstDayOffset =
-                DateTime.local(selectedDate.year, currentMonth, 1).weekday % 7;
+              const firstDayOffset = DateTime.local(selectedDate.year, currentMonth, 1).weekday % 7;
               const prevMonth = currentMonth === 1 ? 12 : currentMonth - 1;
-              const prevMonthYear =
-                currentMonth === 1 ? selectedDate.year - 1 : selectedDate.year;
-              const daysInPrevMonth =
-                DateTime.local(prevMonthYear, prevMonth).daysInMonth ?? 0;
+              const prevMonthYear = currentMonth === 1 ? selectedDate.year - 1 : selectedDate.year;
+              const daysInPrevMonth = DateTime.local(prevMonthYear, prevMonth).daysInMonth ?? 0;
 
               return Array.from({ length: firstDayOffset }, (_, i) => {
                 const day = daysInPrevMonth - firstDayOffset + i + 1;
@@ -165,11 +134,7 @@ export default function Calendar({ title, data, cellStyling }: CalendarProps) {
                       color: "text.disabled",
                       bgcolor: "action.hover",
                     }}
-                    onClick={() =>
-                      handleDateChange(
-                        DateTime.local(prevMonthYear, prevMonth, day)
-                      )
-                    }
+                    onClick={() => handleDateChange(DateTime.local(prevMonthYear, prevMonth, day))}
                   >
                     {day}
                   </Box>
@@ -185,16 +150,11 @@ export default function Calendar({ title, data, cellStyling }: CalendarProps) {
                   padding: 1,
                   textAlign: "center",
                   cursor: "pointer",
-                  bgcolor:
-                    selectedDate.day === i + 1
-                      ? COLORS.quiz.secondary
-                      : "inherit",
+                  bgcolor: selectedDate.day === i + 1 ? COLORS.quiz.secondary : "inherit",
                   ...cellStyling,
                 }}
                 onClick={() =>
-                  handleDateChange(
-                    DateTime.local(selectedDate.year, currentMonth, i + 1)
-                  )
+                  handleDateChange(DateTime.local(selectedDate.year, currentMonth, i + 1))
                 }
                 key={i}
               >
@@ -203,12 +163,7 @@ export default function Calendar({ title, data, cellStyling }: CalendarProps) {
                   <Box fontWeight={"bold"}>
                     {(() => {
                       const currentDate =
-                        DateTime.local(
-                          selectedDate.year,
-                          currentMonth,
-                          i + 1,
-                          0
-                        ).toISODate() || "";
+                        DateTime.local(selectedDate.year, currentMonth, i + 1, 0).toISODate() || "";
                       // Get regular entries for this date
                       const regularEntries = data[currentDate] || [];
 
@@ -223,24 +178,18 @@ export default function Calendar({ title, data, cellStyling }: CalendarProps) {
                             entry.date.day === i + 1 &&
                             // Ensure this entry isn't already in regularEntries
                             !regularEntries.some(
-                              (regEntry) =>
-                                regEntry.value === entry.value &&
-                                regEntry.isRecurring
-                            )
+                              (regEntry) => regEntry.value === entry.value && regEntry.isRecurring,
+                            ),
                         );
 
                       // Combine both types of entries
-                      const allEntries = [
-                        ...regularEntries,
-                        ...recurringEntries,
-                      ];
+                      const allEntries = [...regularEntries, ...recurringEntries];
 
                       return allEntries.map((entry, index) => (
                         <Typography
                           key={index}
                           sx={{
-                            fontSize:
-                              allEntries.length > 1 ? "0.75rem" : "1rem",
+                            fontSize: allEntries.length > 1 ? "0.75rem" : "1rem",
                             overflow: "hidden",
                             textOverflow: "ellipsis",
                             fontWeight: "bold",
@@ -262,13 +211,10 @@ export default function Calendar({ title, data, cellStyling }: CalendarProps) {
             {/* Fill in remaining cells with next month days */}
             {(() => {
               const totalCellsUsed =
-                (DateTime.local(selectedDate.year, currentMonth, 1).weekday %
-                  7) +
-                daysInMonth;
+                (DateTime.local(selectedDate.year, currentMonth, 1).weekday % 7) + daysInMonth;
               const nextMonthDays = 42 - totalCellsUsed; // 6 weeks × 7 days = 42 total cells
               const nextMonth = currentMonth === 12 ? 1 : currentMonth + 1;
-              const nextMonthYear =
-                currentMonth === 12 ? selectedDate.year + 1 : selectedDate.year;
+              const nextMonthYear = currentMonth === 12 ? selectedDate.year + 1 : selectedDate.year;
 
               return Array.from({ length: nextMonthDays }, (_, i) => (
                 <Box
@@ -280,11 +226,7 @@ export default function Calendar({ title, data, cellStyling }: CalendarProps) {
                     color: "text.disabled",
                     bgcolor: "action.hover",
                   }}
-                  onClick={() =>
-                    handleDateChange(
-                      DateTime.local(nextMonthYear, nextMonth, i + 1)
-                    )
-                  }
+                  onClick={() => handleDateChange(DateTime.local(nextMonthYear, nextMonth, i + 1))}
                 >
                   {i + 1}
                 </Box>

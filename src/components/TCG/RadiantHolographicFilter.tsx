@@ -21,7 +21,7 @@ export const RadiantHolographicFilter = ({
   useEffect(() => {
     if (!animating) return;
 
-    let startTime = Date.now();
+    const startTime = Date.now();
     const animate = () => {
       const elapsed = (Date.now() - startTime) / 1000; // time in seconds
       setAnimationTime(elapsed);
@@ -38,11 +38,9 @@ export const RadiantHolographicFilter = ({
   // The inspect animation rotates the card, we simulate light reflection
   const rotation = animating ? Math.sin((animationTime * Math.PI) / 5) * 40 : 0; // -40 to 40 range or 0 if static
   const pointerX = 50 + rotation * 0.5;
-  const pointerY =
-    50 + (animating ? Math.cos((animationTime * Math.PI) / 5) * 20 : 0);
+  const pointerY = 50 + (animating ? Math.cos((animationTime * Math.PI) / 5) * 20 : 0);
   const bgX = 50 + rotation * 0.8;
-  const bgY =
-    50 + (animating ? Math.sin((animationTime * Math.PI) / 5) * 15 : 0);
+  const bgY = 50 + (animating ? Math.sin((animationTime * Math.PI) / 5) * 15 : 0);
 
   const barWidth = 1.2;
   const space = 200;

@@ -1,33 +1,28 @@
 import { Box, Typography } from "@mui/material";
-import { COLORS } from "styling/constants";
+import { COLORS } from "@/styling/constants";
 import CharacterList from "./CharacterList";
 import { SearchBar } from "./SearchBar";
 import { SyntheticEvent, useEffect, useRef, useState } from "react";
-import {
-  Character,
-  Difficulty,
-  SolvedKeys,
-  StatisticFields,
-} from "common/types";
-import { compareObjects, getImgSrc, solveQuizHelper } from "common/quizUtils";
-import { Score } from "pages/Home";
-import { DayStreak } from "components/Streak";
-import { StreakRef } from "components/Streak";
+import { Character, Difficulty, SolvedKeys, StatisticFields } from "@/common/types";
+import { compareObjects, getImgSrc, solveQuizHelper } from "@/common/quizUtils";
+import { Score } from "@/pages/Home";
+import { DayStreak } from "@/components/Streak";
+import { StreakRef } from "@/components/Streak";
 import {
   gaveUpOnTodaysQuiz,
   getRandomCharacter,
   hasBeenSolvedToday,
   isIncludedInDifficulty,
   QUIZ_KEY,
-} from "common/utils";
-import { LemonButton } from "components/LemonButton";
+} from "@/common/utils";
+import { LemonButton } from "@/components/LemonButton";
 import { calculateSelectionPoints, removeOptionFromArray } from "./utils";
 import {
   getHighscoresFromProfile,
   getProfileSetting,
   saveFieldToTotalStatistics,
-} from "common/profileUtils";
-import { useProfile } from "components/Profile/ProfileContext";
+} from "@/common/profileUtils";
+import { useProfile } from "@/components/Profile/ProfileContext";
 import { HintFunctionRef, Hints } from "./Hints";
 
 const CHAR_SOLVED_KEY = (QUIZ_KEY.CHAR + "Solved") as SolvedKeys;
@@ -109,7 +104,7 @@ export default function BasicCharacterQuiz({
     setShowGiveUp(false);
     setGaveUp(false);
     if (hintRef.current) {
-      hintRef.current.resetHints()
+      hintRef.current.resetHints();
     }
   }
 
@@ -134,7 +129,7 @@ export default function BasicCharacterQuiz({
       }
       if (hasSolvedToday || gaveUpToday) {
         if (hintRef.current) {
-          hintRef.current.revealAllHints()
+          hintRef.current.revealAllHints();
         }
       }
     }
@@ -144,18 +139,14 @@ export default function BasicCharacterQuiz({
   function handleSearchChange(
     event: SyntheticEvent<Element, Event> | null,
     value: Character | null,
-    reason: any
+    reason: any,
   ) {
     if (value && targetChar) {
       const res = compareObjects(value, targetChar);
       value.ValidFields = res.all;
 
-      if (
-        value.ValidFields.includes("Anime") &&
-        getProfileSetting("autoRevealBasicQuizHints")
-      ) {
+      if (value.ValidFields.includes("Anime") && getProfileSetting("autoRevealBasicQuizHints")) {
         if (hintRef.current) {
-
           hintRef.current.handleSetRevealAnimeHint(true);
         }
       }
@@ -167,7 +158,7 @@ export default function BasicCharacterQuiz({
       if (res.all.length + 1 === Object.keys(targetChar).length) {
         saveFieldToTotalStatistics(
           [StatisticFields.totalCharacterGuesses],
-          searchHistory.length + 1
+          searchHistory.length + 1,
         );
         solveQuizHelper(
           reason,
@@ -179,7 +170,7 @@ export default function BasicCharacterQuiz({
           points,
           targetChar,
           res,
-          searchHistory.length + 1
+          searchHistory.length + 1,
         );
 
         //get scores
@@ -191,13 +182,7 @@ export default function BasicCharacterQuiz({
         }
       }
       //calculate point reduce
-      calculateSelectionPoints(
-        res.short.length,
-        searchHistory,
-        difficulty,
-        points,
-        setPoints
-      );
+      calculateSelectionPoints(res.short.length, searchHistory, difficulty, points, setPoints);
     }
   }
 
@@ -209,12 +194,10 @@ export default function BasicCharacterQuiz({
   return (
     <Box sx={{ position: "relative" }}>
       {!endlessMode && (
-
         <Box
           sx={{
             borderRadius: 2,
-            background:
-              COLORS.gradient,
+            background: COLORS.gradient,
             marginBottom: 4,
             border: `1px solid ${COLORS.quiz.light}`,
             display: "flex",
@@ -245,22 +228,13 @@ export default function BasicCharacterQuiz({
                   {index === 0 && <Typography fontSize={"24px"}>🏆</Typography>}
                   {index === 1 && <Typography fontSize={"24px"}>🥈</Typography>}
                   {index === 2 && <Typography fontSize={"24px"}>🥉</Typography>}
-                  <Typography fontSize={"12px"}>
-                    {"Points: " + item.points}
-                  </Typography>
-                  <Typography fontSize={"12px"}>
-                    {"Date: " + item.date}
-                  </Typography>
+                  <Typography fontSize={"12px"}>{"Points: " + item.points}</Typography>
+                  <Typography fontSize={"12px"}>{"Date: " + item.date}</Typography>
                 </Box>
               ))}
               {scores.length === 0 && (
-                <Typography
-                  sx={{ color: COLORS.quiz.primary_text }}
-                  textAlign={"center"}
-                >
-                  <Typography component={"span"}>
-                    No Scores available.
-                  </Typography>
+                <Typography sx={{ color: COLORS.quiz.primary_text }} textAlign={"center"}>
+                  <Typography component={"span"}>No Scores available.</Typography>
                   <br />
                   <Typography component={"span"}>
                     You should definitely change that (*≧ω≦*)
@@ -268,12 +242,9 @@ export default function BasicCharacterQuiz({
                 </Typography>
               )}
             </Box>
-
           </Box>
 
-          {!endlessMode && (
-            <DayStreak ref={streakRef} streakKey={STREAK_KEY}></DayStreak>
-          )}
+          {!endlessMode && <DayStreak ref={streakRef} streakKey={STREAK_KEY}></DayStreak>}
         </Box>
       )}
 
@@ -293,7 +264,15 @@ export default function BasicCharacterQuiz({
         endlessMode={endlessMode}
         originalCharData={charData}
         quizKey={QUIZ_KEY.CHAR}
-        hintBar={<Hints ref={hintRef} gaveUp={gaveUp} isCorrect={isCorrect} targetChar={targetChar} onClickHint={reducePointsForHint} points={points} />
+        hintBar={
+          <Hints
+            ref={hintRef}
+            gaveUp={gaveUp}
+            isCorrect={isCorrect}
+            targetChar={targetChar}
+            onClickHint={reducePointsForHint}
+            points={points}
+          />
         }
       ></SearchBar>
 
@@ -308,9 +287,7 @@ export default function BasicCharacterQuiz({
         >
           <Box
             sx={{
-              backgroundColor: gaveUp
-                ? COLORS.quiz.failed
-                : COLORS.quiz.success,
+              backgroundColor: gaveUp ? COLORS.quiz.failed : COLORS.quiz.success,
               width: "300px",
               display: "flex",
               flexDirection: "column",
@@ -324,12 +301,7 @@ export default function BasicCharacterQuiz({
                 : `2px solid ${COLORS.quiz.success_light}`,
             }}
           >
-            <Typography
-              fontWeight={"bold"}
-              fontSize={"24px"}
-              marginBottom={1}
-              textAlign={"center"}
-            >
+            <Typography fontWeight={"bold"} fontSize={"24px"} marginBottom={1} textAlign={"center"}>
               {targetChar?.Name}
             </Typography>
             <Box
@@ -343,18 +315,12 @@ export default function BasicCharacterQuiz({
             ></Box>
           </Box>
           {!endlessMode && (
-            <LemonButton
-              onClick={(event) => changeQuizMode?.(event, 1)}
-              text="Next: Image Quiz"
-            />
+            <LemonButton onClick={(event) => changeQuizMode?.(event, 1)} text="Next: Image Quiz" />
           )}
         </Box>
       )}
       {(endlessMode || (!endlessMode && !isCorrect)) && (
-        <CharacterList
-          searchHistory={searchHistory}
-          targetChar={targetChar}
-        ></CharacterList>
+        <CharacterList searchHistory={searchHistory} targetChar={targetChar}></CharacterList>
       )}
     </Box>
   );

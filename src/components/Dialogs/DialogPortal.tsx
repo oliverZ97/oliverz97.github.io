@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { Button } from "@mui/material";
-import { COLORS } from "styling/constants";
+import { COLORS } from "@/styling/constants";
 import Calendar from "../Calendar";
 import Settings from "../Profile/Profile";
 import DialogWrapper from "./DialogWrapper";
-import HowToPlay from "components/HowToPlay";
-import Statistics from "components/Statistics";
-import { theme } from "styling/theme";
+import HowToPlay from "@/components/HowToPlay";
+import Statistics from "@/components/Statistics";
+import { theme } from "@/styling/theme";
 
 // Define dialog types
-export type DialogType =
-  | "howToPlay"
-  | "scoreCalendar"
-  | "settings"
-  | "statistics";
+export type DialogType = "howToPlay" | "scoreCalendar" | "settings" | "statistics";
 
 // Define calendar data type
 export interface CalendarData {
@@ -27,7 +23,7 @@ class DialogManager {
   private static instance: DialogManager;
   private listeners: ((
     dialogStates: Record<DialogType, boolean>,
-    calendarData?: CalendarData
+    calendarData?: CalendarData,
   ) => void)[] = [];
   private dialogStates: Record<DialogType, boolean>;
   private calendarDataState: CalendarData | undefined;
@@ -60,11 +56,7 @@ class DialogManager {
   }
 
   // Set dialog state and notify all subscribers
-  setDialogState(
-    type: DialogType,
-    isOpen: boolean,
-    calendarData?: CalendarData
-  ): void {
+  setDialogState(type: DialogType, isOpen: boolean, calendarData?: CalendarData): void {
     this.dialogStates[type] = isOpen;
 
     if (type === "scoreCalendar" && calendarData) {
@@ -105,10 +97,7 @@ class DialogManager {
 
   // Add a new listener
   subscribe(
-    listener: (
-      dialogStates: Record<DialogType, boolean>,
-      calendarData?: CalendarData
-    ) => void
+    listener: (dialogStates: Record<DialogType, boolean>, calendarData?: CalendarData) => void,
   ): () => void {
     this.listeners.push(listener);
     // Return unsubscribe function
@@ -119,9 +108,7 @@ class DialogManager {
 
   // Notify all listeners of state change
   private notifyListeners(): void {
-    this.listeners.forEach((listener) =>
-      listener(this.allDialogStates, this.calendarDataState)
-    );
+    this.listeners.forEach((listener) => listener(this.allDialogStates, this.calendarDataState));
   }
 }
 
@@ -130,11 +117,9 @@ export const dialogManager = DialogManager.getInstance();
 
 // Component that will render the dialog using a portal
 export const HowToPlayDialogPortal: React.FC = () => {
-  const [dialogStates, setDialogStates] = useState(
-    dialogManager.allDialogStates
-  );
+  const [dialogStates, setDialogStates] = useState(dialogManager.allDialogStates);
   const [calendarData, setCalendarData] = useState<CalendarData | undefined>(
-    dialogManager.calendarData
+    dialogManager.calendarData,
   );
 
   useEffect(() => {
@@ -261,6 +246,6 @@ export const HowToPlayDialogPortal: React.FC = () => {
         </DialogWrapper>
       ))}
     </>,
-    portalElement
+    portalElement,
   );
 };

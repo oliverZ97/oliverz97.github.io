@@ -3,22 +3,22 @@ import {
   applyCreditsToProfile,
   saveFieldToTotalStatistics,
   saveHasBeenSolvedToday,
-} from "common/profileUtils";
-import { getImgSrc } from "common/quizUtils";
-import { Anime, Character, SolvedKeys, StatisticFields } from "common/types";
+} from "@/common/profileUtils";
+import { getImgSrc } from "@/common/quizUtils";
+import { Anime, Character, SolvedKeys, StatisticFields } from "@/common/types";
 import {
   getDailyUTCDate,
   getRandomCharacter,
   hasBeenSolvedToday,
   QUIZ_KEY,
   setDailyScore,
-} from "common/utils";
-import { AnimeAutocomplete } from "components/AnimeAutocomplete";
-import { CharacterAutocomplete } from "components/CharacterAutocomplete";
-import { LemonButton } from "components/LemonButton";
-import { DayStreak, StreakRef } from "components/Streak";
+} from "@/common/utils";
+import { AnimeAutocomplete } from "@/components/AnimeAutocomplete";
+import { CharacterAutocomplete } from "@/components/CharacterAutocomplete";
+import { LemonButton } from "@/components/LemonButton";
+import { DayStreak, StreakRef } from "@/components/Streak";
 import { SyntheticEvent, useEffect, useRef, useState } from "react";
-import { COLORS } from "styling/constants";
+import { COLORS } from "@/styling/constants";
 
 interface ImageCharacterQuizProps {
   charData: Character[];
@@ -113,7 +113,7 @@ export default function ImageCharacterQuiz({
     event: SyntheticEvent<Element, Event>,
     value: Character | null,
     reason: any,
-    id?: number
+    id?: number,
   ) => {
     if (typeof id === "number") {
       const elementCopy = [...elements];
@@ -126,7 +126,7 @@ export default function ImageCharacterQuiz({
     event: SyntheticEvent<Element, Event>,
     value: Anime | null,
     reason: any,
-    id?: number
+    id?: number,
   ) => {
     if (typeof id === "number") {
       const elementCopy = [...elements];
@@ -135,10 +135,7 @@ export default function ImageCharacterQuiz({
     }
   };
 
-  function getRandomCharacterArray(
-    count: number,
-    endlessMode = true
-  ): Character[] {
+  function getRandomCharacterArray(count: number, endlessMode = true): Character[] {
     let counter = 0;
     let chars: Character[] = [];
     if (endlessMode) {
@@ -157,8 +154,7 @@ export default function ImageCharacterQuiz({
       const today = isTestMode ? customTestDate : new Date();
 
       const dayOfYear = Math.floor(
-        (today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) /
-        (1000 * 60 * 60 * 24)
+        (today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / (1000 * 60 * 60 * 24),
       );
       const yearSignature = `${today.getFullYear()}`;
 
@@ -186,10 +182,8 @@ export default function ImageCharacterQuiz({
       // Further shuffle the rotated characters with the seed
       // Use character ID or another unique property in the hash calculation
       const shuffledChars = [...rotatedChars].sort((a, b) => {
-        const hashA =
-          (seed * (a.Name.length + a.Anime.length)) % charData.length;
-        const hashB =
-          (seed * (b.Name.length + b.Anime.length)) % charData.length;
+        const hashA = (seed * (a.Name.length + a.Anime.length)) % charData.length;
+        const hashB = (seed * (b.Name.length + b.Anime.length)) % charData.length;
         return hashA - hashB;
       });
 
@@ -238,9 +232,7 @@ export default function ImageCharacterQuiz({
           selection.isAnimeCorrect = true;
           correctAnime++;
         } else {
-          const targetAnime = animeData.filter(
-            (anime) => anime.Name === target.Anime
-          )[0];
+          const targetAnime = animeData.filter((anime) => anime.Name === target.Anime)[0];
           selection.anime = targetAnime;
           selection.isAnimeCorrect = false;
         }
@@ -273,12 +265,9 @@ export default function ImageCharacterQuiz({
         setDailyScore(utcDate.toISOString(), finalScore, QUIZ_KEY.IMAGE);
         saveFieldToTotalStatistics(
           [StatisticFields.totalWins, StatisticFields.totalGamesPlayed],
-          1
+          1,
         );
-        saveFieldToTotalStatistics(
-          [StatisticFields.totalCharacterImagesGuessed],
-          4
-        );
+        saveFieldToTotalStatistics([StatisticFields.totalCharacterImagesGuessed], 4);
         saveFieldToTotalStatistics([StatisticFields.totalScore], finalScore);
         applyCreditsToProfile(15);
       }
@@ -292,17 +281,11 @@ export default function ImageCharacterQuiz({
   }
 
   return (
-    <Box
-      display={"flex"}
-      flexDirection="column"
-      alignItems="center"
-      width={"100%"}
-    >
+    <Box display={"flex"} flexDirection="column" alignItems="center" width={"100%"}>
       <Box
         sx={{
           position: "relative",
-          background:
-            COLORS.gradient,
+          background: COLORS.gradient,
           padding: 4,
           borderRadius: 2,
           border: `1px solid ${COLORS.quiz.light}`,
@@ -393,9 +376,7 @@ export default function ImageCharacterQuiz({
                           whiteSpace: "break-spaces",
                         }}
                       >
-                        {elements[index].anime === null
-                          ? "-"
-                          : elements[index].anime?.Name}
+                        {elements[index].anime === null ? "-" : elements[index].anime?.Name}
                       </Typography>
                     </Box>
                   )}
@@ -448,10 +429,7 @@ export default function ImageCharacterQuiz({
         </Box>
       </Box>
       {!endlessMode && isSolving && (
-        <LemonButton
-          onClick={(event) => changeQuizMode?.(event, 2)}
-          text="Next: Anime Quiz"
-        />
+        <LemonButton onClick={(event) => changeQuizMode?.(event, 2)} text="Next: Anime Quiz" />
       )}
     </Box>
   );

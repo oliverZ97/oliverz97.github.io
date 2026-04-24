@@ -6,17 +6,16 @@ import {
   ToggleButtonGroup,
   useTheme,
   Tooltip,
-  Switch,
   FormControlLabel,
 } from "@mui/material";
-import { getProfileSetting, updateProfileSettings } from "common/profileUtils";
-import { getImgSrc, getTodaysCharacterPointsAndTries } from "common/quizUtils";
-import { Character, Difficulty } from "common/types";
-import { getRandomCharacter, QUIZ_KEY } from "common/utils";
-import { CharacterAutocomplete } from "components/CharacterAutocomplete";
-import { CustomSwitch } from "components/CustomSwitch";
+import { getProfileSetting, updateProfileSettings } from "@/common/profileUtils";
+import { getImgSrc, getTodaysCharacterPointsAndTries } from "@/common/quizUtils";
+import { Character, Difficulty } from "@/common/types";
+import { getRandomCharacter, QUIZ_KEY } from "@/common/utils";
+import { CharacterAutocomplete } from "@/components/CharacterAutocomplete";
+import { CustomSwitch } from "@/components/CustomSwitch";
 import { ReactNode, useState } from "react";
-import { COLORS } from "styling/constants";
+import { COLORS } from "@/styling/constants";
 
 interface SearchBarProps {
   points: number;
@@ -24,11 +23,7 @@ interface SearchBarProps {
   isCorrect: boolean;
   selectedOption: Character | null;
   charData: Character[];
-  handleSearchChange: (
-    event: any,
-    value: Character | null,
-    reason: any
-  ) => void;
+  handleSearchChange: (event: any, value: Character | null, reason: any) => void;
   init: () => void;
   setDifficulty: (difficuly: Difficulty) => void;
   difficulty: Difficulty;
@@ -63,18 +58,15 @@ export function SearchBar({
   showAnimeHintOption = true,
   mode = "normal",
   quizKey,
-  hintBar
+  hintBar,
 }: SearchBarProps) {
   const [autoRevealHintSetting, setAutoRevealHintSetting] = useState<boolean>(
-    getProfileSetting("autoRevealBasicQuizHints") as boolean
+    getProfileSetting("autoRevealBasicQuizHints") as boolean,
   );
 
   const theme = useTheme();
 
-  const handleDifficulty = (
-    event: React.MouseEvent<HTMLElement>,
-    newDifficulty: string | null
-  ) => {
+  const handleDifficulty = (event: React.MouseEvent<HTMLElement>, newDifficulty: string | null) => {
     if (newDifficulty && newDifficulty !== difficulty) {
       setDifficulty(newDifficulty as Difficulty);
       setTimeout(() => {
@@ -104,8 +96,7 @@ export function SearchBar({
         gap: 3,
         alignItems: "center",
         justifyContent: "space-between",
-        background:
-          COLORS.gradient,
+        background: COLORS.gradient,
         borderRadius: 2,
         border: `1px solid ${COLORS.quiz.light}`,
         width: "100%",
@@ -137,12 +128,7 @@ export function SearchBar({
                 gap: 2,
               }}
             >
-              <Typography
-                fontSize="16px"
-                textAlign={"center"}
-                fontWeight={"bold"}
-                color={"white"}
-              >
+              <Typography fontSize="16px" textAlign={"center"} fontWeight={"bold"} color={"white"}>
                 {"Yesterdays character:"}
               </Typography>
 
@@ -220,20 +206,18 @@ export function SearchBar({
           <Typography sx={{ color: "white" }}>
             {"Points: " +
               (isCorrect
-                ? getTodaysCharacterPointsAndTries(quizKey ?? QUIZ_KEY.CHAR)
-                  .points
+                ? getTodaysCharacterPointsAndTries(quizKey ?? QUIZ_KEY.CHAR).points
                 : gaveUp
-                  ? 0
-                  : points)}
+                ? 0
+                : points)}
           </Typography>
           <Typography sx={{ color: "white" }}>
             {"Tries: " +
               (isCorrect
-                ? getTodaysCharacterPointsAndTries(quizKey ?? QUIZ_KEY.CHAR)
-                  .tries
+                ? getTodaysCharacterPointsAndTries(quizKey ?? QUIZ_KEY.CHAR).tries
                 : gaveUp
-                  ? 0
-                  : searchHistory.length)}
+                ? 0
+                : searchHistory.length)}
           </Typography>
         </Box>
         <Box

@@ -1,13 +1,6 @@
-import { Streak } from "components/Streak";
+import { Streak } from "@/components/Streak";
 import { v4 as uuidv4 } from "uuid";
-import {
-  Score,
-  SolveData,
-  SolvedKeys,
-  StatisticFields,
-  UserLogs,
-  UserProfile,
-} from "./types";
+import { Score, SolveData, SolvedKeys, StatisticFields, UserLogs, UserProfile } from "./types";
 
 export function downloadStats() {
   //Download statistic data from local storage
@@ -69,10 +62,7 @@ export function createUserProfile(user: UserProfile | string) {
       credits: { total: 0, used: 0, available: 0 },
     };
     username = user;
-    localStorage.setItem(
-      `userProfile_${username}`,
-      JSON.stringify(userProfile)
-    );
+    localStorage.setItem(`userProfile_${username}`, JSON.stringify(userProfile));
   }
 
   // Ensure a stats entry exists for the new user profile
@@ -130,9 +120,7 @@ function migrateExistingStreaksToProfile(username: string) {
     userLog = createEmptyUserLog(userProfile);
   }
 
-  const existingStreakKeys = Object.keys(localStorage).filter((key) =>
-    key.endsWith("Streak")
-  );
+  const existingStreakKeys = Object.keys(localStorage).filter((key) => key.endsWith("Streak"));
 
   if (existingStreakKeys.length > 0) {
     existingStreakKeys.forEach((streakKey) => {
@@ -171,7 +159,7 @@ function migrateExistingScoresToProfile(username: string) {
 
   // Look for old score entries that match a pattern like "quizName_score"
   const existingScoreKeys = Object.keys(localStorage).filter(
-    (key) => key.endsWith("scores") || key.endsWith("dailyScores")
+    (key) => key.endsWith("scores") || key.endsWith("dailyScores"),
   );
 
   if (existingScoreKeys.length > 0) {
@@ -350,10 +338,7 @@ export function loadExistingProfiles(): string[] {
  * // Add 10 points to both 'score' and 'totalPoints' statistics
  * saveFieldToTotalStatistics(['score', 'totalPoints'], 10);
  */
-export function saveFieldToTotalStatistics(
-  fields: StatisticFields[],
-  value: number
-) {
+export function saveFieldToTotalStatistics(fields: StatisticFields[], value: number) {
   const userLog = getCurrentUserLog();
   if (userLog) {
     //Add field to statistics log group
@@ -424,11 +409,12 @@ export function saveHighscoreToProfile(quizKey: string, score: Score) {
     userLog.highscores[`${quizKey}_highscore`] = validScores;
 
     userLog.highscores[`${quizKey}_highscore`].sort((a: Score, b: Score) =>
-      a.points < b.points ? 1 : -1
+      a.points < b.points ? 1 : -1,
     );
-    userLog.highscores[`${quizKey}_highscore`] = userLog.highscores[
-      `${quizKey}_highscore`
-    ].slice(0, 3);
+    userLog.highscores[`${quizKey}_highscore`] = userLog.highscores[`${quizKey}_highscore`].slice(
+      0,
+      3,
+    );
     setUserLog(userLog);
   }
 }
@@ -454,10 +440,7 @@ export function getHighscoresFromProfile(quizKey: string): Score[] {
  * @param solveData - The data about how the quiz was solved.
  * @returns void
  */
-export function saveHasBeenSolvedToday(
-  quizKey: SolvedKeys,
-  solveData: SolveData
-) {
+export function saveHasBeenSolvedToday(quizKey: SolvedKeys, solveData: SolveData) {
   const userProfile = getCurrentUserProfile();
   if (userProfile && solveData) {
     userProfile[quizKey] = solveData;
@@ -477,10 +460,7 @@ export function saveHasBeenSolvedToday(
  * setUserProfile(userProfile);
  */
 export function setUserProfile(userProfile: UserProfile) {
-  localStorage.setItem(
-    `userProfile_${userProfile.username}`,
-    JSON.stringify(userProfile)
-  );
+  localStorage.setItem(`userProfile_${userProfile.username}`, JSON.stringify(userProfile));
 }
 
 function safeJsonParse<T>(jsonString: string, defaultValue?: T): T {
@@ -517,10 +497,7 @@ export function getUserStatistics(): {
   return logs ? logs.statistics || {} : {};
 }
 
-export function updateProfileSettings(
-  key: string,
-  value: string | boolean | number
-) {
+export function updateProfileSettings(key: string, value: string | boolean | number) {
   const userProfile = getCurrentUserProfile();
   if (userProfile?.settings) {
     userProfile.settings[key] = value;
@@ -533,9 +510,7 @@ export function updateProfileSettings(
   }
 }
 
-export function getProfileSetting(
-  key: string
-): string | boolean | number | undefined {
+export function getProfileSetting(key: string): string | boolean | number | undefined {
   const userProfile = getCurrentUserProfile();
   if (userProfile?.settings) {
     return userProfile.settings[key];
