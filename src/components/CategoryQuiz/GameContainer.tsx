@@ -6,10 +6,11 @@ import { PlayScreen } from "./PlayScreen";
 import { VotingScreen } from "./VotingScreen";
 import { getCurrentUserProfile } from "@/common/profileUtils";
 import { generateLobbyKey } from "./utils";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { COLORS } from "@/styling/constants";
 import GameSettings, { defaultConfig, GameConfig } from "./GameSettings";
 import ResultScreen from "./ResultScreen";
+import { WINDOW_BASE_STYLE } from "./styles";
 
 export const GameContainer = () => {
   const [mode, setMode] = useState<"host" | "join">("host");
@@ -115,6 +116,18 @@ export const GameContainer = () => {
             roundCounter={roundCounter}
             maxRounds={gameConfig.rounds}
           />
+        )}
+        {phase === "TRANSITION" && (
+          <Box sx={{ ...WINDOW_BASE_STYLE, height: "100%", position: "relative" }}>
+            <Box sx={{ textAlign: "center", py: 10 }}>
+              <Typography variant="h4" sx={{ color: COLORS.fresh.primary.main }}>
+                Round {roundCounter} is starting...
+              </Typography>
+              <Typography sx={{ color: COLORS.fresh.primary.main }}>
+                Get those fingers ready!
+              </Typography>
+            </Box>
+          </Box>
         )}
         {phase === "VOTING" && (
           <VotingScreen

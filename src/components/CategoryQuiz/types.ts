@@ -1,6 +1,6 @@
 import { GameConfig } from "./GameSettings";
 
-export type GamePhase = "LOBBY" | "WRITING" | "VOTING" | "RESULTS";
+export type GamePhase = "LOBBY" | "WRITING" | "VOTING" | "RESULTS" | "TRANSITION";
 
 export interface Player {
   id: string;
@@ -33,7 +33,7 @@ export interface PlayerProfile {
 export interface GameState {
   phase: GamePhase;
   category: string;
-  endTime: number; // Timestamp for the synced timer
+  endTime: number;
 }
 
 export interface Submission {

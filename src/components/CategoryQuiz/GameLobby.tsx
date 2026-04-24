@@ -81,20 +81,18 @@ export const GameLobby = ({
         >
           <ToggleButton
             sx={{
-              color: "rgba(255, 255, 255, 0.7)", // Dimmed text
+              color: "rgba(255, 255, 255, 0.7)",
               backgroundColor: "transparent",
               border: "none",
 
-              // 2. SELECTED STATE
               "&.Mui-selected": {
-                color: "#FFFFFF", // Bright text
-                backgroundColor: COLORS.fresh.secondary.selected, // Your active background
+                color: "#FFFFFF",
+                backgroundColor: COLORS.fresh.secondary.selected,
               },
 
-              // 3. HOVER (Ensuring active color stays on hover)
               "&.Mui-selected:hover": {
                 backgroundColor: COLORS.fresh.secondary.hover,
-                filter: "brightness(1.1)", // Slightly brighten on hover
+                filter: "brightness(1.1)",
               },
               "&:hover": {
                 backgroundColor: "rgba(255, 255, 255, 0.1)",

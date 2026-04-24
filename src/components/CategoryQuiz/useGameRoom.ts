@@ -24,6 +24,7 @@ export const useGameRoom = (
 
   const submissionsRef = useRef<Submission[]>([]);
   const configRef = useRef(config);
+  const isFinishingRef = useRef(false);
 
   const channel = ably.channels.get(`room-${roomId}`);
   const isHost = mode === "host";
@@ -61,7 +62,6 @@ export const useGameRoom = (
         setTotalScores({});
         setCategory("");
         setSubmissions([]);
-        // If you want to sync the config back to default for everyone:
         onConfigSync?.(data.config);
       }
 
@@ -69,14 +69,13 @@ export const useGameRoom = (
         // Only non-hosts should force-update their local config to match the host
         // This prevents the host from getting stuck in a loop
         if (mode === "join") {
-          // You'll need a way to pass the setGameConfig setter into the hook
-          // or return the data so the Container can handle it.
           onConfigSync?.(data.config);
         }
       }
 
       if (data.type === "START_ROUND") {
-        setSubmissions([]); // Clear state for the new round
+        isFinishingRef.current = false;
+        setSubmissions([]);
         setCategory(data.category);
         // Ensure writeTime is a valid number to prevent NaN timers
         const duration = Number(data.writeTime) || configRef.current.writeTime;
@@ -86,7 +85,6 @@ export const useGameRoom = (
       }
 
       if (data.type === "SUBMIT_ANSWER") {
-        // Only the Host processes the logic for tallying
         setSubmissions((prev) => {
           const exists = prev.find((s) => s.playerId === data.playerId);
           if (exists) return prev;
@@ -115,20 +113,16 @@ export const useGameRoom = (
         setRoundCounter(data.nextRoundNumber);
 
         if (data.isLastRound) {
-          setSubmissions(data.finalSubmissions);
           setPhase("RESULTS");
         } else {
-          // 1. Clear submissions immediately for all players
           setSubmissions([]);
-          // 2. Change phase
-          setPhase("WRITING");
+          setCategory("");
+          setPhase("TRANSITION");
 
           if (isHost) {
-            // 3. Wait slightly longer for React state to settle
-            // before the Host picks the next category
             setTimeout(() => {
               onNextRound?.();
-            }, 500);
+            }, 2000);
           }
         }
       }
@@ -146,7 +140,7 @@ export const useGameRoom = (
 
     channel.publish("game-event", {
       type: "RESET_GAME",
-      config: config, // Optional: reset settings too
+      config: config,
     });
   };
 
@@ -197,14 +191,11 @@ export const useGameRoom = (
   const finalizeRound = () => {
     if (!isHost) return;
 
-    // 1. Force everything to Numbers to prevent "3" vs 3 issues
+    isFinishingRef.current = true;
+
     const currentRound = Number(roundCounter);
     const totalRounds = Number(config.rounds);
-
-    // 2. Determine if this is the end
     const isLastRound = currentRound >= totalRounds;
-
-    console.log(`Finalizing: Round ${currentRound} of ${totalRounds}. Last Round: ${isLastRound}`);
 
     const updatedTotals = { ...totalScores };
     submissions.forEach((s) => {
@@ -212,7 +203,6 @@ export const useGameRoom = (
       updatedTotals[s.playerId] = currentScore + s.votes;
     });
 
-    // 3. Broadcast
     channel.publish("game-event", {
       type: "END_ROUND",
       finalSubmissions: submissions,
