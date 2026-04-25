@@ -57,7 +57,6 @@ export const GameContainer = () => {
     // submissions that belong to THIS round (length > 0)
     if (isHost && phase === "WRITING" && submissions.length > 0) {
       if (submissions.length === members.length) {
-        console.log("Everyone submitted! Starting voting...");
         startVoting(submissions, Number(gameConfig.voteTime) || 15);
       }
     }
@@ -70,7 +69,6 @@ export const GameContainer = () => {
   }, [gameConfig, mode]);
 
   const handleTimeUp = (finalAnswer: string) => {
-    console.log("time up", finalAnswer);
     submitAnswer(finalAnswer);
   };
 

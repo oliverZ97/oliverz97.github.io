@@ -21,10 +21,15 @@ export const PlayScreen = ({
   const [answer, setAnswer] = useState("");
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [progress, setProgress] = React.useState(100);
+  const answerRef = useRef("");
 
   // Use a Ref to store the "Effective Start Time"
   // This is the exact moment this specific component mounted on the user's screen
   const startTimeRef = useRef<number>(Date.now());
+
+  useEffect(() => {
+    answerRef.current = answer;
+  }, [answer]);
 
   useEffect(() => {
     // Reset the start time whenever a new round begins (endTime changes significantly)
@@ -56,7 +61,7 @@ export const PlayScreen = ({
     const timer = setInterval(() => {
       if (updateUI()) {
         clearInterval(timer);
-        onTimeUp(answer);
+        onTimeUp(answerRef.current);
       }
     }, 100);
 
@@ -149,7 +154,6 @@ export const PlayScreen = ({
           type="text"
           value={answer}
           onChange={(e) => {
-            console.log("e: ", e.target.value);
             setAnswer(e.target.value);
           }}
           placeholder="Type here..."
