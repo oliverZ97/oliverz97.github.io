@@ -151,6 +151,12 @@ export default function BasicCharacterQuiz({
         }
       }
 
+      if (value.ValidFields.includes("Studio") && getProfileSetting("autoRevealBasicQuizHints")) {
+        if (hintRef.current) {
+          hintRef.current.handleSetRevealStudioHint(true);
+        }
+      }
+
       setSelectedOption(value);
       removeOptionFromArray(value, localCharData, setLocalCharData);
       setSearchHistory([value, ...searchHistory]);

@@ -55,7 +55,7 @@ export function SearchBar({
   endlessMode = true,
   originalCharData,
   showPreviewImage = true,
-  showAnimeHintOption = true,
+  showAnimeHintOption: showHintAutoOption = true,
   mode = "normal",
   quizKey,
   hintBar,
@@ -106,7 +106,7 @@ export function SearchBar({
         },
       }}
     >
-      {(showAnimeHintOption || !endlessMode) && (
+      {(showHintAutoOption || !endlessMode) && (
         <Box
           sx={{
             display: "flex",
@@ -156,7 +156,7 @@ export function SearchBar({
               </Tooltip>
             </Box>
           )}
-          {showAnimeHintOption && (
+          {showHintAutoOption && (
             <FormControlLabel
               control={
                 <CustomSwitch

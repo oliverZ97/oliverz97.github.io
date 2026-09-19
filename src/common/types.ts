@@ -21,6 +21,8 @@ export interface Character {
   Version: string;
   Subgenre1?: string;
   Subgenre2?: string;
+  Profession1?: string;
+  Profession2?: string;
   Tags?: string;
   Birthday?: string;
   ValidFields?: string[];
