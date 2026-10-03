@@ -77,7 +77,7 @@ export default function SideNavigationItemDrawer({
           role="presentation"
           onClick={toggleDrawer(false)}
           onKeyDown={toggleDrawer(false)}
-          sx={{ backgroundColor: COLORS.quiz.secondary, ...sx }}
+          sx={{ backgroundColor: COLORS.card_bg, ...sx }}
         >
           {children}
         </Box>

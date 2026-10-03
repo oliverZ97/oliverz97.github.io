@@ -32,19 +32,59 @@ export function CharacterAutocomplete({
         difficulty ? charData.filter((char) => isIncludedInDifficulty(char, difficulty)) : charData
       }
       getOptionLabel={(option) => `${option.Name} (${option.id})`}
+      slotProps={{
+        paper: {
+          sx: {
+            backgroundColor: COLORS.card_bar_bg,
+            color: COLORS.quiz.primary_text,
+            borderRadius: "8px",
+            marginTop: "4px", // Optional gap between input and dropdown
+            boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)", // Custom shadow
+          },
+        },
+      }}
       sx={{
         width: width ?? 300,
-        backgroundColor: "white",
-        borderRadius: "8px",
+        borderRadius: "12px",
+        color: COLORS.quiz.border,
+
+        "& .MuiInputBase-input": {
+          color: COLORS.quiz.primary_text, // General text color (typed value)
+
+          "&::placeholder": {
+            color: COLORS.quiz.disabled, // Custom placeholder color
+            opacity: 1, // MUI defaults placeholder opacity to 0.42; set to 1 for exact color rendering
+          },
+        },
+
+        "& .MuiAutocomplete-popupIndicator": {
+          display: "none",
+        },
 
         "& .MuiOutlinedInput-root": {
-          "&:hover .MuiOutlinedInput-notchedOutline": {
-            borderColor: COLORS.quiz.secondary,
+          backgroundColor: COLORS.card_bar_bg,
+          borderRadius: "8px",
+
+          // 2. Default / Active border color
+          "& .MuiOutlinedInput-notchedOutline": {
+            borderColor: COLORS.quiz.border, // Set your default border color here
+            borderRadius: "8px",
+          },
+          "&:not(.Mui-disabled):hover .MuiOutlinedInput-notchedOutline": {
+            borderColor: COLORS.quiz.border,
+            borderWidth: "2px",
             borderRadius: "8px",
           },
           "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-            borderColor: COLORS.quiz.tertiary,
+            borderColor: COLORS.quiz.border,
             borderRadius: "8px",
+          },
+        },
+
+        // 3. Optional: Hide label on focus/value if you don't want it overlapping input text
+        "& .MuiInputLabel-root": {
+          "&.Mui-focused, &.MuiFormLabel-filled": {
+            display: "none", // Keeps label hidden once typing starts so it won't overlap text
           },
         },
       }}
@@ -53,7 +93,14 @@ export function CharacterAutocomplete({
         if (!showPreviewImage && value) {
           params.inputProps.value = value.Name;
         }
-        return <TextField {...params} label="Guess Today's Character" />;
+        return (
+          <TextField
+            {...params}
+            sx={{ color: COLORS.quiz.border }}
+            InputLabelProps={{ shrink: false }}
+            placeholder="Guess Today's Character"
+          />
+        );
       }}
       renderOption={(props, option) => (
         <Box component="li" sx={{ "& > *": { m: 0.5 } }} {...props}>

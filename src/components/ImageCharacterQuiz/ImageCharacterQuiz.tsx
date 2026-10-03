@@ -285,10 +285,10 @@ export default function ImageCharacterQuiz({
       <Box
         sx={{
           position: "relative",
-          background: COLORS.gradient,
+          backgroundColor: COLORS.card_bg,
           padding: 4,
           borderRadius: 2,
-          border: `1px solid ${COLORS.quiz.light}`,
+          border: `1px solid ${COLORS.quiz.border}`,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -393,18 +393,7 @@ export default function ImageCharacterQuiz({
           }}
         >
           {endlessMode && (
-            <Button
-              sx={{
-                color: COLORS.quiz.light,
-                borderColor: COLORS.quiz.light,
-                "&:hover": {
-                  fontWeight: "bold",
-                  borderColor: COLORS.quiz.tertiary,
-                },
-              }}
-              variant="outlined"
-              onClick={resetImageQuiz}
-            >
+            <Button variant="outlined" onClick={resetImageQuiz}>
               Reset
             </Button>
           )}

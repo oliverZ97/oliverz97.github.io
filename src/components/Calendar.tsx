@@ -131,7 +131,7 @@ export default function Calendar({ title, data, cellStyling }: CalendarProps) {
                       padding: 1,
                       textAlign: "center",
                       cursor: "pointer",
-                      color: "text.disabled",
+                      color: COLORS.quiz.disabled,
                       bgcolor: "action.hover",
                     }}
                     onClick={() => handleDateChange(DateTime.local(prevMonthYear, prevMonth, day))}
@@ -150,7 +150,7 @@ export default function Calendar({ title, data, cellStyling }: CalendarProps) {
                   padding: 1,
                   textAlign: "center",
                   cursor: "pointer",
-                  bgcolor: selectedDate.day === i + 1 ? COLORS.quiz.secondary : "inherit",
+                  bgcolor: selectedDate.day === i + 1 ? COLORS.quiz.secondary : COLORS.card_bg,
                   ...cellStyling,
                 }}
                 onClick={() =>
@@ -223,7 +223,7 @@ export default function Calendar({ title, data, cellStyling }: CalendarProps) {
                     padding: 1,
                     textAlign: "center",
                     cursor: "pointer",
-                    color: "text.disabled",
+                    color: COLORS.quiz.disabled,
                     bgcolor: "action.hover",
                   }}
                   onClick={() => handleDateChange(DateTime.local(nextMonthYear, nextMonth, i + 1))}

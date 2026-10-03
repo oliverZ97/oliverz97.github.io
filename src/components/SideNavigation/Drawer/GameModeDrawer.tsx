@@ -41,7 +41,7 @@ export const GameModeDrawer = ({
                 component={"span"}
                 sx={{
                   fontWeight: "bold",
-                  color: COLORS.quiz.light_red,
+                  color: COLORS.quiz.border,
                   marginRight: 1,
                 }}
               >

@@ -11,7 +11,6 @@ import {
 import { Anime, Card, Character, Collection as CollectionType, Pack } from "@/common/types";
 import { useEffect, useState } from "react";
 import { COLORS } from "@/styling/constants";
-import bg from "@/assets/bg.jpg";
 import { getUserCollection } from "@/common/profileUtils";
 import { TCGCard } from "@/components/TCG/TCGCard";
 import characterData from "@/data/character_data.json";
@@ -123,7 +122,6 @@ const Collection = () => {
     <Box
       sx={{
         backgroundColor: COLORS.quiz.background,
-        background: `url(${bg})`,
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",

@@ -67,7 +67,7 @@ export default function HowToPlay() {
               borderRadius: "50px",
               backgroundColor: COLORS.quiz.main,
               border: "2px solid",
-              borderColor: COLORS.quiz.light,
+              borderColor: COLORS.quiz.border,
               width: "30px",
               height: "30px",
             }}

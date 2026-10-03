@@ -84,7 +84,7 @@ export const RevealCard = forwardRef(
           minHeight: "58px",
           padding: 0,
           borderRadius: "9px",
-          border: `2px solid ${disabled ? COLORS.quiz.disabled_border : COLORS.quiz.light}`,
+          border: `2px solid ${disabled ? COLORS.quiz.disabled_border : COLORS.quiz.border}`,
           ...sx,
         }}
         onClick={() => setRevealHint(true)}

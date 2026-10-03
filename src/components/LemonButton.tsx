@@ -9,7 +9,7 @@ export const LemonButton = ({ onClick, text }: { onClick: (event: any) => void; 
         backgroundColor: COLORS.quiz.main,
         marginTop: 4,
         cursor: "pointer",
-        border: `2px solid ${COLORS.quiz.light}`,
+        border: `2px solid ${COLORS.quiz.border}`,
         borderRadius: "8px",
         display: "flex",
         alignItems: "center",

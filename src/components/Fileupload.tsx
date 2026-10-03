@@ -1,3 +1,4 @@
+import { COLORS } from "@/styling/constants";
 import Box from "@mui/material/Box/Box";
 import Button from "@mui/material/Button/Button";
 import { useState } from "react";
@@ -13,6 +14,12 @@ export default function Fileupload({ onFileLoaded }: FileuploadProps) {
     <>
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
         <Button
+          sx={{
+            backgroundColor: COLORS.quiz.main,
+            "&:hover": {
+              backgroundColor: COLORS.quiz.main_hover,
+            },
+          }}
           variant="contained"
           onClick={() => document.getElementById("fileInput")?.click()}
         >

@@ -27,7 +27,7 @@ export default function CharacterList({ searchHistory, targetChar }: CharacterLi
   function getCardBorderColor(key: string, item: Character) {
     return item.ValidFields?.includes(key)
       ? `2px solid ${COLORS.quiz.success_light}`
-      : `2px solid ${COLORS.quiz.light}`;
+      : `2px solid ${COLORS.quiz.border}`;
   }
 
   function getCardBackgroundColor(key: string, item: Character) {
@@ -97,9 +97,9 @@ export default function CharacterList({ searchHistory, targetChar }: CharacterLi
           overflowY: "auto",
           borderTopLeftRadius: "8px",
           borderTopRightRadius: "8px",
-          border: searchHistory.length > 0 ? `1px solid ${COLORS.quiz.light}` : "none",
+          border: searchHistory.length > 0 ? `1px solid ${COLORS.quiz.border}` : "none",
           borderBottom: 0,
-          background: COLORS.gradient,
+          backgroundColor: COLORS.card_bg,
           [theme.breakpoints.down("md")]: {
             overflowX: "scroll",
           },

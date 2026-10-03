@@ -23,6 +23,7 @@ import Fileupload from "../Fileupload";
 import { UserLogs, UserProfile } from "@/common/types";
 import { AvatarEdit } from "./AvatarEdit";
 import { useProfile } from "./ProfileContext";
+import { COLORS } from "@/styling/constants";
 
 export default function Profile() {
   const avatarEditRef = useRef(null);
@@ -148,6 +149,10 @@ export default function Profile() {
         <Button
           sx={{
             marginBottom: 2,
+            borderColor: COLORS.quiz.main,
+            "&:hover": {
+              backgroundColor: COLORS.quiz.main_hover,
+            },
             [theme.breakpoints.up("md")]: {
               display: "none",
             },
@@ -213,7 +218,13 @@ export default function Profile() {
           />
           <Button
             variant="contained"
-            sx={{ height: "56px" }}
+            sx={{
+              height: "56px",
+              backgroundColor: COLORS.quiz.main,
+              "&:hover": {
+                backgroundColor: COLORS.quiz.main_hover,
+              },
+            }}
             onClick={() => {
               if (newUsername.trim() === "") return;
               createUserProfile(newUsername);

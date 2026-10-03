@@ -108,9 +108,9 @@ export function SearchBar({
             gap: 4,
             alignItems: "center",
             justifyContent: "space-between",
-            background: COLORS.gradient,
+            backgroundColor: COLORS.card_bg,
             borderRadius: 2,
-            border: `1px solid ${COLORS.quiz.light}`,
+            border: `1px solid ${COLORS.quiz.border}`,
             width: "500px",
             [theme.breakpoints.down("md")]: {
               flexDirection: "column",
@@ -155,9 +155,9 @@ export function SearchBar({
           gap: 2,
           alignItems: "center",
           justifyContent: "space-between",
-          background: COLORS.gradient,
+          backgroundColor: COLORS.card_bg,
           borderRadius: 2,
-          border: `1px solid ${COLORS.quiz.light}`,
+          border: `1px solid ${COLORS.quiz.border}`,
           width: "100%",
           paddingY: endlessMode ? 2 : 0,
           [theme.breakpoints.down("md")]: {
@@ -172,7 +172,7 @@ export function SearchBar({
             alignItems={"center"}
             gap={2}
             sx={{
-              background: COLORS.gradientBar,
+              backgroundColor: COLORS.card_bar_bg,
               width: "100%",
               borderTopLeftRadius: "8px",
               borderTopRightRadius: "8px",

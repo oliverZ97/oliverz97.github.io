@@ -82,10 +82,10 @@ export const KissMarryKill = ({ charData }: KissMarryKillProps) => {
       <Box
         sx={{
           position: "relative",
-          background: COLORS.gradient,
+          backgroundColor: COLORS.card_bg,
           padding: 4,
           borderRadius: 2,
-          border: `1px solid ${COLORS.quiz.light}`,
+          border: `1px solid ${COLORS.quiz.border}`,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",

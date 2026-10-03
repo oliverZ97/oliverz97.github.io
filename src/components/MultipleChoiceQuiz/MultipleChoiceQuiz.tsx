@@ -267,9 +267,9 @@ export default function MultipleChoiceQuiz({ charData }: ImageCharacterQuizProps
       <Box
         sx={{
           borderRadius: 2,
-          background: COLORS.gradient,
+          backgroundColor: COLORS.card_bg,
           marginBottom: 4,
-          border: `1px solid ${COLORS.quiz.light}`,
+          border: `1px solid ${COLORS.quiz.border}`,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -309,10 +309,10 @@ export default function MultipleChoiceQuiz({ charData }: ImageCharacterQuizProps
       <Box
         sx={{
           position: "relative",
-          background: COLORS.gradient,
+          backgroundColor: COLORS.card_bg,
           padding: 4,
           borderRadius: 2,
-          border: `1px solid ${COLORS.quiz.light}`,
+          border: `1px solid ${COLORS.quiz.border}`,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -470,7 +470,7 @@ export default function MultipleChoiceQuiz({ charData }: ImageCharacterQuizProps
                     <Button
                       key={answer.character}
                       sx={{
-                        border: `1px solid ${COLORS.quiz.light}`,
+                        border: `1px solid ${COLORS.quiz.border}`,
                         width: "450px",
                         paddingX: 2,
                         paddingY: 1,
@@ -511,7 +511,7 @@ export default function MultipleChoiceQuiz({ charData }: ImageCharacterQuizProps
                 marginBottom={2}
                 textAlign={"center"}
                 variant="h4"
-                color={COLORS.quiz.light}
+                color={COLORS.quiz.border}
               >
                 Game Over!
               </Typography>
@@ -547,18 +547,7 @@ export default function MultipleChoiceQuiz({ charData }: ImageCharacterQuizProps
             width: "100%",
           }}
         >
-          <Button
-            sx={{
-              color: COLORS.quiz.light,
-              borderColor: COLORS.quiz.light,
-              "&:hover": {
-                fontWeight: "bold",
-                borderColor: COLORS.quiz.tertiary,
-              },
-            }}
-            variant="outlined"
-            onClick={resetImageQuiz}
-          >
+          <Button variant="outlined" onClick={resetImageQuiz}>
             Reset
           </Button>
         </Box>

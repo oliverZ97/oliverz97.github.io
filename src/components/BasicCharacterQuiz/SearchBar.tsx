@@ -96,9 +96,9 @@ export function SearchBar({
         gap: 3,
         alignItems: "center",
         justifyContent: "space-between",
-        background: COLORS.gradient,
+        backgroundColor: COLORS.card_bg,
         borderRadius: 2,
-        border: `1px solid ${COLORS.quiz.light}`,
+        border: `1px solid ${COLORS.quiz.border}`,
         width: "100%",
         [theme.breakpoints.down("md")]: {
           flexDirection: "column",
@@ -112,7 +112,7 @@ export function SearchBar({
             display: "flex",
             alignItems: "center",
             width: "100%",
-            background: COLORS.gradientBar,
+            backgroundColor: COLORS.card_bar_bg,
             borderTopLeftRadius: "8px",
             borderTopRightRadius: "8px",
             paddingX: 2,
@@ -269,7 +269,7 @@ export function SearchBar({
               size="small"
               sx={{
                 backgroundColor: COLORS.quiz.main,
-                border: `2px solid ${COLORS.quiz.light}`,
+                border: `2px solid ${COLORS.quiz.border}`,
               }}
             >
               <ToggleButton value="A" aria-label="left aligned">
@@ -288,11 +288,11 @@ export function SearchBar({
               onClick={init}
               sx={{
                 backgroundColor: COLORS.quiz.main,
-                border: `2px solid ${COLORS.quiz.light}`,
+                border: `2px solid ${COLORS.quiz.border}`,
                 color: "white",
                 "&:hover": {
                   backgroundColor: COLORS.quiz.secondary,
-                  border: `2px solid ${COLORS.quiz.light}`,
+                  border: `2px solid ${COLORS.quiz.border}`,
                 },
               }}
               variant="outlined"

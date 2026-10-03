@@ -203,9 +203,9 @@ export default function BasicCharacterQuiz({
         <Box
           sx={{
             borderRadius: 2,
-            background: COLORS.gradient,
+            backgroundColor: COLORS.card_bg,
             marginBottom: 4,
-            border: `1px solid ${COLORS.quiz.light}`,
+            border: `1px solid ${COLORS.quiz.border}`,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",

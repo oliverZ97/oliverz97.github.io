@@ -23,7 +23,7 @@ export function NavigationTabs({ value, handleChange }: TabPanelProps) {
       orientation="vertical"
       sx={{
         "& .MuiTabs-indicator": {
-          backgroundColor: COLORS.quiz.light,
+          backgroundColor: COLORS.quiz.border,
         },
       }}
       value={value}
@@ -32,7 +32,7 @@ export function NavigationTabs({ value, handleChange }: TabPanelProps) {
     >
       <Tab
         sx={{
-          color: COLORS.quiz.light,
+          color: COLORS.quiz.border,
           "&.Mui-selected": {
             color: "white",
           },
@@ -42,7 +42,7 @@ export function NavigationTabs({ value, handleChange }: TabPanelProps) {
       />
       <Tab
         sx={{
-          color: COLORS.quiz.light,
+          color: COLORS.quiz.border,
           "&.Mui-selected": {
             color: "white",
           },
@@ -52,7 +52,7 @@ export function NavigationTabs({ value, handleChange }: TabPanelProps) {
       />
       <Tab
         sx={{
-          color: COLORS.quiz.light,
+          color: COLORS.quiz.border,
           "&.Mui-selected": {
             color: "white",
           },
@@ -62,7 +62,7 @@ export function NavigationTabs({ value, handleChange }: TabPanelProps) {
       />
       <Tab
         sx={{
-          color: COLORS.quiz.light,
+          color: COLORS.quiz.border,
           "&.Mui-selected": {
             color: "white",
           },
@@ -74,7 +74,7 @@ export function NavigationTabs({ value, handleChange }: TabPanelProps) {
 
       <Tab
         sx={{
-          color: COLORS.quiz.light,
+          color: COLORS.quiz.border,
           "&.Mui-selected": {
             color: "white",
           },
@@ -84,7 +84,7 @@ export function NavigationTabs({ value, handleChange }: TabPanelProps) {
       />
       <Tab
         sx={{
-          color: COLORS.quiz.light,
+          color: COLORS.quiz.border,
           "&.Mui-selected": {
             color: "white",
           },
@@ -94,7 +94,7 @@ export function NavigationTabs({ value, handleChange }: TabPanelProps) {
       />
       <Tab
         sx={{
-          color: COLORS.quiz.light,
+          color: COLORS.quiz.border,
           "&.Mui-selected": {
             color: "white",
           },
@@ -104,7 +104,7 @@ export function NavigationTabs({ value, handleChange }: TabPanelProps) {
       />
       <Tab
         sx={{
-          color: COLORS.quiz.light,
+          color: COLORS.quiz.border,
           "&.Mui-selected": {
             color: "white",
           },
@@ -114,7 +114,7 @@ export function NavigationTabs({ value, handleChange }: TabPanelProps) {
       />
       <Tab
         sx={{
-          color: COLORS.quiz.light,
+          color: COLORS.quiz.border,
           "&.Mui-selected": {
             color: "white",
           },
@@ -124,7 +124,7 @@ export function NavigationTabs({ value, handleChange }: TabPanelProps) {
       />
       <Tab
         sx={{
-          color: COLORS.quiz.light,
+          color: COLORS.quiz.border,
           "&.Mui-selected": {
             color: "white",
           },
@@ -134,7 +134,7 @@ export function NavigationTabs({ value, handleChange }: TabPanelProps) {
       />
       <Tab
         sx={{
-          color: COLORS.quiz.light,
+          color: COLORS.quiz.border,
           "&.Mui-selected": {
             color: "white",
           },
@@ -145,7 +145,7 @@ export function NavigationTabs({ value, handleChange }: TabPanelProps) {
 
       <Tab
         sx={{
-          color: COLORS.quiz.light,
+          color: COLORS.quiz.border,
           "&.Mui-selected": {
             color: "white",
           },
@@ -156,7 +156,7 @@ export function NavigationTabs({ value, handleChange }: TabPanelProps) {
 
       <Tab
         sx={{
-          color: COLORS.quiz.light,
+          color: COLORS.quiz.border,
           "&.Mui-selected": {
             color: "white",
           },

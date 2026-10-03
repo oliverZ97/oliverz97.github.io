@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import characterData from "@/data/character_data.json";
 import { COLORS } from "@/styling/constants";
 
-import bg from "@/assets/bg.jpg";
 import { Anime, Character } from "@/common/types";
 import BasicCharacterQuiz from "@/components/BasicCharacterQuiz/BasicCharacterQuiz";
 import ImageCharacterQuiz from "@/components/ImageCharacterQuiz/ImageCharacterQuiz";
@@ -104,7 +103,6 @@ const Home = () => {
       <Box
         sx={{
           backgroundColor: COLORS.quiz.background,
-          background: `url(${bg})`,
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
@@ -366,7 +364,6 @@ const Home = () => {
           </Box>
           <Box
             sx={{
-              backgroundColor: "green",
               display: "flex",
               justifyContent: "center",
             }}
@@ -398,7 +395,7 @@ const Home = () => {
                         component={"span"}
                         sx={{
                           fontWeight: "bold",
-                          color: COLORS.quiz.light_red,
+                          color: COLORS.quiz.border,
                           marginRight: 1,
                         }}
                       >

@@ -232,10 +232,10 @@ export const HigherLower = ({ charData, animeData }: HigherLowerProps) => {
       <Box
         sx={{
           position: "relative",
-          background: COLORS.gradient,
+          backgroundColor: COLORS.card_bg,
           padding: 4,
           borderRadius: 2,
-          border: `1px solid ${COLORS.quiz.light}`,
+          border: `1px solid ${COLORS.quiz.border}`,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -304,19 +304,57 @@ export const HigherLower = ({ charData, animeData }: HigherLowerProps) => {
             }
           }}
           aria-label="game mode"
-          sx={{ backgroundColor: COLORS.quiz.main }}
         >
-          <ToggleButton value="height" aria-label="height">
-            <Typography sx={{ color: mode === "height" ? "white" : "inherit" }}>Height</Typography>
+          <ToggleButton
+            value="height"
+            aria-label="height"
+            sx={{
+              backgroundColor: COLORS.quiz.main,
+              "&:hover": {
+                backgroundColor: COLORS.quiz.main_hover,
+                color: COLORS.quiz.primary_text,
+              },
+              "&.Mui-selected": {
+                backgroundColor: COLORS.quiz.tertiary,
+                color: COLORS.quiz.primary_text,
+                "&:hover": {
+                  backgroundColor: COLORS.quiz.tertiary,
+                },
+              },
+            }}
+          >
+            <Typography
+              sx={{
+                color: mode === "height" ? COLORS.quiz.primary_text : COLORS.quiz.disabled,
+              }}
+            >
+              Height
+            </Typography>
           </ToggleButton>
           <ToggleButton
             sx={{
-              backgroundColor: mode === "animeReleaseYear" ? COLORS.quiz.light : "transparent",
+              backgroundColor: COLORS.quiz.main,
+              "&:hover": {
+                backgroundColor: COLORS.quiz.main_hover,
+                color: COLORS.quiz.primary_text,
+              },
+              "&.Mui-selected": {
+                backgroundColor: COLORS.quiz.tertiary,
+                color: COLORS.quiz.primary_text,
+                "&:hover": {
+                  backgroundColor: COLORS.quiz.tertiary,
+                },
+              },
             }}
             value="animeReleaseYear"
             aria-label="animeReleaseYear"
           >
-            <Typography sx={{ color: mode === "animeReleaseYear" ? "white" : "inherit" }}>
+            <Typography
+              sx={{
+                color:
+                  mode === "animeReleaseYear" ? COLORS.quiz.primary_text : COLORS.quiz.disabled,
+              }}
+            >
               Anime Release Year
             </Typography>
           </ToggleButton>
@@ -325,10 +363,10 @@ export const HigherLower = ({ charData, animeData }: HigherLowerProps) => {
       <Box
         sx={{
           position: "relative",
-          background: COLORS.gradient,
+          backgroundColor: COLORS.card_bg,
           padding: 4,
           borderRadius: 2,
-          border: `1px solid ${COLORS.quiz.light}`,
+          border: `1px solid ${COLORS.quiz.border}`,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",

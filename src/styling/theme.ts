@@ -1,4 +1,5 @@
 import { createTheme } from "@mui/material";
+import { COLORS } from "./constants";
 
 declare module "@mui/material/styles" {
   interface TypographyVariants {
@@ -12,8 +13,24 @@ declare module "@mui/material/styles" {
 export const theme = createTheme({
   typography: {
     fontFamily: ["Work Sans", "cursive"].join(","),
-    // You can customize variants like h1, h2, etc., for "Exo 2" if needed:
     exo2: { fontFamily: ['"Exo 2"', "cursive"].join(",") },
-    // Add more variants as needed
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        // Target the 'outlined' variant specifically
+        outlined: {
+          borderWidth: "2px",
+          borderColor: COLORS.quiz.border,
+          borderRadius: "4px",
+          color: COLORS.quiz.border,
+          "&:hover": {
+            borderWidth: "2px", // Prevents button size shift on hover
+            borderColor: COLORS.quiz.border,
+            backgroundColor: "rgba(25, 118, 210, 0.04)",
+          },
+        },
+      },
+    },
   },
 });
