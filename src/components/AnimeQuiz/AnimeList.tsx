@@ -138,7 +138,7 @@ export default function AnimeList({ searchHistory, targetAnime }: AnimeListProps
           <Box
             sx={{
               display: "grid",
-              gridTemplateColumns: "repeat(7, 1fr)",
+              gridTemplateColumns: "repeat(8, 1fr)",
               gap: 2,
               paddingX: 2,
             }}
@@ -223,6 +223,17 @@ export default function AnimeList({ searchHistory, targetAnime }: AnimeListProps
             >
               Tags
             </Box>
+            <Box
+              sx={{
+                gridColumn: "8 / 9",
+                textAlign: "center",
+                marginY: 2,
+                fontWeight: "bold",
+                color: COLORS.quiz.primary_text,
+              }}
+            >
+              Origin
+            </Box>
           </Box>
         )}
         {/* Data Rows */}
@@ -231,7 +242,7 @@ export default function AnimeList({ searchHistory, targetAnime }: AnimeListProps
             key={item.Name}
             sx={{
               display: "grid",
-              gridTemplateColumns: "repeat(7, 1fr)",
+              gridTemplateColumns: "repeat(8, 1fr)",
               gap: 2,
               paddingX: 2,
               marginBottom: 2,
@@ -429,10 +440,34 @@ export default function AnimeList({ searchHistory, targetAnime }: AnimeListProps
                 <Typography>{item.Tags}</Typography>
               </Box>
             </Box>
+            <Box
+              sx={{
+                gridColumn: "8 / 9",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                minHeight: 50,
+              }}
+            >
+              <Box
+                sx={{
+                  width: "100%",
+                  flexGrow: 1,
+                  display: "flex",
+                  alignItems: "center",
+                  padding: "10px",
+                  backgroundColor: getCardBackgroundColor("Origin", item),
+                  height: "100%",
+                  borderRadius: "4px",
+                  border: getCardBorderColor("Origin", item),
+                }}
+              >
+                <Typography>{item.Origin}</Typography>
+              </Box>
+            </Box>
           </Box>
         ))}
       </Box>
-      {}
     </Box>
   );
 }

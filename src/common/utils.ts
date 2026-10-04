@@ -500,13 +500,18 @@ export function combineCalendarData(...dataSources: Record<string, CalendarEntry
   return combined;
 }
 
-export function createAnimeListFromCharData(charData: Character[]) {
+export function createAnimeListFromCharData(
+  charData: Character[],
+  animeData: { id: number; Name: string; Origin: string }[],
+) {
   // Create a map to track anime entries with lowest version numbers
   const animeMap = new Map();
 
   // First pass: populate the map with anime entries
   charData.forEach((item: Character) => {
-    const animeEntry = {
+    const anime = animeData.find((anime) => anime.id === item.Anime_Id);
+
+    const animeEntry: Anime = {
       id: item.Anime_Id,
       Name: item.Anime,
       First_Release_Year: item.First_Release_Year,
@@ -516,7 +521,10 @@ export function createAnimeListFromCharData(charData: Character[]) {
       Subgenre2: item.Subgenre2,
       Tags: item.Tags,
       Version: item.Version,
+      Origin: anime?.Origin ?? "-",
     };
+
+    console.log(animeEntry);
 
     // If this anime isn't in the map yet or has a lower version number, update the map
     if (!animeMap.has(item.Anime) || item.Version < animeMap.get(item.Anime).Version) {

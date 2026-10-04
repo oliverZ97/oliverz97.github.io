@@ -1,6 +1,7 @@
 import { Box, Button, Divider, Tooltip, Typography, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import characterData from "@/data/character_data.json";
+import animeDataFile from "@/data/anime_data.json";
 import { COLORS } from "@/styling/constants";
 
 import bg from "@/assets/bg.jpg";
@@ -65,7 +66,7 @@ const Home = () => {
       setCharData([...characterData.sort((a, b) => (a.Name < b.Name ? -1 : 1))] as Character[]);
     }
     if (charData && animeData.length === 0) {
-      const localAnimeData = createAnimeListFromCharData(charData);
+      const localAnimeData = createAnimeListFromCharData(charData, animeDataFile);
 
       setAnimeData(localAnimeData.sort((a, b) => (a.Name < b.Name ? -1 : 1)) as Anime[]);
     }

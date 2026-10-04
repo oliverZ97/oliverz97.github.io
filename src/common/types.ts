@@ -38,6 +38,7 @@ export interface Anime {
   Tags?: string;
   ValidFields?: string[];
   Version: string;
+  Origin: string;
   id: number;
 }
 

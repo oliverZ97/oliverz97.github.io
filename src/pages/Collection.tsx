@@ -21,6 +21,7 @@ import tcg_packs from "@/data/tcg_packs.json";
 import HomeIcon from "@mui/icons-material/Home";
 import { Link } from "react-router-dom";
 import React from "react";
+import animeDataFile from "@/data/anime_data.json";
 
 const Collection = () => {
   const [collection, setCollection] = useState<CollectionType | null>(null);
@@ -41,7 +42,7 @@ const Collection = () => {
       setCharData([...characterData.sort((a, b) => (a.Name < b.Name ? -1 : 1))] as Character[]);
     }
     if (charData && animeData.length === 0) {
-      const localAnimeData = createAnimeListFromCharData(charData);
+      const localAnimeData = createAnimeListFromCharData(charData, animeDataFile);
 
       setAnimeData(localAnimeData.sort((a, b) => (a.Name < b.Name ? -1 : 1)) as Anime[]);
     }
