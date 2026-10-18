@@ -8,12 +8,33 @@ import {
   saveFieldToTotalStatistics,
 } from "./profileUtils";
 
-export function getRandomNumberFromUTCDate(
+export enum QUIZ_KEY {
+  CHAR = "charquiz",
+  ANIME = "animequiz",
+  IMAGE = "imagequiz",
+  BLUR = "blurquiz",
+  CHOICE = "choicequiz",
+  HIGHERLOWER_ANIME = "higherloweranimequiz",
+  HIGHERLOWER_HEIGHT = "higherlowerheightquiz",
+}
+
+const QUIZ_SHIFT_MAP: Record<QUIZ_KEY, number> = {
+  [QUIZ_KEY.CHAR]: 104729,
+  [QUIZ_KEY.ANIME]: 104729,
+  [QUIZ_KEY.IMAGE]: 15485863,
+  [QUIZ_KEY.BLUR]: 982451653,
+  [QUIZ_KEY.CHOICE]: 7919,
+  [QUIZ_KEY.HIGHERLOWER_ANIME]: 42,
+  [QUIZ_KEY.HIGHERLOWER_HEIGHT]: 99,
+};
+
+export function getRandomIndicesFromUTCDate(
   max: number,
   isPrevious = false,
-  mode: "blurred" | "normal" = "normal",
+  amount: number = 1,
+  shiftValue: number = QUIZ_SHIFT_MAP["charquiz"],
   date?: Date,
-): number {
+): number[] {
   if (max <= 0 || !Number.isInteger(max)) {
     throw new Error("Max must be a positive integer.");
   }
@@ -22,39 +43,17 @@ export function getRandomNumberFromUTCDate(
     : isPrevious
     ? getYesterdayUTCDate()
     : getDailyUTCDate();
-  const dailyTimestamp = utcDate.getTime();
-  const yearMonth = utcDate.getUTCFullYear() * 100 + utcDate.getUTCMonth();
 
-  // Create multiple seeds based on different aspects of the date
-  const seed1 = dailyTimestamp;
-  const seed2 = utcDate.getUTCDate() + yearMonth * 31;
-  const seed3 = utcDate.getUTCDate() * utcDate.getUTCMonth() + utcDate.getUTCFullYear();
+  const indices = getMultipleDailyIndices(
+    utcDate.getFullYear(),
+    utcDate.getMonth(),
+    utcDate.getDay(),
+    shiftValue,
+    max,
+    amount,
+  );
 
-  // Enhanced hash function with multiple seeds for better distribution
-  let hash = seed1;
-  hash = (hash ^ seed2) * 0x85ebca6b;
-  hash = (hash ^ (hash >>> 16)) * 0x85ebca6b;
-  hash = (hash ^ seed3 ^ (hash >>> 13)) * 0xc2b2ae35;
-  hash = hash ^ (hash >>> 16);
-
-  // For blurred mode, create a different but consistent hash
-  if (mode === "blurred") {
-    // Use a different seed value but maintain uniform distribution
-    const blurSeed = 0x27d4eb2d;
-    hash = (hash ^ blurSeed) >>> 0; // Ensure unsigned 32-bit integer
-    hash = (hash ^ (hash >>> 16)) * 0x85ebca6b;
-    hash = (hash ^ seed2 ^ (hash >>> 13)) * 0xc2b2ae35;
-    hash = hash ^ (hash >>> 16);
-  }
-
-  const positiveHash = Math.abs(hash);
-
-  // Use a prime number close to max for better distribution
-  // This helps avoid patterns when max is a composite number
-  const primeFactor = findNearestPrime(max);
-  const randomNumber = (positiveHash % primeFactor) % max;
-
-  return randomNumber;
+  return indices;
 }
 
 export function getYesterdayUTCDate(): Date {
@@ -173,23 +172,6 @@ export function getDailyUTCDate() {
   return utcDate;
 }
 
-export function getRandomCharacterArray(charData: Character[], count: number, gender = "all") {
-  let counter = 0;
-  const chars: Character[] = [];
-  while (counter < Math.max(0, count)) {
-    const char = getRandomCharacter(Object.values(charData), {
-      endlessMode: undefined,
-      isPrevious: undefined,
-      gender,
-    });
-    if (!chars.some((item) => item.Name === char.Name)) {
-      chars.push(char);
-      counter++;
-    }
-  }
-  return chars;
-}
-
 /**
  * Compares two version strings in the format "major.minor".
  * @param version1 First version string (e.g. "1.8")
@@ -221,8 +203,8 @@ interface GetRandomCharacterParams {
   endlessMode?: boolean;
   isPrevious?: boolean;
   gender?: string;
-  quizMode?: "blurred" | "normal";
   date?: Date;
+  mode?: QUIZ_KEY;
 }
 export function getRandomCharacter(
   charData: Character[],
@@ -230,10 +212,12 @@ export function getRandomCharacter(
     endlessMode = true,
     isPrevious = false,
     gender = "all",
-    quizMode = "normal",
     date = undefined,
+    mode,
   }: GetRandomCharacterParams = {},
+  count: number = 1,
 ) {
+  //sort chars by id
   let chars = charData.sort((a, b) => (a.id < b.id ? -1 : 1));
   let currentVersion = getCurrentVersion();
   if (
@@ -249,19 +233,29 @@ export function getRandomCharacter(
     charArray = charArray.filter((char) => char.Sex.toLowerCase() === gender);
   }
 
-  let index;
+  const indices = getRandomIndicesFromUTCDate(
+    charArray.length,
+    isPrevious,
+    count,
+    QUIZ_SHIFT_MAP[mode ?? QUIZ_KEY.CHAR],
+    date,
+  );
+
+  const targets: Character[] = [];
   if (endlessMode) {
-    index = Math.floor(Math.random() * charArray.length);
+    for (let i = 0; i < count; i++) {
+      const idx = Math.floor(Math.random() * charArray.length);
+      const target = charArray[idx];
+      targets.push(target);
+    }
   } else {
-    // First, get the deterministic index based on date
-    // This ensures the daily character is always the same for a given date
-    index =
-      getRandomNumberFromUTCDate(charArray.length, isPrevious, quizMode, date) % charArray.length;
+    for (let i = 0; i < indices.length; i++) {
+      const target = charArray[indices[i]];
+      targets.push(target);
+    }
   }
 
-  const target = charArray[index];
-
-  return target as Character;
+  return targets;
 }
 
 interface GetRandomAnimeParams {
@@ -286,26 +280,23 @@ export function getRandomAnime(
     (anime) => compareVersions(anime.Version, currentVersion.version) <= 0,
   );
 
-  let index;
+  let index: number;
   if (endlessMode) {
     index = Math.floor(Math.random() * animeArray.length);
   } else {
     // For daily deterministic selection, get the index first
-    index = getRandomNumberFromUTCDate(animeArray.length, isPrevious, "normal", date);
+    index = getRandomIndicesFromUTCDate(
+      animeArray.length,
+      isPrevious,
+      QUIZ_SHIFT_MAP["charquiz"],
+      1,
+      date,
+    )[0];
   }
 
   const target = animeArray[index];
 
   return target as Anime;
-}
-export enum QUIZ_KEY {
-  CHAR = "charquiz",
-  ANIME = "animequiz",
-  IMAGE = "imagequiz",
-  BLUR = "blurquiz",
-  CHOICE = "choicequiz",
-  HIGHERLOWER_ANIME = "higherloweranimequiz",
-  HIGHERLOWER_HEIGHT = "higherlowerheightquiz",
 }
 
 export function hasBeenSolvedToday(key: QUIZ_KEY) {
@@ -524,8 +515,6 @@ export function createAnimeListFromCharData(
       Origin: anime?.Origin ?? "-",
     };
 
-    console.log(animeEntry);
-
     // If this anime isn't in the map yet or has a lower version number, update the map
     if (!animeMap.has(item.Anime) || item.Version < animeMap.get(item.Anime).Version) {
       animeMap.set(item.Anime, { ...animeEntry });
@@ -535,4 +524,36 @@ export function createAnimeListFromCharData(
   // Convert map values to array
   const localAnimeData = Array.from(animeMap.values());
   return localAnimeData;
+}
+
+function getMultipleDailyIndices(
+  year: number,
+  month: number,
+  day: number,
+  shiftValue: number,
+  arrayLength: number,
+  count: number,
+) {
+  // 1. Create combined seed from date and shift
+  const dateSeed = year * 10000 + month * 100 + day;
+  let seed = dateSeed ^ Math.imul(shiftValue, 2654435761);
+
+  // 2. Seeded PRNG (Mulberry32)
+  function random() {
+    seed |= 0;
+    seed = (seed + 0x6d2b79f5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  }
+
+  // 3. Shuffle array pool using the PRNG
+  const indices = Array.from({ length: arrayLength }, (_, i) => i);
+
+  for (let i = indices.length - 1; i > 0; i--) {
+    const j = Math.floor(random() * (i + 1));
+    [indices[i], indices[j]] = [indices[j], indices[i]];
+  }
+
+  return indices.slice(0, Math.min(count, arrayLength));
 }

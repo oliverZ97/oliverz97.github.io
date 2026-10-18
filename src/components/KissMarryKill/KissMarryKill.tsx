@@ -10,12 +10,12 @@ import {
 } from "@mui/material";
 import { getImgSrc } from "@/common/quizUtils";
 import { Character, StatisticFields } from "@/common/types";
-import { getRandomCharacterArray } from "@/common/utils";
 import { useEffect, useRef, useState } from "react";
 import { COLORS } from "@/styling/constants";
 import { ButtonContainer, State } from "./ButtonContainer";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import { saveFieldToTotalStatistics } from "@/common/profileUtils";
+import { getRandomCharacter, QUIZ_KEY } from "@/common/utils";
 
 interface StateRef {
   resetState: () => void;
@@ -67,7 +67,11 @@ export const KissMarryKill = ({ charData }: KissMarryKillProps) => {
         }
       });
     }
-    const targetCharacters = getRandomCharacterArray([...charData], 3, genderFilter);
+    const targetCharacters = getRandomCharacter(
+      [...charData],
+      { gender: genderFilter, mode: QUIZ_KEY.CHOICE },
+      3,
+    );
     const targets = targetCharacters;
     setTargets(targets);
     setSelectionStates({

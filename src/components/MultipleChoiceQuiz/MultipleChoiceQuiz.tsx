@@ -127,9 +127,9 @@ export default function MultipleChoiceQuiz({ charData }: ImageCharacterQuizProps
   }
 
   function resetTargets() {
-    let target = getRandomCharacter(charData);
+    let target = getRandomCharacter(charData)[0];
     while (sessionHistory.includes(target.Name)) {
-      target = getRandomCharacter(charData);
+      target = getRandomCharacter(charData)[0];
     }
     setSelectedAnswer(null);
     setTarget(target);
@@ -154,7 +154,7 @@ export default function MultipleChoiceQuiz({ charData }: ImageCharacterQuizProps
 
       // Add exactly 3 more incorrect answers
       while (answers.length < 4) {
-        const char = getRandomCharacter(charData);
+        const char = getRandomCharacter(charData)[0];
 
         // Check if this character is not the correct one and not already in answers
         const isDuplicate = answers.some((a) => a.character === char.Name);

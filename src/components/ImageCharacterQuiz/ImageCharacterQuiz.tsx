@@ -93,7 +93,11 @@ export default function ImageCharacterQuiz({
   function resetTargets() {
     let targets: Character[] = [];
     if (endlessMode) {
-      const targetCharacters = getRandomCharacterArray(4);
+      const targetCharacters = getRandomCharacter(
+        charData,
+        { endlessMode: endlessMode, mode: QUIZ_KEY.IMAGE },
+        4,
+      );
       targets = targetCharacters;
     } else {
       const hasSolvedToday = hasBeenSolvedToday(QUIZ_KEY.IMAGE);
@@ -103,7 +107,11 @@ export default function ImageCharacterQuiz({
         localStorage.removeItem(ANSWER_KEY);
         localStorage.removeItem(SCORE_KEY);
       }
-      const targetCharacters = getRandomCharacterArray(4, false);
+      const targetCharacters = getRandomCharacter(
+        charData,
+        { endlessMode: endlessMode, mode: QUIZ_KEY.IMAGE },
+        4,
+      );
       targets = targetCharacters;
     }
     setTargets(targets);
@@ -134,72 +142,6 @@ export default function ImageCharacterQuiz({
       setElements(elementCopy);
     }
   };
-
-  function getRandomCharacterArray(count: number, endlessMode = true): Character[] {
-    let counter = 0;
-    let chars: Character[] = [];
-    if (endlessMode) {
-      while (counter < Math.max(0, count)) {
-        const char = getRandomCharacter(charData);
-        if (!chars.some((item) => item.Name === char.Name)) {
-          chars.push(char);
-          counter++;
-        }
-      }
-    } else {
-      // Get current day of the year to ensure all characters are used
-      // Use the current date in production, or test date for development
-      const isTestMode = false; // Toggle this for testing
-      const customTestDate = new Date("2025-01-05T10:00:00Z");
-      const today = isTestMode ? customTestDate : new Date();
-
-      const dayOfYear = Math.floor(
-        (today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / (1000 * 60 * 60 * 24),
-      );
-      const yearSignature = `${today.getFullYear()}`;
-
-      // Create a seed using the day of year and year
-      let seed = dayOfYear;
-      for (let i = 0; i < yearSignature.length; i++) {
-        seed += yearSignature.charCodeAt(i);
-      }
-
-      // Add a prime multiplier to ensure different sets on consecutive days
-      const primeFactor = 31;
-      seed = seed * primeFactor;
-
-      // Create character pools that rotate through the year
-      // This ensures all characters get chosen at some point
-      // Use a different rotation offset formula to avoid patterns
-      const rotationOffset = (dayOfYear * primeFactor) % charData.length;
-
-      // Create a rotated copy of the character data
-      const rotatedChars = [
-        ...charData.slice(rotationOffset),
-        ...charData.slice(0, rotationOffset),
-      ];
-
-      // Further shuffle the rotated characters with the seed
-      // Use character ID or another unique property in the hash calculation
-      const shuffledChars = [...rotatedChars].sort((a, b) => {
-        const hashA = (seed * (a.Name.length + a.Anime.length)) % charData.length;
-        const hashB = (seed * (b.Name.length + b.Anime.length)) % charData.length;
-        return hashA - hashB;
-      });
-
-      // Get the first four unique characters
-      chars = [];
-      let i = 0;
-      while (chars.length < count && i < shuffledChars.length) {
-        // Ensure we don't add duplicates
-        if (!chars.some((char) => char.Name === shuffledChars[i].Name)) {
-          chars.push(shuffledChars[i]);
-        }
-        i++;
-      }
-    }
-    return chars;
-  }
 
   function saveDailyAnswers(selection: ImageTarget[], score: number) {
     if (targets) {

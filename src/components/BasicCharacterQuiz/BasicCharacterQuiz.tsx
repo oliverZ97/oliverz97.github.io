@@ -113,10 +113,10 @@ export default function BasicCharacterQuiz({
     resetQuiz();
 
     //select random character
-    let target = getRandomCharacter(charData, { endlessMode: endlessMode });
+    let target = getRandomCharacter(charData, { endlessMode: endlessMode, mode: QUIZ_KEY.CHAR })[0];
     if (endlessMode) {
       while (!isIncludedInDifficulty(target, difficulty)) {
-        target = getRandomCharacter(charData, { endlessMode: endlessMode });
+        target = getRandomCharacter(charData, { endlessMode: endlessMode, mode: QUIZ_KEY.CHAR })[0];
       }
     } else {
       const hasSolvedToday = hasBeenSolvedToday(QUIZ_KEY.CHAR);

@@ -80,8 +80,8 @@ export function SearchBar({
       const char = getRandomCharacter(charData, {
         endlessMode: false,
         isPrevious: true,
-        quizMode: mode,
-      });
+        mode: QUIZ_KEY.CHAR,
+      })[0];
       return char;
     } else {
       return null;

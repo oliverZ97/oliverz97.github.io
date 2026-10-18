@@ -174,16 +174,20 @@ export default function BasicCharacterQuiz({
     resetQuiz();
 
     //select random character
-    let target = getRandomCharacter(charData, {
-      endlessMode: endlessMode,
-      quizMode: "blurred",
-    });
+    let target = getRandomCharacter(
+      charData,
+      {
+        endlessMode: endlessMode,
+        mode: QUIZ_KEY.BLUR,
+      },
+      1,
+    )[0];
     if (endlessMode) {
       while (!isIncludedInDifficulty(target, difficulty)) {
         target = getRandomCharacter(charData, {
           endlessMode: endlessMode,
-          quizMode: "blurred",
-        });
+          mode: QUIZ_KEY.BLUR,
+        })[0];
       }
     } else {
       const hasSolvedToday = hasBeenSolvedToday(QUIZ_KEY.BLUR);

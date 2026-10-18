@@ -7,7 +7,7 @@ import {
   saveHighscoreToProfile,
 } from "./profileUtils";
 import { Anime, Character, SolvedKeys, StatisticFields } from "./types";
-import { getDailyUTCDate, getRandomNumberFromUTCDate, QUIZ_KEY, setDailyScore } from "./utils";
+import { getDailyUTCDate, getRandomIndicesFromUTCDate, QUIZ_KEY, setDailyScore } from "./utils";
 
 export function isMoreThanADay(date1: Date, date2: Date) {
   // Calculate the time difference in milliseconds
@@ -182,8 +182,8 @@ export function getCharacterFromAnime(
     throw new Error("Anime not found");
   }
   const animeCharacters = charData.filter((c) => c.Anime_Id === animeId);
-  const index = getRandomNumberFromUTCDate(animeCharacters.length);
-  return animeCharacters[index];
+  const index = getRandomIndicesFromUTCDate(animeCharacters.length);
+  return animeCharacters[index[0]];
 }
 
 export function getTodaysCharacterPointsAndTries(QUIZ_KEY: QUIZ_KEY) {
