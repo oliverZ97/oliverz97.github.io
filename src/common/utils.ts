@@ -44,16 +44,14 @@ export function getRandomIndicesFromUTCDate(
     ? getYesterdayUTCDate()
     : getDailyUTCDate();
 
-  const indices = getMultipleDailyIndices(
-    utcDate.getFullYear(),
-    utcDate.getMonth(),
-    utcDate.getDay(),
+  return getMultipleDailyIndices(
+    utcDate.getUTCFullYear(),
+    utcDate.getUTCMonth(),
+    utcDate.getUTCDate(),
     shiftValue,
     max,
     amount,
   );
-
-  return indices;
 }
 
 export function getYesterdayUTCDate(): Date {
@@ -280,23 +278,23 @@ export function getRandomAnime(
     (anime) => compareVersions(anime.Version, currentVersion.version) <= 0,
   );
 
-  let index: number;
+  let target: Anime;
   if (endlessMode) {
-    index = Math.floor(Math.random() * animeArray.length);
+    const index = Math.floor(Math.random() * animeArray.length);
+    target = animeArray[index];
   } else {
-    // For daily deterministic selection, get the index first
-    index = getRandomIndicesFromUTCDate(
+    // Deterministic daily selection using the updated shuffled index generator
+    const indices = getRandomIndicesFromUTCDate(
       animeArray.length,
       isPrevious,
+      1, // amount
       QUIZ_SHIFT_MAP["charquiz"],
-      1,
       date,
-    )[0];
+    );
+    target = animeArray[indices[0]];
   }
 
-  const target = animeArray[index];
-
-  return target as Anime;
+  return target;
 }
 
 export function hasBeenSolvedToday(key: QUIZ_KEY) {
@@ -533,7 +531,7 @@ function getMultipleDailyIndices(
   shiftValue: number,
   arrayLength: number,
   count: number,
-) {
+): number[] {
   // 1. Create combined seed from date and shift
   const dateSeed = year * 10000 + month * 100 + day;
   let seed = dateSeed ^ Math.imul(shiftValue, 2654435761);

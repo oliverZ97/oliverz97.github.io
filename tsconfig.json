@@ -21,6 +21,6 @@
     },
     "ignoreDeprecations": "6.0"
   },
-  "include": ["src"],
+  "include": ["src", "simulation.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
