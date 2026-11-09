@@ -58,6 +58,8 @@ export const Hints = forwardRef(
       if (nameRef.current) {
         nameRef?.current.resetHint();
       }
+      setRevealAnimeHint(false);
+      setRevealStudioHint(false);
     }
 
     function revealAllHints() {
